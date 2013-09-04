@@ -1,0 +1,27 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	],
+
+    "settings":
+    {
+        "rulers": [80, 120],
+        "default_line_ending": "unix",
+        "ensure_newline_at_eof_on_save": true,
+        "trim_trailing_white_space_on_save": true
+    },
+
+    "build_systems":
+    [
+        {
+            "name": "FACT-Finder PHP Library",
+            "cmd": ["phpunit", "--bootstrap", "bootstrap.php", "."],
+            "shell": "true",
+            "file_regex": "^(?:Warning|Error|Fatal error|Parse error|Exception):(?=.*in (.*) on line (\\d+)())? ((?:(?! in ).)*)",
+            "working_dir": "$project_path/tests"
+        }
+    ]
+}

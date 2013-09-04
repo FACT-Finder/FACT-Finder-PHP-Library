@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <test>
+		<debug>true</debug>
+
+		<connection>
+			<protocol>http</protocol> <!-- possible values: http, https -->
+			<address>demoshop.fact-finder.de</address>
+			<port>80</port>
+			<context>FACT-Finder6.7</context>
+			<channel>de</channel>
+			<language>de</language>
+			<authentication>
+				<type>advanced</type> <!-- possible values: http, simple, advanced -->
+				<username>user</username>
+				<password>userpw</password>
+				<prefix>FACT-FINDER</prefix>
+				<postfix>FACT-FINDER</postfix>
+			</authentication>
+			<!-- all timeouts given in seconds -->
+			<timeouts>
+				<defaultConnectTimeout>2</defaultConnectTimeout>
+				<defaultTimeout>4</defaultTimeout>
+				<suggestConnectTimeout>1</suggestConnectTimeout>
+				<suggestTimeout>2</suggestTimeout>
+				<scicConnectTimeout>1</scicConnectTimeout>
+				<scicTimeout>2</scicTimeout>
+				<importConnectTimeout>10</importConnectTimeout>
+				<importTimeout>360</importTimeout>
+			</timeouts>
+		</connection>
+
+		<parameters>
+			<!-- parameter settings for the server -->
+			<server>
+				<ignore name="sid" />
+				<ignore name="password" />
+				<ignore name="username" />
+				<ignore name="timestamp" />
+				<mapping from="keywords" to="query" />
+			</server>
+
+			<!-- parameter settings for the client -->
+			<client>
+				<ignore name="xml" />
+				<ignore name="format" />
+				<ignore name="channel" />
+				<ignore name="password" />
+				<ignore name="username" />
+				<ignore name="timestamp" />
+				<mapping from="query" to="keywords" />
+				<require name="test" default="value" />
+			</client>
+		</parameters>
+
+		<encoding>
+			<!-- We only use UTF-16 for testing purposes here.
+				 Please use UTF-8, if possible! -->
+			<pageContent>UTF-16</pageContent>
+			<clientUrl>UTF-16</clientUrl>
+		</encoding>
+	</test>
+</configuration>

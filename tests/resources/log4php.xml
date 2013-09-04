@@ -1,0 +1,15 @@
+<configuration xmlns="http://logging.apache.org/log4php/">
+    <appender name="fileAppender" class="LoggerAppenderFile">
+		<layout class="LoggerLayoutPattern">
+            <param name="conversionPattern" value="%date{Y-m-d H:i:s,u} [%process] %logger %-5level - %msg%n" />
+        </layout>
+        <param name="file" value="ff.log" />
+    </appender>
+
+	<appender name="nullAppender" class="LoggerAppenderNull" />
+
+    <root>
+        <level value="DEBUG" />
+        <appender_ref ref="fileAppender" /> <!-- Change this to fileAppender if you want logging output -->
+    </root>
+</configuration>
