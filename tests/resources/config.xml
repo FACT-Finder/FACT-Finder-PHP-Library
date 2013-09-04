@@ -54,10 +54,8 @@
 		</parameters>
 
 		<encoding>
-			<!-- We only use UTF-16 for testing purposes here.
-				 Please use UTF-8, if possible! -->
-			<pageContent>UTF-16</pageContent>
-			<clientUrl>UTF-16</clientUrl>
+			<pageContent>UTF-8</pageContent>
+			<clientUrl>UTF-8</clientUrl>
 		</encoding>
 	</test>
 </configuration>

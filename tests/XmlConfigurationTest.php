@@ -96,7 +96,7 @@ class XmlConfigurationTest extends BaseTestCase
 
     public function testEncodingSettings()
     {
-        $this->assertEquals('UTF-16', $this->config->getPageContentEncoding());
-        $this->assertEquals('UTF-16', $this->config->getClientUrlEncoding());
+        $this->assertEquals('UTF-8', $this->config->getPageContentEncoding());
+        $this->assertEquals('UTF-8', $this->config->getClientUrlEncoding());
     }
 }

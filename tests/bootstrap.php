@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL );
+error_reporting(E_ALL);
 
 if (!defined('DS'))             define('DS', DIRECTORY_SEPARATOR);
 if (!defined('TEST_DIR'))       define('TEST_DIR', dirname(__FILE__));
