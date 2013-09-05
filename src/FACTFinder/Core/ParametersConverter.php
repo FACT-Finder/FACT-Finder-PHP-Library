@@ -15,19 +15,19 @@ class ParametersConverter
     /**
      * @var ConfigurationInterface
      */
-    protected $config;
+    protected $configuration;
 
     /**
      * @param string $loggerClass Class name of logger to use. The class should
      *                            implement FACTFinder\Util\LoggerInterface.
-     * @param ConfigurationInterface $config Configuration object to use.
+     * @param ConfigurationInterface $configuration Configuration object to use.
      */
     public function __construct(
         $loggerClass,
-        ConfigurationInterface $config
+        ConfigurationInterface $configuration
     ) {
         $this->log = $loggerClass::getLogger(__CLASS__);
-        $this->config = $config;
+        $this->configuration = $configuration;
     }
 
     /**
@@ -41,10 +41,10 @@ class ParametersConverter
     public function convertClientToServerParameters($clientParameters)
     {
         $result = $clientParameters;
-        $this->applyParameterMappings($result, $this->config->getServerMappings());
-        $this->removeIgnoredParameters($result, $this->config->getIgnoredServerParameters());
+        $this->applyParameterMappings($result, $this->configuration->getServerMappings());
+        $this->removeIgnoredParameters($result, $this->configuration->getIgnoredServerParameters());
         $this->ensureChannelParameter($result);
-        $this->addRequiredParameters($result, $this->config->getRequiredServerParameters());
+        $this->addRequiredParameters($result, $this->configuration->getRequiredServerParameters());
 
         return $result;
     }
@@ -60,9 +60,9 @@ class ParametersConverter
     public function convertServerToClientParameters($serverParameters)
     {
         $result = $serverParameters;
-        $this->applyParameterMappings($result, $this->config->getClientMappings());
-        $this->removeIgnoredParameters($result, $this->config->getIgnoredClientParameters());
-        $this->addRequiredParameters($result, $this->config->getRequiredClientParameters());
+        $this->applyParameterMappings($result, $this->configuration->getClientMappings());
+        $this->removeIgnoredParameters($result, $this->configuration->getIgnoredClientParameters());
+        $this->addRequiredParameters($result, $this->configuration->getRequiredClientParameters());
 
         return $result;
     }
@@ -111,7 +111,7 @@ class ParametersConverter
         if (isset($parameters['channel']) && is_array($parameters['channel']))
             $parameters['channel'] = $parameters['channel'][0];
         if (!isset($parameters['channel']) || strlen($parameters['channel']) == 0)
-            $parameters['channel'] = $this->config->getChannel();
+            $parameters['channel'] = $this->configuration->getChannel();
     }
 
     /**

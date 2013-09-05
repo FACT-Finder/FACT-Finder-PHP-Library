@@ -30,5 +30,21 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
                 'test'
             );
         });
+
+        $this->dic['encodingConverter'] = $this->dic->share(function($c) {
+            if (extension_loaded('iconv'))
+                $type = 'Core\IConvEncodingConverter';
+            else if (function_exists('utf8_encode')
+                     && function_exists('utf8_decode'))
+                $type = 'Core\Utf8EncodingConverter';
+            else
+                throw new Exception('No encoding conversion available.');
+
+            return FF::getInstance(
+                $type,
+                $c['loggerClass'],
+                $c['configuration']
+            );
+        });
     }
 }

@@ -20,7 +20,7 @@ class ManualConfigurationTest extends BaseTestCase
 
     public function testValuesSetInConstructor()
     {
-        $config = FF::getInstance(
+        $configuration = FF::getInstance(
             'Core\ManualConfiguration',
             array(
                 'port' => 80,
@@ -33,47 +33,47 @@ class ManualConfigurationTest extends BaseTestCase
             )
         );
 
-        $this->assertEquals(80, $config->getServerPort());
-        $this->assertEquals("de", $config->getChannel());
+        $this->assertEquals(80, $configuration->getServerPort());
+        $this->assertEquals("de", $configuration->getChannel());
 
-        $this->assertTrue($config->isHttpAuthenticationType());
+        $this->assertTrue($configuration->isHttpAuthenticationType());
 
         $expectedIgnoredClientParameters = array(
             'channel' => true
         );
 
-        $this->assertEquals($expectedIgnoredClientParameters, $config->getIgnoredClientParameters());
+        $this->assertEquals($expectedIgnoredClientParameters, $configuration->getIgnoredClientParameters());
 
-        $this->assertEquals('value', $config->getCustomValue('test'));
+        $this->assertEquals('value', $configuration->getCustomValue('test'));
     }
 
     public function testValuesSetManually()
     {
-        $config = FF::getInstance(
+        $configuration = FF::getInstance(
             'Core\ManualConfiguration',
             array()
         );
 
-        $config->port = 80;
-        $config->channel = 'de';
-        $config->authenticationType = ManualConfiguration::HTTP_AUTHENTICATION;
-        $config->ignoredClientParameters = array(
+        $configuration->port = 80;
+        $configuration->channel = 'de';
+        $configuration->authenticationType = ManualConfiguration::HTTP_AUTHENTICATION;
+        $configuration->ignoredClientParameters = array(
             'channel' => true
         );
-        $config->test = 'value';
+        $configuration->test = 'value';
 
-        $this->assertEquals(80, $config->getServerPort());
-        $this->assertEquals("de", $config->getChannel());
+        $this->assertEquals(80, $configuration->getServerPort());
+        $this->assertEquals("de", $configuration->getChannel());
 
-        $this->assertTrue($config->isHttpAuthenticationType());
+        $this->assertTrue($configuration->isHttpAuthenticationType());
 
         $expectedIgnoredClientParameters = array(
             'channel' => true
         );
 
-        $this->assertEquals($expectedIgnoredClientParameters, $config->getIgnoredClientParameters());
+        $this->assertEquals($expectedIgnoredClientParameters, $configuration->getIgnoredClientParameters());
 
-        $this->assertEquals('value', $config->getCustomValue('test'));
+        $this->assertEquals('value', $configuration->getCustomValue('test'));
     }
 
     /**
@@ -82,13 +82,13 @@ class ManualConfigurationTest extends BaseTestCase
      */
     public function testUnavailableValue()
     {
-        $config = FF::getInstance(
+        $configuration = FF::getInstance(
             'Core\ManualConfiguration',
             array('port' => 80)
         );
 
-        $config->channel = 'de';
+        $configuration->channel = 'de';
 
-        $config->getRequestProtocol();
+        $configuration->getRequestProtocol();
     }
 }

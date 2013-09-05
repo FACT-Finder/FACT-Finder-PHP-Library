@@ -13,7 +13,7 @@ class XmlConfigurationTest extends BaseTestCase
     /**
      * @var FACTFinder\Core\XmlConfiguration the configuration under test
      */
-    private $config;
+    private $configuration;
 
     public function setUp()
     {
@@ -21,32 +21,32 @@ class XmlConfigurationTest extends BaseTestCase
         $loggerClass = $this->dic['loggerClass'];
         $this->log = $loggerClass::getLogger(__CLASS__);
 
-        $this->config = $this->dic['configuration'];
+        $this->configuration = $this->dic['configuration'];
     }
 
     public function testConnectionSettings()
     {
-        $this->assertEquals("http", $this->config->getRequestProtocol());
-        $this->assertEquals("demoshop.fact-finder.de", $this->config->getServerAddress());
-        $this->assertEquals(80, $this->config->getServerPort());
-        $this->assertEquals("FACT-Finder6.7", $this->config->getContext());
-        $this->assertEquals("de", $this->config->getChannel());
-        $this->assertEquals("de", $this->config->getLanguage());
+        $this->assertEquals("http", $this->configuration->getRequestProtocol());
+        $this->assertEquals("demoshop.fact-finder.de", $this->configuration->getServerAddress());
+        $this->assertEquals(80, $this->configuration->getServerPort());
+        $this->assertEquals("FACT-Finder6.7", $this->configuration->getContext());
+        $this->assertEquals("de", $this->configuration->getChannel());
+        $this->assertEquals("de", $this->configuration->getLanguage());
 
-        $this->assertTrue($this->config->isAdvancedAuthenticationType());
-        $this->assertEquals("user", $this->config->getUserName());
-        $this->assertEquals("userpw", $this->config->getPassword());
-        $this->assertEquals("FACT-FINDER", $this->config->getAuthenticationPrefix());
-        $this->assertEquals("FACT-FINDER", $this->config->getAuthenticationPostfix());
+        $this->assertTrue($this->configuration->isAdvancedAuthenticationType());
+        $this->assertEquals("user", $this->configuration->getUserName());
+        $this->assertEquals("userpw", $this->configuration->getPassword());
+        $this->assertEquals("FACT-FINDER", $this->configuration->getAuthenticationPrefix());
+        $this->assertEquals("FACT-FINDER", $this->configuration->getAuthenticationPostfix());
 
-        $this->assertEquals(2,   $this->config->getDefaultConnectTimeout());
-        $this->assertEquals(4,   $this->config->getDefaultTimeout());
-        $this->assertEquals(1,   $this->config->getSuggestConnectTimeout());
-        $this->assertEquals(2,   $this->config->getSuggestTimeout());
-        $this->assertEquals(1,   $this->config->getScicConnectTimeout());
-        $this->assertEquals(2,   $this->config->getScicTimeout());
-        $this->assertEquals(10,  $this->config->getImportConnectTimeout());
-        $this->assertEquals(360, $this->config->getImportTimeout());
+        $this->assertEquals(2,   $this->configuration->getDefaultConnectTimeout());
+        $this->assertEquals(4,   $this->configuration->getDefaultTimeout());
+        $this->assertEquals(1,   $this->configuration->getSuggestConnectTimeout());
+        $this->assertEquals(2,   $this->configuration->getSuggestTimeout());
+        $this->assertEquals(1,   $this->configuration->getScicConnectTimeout());
+        $this->assertEquals(2,   $this->configuration->getScicTimeout());
+        $this->assertEquals(10,  $this->configuration->getImportConnectTimeout());
+        $this->assertEquals(360, $this->configuration->getImportTimeout());
     }
 
     public function testParameterSettings()
@@ -58,7 +58,7 @@ class XmlConfigurationTest extends BaseTestCase
             "timestamp" => true
         );
 
-        $this->assertEquals($expectedIgnoredServerParameters, $this->config->getIgnoredServerParameters());
+        $this->assertEquals($expectedIgnoredServerParameters, $this->configuration->getIgnoredServerParameters());
 
         $expectedIgnoredClientParameters = array(
             "xml" => true,
@@ -69,34 +69,34 @@ class XmlConfigurationTest extends BaseTestCase
             "timestamp" => true
         );
 
-        $this->assertEquals($expectedIgnoredClientParameters, $this->config->getIgnoredClientParameters());
+        $this->assertEquals($expectedIgnoredClientParameters, $this->configuration->getIgnoredClientParameters());
 
         $expectedRequiredServerParameters = array();
 
-        $this->assertEquals($expectedRequiredServerParameters, $this->config->getRequiredServerParameters());
+        $this->assertEquals($expectedRequiredServerParameters, $this->configuration->getRequiredServerParameters());
 
         $expectedRequiredClientParameters = array(
             "test" => "value"
         );
 
-        $this->assertEquals($expectedRequiredClientParameters, $this->config->getRequiredClientParameters());
+        $this->assertEquals($expectedRequiredClientParameters, $this->configuration->getRequiredClientParameters());
 
         $expectedServerMappings = array(
             "keywords" => "query"
         );
 
-        $this->assertEquals($expectedServerMappings, $this->config->getServerMappings());
+        $this->assertEquals($expectedServerMappings, $this->configuration->getServerMappings());
 
         $expectedClientMappings = array(
             "query" => "keywords"
         );
 
-        $this->assertEquals($expectedClientMappings, $this->config->getClientMappings());
+        $this->assertEquals($expectedClientMappings, $this->configuration->getClientMappings());
     }
 
     public function testEncodingSettings()
     {
-        $this->assertEquals('UTF-8', $this->config->getPageContentEncoding());
-        $this->assertEquals('UTF-8', $this->config->getClientUrlEncoding());
+        $this->assertEquals('UTF-8', $this->configuration->getPageContentEncoding());
+        $this->assertEquals('UTF-8', $this->configuration->getClientUrlEncoding());
     }
 }

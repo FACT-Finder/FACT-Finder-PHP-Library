@@ -25,7 +25,7 @@ class IConvEncodingConverterTest extends BaseTestCase
 
         parent::setUp();
 
-        $config = FF::getInstance(
+        $configuration = FF::getInstance(
             'Core\ManualConfiguration',
             array(
                 'pageContentEncoding' => 'UTF-16BE',
@@ -36,7 +36,7 @@ class IConvEncodingConverterTest extends BaseTestCase
         $this->encodingConverter = FF::getInstance(
             'Core\IConvEncodingConverter',
             $this->dic['loggerClass'],
-            $config
+            $configuration
         );
 
         $loggerClass = $this->dic['loggerClass'];
@@ -82,6 +82,32 @@ class IConvEncodingConverterTest extends BaseTestCase
         $this->assertEquals(
             $expectedUtf16LEstring,
             $this->encodingConverter->encodeClientUrlData($utf8string)
+        );
+    }
+
+    public function testDecodeClientUrlDataArray()
+    {
+        // Client "URL" contains umlauts in UTF-16LE
+        $utf16LEarray = array(
+            0 => "\xE4\x00",     // "ä"
+            "\xDF\x00" => array( // "ß" as key
+                0 => "\xF6\x00", // "ö"
+                1 => "\xFC\x00"  // "ü"
+            )
+        );
+
+        // Output is expected to be UTF-8
+        $expectedUtf8array = array(
+            0 => "\xC3\xA4",     // "ä"
+            "\xC3\x9F" => array( // "ß" as key
+                0 => "\xC3\xB6", // "ö"
+                1 => "\xC3\xBC"  // "ü"
+            )
+        );;
+
+        $this->assertEquals(
+            $expectedUtf8array,
+            $this->encodingConverter->decodeClientUrlData($utf16LEarray)
         );
     }
 }

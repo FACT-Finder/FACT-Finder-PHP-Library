@@ -24,6 +24,7 @@ We follow the [Zend Framework's Coding Standards](http://framework.zend.com/wiki
 - Opening braces for control blocks are always placed on a new line. That means
   the only opening braces placed on the same line are those that open anonymous
   functions.
+- Single-line control statements may omit braces.
 
 Changes
 -------------

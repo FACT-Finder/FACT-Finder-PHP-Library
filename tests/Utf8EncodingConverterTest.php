@@ -27,7 +27,7 @@ class Utf8EncodingConverterTest extends BaseTestCase
 
         parent::setUp();
 
-        $config = FF::getInstance(
+        $configuration = FF::getInstance(
             'Core\ManualConfiguration',
             array(
                 'pageContentEncoding' => 'ISO-8859-1',
@@ -38,7 +38,7 @@ class Utf8EncodingConverterTest extends BaseTestCase
         $this->encodingConverter = FF::getInstance(
             'Core\Utf8EncodingConverter',
             $this->dic['loggerClass'],
-            $config
+            $configuration
         );
 
         $loggerClass = $this->dic['loggerClass'];

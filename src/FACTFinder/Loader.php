@@ -119,10 +119,10 @@ class Loader
     {
         if (!isset(self::$singletons[$name]))
         {
-            $params = func_get_args();
+            $parameters = func_get_args();
             self::$singletons[$name] = call_user_func_array(
                                             array("self", "getInstance"),
-                                            $params
+                                            $parameters
                                        );
         }
         return self::$singletons[$name];
