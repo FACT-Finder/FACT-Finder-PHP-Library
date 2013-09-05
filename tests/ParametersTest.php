@@ -147,4 +147,23 @@ class ParameterTest extends BaseTestCase
         $this->assertEquals('query=bmx&id=123&id=456&a+b=c+d',
                             $this->parameters->toTomcatQueryString());
     }
+
+    public function testClone()
+    {
+        $this->parameters['id'] = '123';
+
+        $newParameters = clone $this->parameters;
+
+        $newParameters['query'] = 'bmx';
+        $newParameters->add('id', '456');
+
+        $this->assertParameters(array('id' => '123'));
+
+        $this->parameters = $newParameters;
+
+        $this->assertParameters(array(
+            'id' => array('123', '456'),
+            'query' => 'bmx',
+        ));
+    }
 }

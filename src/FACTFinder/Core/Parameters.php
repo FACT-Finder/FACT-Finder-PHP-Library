@@ -5,6 +5,19 @@ class Parameters implements \ArrayAccess
 {
     protected $parameters = array();
 
+    /**
+     * Optionally takes an array of initial parameters to populate the object.
+     * This is just a convenience over creating an empty object and setting the
+     * parameters manually with ->setAll($parameters).
+     * @param mixed[] $parameters Array of parameters to initialize the object
+     *        with.
+     */
+    public function __construct($parameters = null)
+    {
+        if(!is_null($parameters))
+            $this->setAll($parameters);
+    }
+
     public function offsetExists($offset)
     {
         return isset($this->parameters[$offset]);

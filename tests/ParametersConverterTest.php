@@ -31,16 +31,19 @@ class ParametersConverterTest extends BaseTestCase
 
     public function testClientToServerConversion()
     {
-        $clientParameters = array(
-            'keywords' => 'test',
-            'username' => 'admin',
-            'productsPerPage' => '12'
+        $clientParameters = FF::getInstance(
+            'Core\Parameters',
+            array(
+                'keywords' => 'test',
+                'username' => 'admin',
+                'productsPerPage' => '12',
+            )
         );
 
         $expectedServerParameters = array(
             'query' => 'test',
             'productsPerPage' => '12',
-            'channel' => 'de'
+            'channel' => 'de',
         );
 
         $actualServerParameters = $this->parametersConverter
@@ -48,13 +51,19 @@ class ParametersConverterTest extends BaseTestCase
                                             $clientParameters
                                         );
 
-        $this->assertEquals($expectedServerParameters, $actualServerParameters);
+        $this->assertEquals(
+            $expectedServerParameters,
+            $actualServerParameters->getArray()
+        );
     }
 
     public function testOverwriteChannel()
     {
-        $clientParameters = array(
-            'channel' => 'en'
+        $clientParameters = FF::getInstance(
+            'Core\Parameters',
+            array(
+                'channel' => 'en'
+            )
         );
 
         $expectedServerParameters = array(
@@ -66,20 +75,26 @@ class ParametersConverterTest extends BaseTestCase
                                             $clientParameters
                                         );
 
-        $this->assertEquals($expectedServerParameters, $actualServerParameters);
+        $this->assertEquals(
+            $expectedServerParameters,
+            $actualServerParameters->getArray()
+        );
     }
 
     public function testServerToClientConversion()
     {
-        $serverParameters = array(
-            'query' => 'test',
-            'username' => 'admin',
-            'format' => 'xml',
-            'xml' => 'true',
-            'timestamp' => '123456789',
-            'password' => 'test',
-            'channel' => 'de',
-            'productsPerPage' => '12'
+        $serverParameters = FF::getInstance(
+            'Core\Parameters',
+            array(
+                'query' => 'test',
+                'username' => 'admin',
+                'format' => 'xml',
+                'xml' => 'true',
+                'timestamp' => '123456789',
+                'password' => 'test',
+                'channel' => 'de',
+                'productsPerPage' => '12'
+            )
         );
 
         $expectedClientParameters = array(
@@ -93,6 +108,9 @@ class ParametersConverterTest extends BaseTestCase
                                             $serverParameters
                                         );
 
-        $this->assertEquals($expectedClientParameters, $actualClientParameters);
+        $this->assertEquals(
+            $expectedClientParameters,
+            $actualClientParameters->getArray()
+        );
     }
 }
