@@ -11,13 +11,13 @@ use FACTFinder\Loader as FF;
 class BaseTestCase extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var FACTFinder\Core\Pimple Dependency injection container
+     * @var FACTFinder\Util\Pimple Dependency injection container
      */
     protected $dic;
 
     public function setUp()
     {
-        $this->dic = FF::getInstance('Core\Pimple');
+        $this->dic = FF::getInstance('Util\Pimple');
 
         $logClass = FF::getClassName('Util\Log4PhpLogger');
         $logClass::configure(RESOURCES_DIR.DS.'log4php.xml');
