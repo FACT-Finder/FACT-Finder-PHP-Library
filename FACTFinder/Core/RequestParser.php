@@ -1,6 +1,8 @@
 <?php
 namespace FACTFinder\Core;
 
+use FACTFinder\Loader as FF;
+
 class RequestParser
 {
     protected $requestParameters;
@@ -21,6 +23,13 @@ class RequestParser
      */
     protected $encodingConverter;
 
+
+    /**
+     * @param string $loggerClass Class name of logger to use. The class should
+     *                            implement FACTFinder\Util\LoggerInterface.
+     * @param ConfigurationInterface $configuration
+     * @param AbstractEncodingConverter $encodingConverter
+     */
     function __construct(
         $loggerClass,
         ConfigurationInterface $configuration,
@@ -32,28 +41,27 @@ class RequestParser
     }
 
     /**
-     * Loads parameters from the request and returns them as an array. The keys
-     * correspond to parameter names. String values correspond to single values.
-     * Array values correspond to multiple values for the same parameter.
+     * Loads parameters from the request and returns a Parameter object.
      * Also takes care of encoding conversion if necessary.
      *
-     * @return mixed[] Array of UTF-8 encoded parameters
+     * @return Parameters Array of UTF-8 encoded parameters
      */
     public function getRequestParameters()
     {
         if ($this->requestParameters === null) {
             if (isset($_SERVER['QUERY_STRING'])) {
-                $parameters = array_merge(
-                    $_POST,
-                    $this->parseParametersFromString($_SERVER['QUERY_STRING'])
-                );
+                $parameters = $this->parseParametersFromString($_SERVER['QUERY_STRING']);
+                $parameters->setAll($_POST);
             } else if (isset($_GET)) {
-                // Don't use $_REQUEST, because it also contains $_COOKIE.
-                $parameters = array_merge($_POST, $_GET);
-                $this->log->warn('$_SERVER[\'QUERY_STRING\' is not available. '
+                $this->log->warn('$_SERVER[\'QUERY_STRING\'] is not available. '
                                . 'Using $_GET instead. This may cause problems '
                                . 'if the query string contains parameters with '
                                . 'spaces or periods.');
+
+                $parameters = FF::getInstance('Core\Parameters');
+                // Don't use $_REQUEST, because it also contains $_COOKIE.
+                $parameters->setAll($_GET);
+                $parameters->setAll($_POST);
             } else {
                 // For CLI use:
                 $parameters = array();
@@ -71,7 +79,7 @@ class RequestParser
      * Also takes care of URL decoding.
      *
      * @param string query string or URL
-     * @return mixed[] array of parameter variables
+     * @return Parameters array of parameter variables
      */
     protected function parseParametersFromString($input)
     {
@@ -81,29 +89,23 @@ class RequestParser
             $input = $parts[1];
         }
 
-        $result = array();
+        $result = FF::getInstance('Core\Parameters');
         $pairs = explode('&', $input);
         foreach($pairs AS $pair){
             $pair = explode('=', $pair);
-            if(empty($pair[0])) continue;
-            if(count($pair) == 1) $pair[1] = '';
-            $k = $pair[0];
-            $v = $pair[1];
+            // Make sure that the parameter name actually contains an identifier
+            if(preg_match('/^(?:$|\[[^\]]*\])/', $pair[0]))
+                continue;
+            if(count($pair) == 1)
+                $pair[1] = '';
 
-            $k = urldecode($k);
-            $v = urldecode($v);
+            $k = urldecode($pair[0]);
+            $v = urldecode($pair[1]);
 
-            $k = preg_replace('/\[]$/', '', $k);
-
-            if (!isset($result[$k]))
-                $result[$k] = $v;
+            if (preg_match('/^[^\]]+(?=\[[^\]]*\])/', $k, $matches))
+                $result->add($matches[0], $v);
             else
-            {
-                if (is_array($result[$k]))
-                    array_push($result[$k], $v);
-                else
-                    $result[$k] = array($result[$k], $v);
-            }
+                $result[$k] = $v;
         }
         return $result;
     }
@@ -136,5 +138,10 @@ class RequestParser
             }
         }
         return $this->requestTarget;
+    }
+
+    public function setRequestTarget($target)
+    {
+        $this->requestTarget = $target;
     }
 }
