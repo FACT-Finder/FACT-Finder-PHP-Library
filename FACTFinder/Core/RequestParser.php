@@ -58,10 +58,11 @@ class RequestParser
                                . 'if the query string contains parameters with '
                                . 'spaces or periods.');
 
-                $parameters = FF::getInstance('Core\Parameters');
                 // Don't use $_REQUEST, because it also contains $_COOKIE.
-                $parameters->setAll($_GET);
-                $parameters->setAll($_POST);
+                $parameters = FF::getInstance(
+                    'Core\Parameters',
+                    array_merge($_POST, $_GET)
+                );
             } else {
                 // For CLI use:
                 $parameters = array();
