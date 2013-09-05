@@ -1,7 +1,7 @@
 <?php
 // Taken from https://github.com/fabpot/Pimple
 
-namespace FACTFinder\Core;
+namespace FACTFinder\Util;
 
 /*
  * This file is part of Pimple.
