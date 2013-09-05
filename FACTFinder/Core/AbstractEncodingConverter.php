@@ -30,33 +30,63 @@ abstract class AbstractEncodingConverter
     /**
      * @param string $loggerClass Class name of logger to use. The class should
      *                            implement FACTFinder\Util\LoggerInterface.
-     * @param ConfigurationInterface $config Configuration object to use.
+     * @param ConfigurationInterface $configuration Configuration object to use.
      */
     function __construct(
         $loggerClass,
-        ConfigurationInterface $config
+        ConfigurationInterface $configuration
     ) {
         $this->log = $loggerClass::getLogger(__CLASS__);
 
-        $this->pageContentEncoding = $config->getPageContentEncoding();
-        $this->clientUrlEncoding = $config->getClientUrlEncoding();
+        $this->pageContentEncoding = $configuration->getPageContentEncoding();
+        $this->clientUrlEncoding = $configuration->getClientUrlEncoding();
     }
 
-    abstract protected function convert($inCharset, $outCharset, $string);
+    abstract protected function convertString($inCharset, $outCharset, $string);
+
+    /**
+     * Converts data from $inCharset to $outCharset.
+     * @param mixed $data If a string is given, it's encoding will be converted.
+     *        If an associative array is given, keys and values will be
+     *        converted recursively. All other data types will be returned
+     *        unchanged.
+     * @return mixed
+     */
+    protected function convert($inCharset, $outCharset, $data)
+    {
+        if (is_array($data))
+        {
+            $result = array();
+            foreach ($data as $k => $v)
+            {
+                $k = $this->convert($inCharset, $outCharset, $k);
+                $result[$k] = $this->convert($inCharset, $outCharset, $v);
+            }
+        }
+        else if (is_string($data))
+        {
+            $result = $this->convertString($inCharset, $outCharset, $data);
+        }
+        else
+        {
+            $result = $data;
+        }
+        return $result;
+    }
 
     /**
      * Converts data held by the library for use on the rendered page.
      * Hence, it converts from the library's encoding (UTF-8) to the configured
      * page content encoding.
-     * @param string $content
-     * @return string
+     * @param mixed $data Could either be a string or an associative array.
+     * @return mixed
      */
-    public function encodeContentForPage($content)
+    public function encodeContentForPage($data)
     {
         return $this->convert(
             self::LIBRARY_ENCODING,
             $this->pageContentEncoding,
-            $content
+            $data
         );
     }
 
@@ -64,16 +94,17 @@ abstract class AbstractEncodingConverter
      * Converts data obtained from the client URL for use within the library.
      * Hence, it converts fromthe configured client URL encoding to the
      * library's encoding (UTF-8).
-     * @param string $string Data obtained from the client URL. Note that this
-     *        data should already be URL decoded.
-     * @return string
+     * @param mixed $data Data obtained from the client URL. Note that this
+     *        data should already be URL decoded. Could either be a string or an
+     *        associative array.
+     * @return mixed
      */
-    public function decodeClientUrlData($string)
+    public function decodeClientUrlData($data)
     {
         return $this->convert(
             $this->clientUrlEncoding,
             self::LIBRARY_ENCODING,
-            $string
+            $data
         );
     }
 
@@ -81,16 +112,17 @@ abstract class AbstractEncodingConverter
      * Converts data held by the library for use in a client URL.
      * Hence, it converts fromthe configured client URL encoding to the
      * library's encoding (UTF-8).
-     * @param string $string Data to be used in the client URL. Note that this
-     *        data should not yet be URL encoded.
-     * @return string
+     * @param mixed $data Data to be used in the client URL. Note that this
+     *        data should not yet be URL encoded. Could either be a string or an
+     *        associative array.
+     * @return mixed
      */
-    public function encodeClientUrlData($string)
+    public function encodeClientUrlData($data)
     {
         return $this->convert(
             self::LIBRARY_ENCODING,
             $this->clientUrlEncoding,
-            $string
+            $data
         );
     }
 }

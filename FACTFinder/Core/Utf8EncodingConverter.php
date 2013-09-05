@@ -9,13 +9,13 @@ class Utf8EncodingConverter extends AbstractEncodingConverter
 {
     function __construct(
         $loggerClass,
-        ConfigurationInterface $config
+        ConfigurationInterface $configuration
     ) {
-        parent::__construct($loggerClass, $config);
+        parent::__construct($loggerClass, $configuration);
         $this->log = $loggerClass::getLogger(__CLASS__);
     }
 
-    protected function convert($inCharset, $outCharset, $string)
+    protected function convertString($inCharset, $outCharset, $string)
     {
         if (strtolower($inCharset) != strtolower($outCharset)
             && !empty($inCharset)
@@ -26,7 +26,7 @@ class Utf8EncodingConverter extends AbstractEncodingConverter
                 if (strtolower($outCharset) != 'iso-8859-1')
                     $this->log->warn(
                         "utf8_decode() does not support $outCharset. If $outCharset is not compatible with ISO-8859-1, "
-                      + "the resulting string may contain wrong or invalid characters."
+                      . "the resulting string may contain wrong or invalid characters."
                     );
                 $string = utf8_decode($string);
             }
@@ -35,7 +35,7 @@ class Utf8EncodingConverter extends AbstractEncodingConverter
                 if (strtolower($inCharset) != 'iso-8859-1')
                     $this->log->warn(
                         "utf8_encode() does not support $inCharset. If $inCharset is not compatible with ISO-8859-1, "
-                      + "the resulting string may contain wrong characters."
+                      . "the resulting string may contain wrong characters."
                     );
                 $string = utf8_encode($string);
             }

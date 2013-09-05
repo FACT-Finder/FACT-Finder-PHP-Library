@@ -8,13 +8,13 @@ class IConvEncodingConverter extends AbstractEncodingConverter
 {
     function __construct(
         $loggerClass,
-        ConfigurationInterface $config
+        ConfigurationInterface $configuration
     ) {
-        parent::__construct($loggerClass, $config);
+        parent::__construct($loggerClass, $configuration);
         $this->log = $loggerClass::getLogger(__CLASS__);
     }
 
-    protected function convert($inCharset, $outCharset, $string)
+    protected function convertString($inCharset, $outCharset, $string)
     {
         if ($inCharset == $outCharset
             || empty($inCharset)
@@ -30,8 +30,8 @@ class IConvEncodingConverter extends AbstractEncodingConverter
         if ($result === false)
         {
             $this->log->warn(
-                "Conversion from $inCharset to $outCharset not possible. " +
-                "The string is still encoded with $inCharset."
+                "Conversion from $inCharset to $outCharset not possible. "
+              . "The string is still encoded with $inCharset."
             );
             $result = $string;
         }
