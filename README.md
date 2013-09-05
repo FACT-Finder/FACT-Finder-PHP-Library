@@ -46,3 +46,4 @@ This list is still subject to change (ironically...).
 -- ParametersConverter - converts parameters back and forth between server and client. This one is mostly irrelevant outside of the library itself.
 -- RequestParser - reads parameters and targets from request data
 - EncodingConverter now distinguishes between implementations by polymorphism instead of variable method names.
+- new Parameters object

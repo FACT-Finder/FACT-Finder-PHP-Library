@@ -48,30 +48,38 @@ class RequestParserTest extends BaseTestCase
         $_GET = $this->oldGet;
     }
 
+    private function assertParameters($expectedParameters)
+    {
+        $this->assertEquals($expectedParameters, $this->requestParser
+                                                      ->getRequestParameters()
+                                                      ->getArray());
+    }
+
     public function testRequestParametersFromQueryString()
     {
-        $_SERVER['QUERY_STRING'] = 'a%20b=c&d=e%20f';
+        $_SERVER['QUERY_STRING'] = 'a+b=c&d=e+f';
 
-        $expectedParameters = array(
+        $this->assertParameters(array(
             'a b' => 'c',
             'd' => 'e f',
-        );
-
-        $this->assertEquals($expectedParameters, $this->requestParser
-                                                      ->getRequestParameters());
+        ));
     }
 
     public function testParametersWithMultipleValues()
     {
         $_SERVER['QUERY_STRING'] = 'a=1&a=2&b[]=3&b[]=4&b[]=5';
 
-        $expectedParameters = array(
-            'a' => array('1', '2'),
+        $this->assertParameters(array(
+            'a' => '2',
             'b' => array('3', '4', '5'),
-        );
+        ));
+    }
 
-        $this->assertEquals($expectedParameters, $this->requestParser
-                                                      ->getRequestParameters());
+    public function testEmptyParameterNames()
+    {
+        $_SERVER['QUERY_STRING'] = '=1&=2&[]=3&[]=4';
+
+        $this->assertParameters(array());
     }
 
     public function testRequestTarget()

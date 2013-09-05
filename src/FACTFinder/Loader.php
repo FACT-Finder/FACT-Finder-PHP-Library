@@ -65,6 +65,9 @@ class Loader
     /**
      * Creates an instance of a class taking into account classes within the
      * "FACTFinder\Custom\" namespace instead of "FACTFinder\".
+     * Note that classes in the \Custom namespace should inherit the class they
+     * overwrite - otherwise some of the type hinting within the library might
+     * break.
      * USE THIS method instead of the PHP "new" keyword for all classes from
      * this library.
      * Eg. instead of "$obj = new myclass;", you should use
@@ -133,6 +136,9 @@ class Loader
      * or "FACTFinder", we first check whether there is a custom class in
      * namespace "FACTFinder\Custom\", then we look in "FACTFinder\". If none of
      * them exist, it also checks if the name is the class name itself.
+     * Note that classes in the \Custom namespace should inherit the class they
+     * overwrite - otherwise some of the type hinting within the library might
+     * break.
      *
      * @param string $name The class name to be resolved.
      *
