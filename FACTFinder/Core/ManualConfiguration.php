@@ -7,11 +7,11 @@ class ManualConfiguration implements ConfigurationInterface
     const SIMPLE_AUTHENTICATION   = 'simple';
     const ADVANCED_AUTHENTICATION = 'advanced';
 
-    private $configuration = array();
+    private $configuration ;
 
-    function __construct($configuration)
+    function __construct($configuration = null)
     {
-        $this->configuration = $configuration;
+        $this->configuration = $configuration ?: array();
     }
 
     function __set($name, $value)

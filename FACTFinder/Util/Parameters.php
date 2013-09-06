@@ -1,7 +1,7 @@
 <?php
 namespace FACTFinder\Util;
 
-class Parameters implements \ArrayAccess
+class Parameters implements \ArrayAccess, \Countable
 {
     protected $parameters = array();
 
@@ -80,6 +80,22 @@ class Parameters implements \ArrayAccess
     }
 
     /**
+     * Returns the number of values (not parameter names) stored in this object.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        $count = 0;
+        foreach($this->parameters as $value)
+            if (is_string($value))
+                ++$count;
+            else
+                $count += count($value);
+        return $count;
+    }
+
+    /**
      * Makes sure that the given value is not a nested array. It also converts
      * all non-strings to strings. Lastly, single-element arrays are converted
      * to string values.
@@ -148,6 +164,22 @@ class Parameters implements \ArrayAccess
     {
         foreach ($parameters as $k => $v)
             $this[$k] = $v;
+    }
+
+    /**
+     * Alias for $parameters['name'] = 'value' notation, because offset indexing
+     * cannot be chained with method calls.
+     *
+     * @param string $name  The parameter name.
+     * @param mixed  $value A string or an array of strings. Nested arrays are
+     *        not allowed. All other types are cast to strings.
+     *
+     * @throws InvalidArgumentException if no name is given or the value is a
+     *         nested array.
+     */
+    public function set($name, $value)
+    {
+        $this[$name] = $value;
     }
 
     /**
