@@ -12,6 +12,8 @@ class XmlConfiguration implements ConfigurationInterface
      */
     private $configuration;
 
+    private $authenticationType = null;
+
     private $clientMappings;
     private $serverMappings;
     private $ignoredClientParameters;
@@ -79,22 +81,32 @@ class XmlConfiguration implements ConfigurationInterface
 
     public function isHttpAuthenticationType()
     {
-        return $this->retrieveType() == self::HTTP_AUTHENTICATION;
+        return $this->retrieveAuthenticationType() == self::HTTP_AUTHENTICATION;
     }
 
     public function isSimpleAuthenticationType()
     {
-        return $this->retrieveType() == self::SIMPLE_AUTHENTICATION;
+        return $this->retrieveAuthenticationType() == self::SIMPLE_AUTHENTICATION;
     }
 
     public function isAdvancedAuthenticationType()
     {
-        return $this->retrieveType() == self::ADVANCED_AUTHENTICATION;
+        return $this->retrieveAuthenticationType() == self::ADVANCED_AUTHENTICATION;
     }
 
-    private function retrieveType()
+    private function retrieveAuthenticationType()
     {
-        return (string)$this->configuration->connection->authentication->type;
+        if (is_null($this->authenticationType))
+            $this->authenticationType = (string)$this->configuration
+                                                     ->connection
+                                                     ->authentication
+                                                     ->type;
+        return $this->authenticationType;
+    }
+
+    public function setAuthenticationType($type)
+    {
+        $this->authenticationType = $type;
     }
 
     public function getUserName()

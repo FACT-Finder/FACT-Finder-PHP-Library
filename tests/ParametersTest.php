@@ -166,4 +166,27 @@ class ParameterTest extends BaseTestCase
             'query' => 'bmx',
         ));
     }
+
+    public function testCount()
+    {
+        $this->assertEquals(0, count($this->parameters));
+
+        $this->parameters['format'] = 'json';
+        $this->assertEquals(1, count($this->parameters));
+
+        $this->parameters['id'] = array('123', '456');
+        $this->assertEquals(3, count($this->parameters));
+
+        $this->parameters->add('id', array('789', 'abc'));
+        $this->assertEquals(5, count($this->parameters));
+
+        $this->parameters['id'] = array('123', '456', '789');
+        $this->assertEquals(4, count($this->parameters));
+
+        unset($this->parameters['format']);
+        $this->assertEquals(3, count($this->parameters));
+
+        $this->parameters->clear();
+        $this->assertEquals(0, count($this->parameters));
+    }
 }

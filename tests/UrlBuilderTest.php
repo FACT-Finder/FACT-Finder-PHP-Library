@@ -36,92 +36,6 @@ class UrlBuilderTest extends BaseTestCase
         $this->configuration = $this->dic['configuration'];
     }
 
-    public function testSetSingleParameter()
-    {
-        $this->urlBuilder->setParameter('query', 'bmx');
-
-        $actualParameters = $this->urlBuilder->getParameters();
-
-        $this->assertCount(1, $actualParameters);
-        $this->assertArrayHasKey('query', $actualParameters);
-        $this->assertEquals('bmx', $actualParameters['query']);
-
-        $this->urlBuilder->setParameter('format', 'json');
-
-        $actualParameters = $this->urlBuilder->getParameters();
-
-        $this->assertCount(2, $actualParameters);
-        $this->assertArrayHasKey('format', $actualParameters);
-        $this->assertEquals('json', $actualParameters['format']);
-    }
-
-    public function testSetParameters()
-    {
-        $this->urlBuilder->setParameter('query', 'bmx');
-        $this->urlBuilder->setParameter('format', 'json');
-
-        $this->urlBuilder->setParameters(array(
-            'verbose' => 'true',
-            'format' => 'xml',
-        ));
-
-        $expectedParameters = array(
-            'query' => 'bmx',
-            'format' => 'xml',
-            'verbose' => 'true',
-        );
-
-        $actualParameters = $this->urlBuilder->getParameters();
-
-        $this->assertEquals($expectedParameters, $actualParameters);
-    }
-
-    public function testResetParameters()
-    {
-        $this->urlBuilder->setParameter('query', 'bmx');
-        $this->urlBuilder->setParameter('format', 'json');
-
-        $expectedParameters = array(
-            'query' => 'bmx',
-            'channel' => 'de',
-            'verbose' => 'true'
-        );
-
-        $this->urlBuilder->resetParameters($expectedParameters);
-
-        $actualParameters = $this->urlBuilder->getParameters();
-
-        $this->assertArrayNotHasKey('format', $actualParameters);
-        $this->assertEquals($expectedParameters, $actualParameters);
-    }
-
-    public function testUnsetParameter()
-    {
-        $this->urlBuilder->setParameter('query', 'bmx');
-        $this->urlBuilder->setParameter('format', 'json');
-
-        $this->urlBuilder->unsetParameter('format');
-
-        $actualParameters = $this->urlBuilder->getParameters();
-
-        $this->assertCount(1, $actualParameters);
-        $this->assertArrayHasKey('query', $actualParameters);
-        $this->assertArrayNotHasKey('format', $actualParameters);
-    }
-
-    public function testArrayParameter()
-    {
-        $this->urlBuilder->setParameter('productIds', '123');
-        $this->urlBuilder->addParameter('productIds', '456');
-
-        $actualParameters = $this->urlBuilder->getParameters();
-
-        $this->assertCount(1, $actualParameters);
-        $this->assertArrayHasKey('productIds', $actualParameters);
-        $this->assertEquals(array('123', '456'), $actualParameters['productIds']);
-
-    }
-
     public function testSetAction()
     {
         $expectedAction = 'Test.ff';
@@ -135,7 +49,7 @@ class UrlBuilderTest extends BaseTestCase
         $expectedAction = 'Test.ff';
 
         $this->urlBuilder->setAction($expectedAction);
-        $this->urlBuilder->setParameter('format', 'json');
+        $this->urlBuilder->getParameters()->set('format', 'json');
 
         $expectedPath = '/'.$this->configuration->getContext().'/'.$expectedAction;
 
@@ -147,18 +61,18 @@ class UrlBuilderTest extends BaseTestCase
         $this->assertUrlEquals(
             $expectedPath,
             $expectedParameters,
-            null,
-            null,
             $this->urlBuilder->getNonAuthenticationUrl()
         );
     }
 
     public function testSimpleAuthenticationUrl()
     {
+        $this->configuration->setAuthenticationType('simple');
+
         $expectedAction = 'Test.ff';
 
         $this->urlBuilder->setAction($expectedAction);
-        $this->urlBuilder->setParameter('format', 'json');
+        $this->urlBuilder->getParameters()->set('format', 'json');
 
         $expectedPath = '/'.$this->configuration->getContext().'/'.$expectedAction;
 
@@ -173,22 +87,22 @@ class UrlBuilderTest extends BaseTestCase
         $this->assertUrlEquals(
             $expectedPath,
             $expectedParameters,
-            null,
-            null,
-            $this->urlBuilder->getSimpleAuthenticationUrl()
+            $this->urlBuilder->getAuthenticationUrl()
         );
     }
 
     public function testAdvancedAuthenticationUrl()
     {
+        $this->configuration->setAuthenticationType('advanced');
+
         $expectedAction = 'Test.ff';
 
         $this->urlBuilder->setAction($expectedAction);
-        $this->urlBuilder->setParameter('format', 'json');
+        $this->urlBuilder->getParameters()->set('format', 'json');
 
         $expectedPath = '/'.$this->configuration->getContext().'/'.$expectedAction;
 
-        $url = $this->urlBuilder->getAdvancedAuthenticationUrl();
+        $url = $this->urlBuilder->getAuthenticationUrl();
 
         $parameters = array();
         parse_str(parse_url($url, PHP_URL_QUERY), $parameters);
@@ -209,18 +123,18 @@ class UrlBuilderTest extends BaseTestCase
         $this->assertUrlEquals(
             $expectedPath,
             $expectedParameters,
-            null,
-            null,
-            $this->urlBuilder->getAdvancedAuthenticationUrl()
+            $this->urlBuilder->getAuthenticationUrl()
         );
     }
 
     public function testHttpAuthenticationUrl()
     {
+        $this->configuration->setAuthenticationType('http');
+
         $expectedAction = 'Test.ff';
 
         $this->urlBuilder->setAction($expectedAction);
-        $this->urlBuilder->setParameter('format', 'json');
+        $this->urlBuilder->getParameters()->set('format', 'json');
 
         $expectedPath = '/'.$this->configuration->getContext().'/'.$expectedAction;
 
@@ -232,9 +146,9 @@ class UrlBuilderTest extends BaseTestCase
         $this->assertUrlEquals(
             $expectedPath,
             $expectedParameters,
+            $this->urlBuilder->getAuthenticationUrl(),
             $this->configuration->getUserName(),
-            $this->configuration->getPassword(),
-            $this->urlBuilder->getHttpAuthenticationUrl()
+            $this->configuration->getPassword()
         );
     }
 
@@ -243,8 +157,9 @@ class UrlBuilderTest extends BaseTestCase
         $expectedAction = 'Test.ff';
 
         $this->urlBuilder->setAction($expectedAction);
-        $this->urlBuilder->setParameter('format', 'json');
-        $this->urlBuilder->setParameter('channel', 'en');
+        $parameters = $this->urlBuilder->getParameters();
+        $parameters['format'] = 'json';
+        $parameters['channel'] = 'en';
 
         $expectedPath = '/'.$this->configuration->getContext().'/'.$expectedAction;
 
@@ -256,18 +171,21 @@ class UrlBuilderTest extends BaseTestCase
         $this->assertUrlEquals(
             $expectedPath,
             $expectedParameters,
-            null,
-            null,
             $this->urlBuilder->getNonAuthenticationUrl()
         );
     }
 
-    private function assertUrlEquals($expectedPath, $expectedParameters, $expectedUser = null, $expectedPassword = null, $actualUrl)
-    {
+    private function assertUrlEquals(
+        $expectedPath,
+        $expectedParameters,
+        $actualUrl,
+        $expectedUser = null,
+        $expectedPassword = null
+    ) {
         $this->assertStringMatchesFormat($expectedPath, parse_url($actualUrl, PHP_URL_PATH));
-        if($expectedUser !== null)
+        if(!is_null($expectedUser))
             $this->assertStringMatchesFormat($expectedUser, parse_url($actualUrl, PHP_URL_USER));
-        if($expectedPassword !== null)
+        if(!is_null($expectedPassword))
             $this->assertStringMatchesFormat($expectedPassword, parse_url($actualUrl, PHP_URL_PASS));
 
         $actualParameters = array();
