@@ -60,7 +60,7 @@ class RequestParser
 
                 // Don't use $_REQUEST, because it also contains $_COOKIE.
                 $parameters = FF::getInstance(
-                    'Core\Parameters',
+                    'Util\Parameters',
                     array_merge($_POST, $_GET)
                 );
             } else {
@@ -90,7 +90,7 @@ class RequestParser
             $input = $parts[1];
         }
 
-        $result = FF::getInstance('Core\Parameters');
+        $result = FF::getInstance('Util\Parameters');
         $pairs = explode('&', $input);
         foreach($pairs AS $pair){
             $pair = explode('=', $pair);
