@@ -12,7 +12,7 @@ class ParameterTest extends BaseTestCase
     private $log;
 
     /**
-     * @var FACTFinder\Core\Parameters
+     * @var FACTFinder\Util\Parameters
      */
     protected $parameters;
 
@@ -20,7 +20,7 @@ class ParameterTest extends BaseTestCase
     {
         parent::setUp();
 
-        $this->parameters = FF::getInstance('Core\Parameters');
+        $this->parameters = FF::getInstance('Util\Parameters');
 
         $loggerClass = $this->dic['loggerClass'];
         $this->log = $loggerClass::getLogger(__CLASS__);
@@ -145,7 +145,7 @@ class ParameterTest extends BaseTestCase
         $this->assertEquals('query=bmx&id%5B0%5D=123&id%5B1%5D=456&a+b=c+d',
                             $this->parameters->toPhpQueryString());
         $this->assertEquals('query=bmx&id=123&id=456&a+b=c+d',
-                            $this->parameters->toTomcatQueryString());
+                            $this->parameters->toJavaQueryString());
     }
 
     public function testClone()

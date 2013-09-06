@@ -32,7 +32,7 @@ class ParametersConverterTest extends BaseTestCase
     public function testClientToServerConversion()
     {
         $clientParameters = FF::getInstance(
-            'Core\Parameters',
+            'Util\Parameters',
             array(
                 'keywords' => 'test',
                 'username' => 'admin',
@@ -60,7 +60,7 @@ class ParametersConverterTest extends BaseTestCase
     public function testOverwriteChannel()
     {
         $clientParameters = FF::getInstance(
-            'Core\Parameters',
+            'Util\Parameters',
             array(
                 'channel' => 'en'
             )
@@ -84,7 +84,7 @@ class ParametersConverterTest extends BaseTestCase
     public function testServerToClientConversion()
     {
         $serverParameters = FF::getInstance(
-            'Core\Parameters',
+            'Util\Parameters',
             array(
                 'query' => 'test',
                 'username' => 'admin',
