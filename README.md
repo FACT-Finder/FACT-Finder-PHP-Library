@@ -47,3 +47,5 @@ This list is still subject to change (ironically...).
 -- RequestParser - reads parameters and targets from request data
 - EncodingConverter now distinguishes between implementations by polymorphism instead of variable method names.
 - new Parameters object
+- UrlBuilder doesn't take care of parameter management any more - it just hands out a Parameters object to modify.
+- UrlBuilder takes care of dispatching between authentication methods now.
