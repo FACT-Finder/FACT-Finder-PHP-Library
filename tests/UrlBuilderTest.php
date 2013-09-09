@@ -20,6 +20,11 @@ class UrlBuilderTest extends BaseTestCase
      */
     protected $urlBuilder;
 
+    /**
+     * @var FACTFinder\Util\Parameters
+     */
+    protected $parameters;
+
     public function setUp()
     {
         parent::setUp();
@@ -34,24 +39,18 @@ class UrlBuilderTest extends BaseTestCase
         $this->log = $loggerClass::getLogger(__CLASS__);
 
         $this->configuration = $this->dic['configuration'];
-    }
 
-    public function testSetAction()
-    {
-        $expectedAction = 'Test.ff';
-        $this->urlBuilder->setAction($expectedAction);
-
-        $this->assertEquals($expectedAction, $this->urlBuilder->getAction());
+        $this->parameters = FF::getInstance('Util\Parameters');
     }
 
     public function testNonAuthenticationUrl()
     {
         $expectedAction = 'Test.ff';
 
-        $this->urlBuilder->setAction($expectedAction);
-        $this->urlBuilder->getParameters()->set('format', 'json');
+        $this->parameters['format'] = 'json';
 
-        $expectedPath = '/'.$this->configuration->getContext().'/'.$expectedAction;
+        $expectedPath = '/' . $this->configuration->getContext()
+                      . '/' . $expectedAction;
 
         $expectedParameters = array(
             'channel' => 'de',
@@ -61,7 +60,8 @@ class UrlBuilderTest extends BaseTestCase
         $this->assertUrlEquals(
             $expectedPath,
             $expectedParameters,
-            $this->urlBuilder->getNonAuthenticationUrl()
+            $this->urlBuilder->getNonAuthenticationUrl($expectedAction,
+                                                       $this->parameters)
         );
     }
 
@@ -71,10 +71,10 @@ class UrlBuilderTest extends BaseTestCase
 
         $expectedAction = 'Test.ff';
 
-        $this->urlBuilder->setAction($expectedAction);
-        $this->urlBuilder->getParameters()->set('format', 'json');
+        $this->parameters['format'] = 'json';
 
-        $expectedPath = '/'.$this->configuration->getContext().'/'.$expectedAction;
+        $expectedPath = '/' . $this->configuration->getContext()
+                      . '/' . $expectedAction;
 
         $expectedParameters = array(
             'channel' => 'de',
@@ -87,7 +87,8 @@ class UrlBuilderTest extends BaseTestCase
         $this->assertUrlEquals(
             $expectedPath,
             $expectedParameters,
-            $this->urlBuilder->getAuthenticationUrl()
+            $this->urlBuilder->getAuthenticationUrl($expectedAction,
+                                                    $this->parameters)
         );
     }
 
@@ -97,16 +98,17 @@ class UrlBuilderTest extends BaseTestCase
 
         $expectedAction = 'Test.ff';
 
-        $this->urlBuilder->setAction($expectedAction);
-        $this->urlBuilder->getParameters()->set('format', 'json');
+        $this->parameters['format'] = 'json';
 
-        $expectedPath = '/'.$this->configuration->getContext().'/'.$expectedAction;
+        $expectedPath = '/' . $this->configuration->getContext()
+                      . '/' . $expectedAction;
 
-        $url = $this->urlBuilder->getAuthenticationUrl();
+        $url = $this->urlBuilder->getAuthenticationUrl($expectedAction,
+                                                       $this->parameters);
 
-        $parameters = array();
-        parse_str(parse_url($url, PHP_URL_QUERY), $parameters);
-        $timestamp = $parameters['timestamp'];
+        $tempParameters = array();
+        parse_str(parse_url($url, PHP_URL_QUERY), $tempParameters);
+        $timestamp = $tempParameters['timestamp'];
 
         $pwHash = md5($this->configuration->getPassword());
         $prefix = $this->configuration->getAuthenticationPrefix();
@@ -123,7 +125,8 @@ class UrlBuilderTest extends BaseTestCase
         $this->assertUrlEquals(
             $expectedPath,
             $expectedParameters,
-            $this->urlBuilder->getAuthenticationUrl()
+            $this->urlBuilder->getAuthenticationUrl($expectedAction,
+                                                    $this->parameters)
         );
     }
 
@@ -133,10 +136,10 @@ class UrlBuilderTest extends BaseTestCase
 
         $expectedAction = 'Test.ff';
 
-        $this->urlBuilder->setAction($expectedAction);
-        $this->urlBuilder->getParameters()->set('format', 'json');
+        $this->parameters['format'] = 'json';
 
-        $expectedPath = '/'.$this->configuration->getContext().'/'.$expectedAction;
+        $expectedPath = '/' . $this->configuration->getContext()
+                      . '/' . $expectedAction;
 
         $expectedParameters = array(
             'channel' => 'de',
@@ -146,7 +149,8 @@ class UrlBuilderTest extends BaseTestCase
         $this->assertUrlEquals(
             $expectedPath,
             $expectedParameters,
-            $this->urlBuilder->getAuthenticationUrl(),
+            $this->urlBuilder->getAuthenticationUrl($expectedAction,
+                                                    $this->parameters),
             $this->configuration->getUserName(),
             $this->configuration->getPassword()
         );
@@ -156,12 +160,11 @@ class UrlBuilderTest extends BaseTestCase
     {
         $expectedAction = 'Test.ff';
 
-        $this->urlBuilder->setAction($expectedAction);
-        $parameters = $this->urlBuilder->getParameters();
-        $parameters['format'] = 'json';
-        $parameters['channel'] = 'en';
+        $this->parameters['format'] = 'json';
+        $this->parameters['channel'] = 'en';
 
-        $expectedPath = '/'.$this->configuration->getContext().'/'.$expectedAction;
+        $expectedPath = '/' . $this->configuration->getContext()
+                      . '/' . $expectedAction;
 
         $expectedParameters = array(
             'channel' => 'en',
@@ -171,7 +174,8 @@ class UrlBuilderTest extends BaseTestCase
         $this->assertUrlEquals(
             $expectedPath,
             $expectedParameters,
-            $this->urlBuilder->getNonAuthenticationUrl()
+            $this->urlBuilder->getNonAuthenticationUrl($expectedAction,
+                                                       $this->parameters)
         );
     }
 

@@ -27,7 +27,7 @@ We follow the [Zend Framework's Coding Standards](http://framework.zend.com/wiki
 - Single-line control statements may omit braces.
 
 Changes
--------------
+-------
 
 This list is still subject to change (ironically...).
 
@@ -49,3 +49,10 @@ This list is still subject to change (ironically...).
 - new Parameters object
 - UrlBuilder doesn't take care of parameter management any more - it just hands out a Parameters object to modify.
 - UrlBuilder takes care of dispatching between authentication methods now.
+
+Documentation ToDos
+-------------------
+
+- Upgrade guide
+- Page vs Client vs Server
+- Encodings
