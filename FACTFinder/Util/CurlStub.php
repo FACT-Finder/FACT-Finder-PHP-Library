@@ -21,12 +21,12 @@ class CurlStub implements CurlInterface
      */
     private $handles = array();
 
-    public function curl_close($ch)
+    public function close($ch)
     {
         unset($this->handles[$ch]);
     }
 
-    public function curl_copy_handle($ch)
+    public function copy_handle($ch)
     {
         $newCh = ++$this->lastHandle;
 
@@ -37,7 +37,7 @@ class CurlStub implements CurlInterface
         return $newCh;
     }
 
-    public function curl_errno($ch)
+    public function errno($ch)
     {
         if(!isset($this->handles[$ch]))
             return 0;
@@ -45,13 +45,13 @@ class CurlStub implements CurlInterface
         return $this->getErrorCode($this->handles[$ch]);
     }
 
-    public function curl_error($ch)
+    public function error($ch)
     {
-        $errno = $this->curl_errno($ch);
+        $errno = $this->errno($ch);
         return self::$errorLookup[$errno];
     }
 
-    public function curl_exec($ch)
+    public function exec($ch)
     {
         if(!isset($this->handles[$ch]))
             return false;
@@ -73,7 +73,7 @@ class CurlStub implements CurlInterface
         return true;
     }
 
-    public function curl_getinfo($ch, $opt = 0)
+    public function getinfo($ch, $opt = 0)
     {
         // TODO: Include logic to build CURLINFO_EFFECTIVE_URL?
         if(!isset($this->handles[$ch]))
@@ -82,10 +82,10 @@ class CurlStub implements CurlInterface
         if($opt == 0)
             return $this->getInfoArray($this->handles[$ch]);
 
-        return $this->getInfo($this->handles[$ch], $opt);
+        return $this->getInformation($this->handles[$ch], $opt);
     }
 
-    public function curl_init($url = null)
+    public function init($url = null)
     {
         $ch = ++$this->lastHandle;
 
@@ -98,62 +98,62 @@ class CurlStub implements CurlInterface
         $this->handles[$ch] = $handle;
 
         if($url !== null)
-            $this->curl_setopt($ch, CURLOPT_URL, $url);
+            $this->setopt($ch, CURLOPT_URL, $url);
 
         return $ch;
     }
 
-    public function curl_multi_add_handle($mh, $ch)
+    public function multi_add_handle($mh, $ch)
     {
         throw new Exception("Not yet implemented.");
     }
 
-    public function curl_multi_close($mh)
+    public function multi_close($mh)
     {
         throw new Exception("Not yet implemented.");
     }
 
-    public function curl_multi_exec($mh, &$still_running)
+    public function multi_exec($mh, &$still_running)
     {
         throw new Exception("Not yet implemented.");
     }
 
-    public function curl_multi_getcontent($ch)
+    public function multi_getcontent($ch)
     {
         throw new Exception("Not yet implemented.");
     }
 
-    public function curl_multi_info_read($mh, &$msgs_in_queue = null)
+    public function multi_info_read($mh, &$msgs_in_queue = null)
     {
         throw new Exception("Not yet implemented.");
     }
 
-    public function curl_multi_init()
+    public function multi_init()
     {
         throw new Exception("Not yet implemented.");
     }
 
-    public function curl_multi_remove_handle($mh, $ch)
+    public function multi_remove_handle($mh, $ch)
     {
         throw new Exception("Not yet implemented.");
     }
 
-    public function curl_multi_select($mh, $timeout = 1.0)
+    public function multi_select($mh, $timeout = 1.0)
     {
         throw new Exception("Not yet implemented.");
     }
 
-    public function curl_setopt_array($ch, $options)
+    public function setopt_array($ch, $options)
     {
         foreach($options as $option => $value)
         {
-            if(!$this->curl_setopt($ch, $option, $value))
+            if(!$this->setopt($ch, $option, $value))
                 return false;
         }
         return true;
     }
 
-    public function curl_setopt($ch, $option, $value)
+    public function setopt($ch, $option, $value)
     {
         if(!isset($this->handles[$ch]))
             return false;
@@ -163,7 +163,7 @@ class CurlStub implements CurlInterface
         return true;
     }
 
-    public function curl_version($age = CURLVERSION_NOW)
+    public function version($age = CURLVERSION_NOW)
     {
         return curl_version($age);
     }
@@ -180,7 +180,7 @@ class CurlStub implements CurlInterface
         $this->mapErrorCodes[$hash] = $expectedErrorCode;
     }
 
-    public function setInfo($expectedInfo, $requiredOptions = array())
+    public function setInformation($expectedInfo, $requiredOptions = array())
     {
         $hash = $this->getHashAndSetOptionMaps($requiredOptions);
         $this->mapInfo[$hash] = $expectedInfo;
@@ -221,7 +221,7 @@ class CurlStub implements CurlInterface
         return $errorCode;
     }
 
-    private function getInfo($handle, $opt)
+    private function getInformation($handle, $opt)
     {
         $info = '';
 

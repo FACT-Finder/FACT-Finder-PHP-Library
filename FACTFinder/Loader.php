@@ -45,6 +45,7 @@ class Loader
     protected static $singletons = array();
     protected static $classNames = array();
 
+    // TODO: Check parent namespaces, too?
     public static function autoload($classname)
     {
         $filename = self::getFilename($classname);
@@ -57,6 +58,7 @@ class Loader
         return LIB_DIR . DS . str_replace('\\', DS, $classname) . '.php';
     }
 
+    // TODO: Check parent namespaces, too?
     private static function canLoadClass($classname)
     {
         return file_exists(self::getFilename($classname));

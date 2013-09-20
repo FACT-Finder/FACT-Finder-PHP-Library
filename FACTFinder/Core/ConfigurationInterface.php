@@ -4,6 +4,11 @@ namespace FACTFinder\Core;
 interface ConfigurationInterface
 {
     /**
+     * @return bool
+     */
+    public function isDebugEnabled();
+
+    /**
      * @return string
      */
     public function getVersion();
