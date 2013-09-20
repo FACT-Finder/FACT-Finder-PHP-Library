@@ -1,9 +1,9 @@
 <?php
-namespace FACTFinder\Test;
+namespace FACTFinder\Test\Core\Server;
 
 use FACTFinder\Loader as FF;
 
-class UrlBuilderTest extends BaseTestCase
+class UrlBuilderTest extends \FACTFinder\Test\BaseTestCase
 {
     /**
      * @var FACTFinder\Util\LoggerInterface
@@ -30,7 +30,7 @@ class UrlBuilderTest extends BaseTestCase
         parent::setUp();
 
         $this->urlBuilder = FF::getInstance(
-            'Core\UrlBuilder',
+            'Core\Server\UrlBuilder',
             $this->dic['loggerClass'],
             $this->dic['configuration']
         );

@@ -1,9 +1,9 @@
 <?php
-namespace FACTFinder\Test;
+namespace FACTFinder\Test\Core\Client;
 
 use FACTFinder\Loader as FF;
 
-class RequestParserTest extends BaseTestCase
+class RequestParserTest extends \FACTFinder\Test\BaseTestCase
 {
     /**
      * @var FACTFinder\Util\LoggerInterface
@@ -27,7 +27,7 @@ class RequestParserTest extends BaseTestCase
         parent::setUp();
 
         $this->requestParser = FF::getInstance(
-            'Core\RequestParser',
+            'Core\Client\RequestParser',
             $this->dic['loggerClass'],
             $this->dic['configuration'],
             $this->dic['encodingConverter']

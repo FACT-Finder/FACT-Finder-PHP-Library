@@ -289,5 +289,24 @@ class Parameters implements \ArrayAccess, \Countable
             $result
         );
     }
-}
 
+    /**
+     * Returns an array of strings which are valid HTTP Header fields with field
+     * name and value. Multiple values are joined with commas as per RFC 2616.
+     */
+    public function toHttpHeaderFields()
+    {
+        $result = array();
+
+        foreach ($this->parameters as $name => $value)
+        {
+            if (is_array($value))
+                $value = implode(',', $value);
+
+            // TODO: Warn about invalid field names?
+            $result[] = "$name: $value";
+        }
+
+        return $result;
+    }
+}

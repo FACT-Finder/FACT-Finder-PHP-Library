@@ -11,6 +11,14 @@
         "rulers": [80, 120],
         "default_line_ending": "unix",
         "ensure_newline_at_eof_on_save": true,
+        "todo": {
+            "folder_exclude_patterns": [
+                "log4php"
+            ],
+            "file_exclude_patterns": [
+                "Pimple.php"
+            ]
+        },
         "trim_trailing_white_space_on_save": true
     },
 

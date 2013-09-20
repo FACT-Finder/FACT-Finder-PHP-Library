@@ -1,9 +1,9 @@
 <?php
-namespace FACTFinder\Test;
+namespace FACTFinder\Test\Util;
 
 use FACTFinder\Loader as FF;
 
-class CurlStubTest extends BaseTestCase
+class CurlStubTest extends \FACTFinder\Test\BaseTestCase
 {
     /**
      * @var FACTFinder\Util\CurlStub
@@ -38,11 +38,11 @@ class CurlStubTest extends BaseTestCase
     {
         $curl = $this->curlStub;
 
-        $ch = $curl->curl_init();
-        $curl->curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $ch = $curl->init();
+        $curl->setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        $actualResponse = $curl->curl_exec($ch);
-        $curl->curl_close($ch);
+        $actualResponse = $curl->exec($ch);
+        $curl->close($ch);
 
         $this->assertEquals(self::DEFAULT_RESPONSE, $actualResponse);
     }
@@ -246,7 +246,7 @@ class CurlStubTest extends BaseTestCase
         $this->assertEquals($expectedErrorMessage2, $actualErrorMessage);
     }
 
-    public function testSetInfo()
+    public function testSetInformation()
     {
         $curl = $this->curlStub;
 
@@ -264,7 +264,7 @@ class CurlStubTest extends BaseTestCase
         $requiredOptions = array(
             CURLOPT_URL => $url
         );
-        $curl->setInfo($explicitInfo, $requiredOptions);
+        $curl->setInformation($explicitInfo, $requiredOptions);
 
         $actualHttpCode = $this->getInfoFromCurl($url, CURLINFO_HTTP_CODE);
         $actualTotalTime = $this->getInfoFromCurl($url, CURLINFO_TOTAL_TIME);
@@ -320,7 +320,7 @@ class CurlStubTest extends BaseTestCase
         $requiredOptions3 = array(
             CURLOPT_URL => $url3
         );
-        $curl->setInfo($explicitInfo3, $requiredOptions3);
+        $curl->setInformation($explicitInfo3, $requiredOptions3);
 
         // most specific case
         $actualResponse = $this->getResponseFromCurl($url1, $requiredOptions1);
@@ -382,14 +382,14 @@ class CurlStubTest extends BaseTestCase
     private function getResultFromCurl($url, $options, $returnFlag, $opt = 0)
     {
         $curl = $this->curlStub;
-        $ch = $curl->curl_init($url);
+        $ch = $curl->init($url);
 
         if ($options != null) {
-            $curl->curl_setopt_array($ch, $options);
+            $curl->setopt_array($ch, $options);
         }
 
         ob_start();
-        $curl->curl_exec($ch);
+        $curl->exec($ch);
         $actualResponse = ob_get_clean();
 
         $result = null;
@@ -400,17 +400,17 @@ class CurlStubTest extends BaseTestCase
             $result = $actualResponse;
             break;
         case self::RETURN_ERRORCODE:
-            $result = $curl->curl_errno($ch);
+            $result = $curl->errno($ch);
             break;
         case self::RETURN_ERRORMESSAGE:
-            $result = $curl->curl_error($ch);
+            $result = $curl->error($ch);
             break;
         case self::RETURN_INFO:
-            $result = $curl->curl_getinfo($ch, $opt);
+            $result = $curl->getinfo($ch, $opt);
             break;
         }
 
-        $curl->curl_close($ch);
+        $curl->close($ch);
 
         return $result;
     }

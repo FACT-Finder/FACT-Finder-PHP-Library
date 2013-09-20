@@ -1,9 +1,9 @@
 <?php
-namespace FACTFinder\Test;
+namespace FACTFinder\Test\Core;
 
 use FACTFinder\Loader as FF;
 
-class ParametersConverterTest extends BaseTestCase
+class ParametersConverterTest extends \FACTFinder\Test\BaseTestCase
 {
     /**
      * @var FACTFinder\Util\LoggerInterface

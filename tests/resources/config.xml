@@ -2,6 +2,7 @@
 <configuration>
     <test>
 		<debug>true</debug>
+		<custom>value</custom>
 
 		<connection>
 			<protocol>http</protocol> <!-- possible values: http, https -->

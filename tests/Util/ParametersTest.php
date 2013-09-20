@@ -1,10 +1,10 @@
 <?php
-namespace FACTFinder\Test;
+namespace FACTFinder\Test\Util;
 
 use FACTFinder\Loader as FF;
 
 
-class ParameterTest extends BaseTestCase
+class ParameterTest extends \FACTFinder\Test\BaseTestCase
 {
     /**
      * @var FACTFinder\Util\LoggerInterface
@@ -140,12 +140,22 @@ class ParameterTest extends BaseTestCase
             'a b' => 'c d'
         ));
 
-        // This assertion is actually too rigid, because we don't really want to
-        // make any assumptions about the order of the parameters.
+        $expectedHttpHeaders = array(
+            'query: bmx',
+            'id: 123,456',
+            'a b: c d'
+        );
+
+        // These assertions are actually too rigid, because we don't really want
+        // to make any assumptions about the order of the parameters.
         $this->assertEquals('query=bmx&id%5B0%5D=123&id%5B1%5D=456&a+b=c+d',
                             $this->parameters->toPhpQueryString());
         $this->assertEquals('query=bmx&id=123&id=456&a+b=c+d',
                             $this->parameters->toJavaQueryString());
+
+        // Here, the order is actually important.
+        $this->assertEquals($expectedHttpHeaders,
+                            $this->parameters->toHttpHeaderFields());
     }
 
     public function testClone()

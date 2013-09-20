@@ -1,5 +1,5 @@
 <?php
-namespace FACTFinder\Core;
+namespace FACTFinder\Core\Client;
 
 use FACTFinder\Loader as FF;
 
@@ -32,8 +32,8 @@ class RequestParser
      */
     function __construct(
         $loggerClass,
-        ConfigurationInterface $configuration,
-        AbstractEncodingConverter $encodingConverter
+        \FACTFinder\Core\ConfigurationInterface $configuration,
+        \FACTFinder\Core\AbstractEncodingConverter $encodingConverter
     ) {
         $this->log = $loggerClass::getLogger(__CLASS__);
         $this->configuration = $configuration;

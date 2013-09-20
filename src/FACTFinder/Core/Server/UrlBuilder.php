@@ -1,5 +1,5 @@
 <?php
-namespace FACTFinder\Core;
+namespace FACTFinder\Core\Server;
 
 use FACTFinder\Loader as FF;
 
@@ -29,12 +29,38 @@ class UrlBuilder
      */
     public function __construct(
         $loggerClass,
-        ConfigurationInterface $configuration
+        \FACTFinder\Core\ConfigurationInterface $configuration
     ) {
         $this->log = $loggerClass::getLogger(__CLASS__);
         $this->log->info("Initializing URL Builder.");
 
         $this->configuration = $configuration;
+    }
+
+    /**
+     * Get URL without authentication data.
+     * Note that this method may set a channel parameter if there is none
+     * already.
+     *
+     * @param string $action The action to be targeted on the FACT-Finder
+     *        server.
+     * @param FACTFinder\Util\Parameters $parameters The parameters object from
+     *        which to build the URL.
+     *
+     * @return string The full URL.
+     */
+    public function getNonAuthenticationUrl(
+        $action,
+        \FACTFinder\Util\Parameters $parameters
+    ) {
+        $configuration = $this->configuration;
+
+        $this->ensureChannelParameter($parameters);
+
+        $url = $this->buildAddress($action)
+             . (count($parameters) ? '?' : '') . $parameters->toJavaQueryString();
+
+        return $url;
     }
 
     /**
@@ -160,30 +186,6 @@ class UrlBuilder
              . (count($parameters) ? '?' : '') . $parameters->toJavaQueryString();
 
         $this->log->info("Request Url: " . $url);
-        return $url;
-    }
-
-    /**
-     * Get URL without authentication data.
-     *
-     * @param string $action The action to be targeted on the FACT-Finder
-     *        server.
-     * @param FACTFinder\Util\Parameters $parameters The parameters object from
-     *        which to build the URL.
-     *
-     * @return string The full URL.
-     */
-    public function getNonAuthenticationUrl(
-        $action,
-        \FACTFinder\Util\Parameters $parameters
-    ) {
-        $configuration = $this->configuration;
-
-        $this->ensureChannelParameter($parameters);
-
-        $url = $this->buildAddress($action)
-             . (count($parameters) ? '?' : '') . $parameters->toJavaQueryString();
-
         return $url;
     }
 

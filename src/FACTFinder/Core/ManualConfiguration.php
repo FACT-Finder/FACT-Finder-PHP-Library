@@ -24,6 +24,11 @@ class ManualConfiguration implements ConfigurationInterface
         return $this->configuration[$name];
     }
 
+    public function isDebugEnabled()
+    {
+        return $this->configuration['debug'];
+    }
+
     public function getVersion()
     {
         return $this->configuration['version'];

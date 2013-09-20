@@ -1,9 +1,9 @@
 <?php
-namespace FACTFinder\Test;
+namespace FACTFinder\Test\Core;
 
 use FACTFinder\Loader as FF;
 
-class XmlConfigurationTest extends BaseTestCase
+class XmlConfigurationTest extends \FACTFinder\Test\BaseTestCase
 {
     /**
      * @var FACTFinder\Util\LoggerInterface
@@ -24,20 +24,26 @@ class XmlConfigurationTest extends BaseTestCase
         $this->configuration = $this->dic['configuration'];
     }
 
+    public function testTopLevelSettings()
+    {
+        $this->assertTrue($this->configuration->isDebugEnabled());
+        $this->assertEquals('value', $this->configuration->getCustomValue('custom'));
+    }
+
     public function testConnectionSettings()
     {
-        $this->assertEquals("http", $this->configuration->getRequestProtocol());
-        $this->assertEquals("demoshop.fact-finder.de", $this->configuration->getServerAddress());
+        $this->assertEquals('http', $this->configuration->getRequestProtocol());
+        $this->assertEquals('demoshop.fact-finder.de', $this->configuration->getServerAddress());
         $this->assertEquals(80, $this->configuration->getServerPort());
-        $this->assertEquals("FACT-Finder6.7", $this->configuration->getContext());
-        $this->assertEquals("de", $this->configuration->getChannel());
-        $this->assertEquals("de", $this->configuration->getLanguage());
+        $this->assertEquals('FACT-Finder6.7', $this->configuration->getContext());
+        $this->assertEquals('de', $this->configuration->getChannel());
+        $this->assertEquals('de', $this->configuration->getLanguage());
 
         $this->assertTrue($this->configuration->isAdvancedAuthenticationType());
-        $this->assertEquals("user", $this->configuration->getUserName());
-        $this->assertEquals("userpw", $this->configuration->getPassword());
-        $this->assertEquals("FACT-FINDER", $this->configuration->getAuthenticationPrefix());
-        $this->assertEquals("FACT-FINDER", $this->configuration->getAuthenticationPostfix());
+        $this->assertEquals('user', $this->configuration->getUserName());
+        $this->assertEquals('userpw', $this->configuration->getPassword());
+        $this->assertEquals('FACT-FINDER', $this->configuration->getAuthenticationPrefix());
+        $this->assertEquals('FACT-FINDER', $this->configuration->getAuthenticationPostfix());
 
         $this->assertEquals(2,   $this->configuration->getDefaultConnectTimeout());
         $this->assertEquals(4,   $this->configuration->getDefaultTimeout());
@@ -52,21 +58,21 @@ class XmlConfigurationTest extends BaseTestCase
     public function testParameterSettings()
     {
         $expectedIgnoredServerParameters = array(
-            "sid" => true,
-            "password" => true,
-            "username" => true,
-            "timestamp" => true
+            'sid' => true,
+            'password' => true,
+            'username' => true,
+            'timestamp' => true
         );
 
         $this->assertEquals($expectedIgnoredServerParameters, $this->configuration->getIgnoredServerParameters());
 
         $expectedIgnoredClientParameters = array(
-            "xml" => true,
-            "format" => true,
-            "channel" => true,
-            "password" => true,
-            "username" => true,
-            "timestamp" => true
+            'xml' => true,
+            'format' => true,
+            'channel' => true,
+            'password' => true,
+            'username' => true,
+            'timestamp' => true
         );
 
         $this->assertEquals($expectedIgnoredClientParameters, $this->configuration->getIgnoredClientParameters());
@@ -76,19 +82,19 @@ class XmlConfigurationTest extends BaseTestCase
         $this->assertEquals($expectedRequiredServerParameters, $this->configuration->getRequiredServerParameters());
 
         $expectedRequiredClientParameters = array(
-            "test" => "value"
+            'test' => 'value'
         );
 
         $this->assertEquals($expectedRequiredClientParameters, $this->configuration->getRequiredClientParameters());
 
         $expectedServerMappings = array(
-            "keywords" => "query"
+            'keywords' => 'query'
         );
 
         $this->assertEquals($expectedServerMappings, $this->configuration->getServerMappings());
 
         $expectedClientMappings = array(
-            "query" => "keywords"
+            'query' => 'keywords'
         );
 
         $this->assertEquals($expectedClientMappings, $this->configuration->getClientMappings());

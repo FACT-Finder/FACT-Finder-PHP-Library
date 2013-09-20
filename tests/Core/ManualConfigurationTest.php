@@ -1,10 +1,10 @@
 <?php
-namespace FACTFinder\Test;
+namespace FACTFinder\Test\Core;
 
 use FACTFinder\Loader as FF;
 use FACTFinder\Core\ManualConfiguration;
 
-class ManualConfigurationTest extends BaseTestCase
+class ManualConfigurationTest extends \FACTFinder\Test\BaseTestCase
 {
     /**
      * @var FACTFinder\Util\LoggerInterface

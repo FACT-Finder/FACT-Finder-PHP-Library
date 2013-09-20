@@ -39,6 +39,11 @@ class XmlConfiguration implements ConfigurationInterface
         $this->configuration = $xmlData->$element;
     }
 
+    public function isDebugEnabled()
+    {
+        return (string)$this->configuration->debug == 'true';
+    }
+
     public function getVersion()
     {
         return (string)$this->configuration->version;
