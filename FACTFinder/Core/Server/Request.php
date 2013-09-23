@@ -11,7 +11,6 @@ class Request
     /**
      * @var int
      */
-    static private $nextId = 0;
     private $id;
 
     /**
@@ -27,13 +26,11 @@ class Request
     public function __construct(
         $loggerClass,
         ConnectionData $connectionData,
-        DataProviderInterface $dataProvider
+        AbstractDataProvider $dataProvider
     ) {
         $this->log = $loggerClass::getLogger(__CLASS__);
 
-        $this->id = self::$nextId++;
-
-        $dataProvider->register($id, $connectionData);
+        $this->id = $dataProvider->register($connectionData);
 
         $this->connectionData = $connectionData;
         $this->dataProvider = $dataProvider;
@@ -41,7 +38,7 @@ class Request
 
     public function __destruct()
     {
-        $this->dataProvider->unregister($id);
+        $this->dataProvider->unregister($this->id);
     }
 
     /**

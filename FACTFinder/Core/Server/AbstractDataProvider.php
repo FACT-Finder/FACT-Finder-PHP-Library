@@ -19,6 +19,11 @@ abstract class AbstractDataProvider
      */
     protected $connectionData;
 
+    /**
+     * @var int
+     */
+    static private $nextId = 0;
+
     public function __construct(
         $loggerClass,
         \FACTFinder\Core\ConfigurationInterface $configuration
@@ -30,28 +35,25 @@ abstract class AbstractDataProvider
     }
 
     /**
-     * Make a connection data object known to the data provider and link it to a
-     * specific ID.
+     * Make a connection data object known to the data provider and obtain an ID
+     * for it (basically, a handle).
      *
-     * @param mixed $id The ID by which to refer to the connection data in the
-     *        future. This could in principle be any type, but anything other
-     *        than strings or integers will be converted to a string (as the ID
-     *        is used as an array index).
      * @param ConnectionData $connectionData The connection data object to be
      *        registered.
      *
+     * @param int The ID by which to refer to the connection data in the future.
+     *
      * @throws InvalidArgumentException if the $id is already in use.
      */
-    public function register(
-        $id,
-        ConnectionData $connectionData
-    ) {
-        if (isset($this->connectionData[$id]))
-            throw new InvalidArgumentException("Given ID $id already in use.");
+    public function register(ConnectionData $connectionData)
+    {
+        $id = self::$nextId++;
 
         $this->connectionData[$id] = $connectionData;
 
         $this->log->debug("Registered connection data for ID $id.");
+
+        return $id;
     }
 
     /**

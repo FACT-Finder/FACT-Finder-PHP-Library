@@ -1,6 +1,8 @@
 <?php
 namespace FACTFinder\Core\Server;
 
+use FACTFinder\Loader as FF;
+
 class ConnectionData
 {
     /**
@@ -35,7 +37,10 @@ class ConnectionData
 
     public function __construct()
     {
-        // TODO: Initialize $this->response with null object.
+        $this->parameters = FF::getInstance('Util\Parameters');
+        $this->httpHeaderFields = FF::getInstance('Util\Parameters');
+        $this->action = '';
+        $this->setNullResponse();
     }
 
     /**
@@ -93,7 +98,7 @@ class ConnectionData
      */
     public function setConnectionOption($name, $value)
     {
-        $this->connectionOption[$name] = $value;
+        $this->connectionOptions[$name] = $value;
     }
 
     /**
@@ -105,8 +110,11 @@ class ConnectionData
      */
     public function setConnectionOptions($options)
     {
-        $this->connectionOptions = array_merge($this->connectionOptions,
-                                               $options);
+        // We cannot use array_merge() here, because that does not preserve
+        // numeric keys. Implementing this with a loop also has the advantage
+        // of not creating a new, third array.
+        foreach ($options as $k => $v)
+            $this->connectionOptions[$k] = $v;
     }
 
     /**
@@ -122,7 +130,7 @@ class ConnectionData
      * @param mixed $name The option's identifier.
      * @return mixed The option's value.
      */
-    public function getConnectionOptions($name)
+    public function getConnectionOption($name)
     {
         return $this->connectionOptions[$name];
     }
@@ -137,24 +145,15 @@ class ConnectionData
     }
 
     /**
-     * @return True, if a Response object has previously been set for this
-     * connection. False, otherwise.
-     */
-    public function isResponseSet()
-    {
-        return is_null($this->response);
-    }
-
-    /**
      * Set a response for the current connection settings along with the URL
      * which was used to obtain the response.
      * @param Response $response
      * @param string $url The URL corresponding to $response.
      */
-    public function setReponse(Response $response, $url)
+    public function setResponse(Response $response, $url)
     {
         $this->response = $response;
-        $this->previousUrl = $previousUrl;
+        $this->previousUrl = $url;
     }
 
     /**
@@ -163,7 +162,7 @@ class ConnectionData
      */
     public function setNullResponse()
     {
-        $this->response = FF::getInstance('Core\Server\Util');
+        $this->response = FF::getInstance('Core\Server\NullResponse');
         $this->previousUrl = null;
     }
 

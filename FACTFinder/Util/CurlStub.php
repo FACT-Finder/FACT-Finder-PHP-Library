@@ -305,7 +305,7 @@ class CurlStub implements CurlInterface
         25 => 'CURLE_UPLOAD_FAILED',
         26 => 'CURLE_READ_ERROR',
         27 => 'CURLE_OUT_OF_MEMORY',
-        28 => 'CURLE_OPERATION_TIMEOUTED', // in the original cURL lib this is called 'CURLE_OPERATION_TIMEOUTED' instead
+        28 => 'CURLE_OPERATION_TIMEOUTED', // in the original cURL lib this is called 'CURLE_OPERATION_TIMEDOUT' instead
         30 => 'CURLE_FTP_PORT_FAILED',
         31 => 'CURLE_FTP_COULDNT_USE_REST',
         33 => 'CURLE_RANGE_ERROR',
@@ -354,7 +354,7 @@ class CurlStub implements CurlInterface
         81 => 'CURLE_AGAIN',
         82 => 'CURLE_SSL_CRL_BADFILE',
         83 => 'CURLE_SSL_ISSUER_ERROR',
-        84 => 'CURL E_FTP_PRET_FAILED',
+        84 => 'CURLE_FTP_PRET_FAILED',
         85 => 'CURLE_RTSP_CSEQ_ERROR',
         86 => 'CURLE_RTSP_SESSION_ERROR',
         87 => 'CURLE_FTP_BAD_FILE_LIST',
