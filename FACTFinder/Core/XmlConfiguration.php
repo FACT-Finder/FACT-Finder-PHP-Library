@@ -106,7 +106,7 @@ class XmlConfiguration implements ConfigurationInterface
                                                      ->connection
                                                      ->authentication
                                                      ->type;
-        return $this->authenticationType;
+        return strtolower($this->authenticationType);
     }
 
     public function setAuthenticationType($type)
