@@ -277,7 +277,7 @@ class Parameters implements \ArrayAccess, \Countable
             %5B       # URL encoded "["
             (?:       # start non-capturing group
               (?!%5D) # make sure the next character does not start "%5D"
-              [^=]    # consume the character if it is no "="
+              [^=&]   # consume the character if it is no "=" or "&"
             )*        # end of group; repeat
             %5D       # URL encoded "]"
             (?=       # lookahead to ensure the match is inside a parameter name

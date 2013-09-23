@@ -50,5 +50,29 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
                 );
             }
         );
+
+        $this->dic['urlBuilder'] = function($c) {
+            return FF::getInstance(
+                'Core\Server\UrlBuilder',
+                $c['loggerClass'],
+                $c['configuration']
+            );
+        };
+
+        $this->dic['curlStub'] = $this->dic->share(function($c) {
+            return FF::getInstance('Util\CurlStub');
+        });
+
+        $this->dic['dataProvider'] = function($c) {
+            $dataProvider = FF::getInstance(
+                'Core\Server\FileSystemDataProvider',
+                $c['loggerClass'],
+                $c['configuration']
+            );
+
+            $dataProvider->setFileLocation(RESOURCES_DIR . DS . 'responses');
+
+            return $dataProvider;
+        };
     }
 }

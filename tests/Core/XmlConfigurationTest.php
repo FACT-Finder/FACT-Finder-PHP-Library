@@ -35,7 +35,7 @@ class XmlConfigurationTest extends \FACTFinder\Test\BaseTestCase
         $this->assertEquals('http', $this->configuration->getRequestProtocol());
         $this->assertEquals('demoshop.fact-finder.de', $this->configuration->getServerAddress());
         $this->assertEquals(80, $this->configuration->getServerPort());
-        $this->assertEquals('FACT-Finder6.7', $this->configuration->getContext());
+        $this->assertEquals('FACT-Finder', $this->configuration->getContext());
         $this->assertEquals('de', $this->configuration->getChannel());
         $this->assertEquals('de', $this->configuration->getLanguage());
 

@@ -28,7 +28,7 @@
             "name": "FACT-Finder PHP Library",
             "cmd": ["phpunit", "--bootstrap", "bootstrap.php", "."],
             "shell": "true",
-            "file_regex": "^(?:Warning|Error|Fatal error|Parse error|Exception):(?=.*in (.*) on line (\\d+)())? ((?:(?! in ).)*)",
+            "file_regex": "^(?:Notice|Warning|Error|Fatal error|Parse error|Exception):(?=.*in (.*) on line (\\d+)())? ((?:(?! in ).)*)",
             "working_dir": "$project_path/tests"
         }
     ]

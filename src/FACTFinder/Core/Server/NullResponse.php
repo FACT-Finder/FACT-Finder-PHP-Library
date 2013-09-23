@@ -12,5 +12,5 @@ class NullResponse extends Response
     public function getContent() { return ''; }
     public function getHttpCode() { return 0; }
     public function getConnectionErrorNumber() { return 0; }
-    public function getConnectionError() { return 'Nö!'; }
+    public function getConnectionError() { return ''; }
 }

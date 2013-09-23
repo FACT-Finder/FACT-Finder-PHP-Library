@@ -8,7 +8,7 @@
 			<protocol>http</protocol> <!-- possible values: http, https -->
 			<address>demoshop.fact-finder.de</address>
 			<port>80</port>
-			<context>FACT-Finder6.7</context>
+			<context>FACT-Finder</context>
 			<channel>de</channel>
 			<language>de</language>
 			<authentication>

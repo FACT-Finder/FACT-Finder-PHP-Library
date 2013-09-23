@@ -16,7 +16,7 @@ class Response
     /**
      * @var int
      */
-    private $connectionErrorNumber;
+    private $connectionErrorCode;
 
     /**
      * @var string
@@ -26,12 +26,12 @@ class Response
     public function __construct(
         $content,
         $httpCode,
-        $connectionErrorNumber,
+        $connectionErrorCode,
         $connectionError
     ) {
         $this->content = $content;
         $this->httpCode = $httpCode;
-        $this->connectionErrorNumber = $connectionErrorNumber;
+        $this->connectionErrorCode = $connectionErrorCode;
         $this->connectionError = $connectionError;
     }
 
@@ -54,9 +54,9 @@ class Response
     /**
      * @return int
      */
-    public function getConnectionErrorNumber()
+    public function getConnectionErrorCode()
     {
-        return $this->connectionErrorNumber;
+        return $this->connectionErrorCode;
     }
 
     /**
