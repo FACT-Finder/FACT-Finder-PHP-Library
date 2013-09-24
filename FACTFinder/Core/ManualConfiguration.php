@@ -29,11 +29,6 @@ class ManualConfiguration implements ConfigurationInterface
         return $this->configuration['debug'];
     }
 
-    public function getVersion()
-    {
-        return $this->configuration['version'];
-    }
-
     public function getRequestProtocol()
     {
         return $this->configuration['requestProtocol'];
@@ -101,7 +96,7 @@ class ManualConfiguration implements ConfigurationInterface
 
     public function getAuthenticationPostfix()
     {
-        return $this->configuration['postfix'];
+        return $this->configuration['authenticationPostfix'];
     }
 
     public function getClientMappings()
