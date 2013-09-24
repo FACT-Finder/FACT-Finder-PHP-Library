@@ -44,11 +44,6 @@ class XmlConfiguration implements ConfigurationInterface
         return (string)$this->configuration->debug == 'true';
     }
 
-    public function getVersion()
-    {
-        return (string)$this->configuration->version;
-    }
-
     public function getCustomValue($name)
     {
         return (string)$this->configuration->$name;
@@ -109,9 +104,19 @@ class XmlConfiguration implements ConfigurationInterface
         return strtolower($this->authenticationType);
     }
 
-    public function setAuthenticationType($type)
+    public function makeHttpAuthenticationType()
     {
-        $this->authenticationType = $type;
+        $this->authenticationType = self::HTTP_AUTHENTICATION;
+    }
+
+    public function makeSimpleAuthenticationType()
+    {
+        $this->authenticationType = self::SIMPLE_AUTHENTICATION;
+    }
+
+    public function makeAdvancedAuthenticationType()
+    {
+        $this->authenticationType = self::ADVANCED_AUTHENTICATION;
     }
 
     public function getUserName()

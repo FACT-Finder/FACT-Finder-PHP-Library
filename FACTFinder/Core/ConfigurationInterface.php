@@ -9,11 +9,6 @@ interface ConfigurationInterface
     public function isDebugEnabled();
 
     /**
-     * @return string
-     */
-    public function getVersion();
-
-    /**
      * @param string name
      * @return string value
      */
