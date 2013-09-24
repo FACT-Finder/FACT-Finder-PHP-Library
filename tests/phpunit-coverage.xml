@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         syntaxCheck="false"
+         bootstrap="./bootstrap.php"
+>
+    <testsuites>
+        <testsuite name="FACT-Finder PHP Library">
+            <directory>./</directory>
+        </testsuite>
+    </testsuites>
+
+    <logging>
+        <log type="coverage-html" target="./report" charset="UTF-8"
+             lowUpperBound="40" highLowerBound="80" />
+    </logging>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory>../src/FACTFinder</directory>
+            <exclude>
+                <file>../src/FACTFinder/Util/Pimple.php</file>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>

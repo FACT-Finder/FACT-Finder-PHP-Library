@@ -4,9 +4,9 @@ namespace FACTFinder\Core\Server;
 use \FACTFinder\Loader as FF;
 
 /**
- * This implementation backs the Request with an EasyCurlDataProvider.
+ * This implementation backs the Request with a FileSystemDataProvider.
  */
-class EasyCurlRequestFactory implements RequestFactoryInterface
+class FileSystemRequestFactory implements RequestFactoryInterface
 {
     /**
      * @var \FACTFinder\Util\LoggerInterface
@@ -20,29 +20,32 @@ class EasyCurlRequestFactory implements RequestFactoryInterface
     protected $configuration;
 
     /**
-     * @var EasyCurlDataProvider
+     * @var FileSystemDataProvider
      */
     private $dataProvider;
 
     public function __construct(
         $loggerClass,
-        \FACTFinder\Core\ConfigurationInterface $configuration,
-        \FACTFinder\Util\CurlInterface $curl
+        \FACTFinder\Core\ConfigurationInterface $configuration
     ) {
         $this->loggerClass = $loggerClass;
         $this->log = $loggerClass::getLogger(__CLASS__);
         $this->configuration = $configuration;
 
-        $urlBuilder = FF::getInstance('Core\Server\UrlBuilder',
+        $this->dataProvider = FF::getInstance('Core\Server\FileSystemDataProvider',
             $loggerClass,
             $configuration
         );
-        $this->dataProvider = FF::getInstance('Core\Server\EasyCurlDataProvider',
-            $loggerClass,
-            $configuration,
-            $curl,
-            $urlBuilder
-        );
+    }
+
+    public function setFileLocation($path)
+    {
+        $this->dataProvider->setFileLocation($path);
+    }
+
+    public function setFileExtension($extension)
+    {
+        $this->dataProvider->setFileExtension($extension);
     }
 
     /**

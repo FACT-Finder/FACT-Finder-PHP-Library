@@ -3,7 +3,7 @@ namespace FACTFinder\Test\Core\Server;
 
 use FACTFinder\Loader as FF;
 
-class FileSystemDataProviderTest extends \FACTFinder\Test\BaseTestCase
+class FileSystemRequestFactoryTest extends \FACTFinder\Test\BaseTestCase
 {
     /**
      * @var FACTFinder\Util\LoggerInterface
@@ -16,16 +16,16 @@ class FileSystemDataProviderTest extends \FACTFinder\Test\BaseTestCase
     protected $configuration;
 
     /**
-     * @var FACTFinder\Core\Server\FileSystemDataProvider
+     * @var FACTFinder\Core\Server\FileSystemRequestFactory
      */
-    protected $dataProvider;
+    protected $factory;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->dataProvider = FF::getInstance(
-            'Core\Server\FileSystemDataProvider',
+        $this->factory = FF::getInstance(
+            'Core\Server\FileSystemRequestFactory',
             $this->dic['loggerClass'],
             $this->dic['configuration']
         );
@@ -36,24 +36,21 @@ class FileSystemDataProviderTest extends \FACTFinder\Test\BaseTestCase
         $this->configuration = $this->dic['configuration'];
     }
 
-    public function testLoadResponse()
+    public function testGetWorkingRequest()
     {
-        $this->dataProvider->setFileLocation(RESOURCES_DIR . DS . 'responses');
+        $this->factory->setFileLocation(RESOURCES_DIR . DS . 'responses');
         $this->configuration->makeHttpAuthenticationType();
 
-        $connectionData = FF::getInstance('Core\Server\ConnectionData');
-        $id = $this->dataProvider->register($connectionData);
+        $request = $this->factory->getRequest();
 
-        $parameters = $connectionData->getParameters();
+        $parameters = $request->getParameters();
 
         $parameters['format'] = 'json';
         $parameters['do'] = 'getTagCloud';
 
-        $connectionData->setAction('TagCloud.ff');
+        $request->setAction('TagCloud.ff');
 
-        $this->dataProvider->loadResponse($id);
-
-        $response = $connectionData->getResponse();
+        $response = $request->getResponse();
         $expectedContent = file_get_contents(RESOURCES_DIR . DS
                                              . 'responses' . DS
                                              . 'TagCloud_do=getTagCloud.json');

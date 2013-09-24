@@ -40,6 +40,8 @@ class XmlConfigurationTest extends \FACTFinder\Test\BaseTestCase
         $this->assertEquals('de', $this->configuration->getLanguage());
 
         $this->assertTrue($this->configuration->isAdvancedAuthenticationType());
+        $this->assertFalse($this->configuration->isSimpleAuthenticationType());
+        $this->assertFalse($this->configuration->isHttpAuthenticationType());
         $this->assertEquals('user', $this->configuration->getUserName());
         $this->assertEquals('userpw', $this->configuration->getPassword());
         $this->assertEquals('FACT-FINDER', $this->configuration->getAuthenticationPrefix());
@@ -104,5 +106,27 @@ class XmlConfigurationTest extends \FACTFinder\Test\BaseTestCase
     {
         $this->assertEquals('UTF-8', $this->configuration->getPageContentEncoding());
         $this->assertEquals('UTF-8', $this->configuration->getClientUrlEncoding());
+    }
+
+    public function testSetAuthenticationType()
+    {
+        $this->assertTrue($this->configuration->isAdvancedAuthenticationType());
+        $this->assertFalse($this->configuration->isSimpleAuthenticationType());
+        $this->assertFalse($this->configuration->isHttpAuthenticationType());
+
+        $this->configuration->makeSimpleAuthenticationType();
+        $this->assertFalse($this->configuration->isAdvancedAuthenticationType());
+        $this->assertTrue($this->configuration->isSimpleAuthenticationType());
+        $this->assertFalse($this->configuration->isHttpAuthenticationType());
+
+        $this->configuration->makeHttpAuthenticationType();
+        $this->assertFalse($this->configuration->isAdvancedAuthenticationType());
+        $this->assertFalse($this->configuration->isSimpleAuthenticationType());
+        $this->assertTrue($this->configuration->isHttpAuthenticationType());
+
+        $this->configuration->makeAdvancedAuthenticationType();
+        $this->assertTrue($this->configuration->isAdvancedAuthenticationType());
+        $this->assertFalse($this->configuration->isSimpleAuthenticationType());
+        $this->assertFalse($this->configuration->isHttpAuthenticationType());
     }
 }

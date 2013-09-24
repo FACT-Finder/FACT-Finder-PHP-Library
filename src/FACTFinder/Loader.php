@@ -114,26 +114,6 @@ class Loader
     }
 
     /**
-     * creates an instance of the class once and returns it every time.
-     *
-     * @param    string $name   Class name to instantiate
-     * @param    mixed optional Constructor parameters
-     * @return   object         A reference to the Singleton instance
-     */
-    public static function getSingleton($name)
-    {
-        if (!isset(self::$singletons[$name]))
-        {
-            $parameters = func_get_args();
-            self::$singletons[$name] = call_user_func_array(
-                                            array("self", "getInstance"),
-                                            $parameters
-                                       );
-        }
-        return self::$singletons[$name];
-    }
-
-    /**
      * Expects a fully qualified class name. if the leading namespace is omitted
      * or "FACTFinder", we first check whether there is a custom class in
      * namespace "FACTFinder\Custom\", then we look in "FACTFinder\". If none of

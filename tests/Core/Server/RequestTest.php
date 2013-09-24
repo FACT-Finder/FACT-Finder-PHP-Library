@@ -45,7 +45,7 @@ class RequestTest extends \FACTFinder\Test\BaseTestCase
 
     public function testGetResponse()
     {
-        $this->configuration->setAuthenticationType('http');
+        $this->configuration->makeHttpAuthenticationType();
 
         $parameters = $this->request->getParameters();
 

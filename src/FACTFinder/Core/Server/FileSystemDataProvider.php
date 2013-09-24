@@ -38,14 +38,14 @@ class FileSystemDataProvider extends AbstractDataProvider
     public function setTimeout($id, $timeout)
     { }
 
-    public function setFileLocation($loc)
+    public function setFileLocation($path)
     {
-        $this->fileLocation = ($loc[strlen($loc) -1] == DS) ? $loc : $loc . DS;
+        $this->fileLocation = ($path[strlen($path) -1] == DS) ? $path : $path . DS;
     }
 
-    public function setFileExtension($ext)
+    public function setFileExtension($extension)
     {
-        $this->fileExtension = ($ext[0] == '.') ? $ext : ".$ext";
+        $this->fileExtension = ($extension[0] == '.') ? $extension : ".$extension";
     }
 
     public function loadResponse($id)

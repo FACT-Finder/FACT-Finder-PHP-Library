@@ -45,7 +45,7 @@ class EasyCurlRequestFactoryTest extends \FACTFinder\Test\BaseTestCase
 
     public function testGetWorkingRequest()
     {
-        $this->configuration->setAuthenticationType('http');
+        $this->configuration->makeHttpAuthenticationType();
 
         $requiredOptions = array(
             CURLOPT_URL => 'http://user:userpw@demoshop.fact-finder.de:80/FACT-Finder/TagCloud.ff?format=json&do=getTagCloud&verbose=true&channel=de'

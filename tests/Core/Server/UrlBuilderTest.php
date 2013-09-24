@@ -67,7 +67,7 @@ class UrlBuilderTest extends \FACTFinder\Test\BaseTestCase
 
     public function testSimpleAuthenticationUrl()
     {
-        $this->configuration->setAuthenticationType('simple');
+        $this->configuration->makeSimpleAuthenticationType();
 
         $expectedAction = 'Test.ff';
 
@@ -94,7 +94,7 @@ class UrlBuilderTest extends \FACTFinder\Test\BaseTestCase
 
     public function testAdvancedAuthenticationUrl()
     {
-        $this->configuration->setAuthenticationType('advanced');
+        $this->configuration->makeAdvancedAuthenticationType();
 
         $expectedAction = 'Test.ff';
 
@@ -132,7 +132,7 @@ class UrlBuilderTest extends \FACTFinder\Test\BaseTestCase
 
     public function testHttpAuthenticationUrl()
     {
-        $this->configuration->setAuthenticationType('http');
+        $this->configuration->makeHttpAuthenticationType();
 
         $expectedAction = 'Test.ff';
 
