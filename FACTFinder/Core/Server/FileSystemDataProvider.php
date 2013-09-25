@@ -21,7 +21,6 @@ class FileSystemDataProvider extends AbstractDataProvider
      * @var string
      */
     protected $fileLocation;
-    protected $fileExtension = ".json";
 
     public function __construct(
         $loggerClass,
@@ -41,11 +40,6 @@ class FileSystemDataProvider extends AbstractDataProvider
     public function setFileLocation($path)
     {
         $this->fileLocation = ($path[strlen($path) -1] == DS) ? $path : $path . DS;
-    }
-
-    public function setFileExtension($extension)
-    {
-        $this->fileExtension = ($extension[0] == '.') ? $extension : ".$extension";
     }
 
     public function loadResponse($id)
@@ -91,6 +85,11 @@ class FileSystemDataProvider extends AbstractDataProvider
 
         $parameters = clone $connectionData->getParameters();
 
+        if (isset($parameters['format']))
+            $fileExtension = '.' . $parameters['format'];
+        else
+            $fileExtension = '.raw';
+
         unset($parameters['format']);
         unset($parameters['user']);
         unset($parameters['pw']);
@@ -102,7 +101,7 @@ class FileSystemDataProvider extends AbstractDataProvider
         ksort($rawParameters, SORT_STRING);
 
         $fileName .= http_build_query($rawParameters, '', '_');
-        $fileName .= $this->fileExtension;
+        $fileName .= $fileExtension;
 
         // TODO: Get rid of duplicate code (see Parameters::toJavaQueryString()).
         // The following preg_replace removes all []-indices from array
