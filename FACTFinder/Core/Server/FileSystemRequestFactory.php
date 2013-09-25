@@ -43,11 +43,6 @@ class FileSystemRequestFactory implements RequestFactoryInterface
         $this->dataProvider->setFileLocation($path);
     }
 
-    public function setFileExtension($extension)
-    {
-        $this->dataProvider->setFileExtension($extension);
-    }
-
     /**
      * Returns a request object all wired up and ready for use.
      * @return Request
