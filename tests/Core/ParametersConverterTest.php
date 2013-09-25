@@ -44,6 +44,7 @@ class ParametersConverterTest extends \FACTFinder\Test\BaseTestCase
             'query' => 'test',
             'productsPerPage' => '12',
             'channel' => 'de',
+            'test' => 'value',
         );
 
         $actualServerParameters = $this->parametersConverter
@@ -62,12 +63,13 @@ class ParametersConverterTest extends \FACTFinder\Test\BaseTestCase
         $clientParameters = FF::getInstance(
             'Util\Parameters',
             array(
-                'channel' => 'en'
+                'channel' => 'en',
             )
         );
 
         $expectedServerParameters = array(
-            'channel' => 'en'
+            'channel' => 'en',
+            'test' => 'value',
         );
 
         $actualServerParameters = $this->parametersConverter
@@ -93,14 +95,13 @@ class ParametersConverterTest extends \FACTFinder\Test\BaseTestCase
                 'timestamp' => '123456789',
                 'password' => 'test',
                 'channel' => 'de',
-                'productsPerPage' => '12'
+                'productsPerPage' => '12',
             )
         );
 
         $expectedClientParameters = array(
             'keywords' => 'test',
             'productsPerPage' => '12',
-            'test' => 'value'
         );
 
         $actualClientParameters = $this->parametersConverter

@@ -33,8 +33,10 @@ class TagCloudTest extends \FACTFinder\Test\BaseTestCase
             self::$dic['loggerClass'],
             self::$dic['configuration'],
             self::$dic['request'],
-            self::$dic['parametersConverter']
+            self::$dic['clientUrlBuilder']
         );
+
+        $_SERVER['REQUEST_URI'] = '/index.php';
     }
 
     public function testGetTagCloud()
@@ -43,9 +45,10 @@ class TagCloudTest extends \FACTFinder\Test\BaseTestCase
 
         $this->assertEquals(5, count($tagCloud), 'wrong number of tag queries delivered');
         $this->assertInstanceOf('FACTFinder\Data\TagQuery', $tagCloud[0], 'tag cloud element is no tag query');
+        $this->assertEquals('28+zoll+damen', $tagCloud[0]->getLabel(), 'wrong query delivered for first tag query');
+        $this->assertEquals('/index.php?keywords=28%2Bzoll%2Bdamen', $tagCloud[0]->getUrl(), 'wrong url delivered for first tag query');
         $this->assertEquals(0.561, $tagCloud[0]->getWeight(), 'wrong weight delivered for first tag query', 0.0001);
         $this->assertEquals(1266, $tagCloud[0]->getSearchCount(), 'wrong search count delivered for first tag query');
-        $this->assertEquals("28+zoll+damen", $tagCloud[0]->getLabel(), 'wrong query delivered for first tag query');
         $this->assertFalse($tagCloud[0]->isSelected(), 'first tag query should not be selected');
     }
 
@@ -56,9 +59,10 @@ class TagCloudTest extends \FACTFinder\Test\BaseTestCase
 
         $this->assertEquals(3, count($tagCloud), 'wrong number of tag queries delivered');
         $this->assertInstanceOf('FACTFinder\Data\TagQuery', $tagCloud[0], 'tag cloud element is no tag query');
+        $this->assertEquals('28+zoll+damen', $tagCloud[0]->getLabel(), 'wrong query delivered for first tag query');
+        $this->assertEquals('/index.php?keywords=28%2Bzoll%2Bdamen', $tagCloud[0]->getUrl(), 'wrong url delivered for first tag query');
         $this->assertEquals(0.561, $tagCloud[0]->getWeight(), 'wrong weight delivered for first tag query', 0.0001);
         $this->assertEquals(1266, $tagCloud[0]->getSearchCount(), 'wrong search count delivered for first tag query');
-        $this->assertEquals("28+zoll+damen", $tagCloud[0]->getLabel(), 'wrong query delivered for first tag query');
         $this->assertFalse($tagCloud[0]->isSelected(), 'first tag query should not be selected');
     }
 

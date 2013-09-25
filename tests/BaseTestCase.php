@@ -56,11 +56,21 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
             }
         );
 
-        self::$dic['urlBuilder'] = function($c) {
+        self::$dic['serverUrlBuilder'] = function($c) {
             return FF::getInstance(
                 'Core\Server\UrlBuilder',
                 $c['loggerClass'],
                 $c['configuration']
+            );
+        };
+
+        self::$dic['clientUrlBuilder'] = function($c) {
+            return FF::getInstance(
+                'Core\Client\UrlBuilder',
+                $c['loggerClass'],
+                $c['parametersConverter'],
+                $c['requestParser'],
+                $c['encodingConverter']
             );
         };
 

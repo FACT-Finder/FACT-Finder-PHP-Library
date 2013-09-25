@@ -35,7 +35,7 @@ class EasyCurlDataProviderTest extends \FACTFinder\Test\BaseTestCase
             self::$dic['loggerClass'],
             self::$dic['configuration'],
             $this->curlStub,
-            self::$dic['urlBuilder']
+            self::$dic['serverUrlBuilder']
         );
 
         $loggerClass = self::$dic['loggerClass'];

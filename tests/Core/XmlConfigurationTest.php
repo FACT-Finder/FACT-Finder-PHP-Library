@@ -79,13 +79,13 @@ class XmlConfigurationTest extends \FACTFinder\Test\BaseTestCase
 
         $this->assertEquals($expectedIgnoredClientParameters, $this->configuration->getIgnoredClientParameters());
 
-        $expectedRequiredServerParameters = array();
+        $expectedRequiredServerParameters = array(
+            'test' => 'value'
+        );
 
         $this->assertEquals($expectedRequiredServerParameters, $this->configuration->getRequiredServerParameters());
 
-        $expectedRequiredClientParameters = array(
-            'test' => 'value'
-        );
+        $expectedRequiredClientParameters = array();
 
         $this->assertEquals($expectedRequiredClientParameters, $this->configuration->getRequiredClientParameters());
 

@@ -39,6 +39,7 @@
 				<ignore name="username" />
 				<ignore name="timestamp" />
 				<mapping from="keywords" to="query" />
+				<require name="test" default="value" />
 			</server>
 
 			<!-- parameter settings for the client -->
@@ -50,7 +51,6 @@
 				<ignore name="username" />
 				<ignore name="timestamp" />
 				<mapping from="query" to="keywords" />
-				<require name="test" default="value" />
 			</client>
 		</parameters>
 
