@@ -1,6 +1,10 @@
 <?php
 namespace FACTFinder\Core;
 
+/**
+ * Implements ConfigurationInterface by reading from an XML file. Also allows
+ * for some values to be changed later on.
+ */
 class XmlConfiguration implements ConfigurationInterface
 {
     const HTTP_AUTHENTICATION     = 'http';

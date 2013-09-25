@@ -1,6 +1,11 @@
 <?php
 namespace FACTFinder\Core;
 
+/**
+ * Quick-and-dirty implementation of ConfigurationInterface which requires all
+ * values to be set manually through the magic __set(). Really only useful for
+ * testing.
+ */
 class ManualConfiguration implements ConfigurationInterface
 {
     const HTTP_AUTHENTICATION     = 'http';

@@ -95,6 +95,10 @@ class TagCloud extends AbstractAdapter
             foreach ($tagCloudData as $tagQueryData)
             {
                 $query = (string)$tagQueryData->query;
+
+                // TODO: Once JIRA issue FF-5328 is fixed, retrieve the
+                //       parameters from searchParams, like all other adapters
+                //       do.
                 $parameters = FF::getInstance('Util\Parameters');
                 $parameters['query'] = $query;
 

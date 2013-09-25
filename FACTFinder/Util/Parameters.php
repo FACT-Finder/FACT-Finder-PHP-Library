@@ -1,6 +1,20 @@
 <?php
 namespace FACTFinder\Util;
 
+/**
+ * Represents parameters with string values, where each parameter can have one
+ * or multiple values (like URL query parameters). For basic functions it can
+ * be used as an array, but also provides add() methods to add subsequent values
+ * to a key. So it really is just an array with multiple values per key. The
+ * class also comes with a few convenience functions to convert to and from
+ * other parameter representations (like query strings or HTTP headers).
+ * Concept, interface and usage are partly inspired by .NET's
+ * NameValueCollection.
+ *
+ * TODO: Implement Iterator or IteratorAggregate interface to allow use of
+ *       Parameter objects in foreach().
+ *
+ */
 class Parameters implements \ArrayAccess, \Countable
 {
     protected $parameters = array();
