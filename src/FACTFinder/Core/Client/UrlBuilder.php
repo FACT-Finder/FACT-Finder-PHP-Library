@@ -47,6 +47,8 @@ class UrlBuilder
      * If the page uses a different encoding, conversion to that encoding has to
      * be done when actually rendering the string to the page.
      *
+     * TODO: Should the signature be more similar to that of \Server\UrlBuilder?
+     *
      * @param FACTFinder\Util\Parameters $parameters The server parameters that
      *        should be retrieved when the link is followed.
      * @param string $target An optional request target. If omitted, the target

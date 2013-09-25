@@ -1,6 +1,10 @@
 <?php
 namespace FACTFinder\Core;
 
+/**
+ * Interface for all necessary configuration data to get the library running
+ * (plus, any necessary custom values).
+ */
 interface ConfigurationInterface
 {
     /**

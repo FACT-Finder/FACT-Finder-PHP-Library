@@ -3,6 +3,15 @@ namespace FACTFinder\Adapter;
 
 use FACTFinder\Loader as FF;
 
+/**
+ * Base class for all adapters. An adapter is a class that configures a request
+ * to some FACT-Finder action and transforms the result into useful domain
+ * objects (usually objects of classes from the \Data namespace).
+ * The adapter classes could conceivably be placed in the \Core\Server
+ * namespace, but that would potentially discourage fiddling with and extending
+ * these classes. The adapters are main components of the external API of this
+ * library. Most other classes are just used to make the adapters work.
+ */
 abstract class AbstractAdapter
 {
     /**
