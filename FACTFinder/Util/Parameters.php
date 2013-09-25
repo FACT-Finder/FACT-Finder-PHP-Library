@@ -6,17 +6,51 @@ class Parameters implements \ArrayAccess, \Countable
     protected $parameters = array();
 
     /**
-     * Optionally takes an array of initial parameters to populate the object.
-     * This is just a convenience over creating an empty object and setting the
-     * parameters manually with ->setAll($parameters).
+     * Optionally takes a URL query string or an array of initial parameters to
+     * populate the object with.
+     * In the case of an array this is just a convenience over creating an empty
+     * object and setting the parameters manually with ->setAll($parameters).
      *
-     * @param mixed[] $parameters Array of parameters to initialize the object
-     *        with.
+     * @param mixed $parameters Either a URL query string or an array of
+     *        parameters to initialize the object with.
      */
     public function __construct($parameters = null)
     {
-        if(!is_null($parameters))
+        if (is_string($parameters))
+            $this->parseFromQueryString($parameters);
+        else if (is_array($parameters))
             $this->setAll($parameters);
+        else if (!is_null($parameters))
+            throw new \InvalidArgumentException('Can only construct Parameters from string or array.');
+    }
+
+    private function parseFromQueryString($query)
+    {
+        if (strpos($query, '?') !== false)
+        {
+            $parts = explode('?', $query, 2);
+            $query = $parts[1];
+        }
+
+        $pairs = explode('&', $query);
+        foreach ($pairs AS $pair){
+            $pair = explode('=', $pair);
+            // Make sure that the parameter name actually contains an identifier
+            if (preg_match('/^(?:$|\[[^\]]*\])/', $pair[0]))
+                continue;
+            if (count($pair) == 1)
+                $pair[1] = '';
+
+            // Use rawurldecode(), because encoding spaces as '+' is only for
+            // legacy compatibility.
+            $k = rawurldecode($pair[0]);
+            $v = rawurldecode($pair[1]);
+
+            if (preg_match('/^[^\]]+(?=\[[^\]]*\])/', $k, $matches))
+                $this->add($matches[0], $v);
+            else
+                $this[$k] = $v;
+        }
     }
 
     /**
@@ -63,7 +97,7 @@ class Parameters implements \ArrayAccess, \Countable
      */
 	public function offsetGet($name)
     {
-        if(!isset($this->parameters[$name]))
+        if (!isset($this->parameters[$name]))
             throw new \InvalidArgumentException('Requested parameter has no value set.');
 
         return $this->parameters[$name];
@@ -87,7 +121,7 @@ class Parameters implements \ArrayAccess, \Countable
     public function count()
     {
         $count = 0;
-        foreach($this->parameters as $value)
+        foreach ($this->parameters as $value)
             if (is_string($value))
                 ++$count;
             else
@@ -256,7 +290,19 @@ class Parameters implements \ArrayAccess, \Countable
      */
     public function toPhpQueryString()
     {
-        return http_build_query($this->parameters);
+        // Specify '&' explicitly. Otherwise, some servers use '&amp;'.
+        $queryString = http_build_query($this->parameters, '', '&');
+
+        // Prior to PHP 5.4 http_build_query() cannot follow RFC 3986. Hence it
+        // encodes spaces as +'s and encodes ~ although it shouldn't. We need to
+        // fix this.
+        // http://stackoverflow.com/a/9265295/1633117
+        $queryString = str_replace(
+            array( '+'   , '%7E' ),
+            array( '%20' , '~'   ),
+            $queryString
+        );
+        return $queryString;
     }
 
     /**
@@ -269,7 +315,8 @@ class Parameters implements \ArrayAccess, \Countable
      */
     public function toJavaQueryString()
     {
-        $result = http_build_query($this->parameters);
+        // Specify '&' explicitly. Otherwise, some servers use '&amp;'.
+        $result = $this->toPhpQueryString();
         // The following preg_replace removes all []-indices from array
         // parameter names, because tomcat doesn't need them.
         return preg_replace(
