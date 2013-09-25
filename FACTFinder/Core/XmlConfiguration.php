@@ -21,6 +21,9 @@ class XmlConfiguration implements ConfigurationInterface
     private $requiredClientParameters;
     private $requiredServerParameters;
 
+    private $pageContentEncoding = null;
+    private $clientUrlEncoding = null;
+
     /**
      * Create a new configuration from an XML file. The outer element in the XML
      * tree must be named <configuration>. The actual data is read from a child
@@ -279,11 +282,27 @@ class XmlConfiguration implements ConfigurationInterface
 
     public function getPageContentEncoding()
     {
-        return (string)$this->configuration->encoding->pageContent;
+        if (is_null($this->pageContentEncoding))
+            $this->pageContentEncoding = (string)$this->configuration->encoding->pageContent;
+
+        return $this->pageContentEncoding;
     }
 
     public function getClientUrlEncoding()
     {
-        return (string)$this->configuration->encoding->clientUrl;
+        if (is_null($this->clientUrlEncoding))
+            $this->clientUrlEncoding = (string)$this->configuration->encoding->clientUrl;
+
+        return $this->clientUrlEncoding;
+    }
+
+    public function setPageContentEncoding($encoding)
+    {
+        $this->pageContentEncoding = (string)$encoding;
+    }
+
+    public function setClientUrlEncoding($encoding)
+    {
+        $this->clientUrlEncoding = (string)$encoding;
     }
 }

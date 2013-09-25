@@ -4,8 +4,8 @@ namespace FACTFinder\Core\Server;
 use FACTFinder\Loader as FF;
 
 /**
- * Assembles URLs for different kinds of authentication based on the given
- * parameters and the configuration.
+ * Assembles URLs to the FACT-Finder server for different kinds of
+ * authentication based on the given parameters and the configuration.
  */
 class UrlBuilder
 {

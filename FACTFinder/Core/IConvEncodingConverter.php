@@ -22,7 +22,6 @@ class IConvEncodingConverter extends AbstractEncodingConverter
         ) {
             return $string;
         }
-
         // See http://www.php.net/manual/en/function.iconv.php for more
         // information on '//TRANSLIT'.
         $result = iconv($inCharset, $outCharset.'//TRANSLIT', $string);

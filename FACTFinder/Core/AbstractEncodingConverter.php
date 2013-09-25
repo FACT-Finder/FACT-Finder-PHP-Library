@@ -1,6 +1,8 @@
 <?php
 namespace FACTFinder\Core;
 
+use FACTFinder\Loader as FF;
+
 /**
  * Takes care of differences in encoding between different participants of the
  * communication. Internal to the library all strings are encoded as UTF-8, so
@@ -8,6 +10,8 @@ namespace FACTFinder\Core;
  * source and target encodings are determined by the configuration.
  * This abstract class does not specify how the actual conversion of a single
  * string is done. Create a subclass to implement the conversion method.
+ * Also note that none of these methods handle URL en- or decoding but only deal
+ * with plain character encodings.
  */
 abstract class AbstractEncodingConverter
 {
@@ -54,7 +58,14 @@ abstract class AbstractEncodingConverter
      */
     protected function convert($inCharset, $outCharset, $data)
     {
-        if (is_array($data))
+        if (FF::isInstanceOf($data, 'Util\Parameters'))
+        {
+            $result = FF::getInstance(
+                'Util\Parameters',
+                $this->convert($inCharset, $outCharset, $data->getArray())
+            );
+        }
+        else if (is_array($data))
         {
             $result = array();
             foreach ($data as $k => $v)
@@ -71,6 +82,7 @@ abstract class AbstractEncodingConverter
         {
             $result = $data;
         }
+
         return $result;
     }
 
@@ -92,7 +104,7 @@ abstract class AbstractEncodingConverter
 
     /**
      * Converts data obtained from the client URL for use within the library.
-     * Hence, it converts fromthe configured client URL encoding to the
+     * Hence, it converts from the configured client URL encoding to the
      * library's encoding (UTF-8).
      * @param mixed $data Data obtained from the client URL. Note that this
      *        data should already be URL decoded. Could either be a string or an
