@@ -97,31 +97,13 @@ class FileSystemDataProvider extends AbstractDataProvider
         unset($parameters['channel']);
 
         $rawParameters = $parameters->getArray();
-
+        // We received that array by reference, so we can sort it to sort the
+        // Parameters object internally, too.
         ksort($rawParameters, SORT_STRING);
 
-        $fileName .= http_build_query($rawParameters, '', '_');
+        $queryString = $parameters->toJavaQueryString();
+        $fileName .= str_replace('&', '_', $queryString);
         $fileName .= $fileExtension;
-
-        // TODO: Get rid of duplicate code (see Parameters::toJavaQueryString()).
-        // The following preg_replace removes all []-indices from array
-        // parameter names.
-        $fileName = preg_replace(
-            '/
-            %5B       # URL encoded "["
-            (?:       # start non-capturing group
-              (?!%5D) # make sure the next character does not start "%5D"
-              [^=_]   # consume the character if it is no "=" or "_"
-            )*        # end of group; repeat
-            %5D       # URL encoded "]"
-            (?=       # lookahead to ensure the match is inside a parameter name
-                      # and not a value
-              [^=_]*= # make sure there is a "=" before the next "_"
-            )         # end of lookahead
-            /xi',
-            '',
-            $fileName
-        );
 
         return $this->fileLocation . $fileName;
     }
