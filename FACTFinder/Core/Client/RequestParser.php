@@ -52,6 +52,10 @@ class RequestParser
     {
         if ($this->requestParameters === null) {
             if (isset($_SERVER['QUERY_STRING'])) {
+                // TODO: Respect variables_order so that conflicting variables
+                //       lead to the same result as in $_REQUEST (save for
+                //       $_COOKIE variables). This todo also goes for the second
+                //       alternative.
                 $parameters = FF::getInstance(
                     'Util\Parameters',
                     $_SERVER['QUERY_STRING']
@@ -61,7 +65,7 @@ class RequestParser
                 $this->log->warn('$_SERVER[\'QUERY_STRING\'] is not available. '
                                . 'Using $_GET instead. This may cause problems '
                                . 'if the query string contains parameters with '
-                               . 'spaces or periods.');
+                               . 'non-[a-zA-Z0-9_] characters.');
 
                 // Don't use $_REQUEST, because it also contains $_COOKIE.
                 // Note that we don't have to URL decode here, because _GET is
@@ -72,7 +76,7 @@ class RequestParser
                 );
             } else {
                 // For CLI use:
-                $parameters = array();
+                $parameters = FF::getInstance('Util\Parameters');
             }
 
             $this->requestParameters = $this->encodingConverter

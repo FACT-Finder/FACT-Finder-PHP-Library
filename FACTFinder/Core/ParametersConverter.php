@@ -2,8 +2,8 @@
 namespace FACTFinder\Core;
 
 /**
- * Handles the conversion of parameters between the client URL, the links
- * within client content and requests to the FACT-Finder server.
+ * Handles the conversion of parameters between requests to the client and
+ * requests to the FACT-Finder server (and vice-versa).
  */
 class ParametersConverter
 {
