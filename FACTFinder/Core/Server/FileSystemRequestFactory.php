@@ -24,9 +24,15 @@ class FileSystemRequestFactory implements RequestFactoryInterface
      */
     private $dataProvider;
 
+    /**
+     * @var \FACTFinder\Util\Parameters
+     */
+    private $requestParameters;
+
     public function __construct(
         $loggerClass,
-        \FACTFinder\Core\ConfigurationInterface $configuration
+        \FACTFinder\Core\ConfigurationInterface $configuration,
+        \FACTFinder\Util\Parameters $requestParameters
     ) {
         $this->loggerClass = $loggerClass;
         $this->log = $loggerClass::getLogger(__CLASS__);
@@ -36,6 +42,8 @@ class FileSystemRequestFactory implements RequestFactoryInterface
             $loggerClass,
             $configuration
         );
+
+        $this->requestParameters = $requestParameters;
     }
 
     public function setFileLocation($path)
@@ -49,9 +57,13 @@ class FileSystemRequestFactory implements RequestFactoryInterface
      */
     public function getRequest()
     {
+        $connectionData = FF::getInstance(
+            'Core\Server\ConnectionData',
+            clone $this->requestParameters
+        );
         return FF::getInstance('Core\Server\Request',
             $this->loggerClass,
-            FF::getInstance('Core\Server\ConnectionData'),
+            $connectionData,
             $this->dataProvider
         );
     }

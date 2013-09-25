@@ -35,9 +35,18 @@ class ConnectionData
      */
     private $previousUrl;
 
-    public function __construct()
+    /**
+     * Optionally takes a Parameters object to initialize the query parameters.
+     * @param \FACTFinder\Util\Parameters $parameters
+     * @return type
+     */
+    public function __construct($parameters = null)
     {
-        $this->parameters = FF::getInstance('Util\Parameters');
+        if (FF::isInstanceOf($parameters, 'Util\Parameters'))
+            $this->parameters = $parameters;
+        else
+            $this->parameters = FF::getInstance('Util\Parameters');
+
         $this->httpHeaderFields = FF::getInstance('Util\Parameters');
         $this->action = '';
         $this->setNullResponse();
