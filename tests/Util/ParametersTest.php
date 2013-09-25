@@ -248,11 +248,11 @@ class ParameterTest extends \FACTFinder\Test\BaseTestCase
     {
         $parameters = FF::getInstance(
             'Util\Parameters',
-            '=1&=2&[]=3&%5B%5D=4'
+            '=1&&[]=3&%5B%5D=4'
         );
 
         $expectedParameters = array(
-            '' => array('2', '3', '4'),
+            '' => array('', '3', '4'),
         );
 
         $this->assertEquals($expectedParameters, $parameters->getArray());
@@ -310,12 +310,12 @@ class ParameterTest extends \FACTFinder\Test\BaseTestCase
     {
         $parameters = FF::getInstance(
             'Util\Parameters',
-            '=1&=2',
+            '=1&=2&&=&=3',
             true
         );
 
         $expectedParameters = array(
-            '' => array('1', '2'),
+            '' => array('1', '2', '', '3'),
         );
         $this->assertEquals($expectedParameters, $parameters->getArray());
     }

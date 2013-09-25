@@ -3,6 +3,10 @@ namespace FACTFinder\Adapter;
 
 use FACTFinder\Loader as FF;
 
+/**
+ * TODO: Are there any other FF 6.8 features left which we are not making use of
+ *       yet? If so: change that.
+ */
 class Suggest extends AbstractAdapter
 {
     /**
