@@ -21,9 +21,9 @@ abstract class AbstractAdapter
     protected $request;
 
     /**
-     * @var FACTFinder\Core\ParametersConverter
+     * @var FACTFinder\Core\Client\UrlBuilder
      */
-    protected $parametersConverter;
+    protected $urlBuilder;
 
     /**
      * @var FACTFinder\Util\ContentProcessorInterface
@@ -37,19 +37,19 @@ abstract class AbstractAdapter
      *        Configuration object to use.
      * @param FACTFinder\Core\Server\Request $request The request object from
      *        which to obtain the server data.
-     * @param FACTFinder\Core\ParametersConverter $parametersConverter
-     *        Parameters converter object to use.
+     * @param FACTFinder\Core\Client\UrlBuilder $urlBuilder
+     *        Client URL builder object to use.
      */
     public function __construct(
         $loggerClass,
         \FACTFinder\Core\ConfigurationInterface $configuration,
         \FACTFinder\Core\Server\Request $request,
-        \FACTFinder\Core\ParametersConverter $parametersConverter
+        \FACTFinder\Core\Client\UrlBuilder $urlBuilder
     ) {
         $this->log = $loggerClass::getLogger(__CLASS__);
         $this->configuration = $configuration;
         $this->request = $request;
-        $this->parametersConverter = $parametersConverter;
+        $this->urlBuilder = $urlBuilder;
 
         $this->usePassthroughResponseContentProcessor();
     }
