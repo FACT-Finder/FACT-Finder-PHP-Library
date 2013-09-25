@@ -199,4 +199,124 @@ class ParameterTest extends \FACTFinder\Test\BaseTestCase
         $this->parameters->clear();
         $this->assertEquals(0, count($this->parameters));
     }
+
+    public function testParametersFromPhpQueryString()
+    {
+
+        $parameters = FF::getInstance(
+            'Util\Parameters',
+            'a%20b=c&d=e%20f'
+        );
+
+        $expectedParameters = array(
+            'a b' => 'c',
+            'd' => 'e f',
+        );
+        $this->assertEquals($expectedParameters, $parameters->getArray());
+    }
+
+    public function testParametersFromPhpUrl()
+    {
+
+        $parameters = FF::getInstance(
+            'Util\Parameters',
+            'index.php?a=b&c=d'
+        );
+
+        $expectedParameters = array(
+            'a' => 'b',
+            'c' => 'd',
+        );
+        $this->assertEquals($expectedParameters, $parameters->getArray());
+    }
+
+    public function testParametersFromPhpQueryStringWithMultipleValues()
+    {
+        $parameters = FF::getInstance(
+            'Util\Parameters',
+            'a=1&a=2&b[]=3&b[]=4&b%5B%5D=5'
+        );
+
+        $expectedParameters = array(
+            'a' => '2',
+            'b' => array('3', '4', '5'),
+        );
+        $this->assertEquals($expectedParameters, $parameters->getArray());
+    }
+
+    public function testParametersFromPhpQueryStringWithEmptyParameterNames()
+    {
+        $parameters = FF::getInstance(
+            'Util\Parameters',
+            '=1&=2&[]=3&%5B%5D=4'
+        );
+
+        $expectedParameters = array(
+            '' => array('2', '3', '4'),
+        );
+
+        $this->assertEquals($expectedParameters, $parameters->getArray());
+    }
+
+    public function testParametersFromJavaQueryString()
+    {
+
+        $parameters = FF::getInstance(
+            'Util\Parameters',
+            'a+b=c&d=e+f',
+            true
+        );
+
+        $expectedParameters = array(
+            'a b' => 'c',
+            'd' => 'e f',
+        );
+        $this->assertEquals($expectedParameters, $parameters->getArray());
+    }
+
+    public function testParametersFromJavaUrl()
+    {
+
+        $parameters = FF::getInstance(
+            'Util\Parameters',
+            'index.php?a=b&c=d',
+            true
+        );
+
+        $expectedParameters = array(
+            'a' => 'b',
+            'c' => 'd',
+        );
+        $this->assertEquals($expectedParameters, $parameters->getArray());
+    }
+
+    public function testParametersFromJavaQueryStringWithMultipleValues()
+    {
+        $parameters = FF::getInstance(
+            'Util\Parameters',
+            'a=1&a=2&b=3&b=4&b[]=5',
+            true
+        );
+
+        $expectedParameters = array(
+            'a' => array('1', '2'),
+            'b' => array('3', '4'),
+            'b[]' => '5'
+        );
+        $this->assertEquals($expectedParameters, $parameters->getArray());
+    }
+
+    public function testParametersFromJavaQueryStringWithEmptyParameterNames()
+    {
+        $parameters = FF::getInstance(
+            'Util\Parameters',
+            '=1&=2',
+            true
+        );
+
+        $expectedParameters = array(
+            '' => array('1', '2'),
+        );
+        $this->assertEquals($expectedParameters, $parameters->getArray());
+    }
 }

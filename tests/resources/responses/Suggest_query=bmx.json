@@ -1,0 +1,37 @@
+[
+    {
+        "attributes": {
+            "sourceField": "Brand"
+        },
+        "hitCount": 0,
+        "image": "",
+        "name": "Verde BMX",
+        "refKey": "8blKVw-P5",
+        "searchParams": "/FACT-Finder/Search.ff?query=Verde+BMX+*&filterBrand=Verde+BMX&channel=de&ignoreForCache=queryFromSuggest&queryFromSuggest=true&ignoreForCache=userInput&userInput=bmx",
+        "type": "brand"
+    },
+    {
+        "attributes": {
+            "parentCategory": "SALE/Fahrräder",
+            "sourceField": "Category3"
+        },
+        "hitCount": 0,
+        "image": "",
+        "name": "BMX Bikes",
+        "refKey": "XIXaEHUSD",
+        "searchParams": "/FACT-Finder/Search.ff?query=*&filterCategory3=BMX+Bikes&filterCategory2=Fahrr%C3%A4der&filterCategory1=SALE&channel=de&ignoreForCache=queryFromSuggest&queryFromSuggest=true&ignoreForCache=userInput&userInput=bmx",
+        "type": "category"
+    },
+    {
+        "attributes": {
+            "id": "347231",
+            "deeplink": "Detail.ff?id=347231&channel=de"
+        },
+        "hitCount": 0,
+        "image": "http://images.internetstores.de/products/Eastern_Bikes_BMX_2013_cobra_red[219x140].jpg?forceSize=true&forceAspectRatio=true",
+        "name": "Eastern NTS 500 schwarz/rot",
+        "refKey": "hSMj0A3pp",
+        "searchParams": "/FACT-Finder/Search.ff?query=Eastern+NTS+500+schwarz%2Frot&channel=de&ignoreForCache=queryFromSuggest&queryFromSuggest=true&ignoreForCache=userInput&userInput=bmx",
+        "type": "productName"
+    }
+]

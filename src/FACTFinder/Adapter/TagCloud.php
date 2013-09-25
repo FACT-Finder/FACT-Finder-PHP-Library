@@ -66,21 +66,23 @@ class TagCloud extends AbstractAdapter
     /**
      * Set the maximum amount of tag queries to be fetched.
      *
-     * @param int $wordCount The number of tag queries to be fetched. Must be a
-     *        positive integer (or a string containing one).
-     *
-     * @throws InvalidArgumentException if $wordCount is not a positive integer.
+     * @param int $wordCount The number of tag queries to be fetched. Something
+     *        else than a positive integer is passed, the word count will be
+     *        unlimited (or determined by FACT-Finder).
      */
     public function setWordCount($wordCount)
     {
+        $parameters = $this->request->getParameters();
         if (is_numeric($wordCount)
             && intval($wordCount) == floatval($wordCount) // Is integer?
             && $wordCount > 0
         ) {
-            $this->request->getParameters()->set('wordCount', $wordCount);
+            $parameters->set('wordCount', $wordCount);
         }
         else
-            throw new \InvalidArgumentException('Word count has to be a positive integer.');
+        {
+            unset($parameters['wordCount']);
+        }
     }
 
     private function createTagCloud($requestQuery = null)

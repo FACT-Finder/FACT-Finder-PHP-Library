@@ -94,7 +94,8 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
             $requestFactory = FF::getInstance(
                 'Core\Server\FileSystemRequestFactory',
                 $c['loggerClass'],
-                $c['configuration']
+                $c['configuration'],
+                $c['requestParser']->getRequestParameters()
             );
 
             $requestFactory->setFileLocation(RESOURCES_DIR . DS . 'responses');
@@ -114,11 +115,13 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
             );
         };
 
-        self::$dic['requestParser'] = FF::getInstance(
-            'Core\Client\RequestParser',
-            self::$dic['loggerClass'],
-            self::$dic['configuration'],
-            self::$dic['encodingConverter']
-        );
+        self::$dic['requestParser'] = self::$dic->share(function($c) {
+            return FF::getInstance(
+                'Core\Client\RequestParser',
+                $c['loggerClass'],
+                $c['configuration'],
+                $c['encodingConverter']
+            );
+        });
     }
 }

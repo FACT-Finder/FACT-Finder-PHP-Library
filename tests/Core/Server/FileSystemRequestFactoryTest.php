@@ -27,7 +27,8 @@ class FileSystemRequestFactoryTest extends \FACTFinder\Test\BaseTestCase
         $this->factory = FF::getInstance(
             'Core\Server\FileSystemRequestFactory',
             self::$dic['loggerClass'],
-            self::$dic['configuration']
+            self::$dic['configuration'],
+            FF::getInstance('Util\Parameters')
         );
 
         $loggerClass = self::$dic['loggerClass'];

@@ -13,18 +13,26 @@ class Parameters implements \ArrayAccess, \Countable
      *
      * @param mixed $parameters Either a URL query string or an array of
      *        parameters to initialize the object with.
+     * @param bool $java If $parameters is a string and this is True, the query
+     *        string will be interpreted as one originating from Java instead of
+     *        PHP.
      */
-    public function __construct($parameters = null)
+    public function __construct($parameters = null, $java = false)
     {
         if (is_string($parameters))
-            $this->parseFromQueryString($parameters);
+        {
+            if (!$java)
+                $this->parseFromPhpQueryString($parameters);
+            else
+                $this->parseFromJavaQueryString($parameters);
+        }
         else if (is_array($parameters))
             $this->setAll($parameters);
         else if (!is_null($parameters))
             throw new \InvalidArgumentException('Can only construct Parameters from string or array.');
     }
 
-    private function parseFromQueryString($query)
+    private function parseFromPhpQueryString($query)
     {
         if (strpos($query, '?') !== false)
         {
@@ -33,11 +41,10 @@ class Parameters implements \ArrayAccess, \Countable
         }
 
         $pairs = explode('&', $query);
-        foreach ($pairs AS $pair){
+        foreach ($pairs AS $pair)
+        {
             $pair = explode('=', $pair);
-            // Make sure that the parameter name actually contains an identifier
-            if (preg_match('/^(?:$|\[[^\]]*\])/', $pair[0]))
-                continue;
+
             if (count($pair) == 1)
                 $pair[1] = '';
 
@@ -46,10 +53,38 @@ class Parameters implements \ArrayAccess, \Countable
             $k = rawurldecode($pair[0]);
             $v = rawurldecode($pair[1]);
 
-            if (preg_match('/^[^\]]+(?=\[[^\]]*\])/', $k, $matches))
+            // TODO: This does not currently pay attention to potential array
+            //       keys in the parameter name and simply appends the value
+            //       whenever it encounters an array parameter. Should this
+            //       functionality be added?
+            if (preg_match('/^[^\]]*(?=\[[^\]]*\])/', $k, $matches))
                 $this->add($matches[0], $v);
             else
                 $this[$k] = $v;
+        }
+    }
+
+    private function parseFromJavaQueryString($query)
+    {
+        if (strpos($query, '?') !== false)
+        {
+            $parts = explode('?', $query, 2);
+            $query = $parts[1];
+        }
+
+        $pairs = explode('&', $query);
+        foreach ($pairs AS $pair)
+        {
+            $pair = explode('=', $pair);
+
+            if (count($pair) == 1)
+                $pair[1] = '';
+
+            // Use urldecode(), because Tomcat does encode spaces as '+'.
+            $k = urldecode($pair[0]);
+            $v = urldecode($pair[1]);
+
+            $this->add($k, $v);
         }
     }
 
@@ -65,7 +100,7 @@ class Parameters implements \ArrayAccess, \Countable
      */
     public function offsetSet($name, $value)
     {
-        if (is_null($name) || empty($name))
+        if (is_null($name))
             throw new \InvalidArgumentException('No parameter name given.');
 
         $value = $this->sanitizeValue($value);
@@ -241,7 +276,7 @@ class Parameters implements \ArrayAccess, \Countable
      */
     public function add($name, $value)
     {
-        if (is_null($name) || empty($name))
+        if (is_null($name))
             throw new \InvalidArgumentException('No parameter name given.');
 
         $value = $this->sanitizeValue($value);
@@ -285,6 +320,13 @@ class Parameters implements \ArrayAccess, \Countable
      * recreate the structure of this object's internal array.
      * Note however, that PHP will replace all non-letter, non-digit characters
      * in parameter names with underscores, when retrieving GET parameters.
+     * WARNING: If the parameter object contains the empty string as one of its
+     *          keys, the corresponding key-value pair(s) will be part of the
+     *          query string. However, PHP's built-in functions will not be able
+     *          retrieve those values (this includes $_GET and parse_str()).
+     *          However, if you create a new Parameters object from such a query
+     *          string, the empty parameter names will be correctly
+     *          reconstructed.
      *
      * @return string The query string.
      */

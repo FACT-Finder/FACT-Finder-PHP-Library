@@ -39,31 +39,15 @@ class RequestParserTest extends \FACTFinder\Test\BaseTestCase
         $this->assertEquals($expectedParameters, $actualParameters);
     }
 
-    public function testRequestParametersFromQueryString()
+    public function testParametersFromSuperglobal()
     {
-        $_SERVER['QUERY_STRING'] = 'a%20b=c&d=e%20f';
+        $_SERVER['QUERY_STRING'] = 'a=b&c=d';
 
+        // We expect to get the result UTF-8 encoded
         $this->assertParameters(array(
-            'a b' => 'c',
-            'd' => 'e f',
+            'a' => 'b',
+            'c' => 'd',
         ));
-    }
-
-    public function testParametersWithMultipleValues()
-    {
-        $_SERVER['QUERY_STRING'] = 'a=1&a=2&b[]=3&b[]=4&b[]=5';
-
-        $this->assertParameters(array(
-            'a' => '2',
-            'b' => array('3', '4', '5'),
-        ));
-    }
-
-    public function testEmptyParameterNames()
-    {
-        $_SERVER['QUERY_STRING'] = '=1&=2&[]=3&[]=4';
-
-        $this->assertParameters(array());
     }
 
     public function testClientUrlEncoding()

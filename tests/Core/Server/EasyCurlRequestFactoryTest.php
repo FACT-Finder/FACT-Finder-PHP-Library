@@ -34,7 +34,8 @@ class EasyCurlRequestFactoryTest extends \FACTFinder\Test\BaseTestCase
             'Core\Server\EasyCurlRequestFactory',
             self::$dic['loggerClass'],
             self::$dic['configuration'],
-            self::$dic['curlStub']
+            self::$dic['curlStub'],
+            FF::getInstance('Util\Parameters', array('query' => 'bmx'))
         );
 
         $loggerClass = self::$dic['loggerClass'];
@@ -48,7 +49,7 @@ class EasyCurlRequestFactoryTest extends \FACTFinder\Test\BaseTestCase
         $this->configuration->makeHttpAuthenticationType();
 
         $requiredOptions = array(
-            CURLOPT_URL => 'http://user:userpw@demoshop.fact-finder.de:80/FACT-Finder/TagCloud.ff?format=json&do=getTagCloud&verbose=true&channel=de'
+            CURLOPT_URL => 'http://user:userpw@demoshop.fact-finder.de:80/FACT-Finder/TagCloud.ff?query=bmx&format=json&do=getTagCloud&verbose=true&channel=de'
         );
         $responseContent = 'test response';
         $info = array(

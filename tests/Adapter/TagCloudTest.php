@@ -66,14 +66,6 @@ class TagCloudTest extends \FACTFinder\Test\BaseTestCase
         $this->assertFalse($tagCloud[0]->isSelected(), 'first tag query should not be selected');
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testInvalidWordCount()
-    {
-        $this->adapter->setWordCount(-1);
-    }
-
     public function testSelectedTagQuery()
     {
         $tagCloud = $this->adapter->getTagCloud();

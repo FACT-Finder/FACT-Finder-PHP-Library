@@ -107,7 +107,7 @@ class EasyCurlDataProvider extends AbstractDataProvider
 
         $connectionData->setResponse($response, $url);
 
-        $this->logResult($response->getHttpCode());
+        $this->logResult($response);
     }
 
     private function prepareHttpHeaders($connectionData)
@@ -198,8 +198,10 @@ class EasyCurlDataProvider extends AbstractDataProvider
         );
     }
 
-    private function logResult($httpCode)
+    private function logResult($response)
     {
+        $httpCode = $response->getHttpCode();
+        $curlError = $response->getConnectionError();
         if ($httpCode >= 400) {
             $this->log->error("Connection failed. HTTP code: $httpCode");
         } else if ($httpCode == 0) {

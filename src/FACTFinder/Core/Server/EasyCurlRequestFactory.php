@@ -24,10 +24,16 @@ class EasyCurlRequestFactory implements RequestFactoryInterface
      */
     private $dataProvider;
 
+    /**
+     * @var \FACTFinder\Util\Parameters
+     */
+    private $requestParameters;
+
     public function __construct(
         $loggerClass,
         \FACTFinder\Core\ConfigurationInterface $configuration,
-        \FACTFinder\Util\CurlInterface $curl
+        \FACTFinder\Util\CurlInterface $curl,
+        \FACTFinder\Util\Parameters $requestParameters
     ) {
         $this->loggerClass = $loggerClass;
         $this->log = $loggerClass::getLogger(__CLASS__);
@@ -43,6 +49,8 @@ class EasyCurlRequestFactory implements RequestFactoryInterface
             $curl,
             $urlBuilder
         );
+
+        $this->requestParameters = $requestParameters;
     }
 
     /**
@@ -51,9 +59,13 @@ class EasyCurlRequestFactory implements RequestFactoryInterface
      */
     public function getRequest()
     {
+        $connectionData = FF::getInstance(
+            'Core\Server\ConnectionData',
+            clone $this->requestParameters
+        );
         return FF::getInstance('Core\Server\Request',
             $this->loggerClass,
-            FF::getInstance('Core\Server\ConnectionData'),
+            $connectionData,
             $this->dataProvider
         );
     }

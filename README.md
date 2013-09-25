@@ -18,13 +18,15 @@ Coding Conventions
 ------------------
 
 We follow the [Zend Framework's Coding Standards](http://framework.zend.com/wiki/display/ZFDEV2/Coding+Standards)
-(ZF 2) with the following exceptions:
+(ZF 2) with the following exceptions/additions:
 
 - All files end with a new line character.
 - Opening braces for control blocks are always placed on a new line. That means
   the only opening braces placed on the same line are those that open anonymous
   functions.
 - Single-line control statements may omit braces.
+- All but the simplest regular expressions have to be formatted in free-spacing
+  mode and thoroughly commented.
 
 Changes
 -------
