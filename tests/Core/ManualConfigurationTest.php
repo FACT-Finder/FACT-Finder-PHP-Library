@@ -14,7 +14,7 @@ class ManualConfigurationTest extends \FACTFinder\Test\BaseTestCase
     public function setUp()
     {
         parent::setUp();
-        $loggerClass = $this->dic['loggerClass'];
+        $loggerClass = self::$dic['loggerClass'];
         $this->log = $loggerClass::getLogger(__CLASS__);
     }
 

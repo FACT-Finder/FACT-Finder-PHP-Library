@@ -15,49 +15,33 @@ class RequestParserTest extends \FACTFinder\Test\BaseTestCase
      */
     private $requestParser;
 
-    /**
-     * @var mixed[] a backups of the superglobals $_SERVER, $_POST and $_GET
-     */
-    private $oldServer;
-    private $oldPost;
-    private $oldGet;
-
     public function setUp()
     {
         parent::setUp();
 
         $this->requestParser = FF::getInstance(
             'Core\Client\RequestParser',
-            $this->dic['loggerClass'],
-            $this->dic['configuration'],
-            $this->dic['encodingConverter']
+            self::$dic['loggerClass'],
+            self::$dic['configuration'],
+            self::$dic['encodingConverter']
         );
 
-        $loggerClass = $this->dic['loggerClass'];
+        $loggerClass = self::$dic['loggerClass'];
         $this->log = $loggerClass::getLogger(__CLASS__);
-
-        $this->oldServer = $_SERVER;
-        $this->oldPost = $_POST;
-        $this->oldGet = $_GET;
-    }
-
-    public function tearDown()
-    {
-        $_SERVER = $this->oldServer;
-        $_POST = $this->oldPost;
-        $_GET = $this->oldGet;
     }
 
     private function assertParameters($expectedParameters)
     {
-        $this->assertEquals($expectedParameters, $this->requestParser
-                                                      ->getRequestParameters()
-                                                      ->getArray());
+        $actualParameters = $this->requestParser
+                                 ->getRequestParameters()
+                                 ->getArray();
+
+        $this->assertEquals($expectedParameters, $actualParameters);
     }
 
     public function testRequestParametersFromQueryString()
     {
-        $_SERVER['QUERY_STRING'] = 'a+b=c&d=e+f';
+        $_SERVER['QUERY_STRING'] = 'a%20b=c&d=e%20f';
 
         $this->assertParameters(array(
             'a b' => 'c',
@@ -82,11 +66,32 @@ class RequestParserTest extends \FACTFinder\Test\BaseTestCase
         $this->assertParameters(array());
     }
 
+    public function testClientUrlEncoding()
+    {
+        // 'ä=ö&ü=ß' in ISO-8859-1
+        $_SERVER['QUERY_STRING'] = '%E4=%F6&%FC=%DF';
+
+        // We expect to get the result UTF-8 encoded
+        $this->assertParameters(array(
+            "\xC3\xA4" => "\xC3\xB6", // 'ä' => 'ö'
+            "\xC3\xBC" => "\xC3\x9F", // 'ü' => 'ß'
+        ));
+    }
+
     public function testRequestTarget()
     {
         $_SERVER['REQUEST_URI'] = '/index.php?foo=bar';
 
         $this->assertEquals('/index.php', $this->requestParser
                                                ->getRequestTarget());
+    }
+
+    public function testRequestTargetEncoding()
+    {
+        // 'indäx.php' in ISO-8859-1
+        $_SERVER['REQUEST_URI'] = '/ind%E4x.php?foo=bar';
+
+        $this->assertEquals("/ind\xC3\xA4x.php", $this->requestParser
+                                                      ->getRequestTarget());
     }
 }

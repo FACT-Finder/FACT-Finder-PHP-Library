@@ -37,11 +37,11 @@ class Utf8EncodingConverterTest extends \FACTFinder\Test\BaseTestCase
 
         $this->encodingConverter = FF::getInstance(
             'Core\Utf8EncodingConverter',
-            $this->dic['loggerClass'],
+            self::$dic['loggerClass'],
             $configuration
         );
 
-        $loggerClass = $this->dic['loggerClass'];
+        $loggerClass = self::$dic['loggerClass'];
         $this->log = $loggerClass::getLogger(__CLASS__);
     }
 

@@ -4,6 +4,10 @@ namespace FACTFinder\Util;
 /**
  * Implements the cURL interface by simply delegating calls to the built-in cURL functions..
  * See http://www.php.net/manual/en/book.curl.php
+ *
+ * @codeCoverageIgnore
+ * This implementation simply forwards all calls to built-in methods, so there's
+ * no need to test it.
  **/
 class Curl implements CurlInterface
 {

@@ -213,7 +213,7 @@ class EasyCurlDataProvider extends AbstractDataProvider
     {
         $connectionData = $this->connectionData[$id];
 
-        if (is_a($connectionData->getResponse(), FF::getClassName('Core\Server\NullResponse')))
+        if (FF::isInstanceOf($connectionData->getResponse(), 'Core\Server\NullResponse'))
             return true;
 
         $url = $this->urlBuilder->getNonAuthenticationUrl(

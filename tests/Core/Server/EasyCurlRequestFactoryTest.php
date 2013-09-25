@@ -29,18 +29,18 @@ class EasyCurlRequestFactoryTest extends \FACTFinder\Test\BaseTestCase
     {
         parent::setUp();
 
-        $this->curlStub = $this->dic['curlStub'];
+        $this->curlStub = self::$dic['curlStub'];
         $this->factory = FF::getInstance(
             'Core\Server\EasyCurlRequestFactory',
-            $this->dic['loggerClass'],
-            $this->dic['configuration'],
-            $this->dic['curlStub']
+            self::$dic['loggerClass'],
+            self::$dic['configuration'],
+            self::$dic['curlStub']
         );
 
-        $loggerClass = $this->dic['loggerClass'];
+        $loggerClass = self::$dic['loggerClass'];
         $this->log = $loggerClass::getLogger(__CLASS__);
 
-        $this->configuration = $this->dic['configuration'];
+        $this->configuration = self::$dic['configuration'];
     }
 
     public function testGetWorkingRequest()

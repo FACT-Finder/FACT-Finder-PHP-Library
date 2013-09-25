@@ -32,16 +32,16 @@ class EasyCurlDataProviderTest extends \FACTFinder\Test\BaseTestCase
         $this->curlStub = FF::getInstance('Util\CurlStub');
         $this->dataProvider = FF::getInstance(
             'Core\Server\EasyCurlDataProvider',
-            $this->dic['loggerClass'],
-            $this->dic['configuration'],
+            self::$dic['loggerClass'],
+            self::$dic['configuration'],
             $this->curlStub,
-            $this->dic['urlBuilder']
+            self::$dic['urlBuilder']
         );
 
-        $loggerClass = $this->dic['loggerClass'];
+        $loggerClass = self::$dic['loggerClass'];
         $this->log = $loggerClass::getLogger(__CLASS__);
 
-        $this->configuration = $this->dic['configuration'];
+        $this->configuration = self::$dic['configuration'];
     }
 
     public function testLoadResponse()

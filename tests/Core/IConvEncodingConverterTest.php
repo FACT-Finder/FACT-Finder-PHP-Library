@@ -28,18 +28,18 @@ class IConvEncodingConverterTest extends \FACTFinder\Test\BaseTestCase
         $configuration = FF::getInstance(
             'Core\ManualConfiguration',
             array(
-                'pageContentEncoding' => 'UTF-16BE',
-                'clientUrlEncoding' => 'UTF-16LE'
+                'pageContentEncoding' => 'ISO-8859-1',
+                'clientUrlEncoding' => 'ISO-8859-1'
             )
         );
 
         $this->encodingConverter = FF::getInstance(
             'Core\IConvEncodingConverter',
-            $this->dic['loggerClass'],
+            self::$dic['loggerClass'],
             $configuration
         );
 
-        $loggerClass = $this->dic['loggerClass'];
+        $loggerClass = self::$dic['loggerClass'];
         $this->log = $loggerClass::getLogger(__CLASS__);
     }
 
@@ -48,8 +48,8 @@ class IConvEncodingConverterTest extends \FACTFinder\Test\BaseTestCase
         // Input is "ä" in UTF-8
         $utf8Content = "\xC3\xA4";
 
-        // Page content is configured to be UTF-16BE encoded.
-        $expectedPageContent = "\x00\xE4";
+        // Page content is configured to be ISO-8859-1 encoded.
+        $expectedPageContent = "\xE4";
 
         $this->assertEquals(
             $expectedPageContent,
@@ -59,15 +59,15 @@ class IConvEncodingConverterTest extends \FACTFinder\Test\BaseTestCase
 
     public function testDecodeClientUrlData()
     {
-        // Client "URL" is "ä" in UTF-16LE
-        $utf16LEstring = "\xE4\x00";
+        // Client "URL" is "ä" in ISO-8859-1
+        $isoSring = "\xE4";
 
         // Output is expected to be UTF-8
         $expectedUtf8string = "\xC3\xA4";
 
         $this->assertEquals(
             $expectedUtf8string,
-            $this->encodingConverter->decodeClientUrlData($utf16LEstring)
+            $this->encodingConverter->decodeClientUrlData($isoSring)
         );
     }
 
@@ -76,23 +76,23 @@ class IConvEncodingConverterTest extends \FACTFinder\Test\BaseTestCase
         // Input is "ä" in UTF-8
         $utf8string = "\xC3\xA4";
 
-        // Client URL is configured to be UTF-16LE encoded.
-        $expectedUtf16LEstring = "\xE4\x00";
+        // Client URL is configured to be ISO-8859-1 encoded.
+        $expectedIsoString = "\xE4";
 
         $this->assertEquals(
-            $expectedUtf16LEstring,
+            $expectedIsoString,
             $this->encodingConverter->encodeClientUrlData($utf8string)
         );
     }
 
     public function testDecodeClientUrlDataArray()
     {
-        // Client "URL" contains umlauts in UTF-16LE
-        $utf16LEarray = array(
-            0 => "\xE4\x00",     // "ä"
-            "\xDF\x00" => array( // "ß" as key
-                0 => "\xF6\x00", // "ö"
-                1 => "\xFC\x00"  // "ü"
+        // Client "URL" contains umlauts in ISO-8859-1
+        $isoArray = array(
+            0 => "\xE4",     // "ä"
+            "\xDF" => array( // "ß" as key
+                0 => "\xF6", // "ö"
+                1 => "\xFC"  // "ü"
             )
         );
 
@@ -107,7 +107,7 @@ class IConvEncodingConverterTest extends \FACTFinder\Test\BaseTestCase
 
         $this->assertEquals(
             $expectedUtf8array,
-            $this->encodingConverter->decodeClientUrlData($utf16LEarray)
+            $this->encodingConverter->decodeClientUrlData($isoArray)
         );
     }
 }

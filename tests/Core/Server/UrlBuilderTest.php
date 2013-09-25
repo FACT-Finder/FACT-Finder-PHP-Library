@@ -16,7 +16,7 @@ class UrlBuilderTest extends \FACTFinder\Test\BaseTestCase
     protected $configuration;
 
     /**
-     * @var FACTFinder\Core\UrlBuilder
+     * @var FACTFinder\Core\Server\UrlBuilder
      */
     protected $urlBuilder;
 
@@ -31,14 +31,14 @@ class UrlBuilderTest extends \FACTFinder\Test\BaseTestCase
 
         $this->urlBuilder = FF::getInstance(
             'Core\Server\UrlBuilder',
-            $this->dic['loggerClass'],
-            $this->dic['configuration']
+            self::$dic['loggerClass'],
+            self::$dic['configuration']
         );
 
-        $loggerClass = $this->dic['loggerClass'];
+        $loggerClass = self::$dic['loggerClass'];
         $this->log = $loggerClass::getLogger(__CLASS__);
 
-        $this->configuration = $this->dic['configuration'];
+        $this->configuration = self::$dic['configuration'];
 
         $this->parameters = FF::getInstance('Util\Parameters');
     }

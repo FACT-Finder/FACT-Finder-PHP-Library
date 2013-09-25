@@ -56,7 +56,7 @@
 
 		<encoding>
 			<pageContent>UTF-8</pageContent>
-			<clientUrl>UTF-8</clientUrl>
+			<clientUrl>ISO-8859-1</clientUrl>
 		</encoding>
 	</test>
 </configuration>

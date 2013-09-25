@@ -1,8 +1,8 @@
 <?php
 /**
  * Bootstrap file which should be called on every request. It defines some basic
- * constants and defines the autoloader class, which handles classloading,
- * constructing and holds Singletons.
+ * constants and defines the autoloader class, which handles classloading and
+ * instance creation.
  */
 
 namespace FACTFinder;
@@ -42,7 +42,6 @@ if (function_exists('__autoload')
  */
 class Loader
 {
-    protected static $singletons = array();
     protected static $classNames = array();
 
     // TODO: Check parent namespaces, too?
@@ -144,5 +143,24 @@ class Loader
         else
             throw new \Exception("class '$factfinderClassName' not found");
         return $className;
+    }
+
+    /**
+     * This a convenient wrapper around instanceof or is_a() when dealing with
+     * library classes.
+     * Instead of a class name it expects an identifier like getClassName() or
+     * getInstance() does, and checks that the object passed is actually of the
+     * class that is currently in use for this identifier.
+     *
+     * @param object $object The object whose class to check.
+     * @param string $class An identifier for the class to require the object to
+     *        stem from.
+     *
+     * @return bool True, if $object belongs to $class.
+     */
+    public static function isInstanceOf($object, $class)
+    {
+        $className = self::getClassName($class);
+        return $object instanceof $className;
     }
 }

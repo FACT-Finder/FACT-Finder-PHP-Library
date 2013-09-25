@@ -22,7 +22,7 @@ class ParameterTest extends \FACTFinder\Test\BaseTestCase
 
         $this->parameters = FF::getInstance('Util\Parameters');
 
-        $loggerClass = $this->dic['loggerClass'];
+        $loggerClass = self::$dic['loggerClass'];
         $this->log = $loggerClass::getLogger(__CLASS__);
     }
 
@@ -148,9 +148,9 @@ class ParameterTest extends \FACTFinder\Test\BaseTestCase
 
         // These assertions are actually too rigid, because we don't really want
         // to make any assumptions about the order of the parameters.
-        $this->assertEquals('query=bmx&id%5B0%5D=123&id%5B1%5D=456&a+b=c+d',
+        $this->assertEquals('query=bmx&id%5B0%5D=123&id%5B1%5D=456&a%20b=c%20d',
                             $this->parameters->toPhpQueryString());
-        $this->assertEquals('query=bmx&id=123&id=456&a+b=c+d',
+        $this->assertEquals('query=bmx&id=123&id=456&a%20b=c%20d',
                             $this->parameters->toJavaQueryString());
 
         // Here, the order is actually important.

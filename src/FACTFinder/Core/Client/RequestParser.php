@@ -3,6 +3,9 @@ namespace FACTFinder\Core\Client;
 
 use FACTFinder\Loader as FF;
 
+/**
+ * Extracts several data from the request made to the client.
+ */
 class RequestParser
 {
     protected $requestParameters;
@@ -22,7 +25,6 @@ class RequestParser
      * @var AbstractEncodingConverter
      */
     protected $encodingConverter;
-
 
     /**
      * @param string $loggerClass Class name of logger to use. The class should
@@ -50,7 +52,10 @@ class RequestParser
     {
         if ($this->requestParameters === null) {
             if (isset($_SERVER['QUERY_STRING'])) {
-                $parameters = $this->parseParametersFromString($_SERVER['QUERY_STRING']);
+                $parameters = FF::getInstance(
+                    'Util\Parameters',
+                    $_SERVER['QUERY_STRING']
+                );
                 $parameters->setAll($_POST);
             } else if (isset($_GET)) {
                 $this->log->warn('$_SERVER[\'QUERY_STRING\'] is not available. '
@@ -59,6 +64,8 @@ class RequestParser
                                . 'spaces or periods.');
 
                 // Don't use $_REQUEST, because it also contains $_COOKIE.
+                // Note that we don't have to URL decode here, because _GET is
+                // already URL decoded.
                 $parameters = FF::getInstance(
                     'Util\Parameters',
                     array_merge($_POST, $_GET)
@@ -72,43 +79,6 @@ class RequestParser
                                             ->decodeClientUrlData($parameters);
         }
         return $this->requestParameters;
-    }
-
-    /**
-     * Extracts a parameter array with name => value pairs from a URL or a query
-     * string.
-     * Also takes care of URL decoding.
-     *
-     * @param string query string or URL
-     * @return Parameters array of parameter variables
-     */
-    protected function parseParametersFromString($input)
-    {
-        if (strpos($input, '?') !== false)
-        {
-            $parts = explode('?', $input, 2);
-            $input = $parts[1];
-        }
-
-        $result = FF::getInstance('Util\Parameters');
-        $pairs = explode('&', $input);
-        foreach($pairs AS $pair){
-            $pair = explode('=', $pair);
-            // Make sure that the parameter name actually contains an identifier
-            if(preg_match('/^(?:$|\[[^\]]*\])/', $pair[0]))
-                continue;
-            if(count($pair) == 1)
-                $pair[1] = '';
-
-            $k = urldecode($pair[0]);
-            $v = urldecode($pair[1]);
-
-            if (preg_match('/^[^\]]+(?=\[[^\]]*\])/', $k, $matches))
-                $result->add($matches[0], $v);
-            else
-                $result[$k] = $v;
-        }
-        return $result;
     }
 
     /**
@@ -137,12 +107,12 @@ class RequestParser
                 $parts = explode('?', $_SERVER['REQUEST_URI']);
                 $this->requestTarget = $parts[0];
             }
+
+            // Use rawurldecode() so that +'s are not converted to spaces.
+            $this->requestTarget = rawurldecode($this->requestTarget);
+            $this->requestTarget = $this->encodingConverter
+                                        ->decodeClientUrlData($this->requestTarget);
         }
         return $this->requestTarget;
-    }
-
-    public function setRequestTarget($target)
-    {
-        $this->requestTarget = $target;
     }
 }

@@ -21,11 +21,11 @@ class ParametersConverterTest extends \FACTFinder\Test\BaseTestCase
 
         $this->parametersConverter = FF::getInstance(
             'Core\ParametersConverter',
-            $this->dic['loggerClass'],
-            $this->dic['configuration']
+            self::$dic['loggerClass'],
+            self::$dic['configuration']
         );
 
-        $loggerClass = $this->dic['loggerClass'];
+        $loggerClass = self::$dic['loggerClass'];
         $this->log = $loggerClass::getLogger(__CLASS__);
     }
 

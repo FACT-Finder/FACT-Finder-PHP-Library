@@ -13,17 +13,20 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
     /**
      * @var FACTFinder\Util\Pimple Dependency injection container
      */
-    protected $dic;
+    protected static $dic;
 
-    public function setUp()
+    public static function setUpBeforeClass()
     {
-        $this->dic = FF::getInstance('Util\Pimple');
-
         $logClass = FF::getClassName('Util\Log4PhpLogger');
         $logClass::configure(RESOURCES_DIR.DS.'log4php.xml');
-        $this->dic['loggerClass'] = $logClass;
 
-        $this->dic['configuration'] = $this->dic->share(function($c) {
+        // Set up dependency injection container (Pimple)
+
+        self::$dic = FF::getInstance('Util\Pimple');
+
+        self::$dic['loggerClass'] = $logClass;
+
+        self::$dic['configuration'] = self::$dic->share(function($c) {
             return FF::getInstance(
                 'Core\XmlConfiguration',
                 RESOURCES_DIR.DS.'config.xml',
@@ -32,16 +35,18 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
         });
 
         // $this cannot be passed into closures before PHP 5.4
-        $that = $this;
-        $this->dic['encodingConverter'] = $this->dic->share(
-            function($c) use ($that) {
+        //$that = $this;
+        self::$dic['encodingConverter'] = self::$dic->share(
+            function($c) {
                 if (extension_loaded('iconv'))
                     $type = 'Core\IConvEncodingConverter';
                 else if (function_exists('utf8_encode')
                          && function_exists('utf8_decode'))
                     $type = 'Core\Utf8EncodingConverter';
                 else
-                    $that->markTestSkipped('No encoding conversion available.');
+                    return;
+                //TODO: Skip test if no conversion method is available.
+                //    $that->markTestSkipped('No encoding conversion available.');
 
                 return FF::getInstance(
                     $type,
@@ -51,7 +56,7 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
             }
         );
 
-        $this->dic['urlBuilder'] = function($c) {
+        self::$dic['urlBuilder'] = function($c) {
             return FF::getInstance(
                 'Core\Server\UrlBuilder',
                 $c['loggerClass'],
@@ -59,11 +64,11 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
             );
         };
 
-        $this->dic['curlStub'] = $this->dic->share(function($c) {
+        self::$dic['curlStub'] = self::$dic->share(function($c) {
             return FF::getInstance('Util\CurlStub');
         });
 
-        $this->dic['dataProvider'] = function($c) {
+        self::$dic['dataProvider'] = self::$dic->share(function($c) {
             $dataProvider = FF::getInstance(
                 'Core\Server\FileSystemDataProvider',
                 $c['loggerClass'],
@@ -73,6 +78,37 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
             $dataProvider->setFileLocation(RESOURCES_DIR . DS . 'responses');
 
             return $dataProvider;
+        });
+
+        self::$dic['requestFactory'] = self::$dic->share(function($c) {
+            $requestFactory = FF::getInstance(
+                'Core\Server\FileSystemRequestFactory',
+                $c['loggerClass'],
+                $c['configuration']
+            );
+
+            $requestFactory->setFileLocation(RESOURCES_DIR . DS . 'responses');
+
+            return $requestFactory;
+        });
+
+        self::$dic['request'] = function($c) {
+            return $c['requestFactory']->getRequest();
         };
+
+        self::$dic['parametersConverter'] = function($c) {
+            return FF::getInstance(
+                'Core\ParametersConverter',
+                $c['loggerClass'],
+                $c['configuration']
+            );
+        };
+
+        self::$dic['requestParser'] = FF::getInstance(
+            'Core\Client\RequestParser',
+            self::$dic['loggerClass'],
+            self::$dic['configuration'],
+            self::$dic['encodingConverter']
+        );
     }
 }

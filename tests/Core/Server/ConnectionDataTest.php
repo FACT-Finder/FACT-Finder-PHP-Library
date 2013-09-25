@@ -19,7 +19,7 @@ class ConnectionDataTest extends \FACTFinder\Test\BaseTestCase
     {
         parent::setUp();
 
-        $loggerClass = $this->dic['loggerClass'];
+        $loggerClass = self::$dic['loggerClass'];
         $this->log = $loggerClass::getLogger(__CLASS__);
 
         $this->connectionData = FF::getInstance('Core\Server\ConnectionData');

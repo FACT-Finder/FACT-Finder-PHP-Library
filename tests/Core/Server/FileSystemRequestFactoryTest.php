@@ -26,14 +26,14 @@ class FileSystemRequestFactoryTest extends \FACTFinder\Test\BaseTestCase
 
         $this->factory = FF::getInstance(
             'Core\Server\FileSystemRequestFactory',
-            $this->dic['loggerClass'],
-            $this->dic['configuration']
+            self::$dic['loggerClass'],
+            self::$dic['configuration']
         );
 
-        $loggerClass = $this->dic['loggerClass'];
+        $loggerClass = self::$dic['loggerClass'];
         $this->log = $loggerClass::getLogger(__CLASS__);
 
-        $this->configuration = $this->dic['configuration'];
+        $this->configuration = self::$dic['configuration'];
     }
 
     public function testGetWorkingRequest()

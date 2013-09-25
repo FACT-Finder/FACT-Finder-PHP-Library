@@ -16,11 +16,6 @@ class RequestTest extends \FACTFinder\Test\BaseTestCase
     protected $configuration;
 
     /**
-     * @var FACTFinder\Util\CurlStub
-     */
-    protected $curlStub;
-
-    /**
      * @var FACTFinder\Core\Server\Request
      */
     protected $request;
@@ -29,18 +24,25 @@ class RequestTest extends \FACTFinder\Test\BaseTestCase
     {
         parent::setUp();
 
-        $this->curlStub = $this->dic['curlStub'];
-        $this->request = FF::getInstance(
-            'Core\Server\Request',
-            $this->dic['loggerClass'],
-            FF::getInstance('Core\Server\ConnectionData'),
-            $this->dic['dataProvider']
+        $dataProvider = FF::getInstance(
+            'Core\Server\FileSystemDataProvider',
+            self::$dic['loggerClass'],
+            self::$dic['configuration']
         );
 
-        $loggerClass = $this->dic['loggerClass'];
+        $dataProvider->setFileLocation(RESOURCES_DIR . DS . 'responses');
+
+        $this->request = FF::getInstance(
+            'Core\Server\Request',
+            self::$dic['loggerClass'],
+            FF::getInstance('Core\Server\ConnectionData'),
+            $dataProvider
+        );
+
+        $loggerClass = self::$dic['loggerClass'];
         $this->log = $loggerClass::getLogger(__CLASS__);
 
-        $this->configuration = $this->dic['configuration'];
+        $this->configuration = self::$dic['configuration'];
     }
 
     public function testGetResponse()

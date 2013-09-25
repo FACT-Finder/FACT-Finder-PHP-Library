@@ -14,7 +14,7 @@ class ResponseTest extends \FACTFinder\Test\BaseTestCase
     {
         parent::setUp();
 
-        $loggerClass = $this->dic['loggerClass'];
+        $loggerClass = self::$dic['loggerClass'];
         $this->log = $loggerClass::getLogger(__CLASS__);
     }
 

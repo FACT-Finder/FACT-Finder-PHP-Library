@@ -9,11 +9,13 @@
     "settings":
     {
         "rulers": [80, 120],
+        "default_encoding": "UTF-8",
         "default_line_ending": "unix",
         "ensure_newline_at_eof_on_save": true,
         "todo": {
             "folder_exclude_patterns": [
-                "log4php"
+                "log4php",
+                "report"
             ],
             "file_exclude_patterns": [
                 "Pimple.php"

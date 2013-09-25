@@ -18,10 +18,10 @@ class XmlConfigurationTest extends \FACTFinder\Test\BaseTestCase
     public function setUp()
     {
         parent::setUp();
-        $loggerClass = $this->dic['loggerClass'];
+        $loggerClass = self::$dic['loggerClass'];
         $this->log = $loggerClass::getLogger(__CLASS__);
 
-        $this->configuration = $this->dic['configuration'];
+        $this->configuration = self::$dic['configuration'];
     }
 
     public function testTopLevelSettings()
@@ -105,7 +105,7 @@ class XmlConfigurationTest extends \FACTFinder\Test\BaseTestCase
     public function testEncodingSettings()
     {
         $this->assertEquals('UTF-8', $this->configuration->getPageContentEncoding());
-        $this->assertEquals('UTF-8', $this->configuration->getClientUrlEncoding());
+        $this->assertEquals('ISO-8859-1', $this->configuration->getClientUrlEncoding());
     }
 
     public function testSetAuthenticationType()
@@ -128,5 +128,14 @@ class XmlConfigurationTest extends \FACTFinder\Test\BaseTestCase
         $this->assertTrue($this->configuration->isAdvancedAuthenticationType());
         $this->assertFalse($this->configuration->isSimpleAuthenticationType());
         $this->assertFalse($this->configuration->isHttpAuthenticationType());
+    }
+
+    public function testSetEncodings()
+    {
+        $this->configuration->setPageContentEncoding('ISO-8859-1');
+        $this->configuration->setClientUrlEncoding('ISO-8859-15');
+
+        $this->assertEquals('ISO-8859-1', $this->configuration->getPageContentEncoding());
+        $this->assertEquals('ISO-8859-15', $this->configuration->getClientUrlEncoding());
     }
 }
