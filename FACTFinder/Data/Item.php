@@ -63,13 +63,4 @@ class Item
     {
         return $this->selected;
     }
-
-    /**
-     * Allows to override the URL of the item.
-     * @param $url string
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
-    }
 }

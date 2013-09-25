@@ -20,6 +20,11 @@ class TagCloud extends AbstractAdapter
      */
     private $parameters;
 
+    /**
+     * @var string
+     */
+    private $lastRequestQuery = null;
+
     public function __construct(
         $loggerClass,
         \FACTFinder\Core\ConfigurationInterface $configuration,
@@ -48,8 +53,12 @@ class TagCloud extends AbstractAdapter
      */
     public function getTagCloud($requestQuery = null)
     {
-        if (is_null($this->tagCloud))
+        if (is_null($this->tagCloud)
+            || $requestQuery != $this->lastRequestQuery
+        ) {
             $this->tagCloud = $this->createTagCloud($requestQuery);
+            $this->lastRequestQuery = $requestQuery;
+        }
 
         return $this->tagCloud;
     }
