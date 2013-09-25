@@ -73,4 +73,31 @@ class TagCloudTest extends \FACTFinder\Test\BaseTestCase
     {
         $this->adapter->setWordCount(-1);
     }
+
+    public function testSelectedTagQuery()
+    {
+        $tagCloud = $this->adapter->getTagCloud();
+
+        $this->assertFalse($tagCloud[0]->isSelected(), 'first tag query should not be selected');
+        $this->assertFalse($tagCloud[1]->isSelected(), 'first tag query should not be selected');
+        $this->assertFalse($tagCloud[2]->isSelected(), 'first tag query should not be selected');
+        $this->assertFalse($tagCloud[3]->isSelected(), 'first tag query should not be selected');
+        $this->assertFalse($tagCloud[4]->isSelected(), 'first tag query should not be selected');
+
+        $tagCloud = $this->adapter->getTagCloud('bmx');
+
+        $this->assertFalse($tagCloud[0]->isSelected(), 'first tag query should not be selected');
+        $this->assertFalse($tagCloud[1]->isSelected(), 'first tag query should not be selected');
+        $this->assertFalse($tagCloud[2]->isSelected(), 'first tag query should not be selected');
+        $this->assertTrue($tagCloud[3]->isSelected(), 'first tag query should be selected');
+        $this->assertFalse($tagCloud[4]->isSelected(), 'first tag query should not be selected');
+
+        $tagCloud = $this->adapter->getTagCloud('bikes');
+
+        $this->assertFalse($tagCloud[0]->isSelected(), 'first tag query should not be selected');
+        $this->assertFalse($tagCloud[1]->isSelected(), 'first tag query should not be selected');
+        $this->assertTrue($tagCloud[2]->isSelected(), 'first tag query should be selected');
+        $this->assertFalse($tagCloud[3]->isSelected(), 'first tag query should not be selected');
+        $this->assertFalse($tagCloud[4]->isSelected(), 'first tag query should not be selected');
+    }
 }
