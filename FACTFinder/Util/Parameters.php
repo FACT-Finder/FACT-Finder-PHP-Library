@@ -75,6 +75,11 @@ class Parameters implements \ArrayAccess, \Countable
         $pairs = explode('&', $query);
         foreach ($pairs AS $pair)
         {
+            // Java ignores parameters only if they are completely empty (i.e.
+            // neither key name nor equals sign).
+            if ($pair == '')
+                continue;
+
             $pair = explode('=', $pair);
 
             if (count($pair) == 1)
