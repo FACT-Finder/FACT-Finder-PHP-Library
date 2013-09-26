@@ -15,38 +15,38 @@ use FACTFinder\Loader as FF;
 abstract class AbstractAdapter
 {
     /**
-     * @var FACTFinder\Util\LoggerInterface
+     * @var \FACTFinder\Util\LoggerInterface
      */
     private $log;
 
     /**
-     * @var FACTFinder\Core\ConfigurationInterface
+     * @var \FACTFinder\Core\ConfigurationInterface
      */
     protected $configuration;
 
     /**
-     * @var FACTFinder\Core\Server\Request
+     * @var \FACTFinder\Core\Server\Request
      */
     protected $request;
 
     /**
-     * @var FACTFinder\Core\Client\UrlBuilder
+     * @var \FACTFinder\Core\Client\UrlBuilder
      */
     protected $urlBuilder;
 
     /**
-     * @var FACTFinder\Util\ContentProcessorInterface
+     * @var \FACTFinder\Util\ContentProcessorInterface
      */
     private $responseContentProcessor;
 
     /**
      * @param string $loggerClass Class name of logger to use. The class should
      *        implement FACTFinder\Util\LoggerInterface.
-     * @param FACTFinder\Core\ConfigurationInterface $configuration
+     * @param \FACTFinder\Core\ConfigurationInterface $configuration
      *        Configuration object to use.
-     * @param FACTFinder\Core\Server\Request $request The request object from
+     * @param \FACTFinder\Core\Server\Request $request The request object from
      *        which to obtain the server data.
-     * @param FACTFinder\Core\Client\UrlBuilder $urlBuilder
+     * @param \FACTFinder\Core\Client\UrlBuilder $urlBuilder
      *        Client URL builder object to use.
      */
     public function __construct(

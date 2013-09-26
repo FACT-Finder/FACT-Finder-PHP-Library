@@ -82,6 +82,9 @@ class TagCloud extends AbstractAdapter
         else
         {
             unset($parameters['wordCount']);
+            // Make sure that the tag cloud is fetched again. In theory, we only
+            // have to do this when wordCount increases.
+            $this->tagCloud = null;
         }
     }
 
