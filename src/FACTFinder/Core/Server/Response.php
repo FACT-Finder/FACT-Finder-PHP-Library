@@ -1,6 +1,9 @@
 <?php
 namespace FACTFinder\Core\Server;
 
+/**
+ * Represents a request response from the FACT-Finder server.
+ */
 class Response
 {
     /**
