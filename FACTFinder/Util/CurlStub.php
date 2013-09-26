@@ -4,7 +4,7 @@ namespace FACTFinder\Util;
 use FACTFinder\Loader as FF;
 
 /**
- * Stubs the cURL interface without issuing any PHP requests.
+ * Stubs the cURL interface without issuing any network requests.
  */
 class CurlStub implements CurlInterface
 {
