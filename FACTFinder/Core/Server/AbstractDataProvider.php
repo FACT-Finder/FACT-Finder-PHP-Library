@@ -1,6 +1,10 @@
 <?php
 namespace FACTFinder\Core\Server;
 
+/**
+ * Data providers take care of retrieving pre-configured requests with
+ * FACT-Finder data, including the network connection if necessary.
+ */
 abstract class AbstractDataProvider
 {
     /**

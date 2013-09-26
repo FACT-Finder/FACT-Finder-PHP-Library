@@ -3,6 +3,11 @@ namespace FACTFinder\Core\Server;
 
 use FACTFinder\Loader as FF;
 
+/**
+ * Represents all data belonging to a single connection. It holds all data
+ * necessary to configure a request and can also be filled with the
+ * corresponding response.
+ */
 class ConnectionData
 {
     /**

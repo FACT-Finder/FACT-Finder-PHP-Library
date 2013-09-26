@@ -1,6 +1,12 @@
 <?php
 namespace FACTFinder\Core\Server;
 
+/**
+ * This is basically a Facade for ConnectionData and DataProviders, allowing
+ * access only to parameters, HTTP header fields, the target action a few
+ * selected connection options, plus retrieval of the response. ConnectionData
+ * and DataProvider are hidden behind this class and should not be used
+ */
 class Request
 {
     /**
