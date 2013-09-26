@@ -19,11 +19,6 @@ class Suggest extends AbstractAdapter
      */
     private $suggestions;
 
-    /**
-     * @var FACTFinder\Util\Parameters
-     */
-    private $parameters;
-
     public function __construct(
         $loggerClass,
         \FACTFinder\Core\ConfigurationInterface $configuration,
@@ -36,7 +31,6 @@ class Suggest extends AbstractAdapter
         $this->log = $loggerClass::getLogger(__CLASS__);
 
         $this->request->setAction('Suggest.ff');
-        $this->parameters = $this->request->getParameters();
         $this->parameters['format'] = 'json';
 
         $this->request->setConnectTimeout($configuration->getSuggestConnectTimeout());
@@ -71,18 +65,18 @@ class Suggest extends AbstractAdapter
             {
                 $parameters = FF::getInstance(
                     'Util\Parameters',
-                    (string)$suggestQueryData->searchParams,
+                    $suggestQueryData['searchParams'],
                     true
                 );
 
                 $suggestions[] = FF::getInstance(
                     'Data\SuggestQuery',
-                    (string)$suggestQueryData->name,
+                    $suggestQueryData['name'],
                     $this->urlBuilder->generateUrl($parameters),
-                    (int)$suggestQueryData->hitCount,
-                    (string)$suggestQueryData->type,
-                    (string)$suggestQueryData->image,
-                    (string)$suggestQueryData->refKey
+                    $suggestQueryData['hitCount'],
+                    $suggestQueryData['type'],
+                    $suggestQueryData['image'],
+                    $suggestQueryData['refKey']
                 );
             }
         }

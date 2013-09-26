@@ -12,7 +12,7 @@ namespace FACTFinder\Util;
  * NameValueCollection.
  *
  * TODO: Implement Iterator or IteratorAggregate interface to allow use of
- *       Parameter objects in foreach().
+ *       Parameter objects in foreach(). Or maybe just extend ArrayIterator.
  *
  */
 class Parameters implements \ArrayAccess, \Countable
