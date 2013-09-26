@@ -46,7 +46,8 @@
                     "cmd": ["phpdoc",
                             "-d", "src/FACTFinder",
                             "-t", "docs",
-                            "--template", "clean"],
+                            "--template", "clean",
+                            "--sourcecode"],
                     "working_dir": "$project_path"
                 }
             ]

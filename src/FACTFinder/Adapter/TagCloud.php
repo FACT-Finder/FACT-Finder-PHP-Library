@@ -16,11 +16,6 @@ class TagCloud extends AbstractAdapter
     private $tagCloud;
 
     /**
-     * @var FACTFinder\Util\Parameters
-     */
-    private $parameters;
-
-    /**
      * @var string
      */
     private $lastRequestQuery = null;
@@ -37,7 +32,6 @@ class TagCloud extends AbstractAdapter
         $this->log = $loggerClass::getLogger(__CLASS__);
 
         $this->request->setAction('TagCloud.ff');
-        $this->parameters = $this->request->getParameters();
         $this->parameters['do'] = 'getTagCloud';
         $this->parameters['format'] = 'json';
 
@@ -97,7 +91,7 @@ class TagCloud extends AbstractAdapter
         {
             foreach ($tagCloudData as $tagQueryData)
             {
-                $query = (string)$tagQueryData->query;
+                $query = $tagQueryData['query'];
 
                 // TODO: Once JIRA issue FF-5328 is fixed, retrieve the
                 //       parameters from searchParams, like all other adapters
@@ -110,8 +104,8 @@ class TagCloud extends AbstractAdapter
                     $query,
                     $this->urlBuilder->generateUrl($parameters),
                     $requestQuery == $query,
-                    $tagQueryData->weight,
-                    $tagQueryData->searchCount
+                    $tagQueryData['weight'],
+                    $tagQueryData['searchCount']
                 );
             }
         }

@@ -25,6 +25,8 @@ We follow the [Zend Framework's Coding Standards](http://framework.zend.com/wiki
   the only opening braces placed on the same line are those that open anonymous
   functions.
 - Single-line control statements may omit braces.
+- If the first of a two-letter acronym is capitalized in a name, so is the
+  second (e.g. getID()).
 - All but the simplest regular expressions have to be formatted in free-spacing
   mode and thoroughly commented.
 
@@ -44,6 +46,7 @@ This list is still subject to change (ironically...).
 -- former underscore convention now replaced with namespaces
 -- Configuration -> XmlConfiguration
 -- EncodingHandler -> *EncodingConverter
+-- Adapter removed from adapter names (it's already in the namespace)
 - ParametersParser separated into
 -- ParametersConverter - converts parameters back and forth between server and client. This one is mostly irrelevant outside of the library itself.
 -- RequestParser - reads parameters and targets from request data
