@@ -10,15 +10,19 @@ namespace FACTFinder;
 use FACTFinder\Loader as FF;
 use FACTFinder\Util\LoggerInterface;
 
-// short cut for the constant DIRECTORY_SEPARATOR
 if (!defined('DS'))
 {
+    /**
+     * Short alias for the constant DIRECTORY_SEPARATOR
+     */
     define('DS', DIRECTORY_SEPARATOR);
 }
 
-// contains the complete lib directory path
 if (!defined('LIB_DIR'))
 {
+    /**
+     * Contains the absolute directory path to the library.
+     */
     define('LIB_DIR', dirname(dirname(__FILE__)));
 }
 
@@ -38,7 +42,12 @@ if (function_exists('__autoload')
 }
 
 /**
- * handles different loading tasks
+ * Responsible for auto loading and instance creation. Please instantiate all
+ * library classes through this loader, as it automatically takes care of
+ * overriding library implementations with custom ones.
+ *
+ * For convenience, you can alias this class with FF in your source files like:
+ * use FACTFinder\Loader as FF;
  */
 class Loader
 {

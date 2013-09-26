@@ -8,7 +8,7 @@ namespace FACTFinder\Util;
  * @codeCoverageIgnore
  * This implementation simply forwards all calls to built-in methods, so there's
  * no need to test it.
- **/
+ */
 class Curl implements CurlInterface
 {
     public function close($ch)

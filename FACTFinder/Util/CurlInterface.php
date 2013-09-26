@@ -3,7 +3,7 @@ namespace FACTFinder\Util;
 
 /**
  * Interface for PHP cURL functions.
- **/
+ */
 interface CurlInterface
 {
     public function close($ch);
