@@ -40,6 +40,13 @@
                     "cmd": ["phpunit",
                             "--configuration", "phpunit-coverage.xml",
                             "."]
+                },
+                {
+                    "name": "PHPDoc",
+                    "cmd": ["phpdoc",
+                            "-d", "src/FACTFinder",
+                            "-t", "docs"],
+                    "working_dir": "$project_path"
                 }
             ]
         }
