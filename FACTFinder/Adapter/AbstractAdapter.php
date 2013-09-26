@@ -30,6 +30,11 @@ abstract class AbstractAdapter
     protected $request;
 
     /**
+     * @var FACTFinder\Util\Parameters
+     */
+    protected $parameters;
+
+    /**
      * @var \FACTFinder\Core\Client\UrlBuilder
      */
     protected $urlBuilder;
@@ -38,6 +43,16 @@ abstract class AbstractAdapter
      * @var \FACTFinder\Util\ContentProcessorInterface
      */
     private $responseContentProcessor;
+
+    /**
+     * @var \FACTFinder\Core\Server\Response
+     */
+    private $lastResponse = null;
+
+    /**
+     * @var object The processed response content.
+     */
+    private $responseContent = null;
 
     /**
      * @param string $loggerClass Class name of logger to use. The class should
@@ -58,6 +73,7 @@ abstract class AbstractAdapter
         $this->log = $loggerClass::getLogger(__CLASS__);
         $this->configuration = $configuration;
         $this->request = $request;
+        $this->parameters = $request->getParameters();
         $this->urlBuilder = $urlBuilder;
 
         $this->usePassthroughResponseContentProcessor();
@@ -73,7 +89,10 @@ abstract class AbstractAdapter
     protected function useJsonResponseContentProcessor()
     {
         $this->responseContentProcessor = function($string) {
-            $jsonData = json_decode($string);
+            // The second parameter turns objects into associative arrays.
+            // stdClass objects don't really have any advantages over plain
+            // arrays but miss out on some of the built-in array functions.
+            $jsonData = json_decode($string, true);
 
             if (is_null($jsonData))
                 throw new InvalidArgumentException(
@@ -114,10 +133,21 @@ abstract class AbstractAdapter
 
     protected function getResponseContent()
     {
-        $content = $this->request->getResponse()->getContent();
+        $response = $this->request->getResponse();
 
-        // PHP does not (yet?) support $this->method($args) for callable
-        // properties
-        return $this->responseContentProcessor->__invoke($content);
+        // Only reprocess the response content, if the response is new.
+        if (is_null($this->responseContent)
+            || $response !== $this->lastResponse
+        ) {
+            $content = $response->getContent();
+
+            // PHP does not (yet?) support $this->method($args) for callable
+            // properties
+            $this->responseContent = $this->responseContentProcessor
+                                          ->__invoke($content);
+            $this->lastResponse = $response;
+        }
+
+        return $this->responseContent;
     }
  }
