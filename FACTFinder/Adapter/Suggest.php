@@ -63,16 +63,14 @@ class Suggest extends AbstractAdapter
         {
             foreach ($suggestData as $suggestQueryData)
             {
-                $parameters = FF::getInstance(
-                    'Util\Parameters',
-                    $suggestQueryData['searchParams'],
-                    true
+                $suggestLink = $this->convertServerQueryToClientUrl(
+                    $suggestQueryData['searchParams']
                 );
 
                 $suggestions[] = FF::getInstance(
                     'Data\SuggestQuery',
                     $suggestQueryData['name'],
-                    $this->urlBuilder->generateUrl($parameters),
+                    $suggestLink,
                     $suggestQueryData['hitCount'],
                     $suggestQueryData['type'],
                     $suggestQueryData['image'],
