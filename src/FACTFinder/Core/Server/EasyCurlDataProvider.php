@@ -48,6 +48,7 @@ class EasyCurlDataProvider extends AbstractDataProvider
             CURLOPT_TIMEOUT        => $this->configuration->getDefaultTimeout(),
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_SSL_VERIFYHOST => false,
+            CURLOPT_ENCODING       => '',
         );
 
         $this->necessaryCurlOptions = array(
