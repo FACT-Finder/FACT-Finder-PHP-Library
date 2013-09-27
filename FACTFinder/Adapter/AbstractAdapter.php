@@ -150,4 +150,15 @@ abstract class AbstractAdapter
 
         return $this->responseContent;
     }
+
+    protected function convertServerQueryToClientUrl($query)
+    {
+        $parameters = FF::getInstance(
+            'Util\Parameters',
+            $query,
+            true
+        );
+
+        return $this->urlBuilder->generateUrl($parameters);
+    }
  }
