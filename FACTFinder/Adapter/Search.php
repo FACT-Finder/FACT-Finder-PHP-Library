@@ -30,6 +30,11 @@ class Search extends AbstractAdapter
      */
     private $paging;
 
+    /**
+     * @var FACTFinder\Data\Sorting
+     */
+    private $sorting;
+
     public function __construct(
         $loggerClass,
         \FACTFinder\Core\ConfigurationInterface $configuration,
@@ -430,7 +435,7 @@ class Search extends AbstractAdapter
         $sortingData = $jsonData['searchResult']['sortsList'];
         if (!empty($sortingData))
         {
-            foreach ($sortingData['pageLinks'] as $optionData)
+            foreach ($sortingData as $optionData)
             {
                 $optionLink = $this->convertServerQueryToClientUrl(
                     $optionData['searchParams']
@@ -438,10 +443,9 @@ class Search extends AbstractAdapter
 
                 $sortOptions[] = FF::getInstance(
                     'Data\Item',
-                    $optionData['number'],
-                    $optionData['caption'],
+                    $optionData['description'],
                     $optionLink,
-                    $optionData['currentPage']
+                    $optionData['selected']
                 );
             }
         }
