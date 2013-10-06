@@ -167,13 +167,12 @@ class SearchTest extends \FACTFinder\Test\BaseTestCase
 
     public function testSortingLoading()
     {
-        $this->markTestIncomplete();
         $sorting = $this->adapter->getSorting();
 
         $this->assertInstanceOf('FACTFinder\Data\Sorting', $sorting);
         $this->assertEquals(5, count($sorting));
         $this->assertInstanceOf("FACTFinder\Data\Item", $sorting[0]);
-        $this->assertEquals('sort.relevanceDescription', $sorting[0]->getValue());
+        $this->assertEquals('sort.relevanceDescription', $sorting[0]->getLabel());
         $this->assertTrue($sorting[0]->isSelected());
         $this->assertFalse($sorting[1]->isSelected());
     }
