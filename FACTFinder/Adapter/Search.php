@@ -35,6 +35,11 @@ class Search extends AbstractAdapter
      */
     private $sorting;
 
+    /**
+     * @var FACTFinder\Data\BreadCrumbTrail
+     */
+    private $breadCrumbTrail;
+
     public function __construct(
         $loggerClass,
         \FACTFinder\Core\ConfigurationInterface $configuration,
@@ -453,6 +458,61 @@ class Search extends AbstractAdapter
         return FF::getInstance(
             'Data\Sorting',
             $sortOptions
+        );
+    }
+
+    /**
+     * @return \FACTFinder\Data\BreadCrumbTrail
+     */
+    public function getBreadCrumbTrail()
+    {
+        if (is_null($this->sorting))
+            $this->sorting = $this->createBreadCrumbTrail();
+
+        return $this->sorting;
+    }
+
+    /**
+     * @return \FACTFinder\Data\BreadCrumbTrail
+     */
+    private function createBreadCrumbTrail()
+    {
+        $breadCrumbs = array();
+
+        $jsonData = $this->getResponseContent();
+
+        $breadCrumbTrailData = $jsonData['searchResult']['breadCrumbTrailItems'];
+        if (!empty($breadCrumbTrailData))
+        {
+            $i = 1;
+            foreach ($breadCrumbTrailData as $breadCrumbData)
+            {
+                $breadCrumbLink = $this->convertServerQueryToClientUrl(
+                    $breadCrumbData['searchParams']
+                );
+
+                $breadCrumbTypeEnum = FF::getClassName('Data\BreadCrumbType');
+                if ($breadCrumbData['type'] == 'filter')
+                    $type = $breadCrumbTypeEnum::Filter();
+                else
+                    $type = $breadCrumbTypeEnum::Search();
+
+                $breadCrumbs[] = FF::getInstance(
+                    'Data\BreadCrumb',
+                    $breadCrumbData['text'],
+                    $breadCrumbLink,
+                    $i == count($breadCrumbTrailData),
+                    $type,
+                    $breadCrumbData['associatedFieldName']
+                );
+
+                ++$i;
+            }
+        }
+
+        return FF::getInstance(
+            'Data\BreadCrumbTrail',
+            $breadCrumbs
         );
     }
 }
