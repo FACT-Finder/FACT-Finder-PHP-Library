@@ -192,28 +192,29 @@ class SearchTest extends \FACTFinder\Test\BaseTestCase
 
     public function testEmptyCampaigns()
     {
-        $this->markTestIncomplete();
-        $this->assertEquals(0, count($this->adapter->getCampaigns()));
+        $campaigns = $this->adapter->getCampaigns();
+
+        $this->assertInstanceOf('FACTFinder\Data\CampaignIterator', $campaigns);
+        $this->assertEquals(0, count($campaigns));
     }
 
     public function testCampaignLoading()
     {
-        $this->markTestIncomplete();
         $this->adapter->setQuery('campaigns');
 
         $campaigns = $this->adapter->getCampaigns();
 
-        $this->assertInstanceOf('FACTFinder_CampaignIterator', $campaigns);
-        $this->assertInstanceOf('FACTFinder_Campaign', $campaigns[0]);
+        $this->assertInstanceOf('FACTFinder\Data\CampaignIterator', $campaigns);
+        $this->assertInstanceOf('FACTFinder\Data\Campaign', $campaigns[0]);
 
         $this->assertTrue($campaigns->hasRedirect());
         $this->assertEquals('http://www.fact-finder.de', $campaigns->getRedirectUrl());
 
         $this->assertTrue($campaigns->hasFeedback());
-        $expectedFeedback = implode(PHP_EOL, array("test feedback 1", "test feedback 2", ""));
+        $expectedFeedback = implode(PHP_EOL, array("test feedback 1", "test feedback 2"));
         $this->assertEquals($expectedFeedback, $campaigns->getFeedback('html header'));
         $this->assertEquals($expectedFeedback, $campaigns->getFeedback('9'));
-        $expectedFeedback = PHP_EOL . "test feedback 3" . PHP_EOL;
+        $expectedFeedback = "test feedback 3";
         $this->assertEquals($expectedFeedback, $campaigns->getFeedback('below header'));
         $this->assertEquals($expectedFeedback, $campaigns->getFeedback('6'));
 
@@ -221,7 +222,7 @@ class SearchTest extends \FACTFinder\Test\BaseTestCase
         $products = $campaigns->getPushedProducts();
         $this->assertEquals(1, count($products));
         $this->assertEquals('17552', $products[0]->getId());
-        $this->assertEquals('..Fahrräder..', $products[0]->getValue('Category1'));
+        $this->assertEquals('..Fahrräder..', $products[0]->getField('Category1'));
 
         $this->assertTrue($campaigns->hasActiveQuestions());
         $questions = $campaigns->getActiveQuestions();
@@ -230,9 +231,9 @@ class SearchTest extends \FACTFinder\Test\BaseTestCase
         $answers = $questions[0]->getAnswers();
         $this->assertEquals(2, count($answers));
         $this->assertEquals('answer text 1', $answers[0]->getText());
-        $this->assertFalse($answers[0]->hasSubquestions());
+        $this->assertFalse($answers[0]->hasFollowUpQuestions());
         $this->assertEquals('answer text 2', $answers[1]->getText());
-        $this->assertFalse($answers[1]->hasSubquestions());
+        $this->assertFalse($answers[1]->hasFollowUpQuestions());
     }
 
     public function testNoError()
