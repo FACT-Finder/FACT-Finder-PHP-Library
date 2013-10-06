@@ -40,6 +40,11 @@ class Search extends AbstractAdapter
      */
     private $breadCrumbTrail;
 
+    /**
+     * @var FACTFinder\Data\CampaignIterator
+     */
+    private $campaigns;
+
     public function __construct(
         $loggerClass,
         \FACTFinder\Core\ConfigurationInterface $configuration,
@@ -55,6 +60,15 @@ class Search extends AbstractAdapter
         $this->parameters['format'] = 'json';
 
         $this->useJsonResponseContentProcessor();
+    }
+
+    /**
+     * Overwrite the query on the request.
+     * @param string $query
+     */
+    public function setQuery($query)
+    {
+        $this->parameters['query'] = $query;
     }
 
     /**
@@ -89,7 +103,7 @@ class Search extends AbstractAdapter
                 $position = $recordData['position'];
 
                 $record = FF::getInstance('Data\Record',
-                    strval($recordData['id']),
+                    (string)$recordData['id'],
                     $recordData['record'],
                     $recordData['searchSimilarity'],
                     $position,
@@ -227,7 +241,7 @@ class Search extends AbstractAdapter
      *        for a single filter.
      * @return \FACTFinder\Data\Filter
      */
-    private function createFilter($filterData)
+    private function createFilter(array $filterData)
     {
         $filterLink = $this->convertServerQueryToClientUrl(
             $filterData['searchParams']
@@ -250,7 +264,7 @@ class Search extends AbstractAdapter
      *        for a single slider filter.
      * @return \FACTFinder\Data\SliderFilter
      */
-    private function createSliderFilter($filterData)
+    private function createSliderFilter(array $filterData)
     {
         // For sliders, FACT-Finder appends a filter parameter without value to
         // the 'searchParams' field, which is to be filled with the selected
@@ -402,7 +416,7 @@ class Search extends AbstractAdapter
      *        for a single page link.
      * @return \FACTFinder\Data\Item
      */
-    private function createPageItem($pageData)
+    private function createPageItem(array $pageData)
     {
         $pageLink = $this->convertServerQueryToClientUrl(
             $pageData['searchParams']
@@ -513,6 +527,210 @@ class Search extends AbstractAdapter
         return FF::getInstance(
             'Data\BreadCrumbTrail',
             $breadCrumbs
+        );
+    }
+
+    /**
+     * @return \FACTFinder\Data\CampaignIterator
+     */
+    public function getCampaigns()
+    {
+        if (is_null($this->campaigns))
+            $this->campaigns = $this->createCampaigns();
+
+        return $this->campaigns;
+    }
+
+    /**
+     * @return \FACTFinder\Data\CampaignIterator
+     */
+    private function createCampaigns()
+    {
+        $campaigns = array();
+        $jsonData = $this->getResponseContent();
+
+        if (isset($jsonData['searchResult']['campaigns'])) {
+            foreach ($jsonData['searchResult']['campaigns'] as $campaignData) {
+                $campaign = $this->createEmptyCampaignObject($campaignData);
+
+                $this->fillCampaignObject($campaign, $campaignData);
+
+                $campaigns[] = $campaign;
+            }
+        }
+
+        $campaignIterator = FF::getInstance(
+            'Data\CampaignIterator',
+            $campaigns
+        );
+        return $campaignIterator;
+    }
+
+    /**
+     * @param mixed[] $campaignData An associative array corresponding to the
+     *        JSON for a single campaign.
+     * @return \FACTFinder\Data\Campaign
+     */
+    private function createEmptyCampaignObject(array $campaignData)
+    {
+        return FF::getInstance(
+            'Data\Campaign',
+            $campaignData['name'],
+            $campaignData['category'],
+            $campaignData['target']['destination']
+        );
+    }
+
+    /**
+     * @param \FACTFinder\Data\Campaign $campaign The campaign object to be
+     *        filled.
+     * @param mixed[] $campaignData An associative array corresponding to the
+     *        JSON for that campaign.
+     */
+    private function fillCampaignObject(
+        \FACTFinder\Data\Campaign $campaign,
+        array $campaignData
+    ) {
+        switch ($campaignData['flavour'])
+        {
+        case 'FEEDBACK':
+            $this->fillCampaignWithFeedback($campaign, $campaignData);
+            $this->fillCampaignWithPushedProducts($campaign, $campaignData);
+            break;
+        case 'ADVISOR':
+            $this->fillCampaignWithAdvisorData($campaign, $campaignData);
+            break;
+        }
+    }
+
+    /**
+     * @param \FACTFinder\Data\Campaign $campaign The campaign object to be
+     *        filled.
+     * @param mixed[] $campaignData An associative array corresponding to the
+     *        JSON for that campaign.
+     */
+    private function fillCampaignWithFeedback(
+        \FACTFinder\Data\Campaign $campaign,
+        array $campaignData
+    ) {
+        if (!empty($campaignData['feedbackTexts']))
+        {
+            $feedback = array();
+
+            foreach ($campaignData['feedbackTexts'] as $feedbackData)
+            {
+                // If present, add the feedback to both the label and the ID.
+                $label = $feedbackData['label'];
+                if ($label !== '')
+                    $feedback[$label] = $feedbackData['text'];
+
+                $id = $feedbackData['id'];
+                if ($id !== null)
+                    $feedback[$id] = $feedbackData['text'];
+            }
+
+            $campaign->addFeedback($feedback);
+        }
+    }
+
+    /**
+     * @param \FACTFinder\Data\Campaign $campaign The campaign object to be
+     *        filled.
+     * @param mixed[] $campaignData An associative array corresponding to the
+     *        JSON for that campaign.
+     */
+    private function fillCampaignWithPushedProducts(
+        \FACTFinder\Data\Campaign $campaign,
+        array $campaignData
+    ) {
+        if (!empty($campaignData['pushedProductsRecords']))
+        {
+            $pushedProducts = array();
+
+            foreach ($campaignData['pushedProductsRecords'] as $recordData)
+            {
+                $pushedProducts[] = FF::getInstance(
+                    'Data\Record',
+                    (string)$recordData['id'],
+                    $recordData['record']
+                );
+            }
+
+            $campaign->addPushedProducts($pushedProducts);
+        }
+    }
+
+    /**
+     * @param \FACTFinder\Data\Campaign $campaign The campaign object to be
+     *        filled.
+     * @param mixed[] $campaignData An associative array corresponding to the
+     *        JSON for that campaign.
+     */
+    private function fillCampaignWithAdvisorData(
+        \FACTFinder\Data\Campaign $campaign,
+        array $campaignData
+    ) {
+        $activeQuestions = array();
+
+        foreach ($campaignData['activeQuestions'] as $questionData)
+            $activeQuestions[] = $this->createAdvisorQuestion($questionData);
+
+        $campaign->addActiveQuestions($activeQuestions);
+
+        // Fetch advisor tree if it exists
+        $advisorTree = array();
+
+        foreach ($campaignData['activeQuestions'] as $questionData)
+            $activeQuestions[] = $this->createAdvisorQuestion($questionData,
+                                                               true);
+
+        $campaign->addToAdvisorTree($advisorTree);
+    }
+
+    /**
+     * @param mixed[] $questionData An associative array corresponding to the
+     *        JSON for a single advisor question.
+     * @param bool $recursive If this is set the entire advisor tree below this
+     *        question will be created. Otherwise, follow-up questions of
+     *        answers are omitted.
+     */
+    private function createAdvisorQuestion($questionData, $recursive = false)
+    {
+        $answers = array();
+
+        foreach ($questionData['answers'] as $answerData)
+            $answers[] = $this->createAdvisorAnswer($answerData, $recursive);
+
+        return FF::getInstance('Data\AdvisorQuestion',
+            $questionData['text'],
+            $answers
+        );
+    }
+
+    /**
+     * @param mixed[] $answerData An associative array corresponding to the
+     *        JSON for a single advisor answer.
+     * @param bool $recursive If this is set the entire advisor tree below the
+     *        subquestion of this ansewr will be created as well.
+     */
+    private function createAdvisorAnswer($answerData, $recursive = false)
+    {
+        $params =  $this->convertServerQueryToClientUrl(
+            $answerData['params']
+        );
+
+        $followUpQuestions = array();
+        if ($recursive)
+            foreach ($answerData['questions'] as $questionData)
+                $followUpQuestions[] = $this->createAdvisorQuestion(
+                    $questionData,
+                    true
+                );
+
+        return FF::getInstance('Data\AdvisorAnswer',
+            $answerData['text'],
+            $params,
+            $followUpQuestions
         );
     }
 }
