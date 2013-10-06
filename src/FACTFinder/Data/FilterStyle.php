@@ -18,8 +18,8 @@ class FilterStyle
     static private $color;
 
     // This ID is never used, but it ensures that an equality test between two
-    // different instances will returns (since '==' object comparison is decided
-    // by attributes).
+    // different instances will return false (since '==' object comparison is
+    // decided by attributes).
     static private $nextID = 0;
     private $id;
     private function __construct()

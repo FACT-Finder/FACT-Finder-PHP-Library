@@ -179,14 +179,15 @@ class SearchTest extends \FACTFinder\Test\BaseTestCase
 
     public function testBreadCrumbLoading()
     {
-        $this->markTestIncomplete();
-        $breadCrumb = $this->adapter->getBreadCrumbTrail();
+        $breadCrumbs = $this->adapter->getBreadCrumbTrail();
 
-        $this->assertTrue(is_array($breadCrumb));
-        $this->assertEquals(3, count($breadCrumb));
-        $this->assertInstanceOf('FACTFinder_BreadCrumbItem', $breadCrumb[0]);
-        $this->assertEquals('bmx', $breadCrumb[0]->getValue());
-        $this->assertEquals('Category1', $breadCrumb[1]->getFieldName());
+        $this->assertInstanceOf('FACTFinder\Data\BreadCrumbTrail', $breadCrumbs);
+        $this->assertEquals(3, count($breadCrumbs));
+        $this->assertInstanceOf('FACTFinder\Data\BreadCrumb', $breadCrumbs[0]);
+        $this->assertEquals('bmx', $breadCrumbs[0]->getLabel());
+        $this->assertTrue($breadCrumbs[0]->isSearchBreadCrumb());
+        $this->assertEquals('Category1', $breadCrumbs[1]->getFieldName());
+        $this->assertTrue($breadCrumbs[1]->isFilterBreadCrumb());
     }
 
     public function testEmptyCampaigns()
