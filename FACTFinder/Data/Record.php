@@ -49,7 +49,7 @@ class Record
     **/
     public function __construct(
         $id,
-        $fields,
+        $fields = array(),
         $similarity = 100,
         $position = 0,
         $seoPath = '',
