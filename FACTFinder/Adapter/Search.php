@@ -733,4 +733,22 @@ class Search extends AbstractAdapter
             $followUpQuestions
         );
     }
+
+    /**
+     * @return string
+     */
+    public function getError()
+    {
+        $jsonData = $this->getResponseContent();
+        return isset($jsonData['error']) ? $jsonData['error'] : null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStackTrace()
+    {
+        $jsonData = $this->getResponseContent();
+        return isset($jsonData['stacktrace']) ? $jsonData['stacktrace'] : null;
+    }
 }
