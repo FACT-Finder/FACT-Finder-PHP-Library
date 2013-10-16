@@ -68,18 +68,18 @@ class TagCloud extends AbstractAdapter
     {
         $parameters = $this->request->getParameters();
         if (is_numeric($wordCount)
-            && intval($wordCount) == floatval($wordCount) // Is integer?
+            && (int)$wordCount == (float)$wordCount // Is integer?
             && $wordCount > 0
         ) {
-            $parameters->set('wordCount', $wordCount);
+            $parameters['wordCount'] = $wordCount;
         }
         else
         {
             unset($parameters['wordCount']);
-            // Make sure that the tag cloud is fetched again. In theory, we only
-            // have to do this when wordCount increases.
-            $this->tagCloud = null;
         }
+        // Make sure that the tag cloud is fetched again. In theory, we only
+        // have to do this when wordCount increases.
+        $this->tagCloud = null;
     }
 
     private function createTagCloud($requestQuery = null)

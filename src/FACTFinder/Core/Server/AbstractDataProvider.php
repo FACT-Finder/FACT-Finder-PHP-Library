@@ -26,7 +26,7 @@ abstract class AbstractDataProvider
     /**
      * @var int
      */
-    static private $nextId = 0;
+    static private $nextID = 0;
 
     public function __construct(
         $loggerClass,
@@ -51,7 +51,7 @@ abstract class AbstractDataProvider
      */
     public function register(ConnectionData $connectionData)
     {
-        $id = self::$nextId++;
+        $id = self::$nextID++;
 
         $this->connectionData[$id] = $connectionData;
 
