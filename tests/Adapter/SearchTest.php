@@ -234,18 +234,20 @@ class SearchTest extends \FACTFinder\Test\BaseTestCase
         $this->assertFalse($answers[0]->hasFollowUpQuestions());
         $this->assertEquals('answer text 2', $answers[1]->getText());
         $this->assertFalse($answers[1]->hasFollowUpQuestions());
+
+        $this->assertFalse($campaigns->hasAdvisorTree());
+        $advisorTree = $campaigns->getAdvisorTree();
+        $this->assertEquals(0, count($advisorTree));
     }
 
     public function testNoError()
     {
-        $this->markTestIncomplete();
         $this->assertNull($this->adapter->getError());
         $this->assertNull($this->adapter->getStackTrace());
     }
 
     public function testError()
     {
-        $this->markTestIncomplete();
         $this->adapter->setQuery('error');
 
         $this->assertEquals('500', $this->adapter->getError());
