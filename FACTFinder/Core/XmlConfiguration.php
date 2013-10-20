@@ -264,14 +264,14 @@ class XmlConfiguration implements ConfigurationInterface
         return (int)$this->configuration->connection->timeouts->suggestTimeout;
     }
 
-    public function getScicConnectTimeout()
+    public function getTrackingConnectTimeout()
     {
-        return (int)$this->configuration->connection->timeouts->scicConnectTimeout;
+        return (int)$this->configuration->connection->timeouts->trackingConnectTimeout;
     }
 
-    public function getScicTimeout()
+    public function getTrackingTimeout()
     {
-        return (int)$this->configuration->connection->timeouts->scicTimeout;
+        return (int)$this->configuration->connection->timeouts->trackingTimeout;
     }
 
     public function getImportConnectTimeout()

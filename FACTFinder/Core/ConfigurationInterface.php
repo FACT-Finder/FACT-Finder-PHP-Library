@@ -154,18 +154,18 @@ interface ConfigurationInterface
     public function getSuggestTimeout();
 
     /**
-     * Get connect timeout for SCIC adapter.
+     * Get connect timeout for Tracking adapter.
      *
      * @return int
      */
-    public function getScicConnectTimeout();
+    public function getTrackingConnectTimeout();
 
     /**
-     * Get timeout for SCIC adapter.
+     * Get timeout for Tracking adapter.
      *
      * @return int
      */
-    public function getScicTimeout();
+    public function getTrackingTimeout();
 
     /**
      * Get connect timeout for Import adapter.
