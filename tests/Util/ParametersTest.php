@@ -319,4 +319,18 @@ class ParameterTest extends \FACTFinder\Test\BaseTestCase
         );
         $this->assertEquals($expectedParameters, $parameters->getArray());
     }
+
+    public function testGetArray()
+    {
+        $this->parameters['query'] = 'bmx';
+        $this->parameters['format'] = 'json';
+
+        $array = &$this->parameters->getArray();
+
+        unset($array['format']);
+
+        // $array should have been a reference, so the parameters object should
+        // be affected as well.
+        $this->assertParameters(array('query' => 'bmx'));
+    }
 }

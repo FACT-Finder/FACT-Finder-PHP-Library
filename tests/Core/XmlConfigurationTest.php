@@ -51,8 +51,8 @@ class XmlConfigurationTest extends \FACTFinder\Test\BaseTestCase
         $this->assertEquals(4,   $this->configuration->getDefaultTimeout());
         $this->assertEquals(1,   $this->configuration->getSuggestConnectTimeout());
         $this->assertEquals(2,   $this->configuration->getSuggestTimeout());
-        $this->assertEquals(1,   $this->configuration->getScicConnectTimeout());
-        $this->assertEquals(2,   $this->configuration->getScicTimeout());
+        $this->assertEquals(1,   $this->configuration->getTrackingConnectTimeout());
+        $this->assertEquals(2,   $this->configuration->getTrackingTimeout());
         $this->assertEquals(10,  $this->configuration->getImportConnectTimeout());
         $this->assertEquals(360, $this->configuration->getImportTimeout());
     }

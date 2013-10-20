@@ -19,12 +19,6 @@ class RecommendationTest extends \FACTFinder\Test\BaseTestCase
     {
         parent::setUp();
 
-        $this->dataProvider = FF::getInstance(
-            'Core\Server\FileSystemDataProvider',
-            self::$dic['loggerClass'],
-            self::$dic['configuration']
-        );
-
         $loggerClass = self::$dic['loggerClass'];
         $this->log = $loggerClass::getLogger(__CLASS__);
 
@@ -35,8 +29,6 @@ class RecommendationTest extends \FACTFinder\Test\BaseTestCase
             self::$dic['request'],
             self::$dic['clientUrlBuilder']
         );
-
-        $_SERVER['REQUEST_URI'] = '/index.php';
     }
 
     public function testRecommendationLoading()

@@ -19,15 +19,9 @@ class SearchTest extends \FACTFinder\Test\BaseTestCase
     {
         parent::setUp();
 
-        $_SERVER['REQUEST_URI'] = '/index.php';
         // For the request parser to retrieve
+        $_SERVER['REQUEST_URI'] = '/index.php';
         $_SERVER['QUERY_STRING'] = 'query=bmx';
-
-        $this->dataProvider = FF::getInstance(
-            'Core\Server\FileSystemDataProvider',
-            self::$dic['loggerClass'],
-            self::$dic['configuration']
-        );
 
         $loggerClass = self::$dic['loggerClass'];
         $this->log = $loggerClass::getLogger(__CLASS__);

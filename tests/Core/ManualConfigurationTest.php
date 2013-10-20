@@ -72,8 +72,8 @@ class ManualConfigurationTest extends \FACTFinder\Test\BaseTestCase
         $configuration->defaultTimeout = 4;
         $configuration->suggestConnectTimeout = 1;
         $configuration->suggestTimeout = 2;
-        $configuration->scicConnectTimeout = 1;
-        $configuration->scicTimeout = 2;
+        $configuration->trackingConnectTimeout = 1;
+        $configuration->trackingTimeout = 2;
         $configuration->importConnectTimeout = 10;
         $configuration->importTimeout = 360;
 
@@ -140,8 +140,8 @@ class ManualConfigurationTest extends \FACTFinder\Test\BaseTestCase
         $this->assertEquals(4,   $configuration->getDefaultTimeout());
         $this->assertEquals(1,   $configuration->getSuggestConnectTimeout());
         $this->assertEquals(2,   $configuration->getSuggestTimeout());
-        $this->assertEquals(1,   $configuration->getScicConnectTimeout());
-        $this->assertEquals(2,   $configuration->getScicTimeout());
+        $this->assertEquals(1,   $configuration->getTrackingConnectTimeout());
+        $this->assertEquals(2,   $configuration->getTrackingTimeout());
         $this->assertEquals(10,  $configuration->getImportConnectTimeout());
         $this->assertEquals(360, $configuration->getImportTimeout());
 

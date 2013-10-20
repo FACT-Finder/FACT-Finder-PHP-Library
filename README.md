@@ -24,7 +24,8 @@ We follow the [Zend Framework's Coding Standards](http://framework.zend.com/wiki
 - Opening braces for control blocks are always placed on a new line. That means
   the only opening braces placed on the same line are those that open anonymous
   functions.
-- Single-line control statements may omit braces.
+- Single-line control statements may omit braces IF the condition only consists
+  of a single line, too.
 - If the first of a two-letter acronym is capitalized in a name, so is the
   second (e.g. getID()).
 - All but the simplest regular expressions have to be formatted in free-spacing

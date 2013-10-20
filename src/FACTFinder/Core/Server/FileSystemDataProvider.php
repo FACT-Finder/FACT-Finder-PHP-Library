@@ -96,7 +96,8 @@ class FileSystemDataProvider extends AbstractDataProvider
         unset($parameters['timestamp']);
         unset($parameters['channel']);
 
-        $rawParameters = $parameters->getArray();
+        $rawParameters = &$parameters->getArray();
+
         // We received that array by reference, so we can sort it to sort the
         // Parameters object internally, too.
         ksort($rawParameters, SORT_STRING);

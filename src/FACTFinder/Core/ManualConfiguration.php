@@ -154,14 +154,14 @@ class ManualConfiguration implements ConfigurationInterface
         return $this->configuration['suggestTimeout'];
     }
 
-    public function getScicConnectTimeout()
+    public function getTrackingConnectTimeout()
     {
-        return $this->configuration['scicConnectTimeout'];
+        return $this->configuration['trackingConnectTimeout'];
     }
 
-    public function getScicTimeout()
+    public function getTrackingTimeout()
     {
-        return $this->configuration['scicTimeout'];
+        return $this->configuration['trackingTimeout'];
     }
 
     public function getImportConnectTimeout()
