@@ -222,13 +222,15 @@ class Parameters implements \ArrayAccess, \Countable
     }
 
     /**
-     * Returns a copy of the object's internal array used to store all
-     * parameters.
+     * Returns a reference to the object's internal array used to store all
+     * parameters. This can be used to sort the parameters from the outside.
+     * TODO: Provide access to relevant functions instead. Just handing out the
+     *       array is kind of dangerous and also breaks all encapsulation.
      *
      * @return mixed[] An array of all parameters. All values are either strings
      *         or arrays of strings.
      */
-    public function getArray()
+    public function &getArray()
     {
         return $this->parameters;
     }
