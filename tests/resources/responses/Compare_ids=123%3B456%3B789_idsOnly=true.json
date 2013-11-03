@@ -1,0 +1,113 @@
+{
+    "attributes": [
+        {
+            "attributeName": "Hersteller",
+            "different": false,
+            "sourceField": "Brand"
+        },
+        {
+            "attributeName": "Geschlecht",
+            "different": false,
+            "sourceField": "Gender"
+        },
+        {
+            "attributeName": "Farbe",
+            "different": true,
+            "sourceField": "Colors"
+        },
+        {
+            "attributeName": "Größe",
+            "different": false,
+            "sourceField": "Features"
+        },
+        {
+            "attributeName": "Anzahl Gänge",
+            "different": false,
+            "sourceField": "Features"
+        },
+        {
+            "attributeName": "Material",
+            "different": true,
+            "sourceField": "Features"
+        },
+        {
+            "attributeName": "Modelljahr",
+            "different": false,
+            "sourceField": "ProductModelYear"
+        }
+    ],
+    "records": [
+        {
+            "fieldNames": [
+                "Modelljahr",
+                "Geschlecht",
+                "Hersteller",
+                "Größe",
+                "Material",
+                "Farbe",
+                "Anzahl Gänge",
+                "Features"
+            ],
+            "id": "123",
+            "record": {
+                "Modelljahr": "2012",
+                "Geschlecht": "..Damen..|..Herren..",
+                "Hersteller": "KHE",
+                "Größe": "20",
+                "Material": "Hi-Ten light steel#Hi-Ten Steel#CrMo",
+                "Farbe": "..schwarz..",
+                "Anzahl Gänge": "1",
+                "Features": ""
+            },
+            "simiMalusMul": 1
+        },
+        {
+            "fieldNames": [
+                "Modelljahr",
+                "Geschlecht",
+                "Hersteller",
+                "Größe",
+                "Material",
+                "Farbe",
+                "Anzahl Gänge",
+                "Features"
+            ],
+            "id": "456",
+            "record": {
+                "Modelljahr": "2012",
+                "Geschlecht": "..Damen..|..Herren..",
+                "Hersteller": "KHE",
+                "Größe": "20",
+                "Material": "Hi-Ten light steel#4130 Cr-Mo#Aluminium#CrMo#4130 CrMo",
+                "Farbe": "..grau..",
+                "Anzahl Gänge": "1",
+                "Features": ""
+            },
+            "simiMalusMul": 1
+        },
+        {
+            "fieldNames": [
+                "Modelljahr",
+                "Geschlecht",
+                "Hersteller",
+                "Größe",
+                "Material",
+                "Farbe",
+                "Anzahl Gänge",
+                "Features"
+            ],
+            "id": "789",
+            "record": {
+                "Modelljahr": "2012",
+                "Geschlecht": "..Damen..|..Herren..",
+                "Hersteller": "KHE",
+                "Größe": "20",
+                "Material": "Hi-Ten light steel#4130 Cr-Mo#CrMo#4130 CrMo",
+                "Farbe": "..grau..",
+                "Anzahl Gänge": "1",
+                "Features": ""
+            },
+            "simiMalusMul": 1
+        }
+    ]
+}
