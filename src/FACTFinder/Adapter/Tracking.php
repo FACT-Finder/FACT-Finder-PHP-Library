@@ -115,16 +115,8 @@ class Tracking extends AbstractAdapter
         if (!isset($this->parameters['event']))
             throw new \InvalidArgumentException('No event type set!');
 
-        // TODO: Make this static?
-        $eventsNoSourceRefKeyRequired = array(
-            'inspect',
-            'cart',
-            'buy',
-            'sessionStart',
-        );
-
         if (!isset($this->parameters['sourceRefKey'])
-            && !in_array($this->parameters['event'], $eventsNoSourceRefKeyRequired)
+            && $this->parameters['event'] != 'sessionStart'
         ) {
             throw new \InvalidArgumentException('The given event type requires a "sourceRefKey" parameter.');
         }
