@@ -80,7 +80,7 @@ class FileSystemDataProvider extends AbstractDataProvider
     {
         $action = $connectionData->getAction();
 
-        // Repalce the .ff file extension with an underscore.
+        // Replace the .ff file extension with an underscore.
         $fileName = preg_replace('/[.]ff$/i', '_', $action);
 
         $parameters = clone $connectionData->getParameters();
