@@ -105,42 +105,42 @@ class CurlStub implements CurlInterface
 
     public function multi_add_handle($mh, $ch)
     {
-        throw new Exception("Not yet implemented.");
+        throw new \Exception("Not yet implemented.");
     }
 
     public function multi_close($mh)
     {
-        throw new Exception("Not yet implemented.");
+        throw new \Exception("Not yet implemented.");
     }
 
     public function multi_exec($mh, &$still_running)
     {
-        throw new Exception("Not yet implemented.");
+        throw new \Exception("Not yet implemented.");
     }
 
     public function multi_getcontent($ch)
     {
-        throw new Exception("Not yet implemented.");
+        throw new \Exception("Not yet implemented.");
     }
 
     public function multi_info_read($mh, &$msgs_in_queue = null)
     {
-        throw new Exception("Not yet implemented.");
+        throw new \Exception("Not yet implemented.");
     }
 
     public function multi_init()
     {
-        throw new Exception("Not yet implemented.");
+        throw new \Exception("Not yet implemented.");
     }
 
     public function multi_remove_handle($mh, $ch)
     {
-        throw new Exception("Not yet implemented.");
+        throw new \Exception("Not yet implemented.");
     }
 
     public function multi_select($mh, $timeout = 1.0)
     {
-        throw new Exception("Not yet implemented.");
+        throw new \Exception("Not yet implemented.");
     }
 
     public function setopt_array($ch, $options)

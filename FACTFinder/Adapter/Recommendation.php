@@ -49,7 +49,7 @@ class Recommendation extends AbstractAdapter
      * Set the maximum amount of recommendations to be fetched.
      *
      * @param int $recordCount The number of records to be fetched. Something
-     *        else than a positive integer is passed, the word count will be
+     *        else than a positive integer is passed, the record count will be
      *        unlimited (or determined by FACT-Finder).
      */
     public function setRecordCount($recordCount)
@@ -76,7 +76,8 @@ class Recommendation extends AbstractAdapter
      *
      * @param string|string[] $productIDs One or more product IDs.
      */
-    public function setProductIDs($productIDs) {
+    public function setProductIDs($productIDs)
+    {
         $parameters = $this->request->getParameters();
         $parameters['id'] = $productIDs;
         $this->recommendationsUpToDate = false;
@@ -88,7 +89,8 @@ class Recommendation extends AbstractAdapter
      *
      * @param string|string[] $productIDs One or more product IDs.
      */
-    public function addProductIDs($productIDs) {
+    public function addProductIDs($productIDs)
+    {
         $parameters = $this->request->getParameters();
         $parameters->add('id', $productIDs);
         $this->recommendationsUpToDate = false;
