@@ -96,7 +96,7 @@ class SimilarRecords extends AbstractAdapter
      */
     public function setIDsOnly($idsOnly)
     {
-        // Reset the similar details, if more detail is wanted than before
+        // Reset the similar records, if more detail is wanted than before
         if($this->idsOnly && !$idsOnly)
             $this->recordsUpToDate = false;
 
@@ -137,7 +137,6 @@ class SimilarRecords extends AbstractAdapter
         }
         else
         {
-            $position = 1;
             $jsonData = $this->getResponseContent();
             foreach($jsonData['attributes'] as $attributeData)
             {
