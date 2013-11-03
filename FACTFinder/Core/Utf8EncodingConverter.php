@@ -42,7 +42,7 @@ class Utf8EncodingConverter extends AbstractEncodingConverter
             else
             {
                 $this->log->error("Conversion between non-UTF-8 encodings not possible.");
-                throw new Exception("Cannot handle conversion from $inCharset to $outCharset!");
+                throw new \InvalidArgumentException("Cannot handle conversion from $inCharset to $outCharset!");
             }
         }
         return $string;

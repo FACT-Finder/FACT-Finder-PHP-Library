@@ -95,7 +95,7 @@ abstract class AbstractAdapter
             $jsonData = json_decode($string, true);
 
             if (is_null($jsonData))
-                throw new InvalidArgumentException(
+                throw new \InvalidArgumentException(
                     "json_decode() raised an error: ".json_last_error()
                 );
 
@@ -108,7 +108,7 @@ abstract class AbstractAdapter
         $this->responseContentProcessor = function($string) {
             libxml_use_internal_errors(true);
             // The constructor throws an exception on error
-            return new SimpleXMLElement($string);
+            return new \SimpleXMLElement($string);
         };
     }
 
