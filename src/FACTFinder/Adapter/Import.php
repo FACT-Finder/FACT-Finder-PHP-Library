@@ -28,8 +28,7 @@ class Import extends AbstractAdapter
         $this->request->setConnectTimeout($configuration->getImportConnectTimeout());
         $this->request->setTimeout($configuration->getImportTimeout());
 
-        // Don't set content processor yet, because it depends on the kind of
-        // import to be done.
+        $this->useXmlResponseContentProcessor();
     }
 
     /**
@@ -43,7 +42,6 @@ class Import extends AbstractAdapter
 
         $this->parameters['download'] = $download ? 'true' : 'false';
 
-        $this->useXmlResponseContentProcessor();
         // TODO: Parse the response XML into some nice domain object.
         return $this->getResponseContent();
     }
@@ -60,7 +58,6 @@ class Import extends AbstractAdapter
         $this->parameters['download'] = $download ? 'true' : 'false';
         $this->parameters['type'] = 'suggest';
 
-        $this->useXmlResponseContentProcessor();
         $report = $this->getResponseContent();
 
         // Clean up for next import
@@ -82,13 +79,12 @@ class Import extends AbstractAdapter
         $this->parameters['download'] = $download ? 'true' : 'false';
         $this->parameters['do'] = 'importData';
 
-        // TODO: FACT-Finder actually only returns HTML here at the moment.
-        $this->usePassthroughResponseContentProcessor();
         $report = $this->getResponseContent();
 
         // Clean up for next import
         unset($this->parameters['do']);
 
+        // TODO: Parse the response XML into some nice domain object.
         return $report;
     }
 }

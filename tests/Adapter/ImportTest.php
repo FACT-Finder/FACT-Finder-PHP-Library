@@ -43,7 +43,6 @@ class ImportTest extends \FACTFinder\Test\BaseTestCase
 
     public function testRecommendationImport()
     {
-        $this->markTestIncomplete('Test incomplete: missing local response file.');
         $this->adapter->triggerRecommendationImport();
     }
 }
