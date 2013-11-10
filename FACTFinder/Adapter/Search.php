@@ -16,6 +16,11 @@ class Search extends AbstractAdapter
     private $result;
 
     /**
+     * @var FACTFinder\Data\SingleWordSearchItem[]
+     */
+    private $singleWordSearch;
+
+    /**
      * @var FACTFinder\Data\AfterSearchNavigation
      */
     private $afterSearchNavigation;
@@ -123,6 +128,56 @@ class Search extends AbstractAdapter
         );
     }
 
+    /**
+     * @return \FACTFinder\Data\SingleWordSearchItem[]
+     */
+    public function getSingleWordSearch()
+    {
+        if (is_null($this->singleWordSearch))
+            $this->singleWordSearch = $this->createSingleWordSearch();
+
+        return $this->singleWordSearch;
+    }
+
+    /**
+     * @return \FACTFinder\Data\SingleWordSearchItem[]
+     */
+    private function createSingleWordSearch()
+    {
+        $singleWordSearch = array();
+
+        $jsonData = $this->getResponseContent();
+        if (!empty($jsonData['searchResult']['singleWordResults']))
+        {
+            foreach ($jsonData['searchResults']['singleWordResults'] as $swsData)
+            {
+                $item = FF::getInstance(
+                    'Data\SingleWordSearchItem',
+                    $swsData['word'],
+                    $this->convertServerQueryToClientUrl(
+                        $swsData['searchParams']
+                    ),
+                    $swsData['count']
+                );
+
+                foreach ($swsData['previewRecords'] as $recordData)
+                {
+                    $item->addPreviewRecord(FF::getInstance(
+                        'Data\Record',
+                        (string)$recordData['id'],
+                        $recordData['record']
+                        // TODO: Which are other fields are returned for preview
+                        // records?
+                        // TODO: Add a test for this.
+                    ));
+                }
+
+                $singleWordSearch[] = $item;
+            }
+        }
+
+        return $singleWordSearch;
+    }
     /**
      * @return string
      */
@@ -276,14 +331,15 @@ class Search extends AbstractAdapter
             (.*)            # match and capture as much of the query as possible
             [?&]filter      # match "?filter" or "&filter" literally
             ([^&=]*)        # group 2, the field name
-            =$              # make sure there is a "=" and then the end of the
-                            # string
+            =(?=$|&)        # make sure there is a "=" followed by the end of
+                            # the string or another parameter
+            (.*)            # match the remainder of the query
             /x',
             $filterData['searchParams'],
             $matches
         );
 
-        $query = $matches[1];
+        $query = $matches[1] . $matches[3];
         $fieldName = $matches[2];
 
         if ($fieldName != $filterData['associatedFieldName'])
