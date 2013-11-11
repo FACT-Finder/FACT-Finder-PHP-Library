@@ -3,6 +3,10 @@ FACT-Finder-PHP-Library
 
 The new fancy reworked library to access FACT-Finder with PHP.
 
+**It is currently work in progress and in alpha status so far.
+Please do not use in productive code unless you know what you are doing**
+
+
 Motivation & Goals
 ------------------
 
