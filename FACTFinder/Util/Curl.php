@@ -11,6 +11,10 @@ namespace FACTFinder\Util;
  */
 class Curl implements CurlInterface
 {
+    /**
+     * Easy interface
+     */
+
     public function close($ch)
     {
         curl_close($ch);
@@ -45,6 +49,20 @@ class Curl implements CurlInterface
     {
         return curl_init($url);
     }
+
+    public function setopt_array($ch, $options)
+    {
+        return curl_setopt_array($ch, $options);
+    }
+
+    public function setopt($ch, $option, $value)
+    {
+        return curl_setopt($ch, $option, $value);
+    }
+
+    /**
+     * Multi interface
+     */
 
     public function multi_add_handle($mh, $ch)
     {
@@ -86,15 +104,9 @@ class Curl implements CurlInterface
         return curl_multi_select($mh, $timeout);
     }
 
-    public function setopt_array($ch, $options)
-    {
-        return curl_setopt_array($ch, $options);
-    }
-
-    public function setopt($ch, $option, $value)
-    {
-        return curl_setopt($ch, $option, $value);
-    }
+    /**
+     * Miscellaneous
+     */
 
     public function version($age = CURLVERSION_NOW)
     {
