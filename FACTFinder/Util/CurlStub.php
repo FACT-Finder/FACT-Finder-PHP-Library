@@ -8,6 +8,17 @@ use FACTFinder\Loader as FF;
  */
 class CurlStub implements CurlInterface
 {
+    // These are a replacement for the newer CURLM error codes that have been
+    // added in cURL 7.15.4 and 7.32.1 until PHP adopts them.
+    const M_BAD_SOCKET = 5;
+    const M_UNKNOWN_OPTION = 6;
+    const M_ADDED_ALREADY = 7;
+
+    /**
+     * @var int
+     * Used to hand out unique indices for handles. This is used both for easy
+     * and for multi handles.
+     */
     private $lastHandle = -1;
 
     private $mapOptionCounts = array();
@@ -21,9 +32,29 @@ class CurlStub implements CurlInterface
      */
     private $handles = array();
 
-    public function close($ch)
+    /**
+     * @var CurlMultiHandle[]
+     */
+    private $multiHandles = array();
+
+    /**
+     * Easy interface
+     */
+
+    public function init($url = null)
     {
-        unset($this->handles[$ch]);
+        $ch = ++$this->lastHandle;
+
+        $handle = FF::getInstance('Util\CurlHandle');
+
+        $handle->options[CURLOPT_RETURNTRANSFER] = false;
+
+        $this->handles[$ch] = $handle;
+
+        if($url !== null)
+            $this->setopt($ch, CURLOPT_URL, $url);
+
+        return $ch;
     }
 
     public function copy_handle($ch)
@@ -35,6 +66,48 @@ class CurlStub implements CurlInterface
         $this->handles[$newCh] = $handle;
 
         return $newCh;
+    }
+
+    public function setopt($ch, $option, $value)
+    {
+        if(!isset($this->handles[$ch]))
+            return false;
+
+        $this->handles[$ch]->options[$option] = $value;
+
+        return true;
+    }
+
+    public function setopt_array($ch, $options)
+    {
+        foreach($options as $option => $value)
+        {
+            if(!$this->setopt($ch, $option, $value))
+                return false;
+        }
+        return true;
+    }
+
+    public function exec($ch)
+    {
+        if(!isset($this->handles[$ch]))
+            return false;
+
+        $handle = $this->handles[$ch];
+
+        $response = $this->getResponse($handle);
+
+        // TODO: Is this really what PHP would do?
+        if(is_null($response))
+            return false;
+
+        // TODO: Use more of the behavior options like the callbacks
+        // WRITEFUNCTION and READFUNCTION.
+        if($handle->options[CURLOPT_RETURNTRANSFER])
+            return $response;
+
+        echo $response;
+        return true;
     }
 
     public function errno($ch)
@@ -51,28 +124,6 @@ class CurlStub implements CurlInterface
         return self::$errorLookup[$errno];
     }
 
-    public function exec($ch)
-    {
-        if(!isset($this->handles[$ch]))
-            return false;
-
-        /**
-         * @var $handle CurlHandle
-         */
-        $handle = $this->handles[$ch];
-
-        $response = $this->getResponse($handle);
-
-        if($response === null)
-            return false;
-
-        if($handle->options[CURLOPT_RETURNTRANSFER])
-            return $response;
-
-        echo $response;
-        return true;
-    }
-
     public function getinfo($ch, $opt = 0)
     {
         // TODO: Include logic to build CURLINFO_EFFECTIVE_URL?
@@ -85,88 +136,249 @@ class CurlStub implements CurlInterface
         return $this->getInformation($this->handles[$ch], $opt);
     }
 
-    public function init($url = null)
+    public function close($ch)
     {
-        $ch = ++$this->lastHandle;
+        // Somehow PHP's cURL implementation ignores the first two calls to
+        // curl_close after the handle has been added to a multi handle. In fact
+        // it even seems to ignore them once the handle has been removed from
+        // the multi handle again. However, if the multi handle is closed
+        // without first removing the easy handle, curl_close works again
+        // immediately.
+        // We don't mimick this behavior exactly. Instead, we simply ignore
+        // calls to curl_close while the handle is added to a multi handle and
+        // resume listening to them, once the handle is removed or the multi
+        // handle is closed (which also removes the handle).
+        if (isset($this->handles[$ch])
+            && $this->handles[$ch]->inMultiHandle
+        ) {
+            return;
+        }
 
-        $handle = FF::getInstance('Util\CurlHandle');
+        unset($this->handles[$ch]);
+    }
 
-        $handle->options = array(
-            CURLOPT_RETURNTRANSFER => false
-        );
+    /**
+     * Multi interface
+     */
 
-        $this->handles[$ch] = $handle;
+    public function multi_init()
+    {
+        $mh = ++$this->lastHandle;
 
-        if($url !== null)
-            $this->setopt($ch, CURLOPT_URL, $url);
+        $handle = FF::getInstance('Util\CurlMultiHandle');
 
-        return $ch;
+        $this->multiHandles[$mh] = $handle;
+
+        return $mh;
     }
 
     public function multi_add_handle($mh, $ch)
     {
-        throw new \Exception("Not yet implemented.");
-    }
+        if (!isset($this->multiHandles[$mh]))
+            return CURLM_BAD_HANDLE;
 
-    public function multi_close($mh)
-    {
-        throw new \Exception("Not yet implemented.");
-    }
+        if (!isset($this->handles[$ch]))
+            return CURLM_BAD_EASY_HANDLE;
 
-    public function multi_exec($mh, &$still_running)
-    {
-        throw new \Exception("Not yet implemented.");
-    }
+        if ($this->handles[$ch]->inMultiHandle)
+            return $this->versionNewerThan(7,32,1)
+                   ? self::M_ADDED_ALREADY
+                   : CURLM_BAD_EASY_HANDLE;
 
-    public function multi_getcontent($ch)
-    {
-        throw new \Exception("Not yet implemented.");
-    }
+        $this->multiHandles[$mh]->handles[] = $ch;
+        // TODO: Figure out a reasonable way to determine these random
+        // durations, so that even for a large number of easy handles it should
+        // still possible for them to return in any order. This will probably
+        // depend on the number of existing easy handles.
+        $this->handles[$ch]->durationLeft = rand(0,5);
+        $this->handles[$ch]->inMultiHandle = true;
 
-    public function multi_info_read($mh, &$msgs_in_queue = null)
-    {
-        throw new \Exception("Not yet implemented.");
-    }
-
-    public function multi_init()
-    {
-        throw new \Exception("Not yet implemented.");
-    }
-
-    public function multi_remove_handle($mh, $ch)
-    {
-        throw new \Exception("Not yet implemented.");
+        return 0;
     }
 
     public function multi_select($mh, $timeout = 1.0)
     {
-        throw new \Exception("Not yet implemented.");
-    }
-
-    public function setopt_array($ch, $options)
-    {
-        foreach($options as $option => $value)
+        $active = 0;
+        foreach ($this->multiHandles[$mh]->handles as $ch)
         {
-            if(!$this->setopt($ch, $option, $value))
-                return false;
+            $handle = $this->handles[$ch];
+
+            if ($handle->durationLeft > 0)
+                --$handle->durationLeft;
+            else if ($handle->durationLeft == 0)
+                ++$active;
         }
-        return true;
+
+        // TODO: This never returns -1. However, some version of cURL itself
+        // are able to return -1 indefinitely, unless you just let your thread
+        // sleep some time and then call multi_exec right away. Should this
+        // (somewhat buggy) behavior be mimicked to ensure that tested
+        // applications are able to deal with these problems?
+        // TODO: We are also ignoring the timeout here. Can that cause problems
+        // for tested applications? If not, ignoring the timeout seems perfectly
+        // reasonable as it cuts down on test run time.
+        return $active;
     }
 
-    public function setopt($ch, $option, $value)
+    public function multi_exec($mh, &$still_running)
     {
-        if(!isset($this->handles[$ch]))
+        // PHP emits a warning if $mh is not a valid handle. Should we mimick
+        // this behavior?
+        if (!isset($this->multiHandles[$mh]))
             return false;
 
-        $this->handles[$ch]->options[$option] = $value;
+        $still_running = 0;
+        $mhandle = $this->multiHandles[$mh];
 
-        return true;
+        // Mimick cURL's odd CURLM_CALL_MULTI_PERFORM behavior prior to version
+        // 7.20.0 by simply returning that signal on every second call to
+        // multi_exec. Note that we still have to count the number of active
+        // easy handles remaining.
+        // TODO: This latter thing could be alleviated by keeping track of that
+        // number incrementally.
+        if (!$this->versionNewerThan(7, 20, 0))
+        {
+            if (!$mhandle->performReturned)
+            {
+                foreach ($mhandle->handles as $ch)
+                {
+                    if ($this->handles[$ch]->durationLeft == 0)
+                        ++$still_running;
+                }
+                $mhandle->performReturned = true;
+                return CURLM_CALL_MULTI_PERFORM;
+            }
+            else
+            {
+                $mhandle->performReturned = false;
+            }
+        }
+
+        foreach ($mhandle->handles as $ch)
+        {
+            $handle = $this->handles[$ch];
+
+            if ($handle->durationLeft > 0)
+                ++$still_running;
+            else if ($handle->durationLeft == 0)
+            {
+                // This handle is done. Add a message to the multi handle's
+                // queue.
+                array_push(
+                    $mhandle->messageQueue,
+                    array(
+                        'msg' => CURLMSG_DONE,
+                        'result' => $this->getErrorCode($handle),
+                        'handle' => $ch
+                    )
+                );
+
+                // Signify that the response is ready to be fetched if
+                // CURLOPT_RETURNTRANSFER was set.
+                $handle->durationLeft = -1;
+
+                // On the other hand, if that option was not set, fetch the
+                // response immediately and print it to stdout.
+                if (!$handle->options[CURLOPT_RETURNTRANSFER])
+                {
+                    $response = $this->getResponse($handle);
+                    if (!is_null($response))
+                        echo $response;
+                }
+
+                // TODO: Use more of the behavior options like the callbacks
+                // WRITEFUNCTION and READFUNCTION.
+            }
+        }
+
+        return CURLM_OK;
     }
+
+    public function multi_info_read($mh, &$msgs_in_queue = null)
+    {
+        // PHP emits a warning if $mh is not a valid handle. Should we mimick
+        // this behavior?
+        if (!isset($this->multiHandles[$mh]))
+            return false;
+
+        $message = array_shift($this->multiHandles[$mh]->messageQueue);
+
+        if (is_null($message))
+            $message = false;
+
+        $msgs_in_queue = count($this->multiHandles[$mh]->messageQueue);
+
+        return $message;
+    }
+
+    public function multi_getcontent($ch)
+    {
+        // PHP emits a warning if $ch is not a valid handle. Should we mimick
+        // this behavior?
+        if (!isset($this->handles[$ch]))
+            return false;
+
+        $handle = $this->handles[$ch];
+
+        if (!$handle->inMultiHandle ||
+            $handle->durationLeft != -1 ||
+            !$handle->options[CURLOPT_RETURNTRANSFER])
+            return null;
+
+        $response = $this->getResponse($handle);
+
+        // TODO: Is this really what PHP would do?
+        if(is_null($response))
+            return false;
+
+        return $response;
+    }
+
+    public function multi_remove_handle($mh, $ch)
+    {
+        // PHP emits a warning if either $mh or $ch is not a valid handle.
+        // Should we mimick this behavior?
+        if (!isset($this->multiHandles[$mh]))
+            return null;
+        if (!isset($this->handles[$ch]))
+            return false;
+
+        if ($key = array_search($ch, $this->multiHandles[$mh]->handles))
+        {
+            unset($this->multiHandles[$mh]->handles[$key]);
+            $this->handle[$ch]->inMultiHandle = false;
+            return CURLM_OK;
+        }
+        else
+        {
+            // The given handle was not added to the multi handle anyway.
+            return CURLM_BAD_EASY_HANDLE;
+        }
+    }
+
+    public function multi_close($mh)
+    {
+        if (isset($this->multiHandles[$mh]))
+        {
+            foreach ($this->multiHandles[$mh]->handles as $ch)
+                $this->handles[$ch]->inMultiHandle = false;
+
+            unset($this->multiHandles[$mh]);
+        }
+    }
+
+    /**
+     *  Miscellaneous
+     */
 
     public function version($age = CURLVERSION_NOW)
     {
         return curl_version($age);
     }
+
+    /**
+     * Stub configuration
+     */
 
     public function setResponse($expectedResponse, $requiredOptions = array())
     {
@@ -195,6 +407,21 @@ class CurlStub implements CurlInterface
         arsort($this->mapOptionCounts);
         $this->mapOptions[$hash] = $requiredOptions;
         return $hash;
+    }
+
+    /**
+     * Helper functions
+     */
+
+    private function versionNewerThan($major, $minor = 0, $patch = 0)
+    {
+        $versionInfo = $this->version();
+
+        $versionParts = explode('.', $versionInfo['version']);
+
+        return $major > $versionParts[0]
+            || $major == $versionParts[0] && $minor > $versionParts[1]
+            || $major == $versionParts[0] && $minor == $versionParts[1] && $patch >= $versionParts[2];
     }
 
     private function getResponse($handle)
@@ -280,6 +507,10 @@ class CurlStub implements CurlInterface
         }
         return $returnValue;
     }
+
+    /**
+     * Lookup tables
+     */
 
     private static $errorLookup = array(
         0  => 'CURLE_OK',
