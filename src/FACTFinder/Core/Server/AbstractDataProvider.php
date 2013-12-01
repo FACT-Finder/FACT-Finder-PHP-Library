@@ -70,7 +70,7 @@ abstract class AbstractDataProvider
     {
         unset($this->connectionData[$id]);
 
-        $this->log->debug("Unregistered request for ID $id.");
+        $this->log->debug("Unregistered connection data for ID $id.");
     }
 
     /**

@@ -29,6 +29,13 @@ class MultiCurlDataProvider extends AbstractDataProvider
     protected $defaultCurlOptions;
     protected $necessaryCurlOptions;
 
+    /**
+     * @var bool
+     * This is used to issue a warning if not all connections are being fetched
+     * at the same time.
+     */
+    protected $usedBefore;
+
     public function __construct(
         $loggerClass,
         \FACTFinder\Core\ConfigurationInterface $configuration,
@@ -128,7 +135,16 @@ class MultiCurlDataProvider extends AbstractDataProvider
             );
         }
 
-        $this->retrieveResponses($connectionsToFetch);
+        if (count($connectionsToFetch))
+        {
+            if ($this->usedBefore)
+                $this->log->warn('loadResponse() has been called before. You should try to configure all requests '
+                               . 'before loading the first response so that all connections can be made in parallel.');
+
+            $this->retrieveResponses($connectionsToFetch);
+
+            $this->usedBefore = true;
+        }
     }
 
     private function prepareHttpHeaders($connectionData)
@@ -179,7 +195,11 @@ class MultiCurlDataProvider extends AbstractDataProvider
 
         $connectionData->setConnectionOption(CURLOPT_URL, $url);
 
-        return $url;
+        // Return non-authentication URL for reproducability.
+        return $this->urlBuilder->getNonAuthenticationUrl(
+            $connectionData->getAction(),
+            $parameters
+        );
     }
 
     private function retrieveResponses($connectionsToFetch)
@@ -229,6 +249,9 @@ class MultiCurlDataProvider extends AbstractDataProvider
 
             $curl->multi_add_handle($multiHandle, $data['handle']);
         }
+        unset($data); // Otherwise the reference remains and reusing the
+                      // variable name $data further down this function will
+                      // change the last element of the array.
 
         do
         {
@@ -261,7 +284,7 @@ class MultiCurlDataProvider extends AbstractDataProvider
         if ($status != CURLM_OK)
             $this->log->error('There was a cURL error: ' . $status);
 
-        while ($msg = $curl->multi_info_read($multiHandle) !== false)
+        while (($msg = $curl->multi_info_read($multiHandle)) !== false)
         {
             // We do not check the value of $msg['msg'], because currently this
             // will always be CURLMSG_DONE.
@@ -269,7 +292,7 @@ class MultiCurlDataProvider extends AbstractDataProvider
 
             // Set $data to the data array corresponding to the current handle.
             foreach ($connectionsToFetch as $data)
-                if ($data['handle'] == $msg['handle'])
+                if ($data['handle'] === $msg['handle'])
                     break;
 
             // We could skip multi_getcontent if $curlErrorNumber is different
@@ -315,8 +338,9 @@ class MultiCurlDataProvider extends AbstractDataProvider
 
         $url = $this->urlBuilder->getNonAuthenticationUrl(
             $connectionData->getAction(),
-            clone $connectionData->getParameters()
+            $this->prepareParameters($connectionData)
         );
+
         return $url != $connectionData->getPreviousUrl();
     }
 }
