@@ -223,7 +223,7 @@ class EasyCurlDataProvider extends AbstractDataProvider
 
         $url = $this->urlBuilder->getNonAuthenticationUrl(
             $connectionData->getAction(),
-            clone $connectionData->getParameters()
+            $this->prepareParameters($connectionData)
         );
         return $url != $connectionData->getPreviousUrl();
     }
