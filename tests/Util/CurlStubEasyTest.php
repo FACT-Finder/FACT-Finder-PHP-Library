@@ -3,7 +3,10 @@ namespace FACTFinder\Test\Util;
 
 use FACTFinder\Loader as FF;
 
-class CurlStubTest extends \FACTFinder\Test\BaseTestCase
+/**
+ * Tests the parts of CurlStub that correspond to cURL's easy interface.
+ */
+class CurlStubEasyTest extends \FACTFinder\Test\BaseTestCase
 {
     /**
      * @var FACTFinder\Util\CurlStub
