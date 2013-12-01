@@ -5,7 +5,8 @@ use FACTFinder\Loader as FF;
 
 /**
  * This implementation retrieves the FACT-Finder data by using the "easy cURL
- * interface" (I didn't even make that up; 'easy' as opposed to 'multi').
+ * interface" (I didn't even make that up; that's what cURL itself calls it:
+ * 'easy' as opposed to 'multi').
  * Responses are queried sequentially and lazily and are cached as long as
  * parameters don't change.
  */
