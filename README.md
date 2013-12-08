@@ -4,7 +4,10 @@ FACT-Finder-PHP-Library
 This is a complete rewrite of and will replace the old
 [FACT Finder PHP Library](https://github.com/FACT-Finder/FACT-Finder-PHP-Framework).
 
-**It is currently a work in progress and in alpha status so far.
+**The project is currently in beta status while we build a
+[demo](https://github.com/FACT-Finder/FACT-Finder-PHP-Framework) to showcase how
+the library should be used.
+
 Please do not use it in productive code yet unless you know what you are doing!**
 
 
@@ -71,3 +74,4 @@ Documentation ToDos
 -- Page vs Client vs Server
 -- Encodings
 - Upgrade guide
+- Demo documentation using Docco.
