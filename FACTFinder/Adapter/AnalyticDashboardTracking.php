@@ -3,7 +3,7 @@ namespace FACTFinder\Adapter;
 
 use FACTFinder\Loader as FF;
 
-class Tracking extends AbstractAdapter
+class AnalyticDashboardTracking extends AbstractAdapter
 {
     /**
      * @var FACTFinder\Util\LoggerInterface
