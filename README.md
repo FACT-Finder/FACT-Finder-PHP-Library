@@ -1,10 +1,11 @@
 FACT-Finder-PHP-Library
 =======================
 
-The new fancy reworked library to access FACT-Finder with PHP.
+This is a complete rewrite of and will replace the old
+[FACT Finder PHP Library](https://github.com/FACT-Finder/FACT-Finder-PHP-Framework).
 
-**It is currently work in progress and in alpha status so far.
-Please do not use in productive code unless you know what you are doing**
+**It is currently a work in progress and in alpha status so far.
+Please do not use it in productive code yet unless you know what you are doing!**
 
 
 Motivation & Goals
@@ -35,6 +36,8 @@ We follow the [Zend Framework's Coding Standards](http://framework.zend.com/wiki
 - All but the simplest regular expressions have to be formatted in free-spacing
   mode and thoroughly commented.
 
+If you want to contribute, please try to adhere to these conventions.
+
 Changes
 -------
 
@@ -59,10 +62,12 @@ This list is still subject to change (ironically...).
 - new Parameters object
 - UrlBuilder doesn't take care of parameter management any more - it just hands out a Parameters object to modify.
 - UrlBuilder takes care of dispatching between authentication methods now.
+- users don't have to deal with dataproviders directly any more. instead they use a RequestFactory.
 
 Documentation ToDos
 -------------------
 
+- General documentation (on recommended usage)
+-- Page vs Client vs Server
+-- Encodings
 - Upgrade guide
-- Page vs Client vs Server
-- Encodings

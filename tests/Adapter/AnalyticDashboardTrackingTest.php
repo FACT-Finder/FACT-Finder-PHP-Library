@@ -3,7 +3,7 @@ namespace FACTFinder\Test\Adapter;
 
 use FACTFinder\Loader as FF;
 
-class TrackingTest extends \FACTFinder\Test\BaseTestCase
+class AnalyticDashboardTrackingTest extends \FACTFinder\Test\BaseTestCase
 {
     /**
      * @var FACTFinder\Util\LoggerInterface
@@ -11,7 +11,7 @@ class TrackingTest extends \FACTFinder\Test\BaseTestCase
     private $log;
 
     /**
-     * @var FACTFinder\Adapter\Tracking
+     * @var FACTFinder\Adapter\AnalyticDashboardTracking
      */
     protected $adapter;
 
@@ -26,7 +26,7 @@ class TrackingTest extends \FACTFinder\Test\BaseTestCase
         $this->log = $loggerClass::getLogger(__CLASS__);
 
         $this->adapter = FF::getInstance(
-            'Adapter\Tracking',
+            'Adapter\AnalyticDashboardTracking',
             self::$dic['loggerClass'],
             self::$dic['configuration'],
             self::$dic['request'],

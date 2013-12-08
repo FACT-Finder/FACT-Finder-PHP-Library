@@ -5,3 +5,5 @@
 /countloc.ps1
 /tests/report
 /docs
+
+phpdoc*.log
