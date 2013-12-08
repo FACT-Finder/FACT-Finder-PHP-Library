@@ -4,7 +4,6 @@
  * constants and defines the autoloader class, which handles classloading and
  * instance creation.
  */
-
 namespace FACTFinder;
 
 use FACTFinder\Loader as FF;
