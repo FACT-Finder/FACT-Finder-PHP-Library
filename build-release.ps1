@@ -14,7 +14,7 @@ Push-Location $dir
 
 # Read current branch
 
-$branch = git status | Select-String -Pattern "On branch (.*)" - List `
+$branch = git status | Select-String -Pattern "On branch (.*)" -List `
     | %{$_.matches[0].groups[1].value}
 
 git checkout release
