@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/FACTFinder.html">\FACTFinder</a></li>
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                    <i class="icon-list-alt"></i>&#160;Errors
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                    <i class="icon-list-alt"></i>&#160;Markers
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1009447587"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1009447587" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1256724946"></a>
+                                <a href="../namespaces/FACTFinder.html" style="margin-left: 30px; padding-left: 0">FACTFinder</a>
+            </div>
+            <div id="namespace-1256724946" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-544687406"></a>
+                                <a href="../namespaces/FACTFinder.Adapter.html" style="margin-left: 30px; padding-left: 0">Adapter</a>
+            </div>
+            <div id="namespace-544687406" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/FACTFinder.Adapter.AbstractAdapter.html">AbstractAdapter</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Adapter.Compare.html">Compare</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Adapter.Import.html">Import</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Adapter.ProductCampaign.html">ProductCampaign</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Adapter.Recommendation.html">Recommendation</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Adapter.ScicTracking.html">ScicTracking</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Adapter.Search.html">Search</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Adapter.SimilarRecords.html">SimilarRecords</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Adapter.Suggest.html">Suggest</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Adapter.TagCloud.html">TagCloud</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1233688496"></a>
+                                <a href="../namespaces/FACTFinder.Core.html" style="margin-left: 30px; padding-left: 0">Core</a>
+            </div>
+            <div id="namespace-1233688496" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1720900084"></a>
+                                <a href="../namespaces/FACTFinder.Core.Client.html" style="margin-left: 30px; padding-left: 0">Client</a>
+            </div>
+            <div id="namespace-1720900084" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/FACTFinder.Core.Client.RequestParser.html">RequestParser</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Client.UrlBuilder.html">UrlBuilder</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1010034086"></a>
+                                <a href="../namespaces/FACTFinder.Core.Server.html" style="margin-left: 30px; padding-left: 0">Server</a>
+            </div>
+            <div id="namespace-1010034086" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/FACTFinder.Core.Server.RequestFactoryInterface.html">RequestFactoryInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.AbstractDataProvider.html">AbstractDataProvider</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.ConnectionData.html">ConnectionData</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.EasyCurlDataProvider.html">EasyCurlDataProvider</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.EasyCurlRequestFactory.html">EasyCurlRequestFactory</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.FileSystemDataProvider.html">FileSystemDataProvider</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.FileSystemRequestFactory.html">FileSystemRequestFactory</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.MultiCurlDataProvider.html">MultiCurlDataProvider</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.MultiCurlRequestFactory.html">MultiCurlRequestFactory</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.NullResponse.html">NullResponse</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.Request.html">Request</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.Response.html">Response</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.UrlBuilder.html">UrlBuilder</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/FACTFinder.Core.ConfigurationInterface.html">ConfigurationInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/FACTFinder.Core.AbstractEncodingConverter.html">AbstractEncodingConverter</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.IConvEncodingConverter.html">IConvEncodingConverter</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.ManualConfiguration.html">ManualConfiguration</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.ParametersConverter.html">ParametersConverter</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Utf8EncodingConverter.html">Utf8EncodingConverter</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.XmlConfiguration.html">XmlConfiguration</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-879198368"></a>
+                                <a href="../namespaces/FACTFinder.Data.html" style="margin-left: 30px; padding-left: 0">Data</a>
+            </div>
+            <div id="namespace-879198368" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/FACTFinder.Data.AdvisorAnswer.html">AdvisorAnswer</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.AdvisorQuestion.html">AdvisorQuestion</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.AfterSearchNavigation.html">AfterSearchNavigation</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.BreadCrumb.html">BreadCrumb</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.BreadCrumbTrail.html">BreadCrumbTrail</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.BreadCrumbType.html">BreadCrumbType</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.Campaign.html">Campaign</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.CampaignIterator.html">CampaignIterator</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.Filter.html">Filter</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.FilterGroup.html">FilterGroup</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.FilterStyle.html">FilterStyle</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.Item.html">Item</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.Page.html">Page</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.Paging.html">Paging</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.Record.html">Record</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.Result.html">Result</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.ResultsPerPageOptions.html">ResultsPerPageOptions</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.SearchStatus.html">SearchStatus</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.SingleWordSearchItem.html">SingleWordSearchItem</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.SliderFilter.html">SliderFilter</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.Sorting.html">Sorting</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.SuggestQuery.html">SuggestQuery</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.TagQuery.html">TagQuery</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.TrackingEventType.html">TrackingEventType</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-287268034"></a>
+                                <a href="../namespaces/FACTFinder.Util.html" style="margin-left: 30px; padding-left: 0">Util</a>
+            </div>
+            <div id="namespace-287268034" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/FACTFinder.Util.CurlInterface.html">CurlInterface</a></li>
+                                                    <li class="interface"><a href="../classes/FACTFinder.Util.LoggerInterface.html">LoggerInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/FACTFinder.Util.Curl.html">Curl</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Util.CurlHandle.html">CurlHandle</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Util.CurlMultiHandle.html">CurlMultiHandle</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Util.CurlStub.html">CurlStub</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Util.Log4PhpLogger.html">Log4PhpLogger</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Util.NullLogger.html">NullLogger</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Util.Parameters.html">Parameters</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Util.Pimple.html">Pimple</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/FACTFinder.Loader.html">Loader</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/FACTFinder.Core.html">\FACTFinder\Core</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\FACTFinder\Core</small>XmlConfiguration</h1>
+                    <p><em>Implements ConfigurationInterface by reading from an XML file. Also allows
+for some values to be changed later on.</em></p>
+                    
+
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_isDebugEnabled" class="">isDebugEnabled()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getCustomValue" class="">getCustomValue()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getRequestProtocol" class="">getRequestProtocol()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getServerAddress" class="">getServerAddress()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getServerPort" class="">getServerPort()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getContext" class="">getContext()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getChannel" class="">getChannel()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getLanguage" class="">getLanguage()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_isHttpAuthenticationType" class="">isHttpAuthenticationType()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_isSimpleAuthenticationType" class="">isSimpleAuthenticationType()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_isAdvancedAuthenticationType" class="">isAdvancedAuthenticationType()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_makeHttpAuthenticationType" class="">makeHttpAuthenticationType()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_makeSimpleAuthenticationType" class="">makeSimpleAuthenticationType()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_makeAdvancedAuthenticationType" class="">makeAdvancedAuthenticationType()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getUserName" class="">getUserName()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getPassword" class="">getPassword()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getAuthenticationPrefix" class="">getAuthenticationPrefix()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getAuthenticationPostfix" class="">getAuthenticationPostfix()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getClientMappings" class="">getClientMappings()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getServerMappings" class="">getServerMappings()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getIgnoredClientParameters" class="">getIgnoredClientParameters()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getIgnoredServerParameters" class="">getIgnoredServerParameters()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getRequiredClientParameters" class="">getRequiredClientParameters()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getRequiredServerParameters" class="">getRequiredServerParameters()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getDefaultConnectTimeout" class="">getDefaultConnectTimeout()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getDefaultTimeout" class="">getDefaultTimeout()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getSuggestConnectTimeout" class="">getSuggestConnectTimeout()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getSuggestTimeout" class="">getSuggestTimeout()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getTrackingConnectTimeout" class="">getTrackingConnectTimeout()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getTrackingTimeout" class="">getTrackingTimeout()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getImportConnectTimeout" class="">getImportConnectTimeout()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getImportTimeout" class="">getImportTimeout()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getPageContentEncoding" class="">getPageContentEncoding()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_getClientUrlEncoding" class="">getClientUrlEncoding()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_setPageContentEncoding" class="">setPageContentEncoding()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_setClientUrlEncoding" class="">setClientUrlEncoding()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#constant_HTTP_AUTHENTICATION" class="">HTTP_AUTHENTICATION</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#constant_SIMPLE_AUTHENTICATION" class="">SIMPLE_AUTHENTICATION</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#constant_ADVANCED_AUTHENTICATION" class="">ADVANCED_AUTHENTICATION</a><br />
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_retrieveAuthenticationType" class="">retrieveAuthenticationType()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_retrieveMappings" class="">retrieveMappings()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_retrieveIgnoredParameters" class="">retrieveIgnoredParameters()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#method_retrieveRequiredParameters" class="">retrieveRequiredParameters()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#property_configuration" class="">$configuration</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#property_authenticationType" class="">$authenticationType</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#property_clientMappings" class="">$clientMappings</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#property_serverMappings" class="">$serverMappings</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#property_ignoredClientParameters" class="">$ignoredClientParameters</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#property_ignoredServerParameters" class="">$ignoredServerParameters</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#property_requiredClientParameters" class="">$requiredClientParameters</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#property_requiredServerParameters" class="">$requiredServerParameters</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#property_pageContentEncoding" class="">$pageContentEncoding</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html#property_clientUrlEncoding" class="">$clientUrlEncoding</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Core.XmlConfiguration.php.html"><div class="path-wrapper">Core\XmlConfiguration.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\FACTFinder\Core\XmlConfiguration</div>
+                            </dd>
+
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                                    <a id="constants" name="constants"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Constants</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_HTTP_AUTHENTICATION" name="constant_HTTP_AUTHENTICATION" class="anchor"></a>
+            <article id="constant_HTTP_AUTHENTICATION" class="constant">
+                <h3 class="">HTTP_AUTHENTICATION</h3>
+                <pre class="signature">HTTP_AUTHENTICATION</pre>
+                <p><em></em></p>
+                
+
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SIMPLE_AUTHENTICATION" name="constant_SIMPLE_AUTHENTICATION" class="anchor"></a>
+            <article id="constant_SIMPLE_AUTHENTICATION" class="constant">
+                <h3 class="">SIMPLE_AUTHENTICATION</h3>
+                <pre class="signature">SIMPLE_AUTHENTICATION</pre>
+                <p><em></em></p>
+                
+
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_ADVANCED_AUTHENTICATION" name="constant_ADVANCED_AUTHENTICATION" class="anchor"></a>
+            <article id="constant_ADVANCED_AUTHENTICATION" class="constant">
+                <h3 class="">ADVANCED_AUTHENTICATION</h3>
+                <pre class="signature">ADVANCED_AUTHENTICATION</pre>
+                <p><em></em></p>
+                
+
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_configuration" name="property_configuration" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$configuration</h3>
+                <pre class="signature">$configuration : \FACTFinder\Core\SimpleXMLElement</pre>
+                <p><em></em></p>
+                
+
+
+                                <h4>Type</h4>
+                \FACTFinder\Core\SimpleXMLElement
+                &mdash; XML representation of the configuration.                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_authenticationType" name="property_authenticationType" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$authenticationType</h3>
+                <pre class="signature">$authenticationType</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_clientMappings" name="property_clientMappings" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$clientMappings</h3>
+                <pre class="signature">$clientMappings</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_serverMappings" name="property_serverMappings" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$serverMappings</h3>
+                <pre class="signature">$serverMappings</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_ignoredClientParameters" name="property_ignoredClientParameters" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$ignoredClientParameters</h3>
+                <pre class="signature">$ignoredClientParameters</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_ignoredServerParameters" name="property_ignoredServerParameters" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$ignoredServerParameters</h3>
+                <pre class="signature">$ignoredServerParameters</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_requiredClientParameters" name="property_requiredClientParameters" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$requiredClientParameters</h3>
+                <pre class="signature">$requiredClientParameters</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_requiredServerParameters" name="property_requiredServerParameters" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$requiredServerParameters</h3>
+                <pre class="signature">$requiredServerParameters</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_pageContentEncoding" name="property_pageContentEncoding" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$pageContentEncoding</h3>
+                <pre class="signature">$pageContentEncoding</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_clientUrlEncoding" name="property_clientUrlEncoding" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$clientUrlEncoding</h3>
+                <pre class="signature">$clientUrlEncoding</pre>
+                <p><em></em></p>
+                
+
+
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(string <span class="argument">$fileName</span>, \FACTFinder\Core\type <span class="argument">$element</span>) : \FACTFinder\Core\XmlConfiguration</pre>
+                <p><em>Create a new configuration from an XML file. The outer element in the XML
+tree must be named &lt;configuration&gt;. The actual data is read from a child
+of this element whose name can be specified through the second argument.</em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$fileName</td>
+                                <td><p>Name of configuration file.</p>
+</td>
+                            </tr>
+                                                    <tr>
+                                <td>\FACTFinder\Core\type</td>
+                                <td>$element</td>
+                                <td><p>Name of the XML element from which to read
+                     configuration data.</p>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/FACTFinder.Core.XmlConfiguration.html">\FACTFinder\Core\XmlConfiguration</a>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isDebugEnabled" name="method_isDebugEnabled" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">isDebugEnabled()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isDebugEnabled()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getCustomValue" name="method_getCustomValue" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getCustomValue()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getCustomValue( <span class="argument">$name</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$name</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getRequestProtocol" name="method_getRequestProtocol" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getRequestProtocol()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRequestProtocol()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getServerAddress" name="method_getServerAddress" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getServerAddress()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getServerAddress()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getServerPort" name="method_getServerPort" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getServerPort()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getServerPort()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getContext" name="method_getContext" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getContext()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getContext()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getChannel" name="method_getChannel" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getChannel()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getChannel()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getLanguage" name="method_getLanguage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getLanguage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getLanguage()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isHttpAuthenticationType" name="method_isHttpAuthenticationType" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">isHttpAuthenticationType()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isHttpAuthenticationType()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isSimpleAuthenticationType" name="method_isSimpleAuthenticationType" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">isSimpleAuthenticationType()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isSimpleAuthenticationType()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isAdvancedAuthenticationType" name="method_isAdvancedAuthenticationType" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">isAdvancedAuthenticationType()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isAdvancedAuthenticationType()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_makeHttpAuthenticationType" name="method_makeHttpAuthenticationType" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">makeHttpAuthenticationType()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">makeHttpAuthenticationType()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_makeSimpleAuthenticationType" name="method_makeSimpleAuthenticationType" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">makeSimpleAuthenticationType()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">makeSimpleAuthenticationType()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_makeAdvancedAuthenticationType" name="method_makeAdvancedAuthenticationType" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">makeAdvancedAuthenticationType()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">makeAdvancedAuthenticationType()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getUserName" name="method_getUserName" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getUserName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getUserName()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPassword" name="method_getPassword" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getPassword()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPassword()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getAuthenticationPrefix" name="method_getAuthenticationPrefix" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getAuthenticationPrefix()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getAuthenticationPrefix()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getAuthenticationPostfix" name="method_getAuthenticationPostfix" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getAuthenticationPostfix()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getAuthenticationPostfix()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getClientMappings" name="method_getClientMappings" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getClientMappings()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getClientMappings()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getServerMappings" name="method_getServerMappings" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getServerMappings()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getServerMappings()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getIgnoredClientParameters" name="method_getIgnoredClientParameters" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getIgnoredClientParameters()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getIgnoredClientParameters()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getIgnoredServerParameters" name="method_getIgnoredServerParameters" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getIgnoredServerParameters()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getIgnoredServerParameters()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getRequiredClientParameters" name="method_getRequiredClientParameters" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getRequiredClientParameters()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRequiredClientParameters()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getRequiredServerParameters" name="method_getRequiredServerParameters" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getRequiredServerParameters()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRequiredServerParameters()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getDefaultConnectTimeout" name="method_getDefaultConnectTimeout" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getDefaultConnectTimeout()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getDefaultConnectTimeout()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getDefaultTimeout" name="method_getDefaultTimeout" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getDefaultTimeout()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getDefaultTimeout()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getSuggestConnectTimeout" name="method_getSuggestConnectTimeout" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getSuggestConnectTimeout()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getSuggestConnectTimeout()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getSuggestTimeout" name="method_getSuggestTimeout" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getSuggestTimeout()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getSuggestTimeout()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getTrackingConnectTimeout" name="method_getTrackingConnectTimeout" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getTrackingConnectTimeout()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getTrackingConnectTimeout()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getTrackingTimeout" name="method_getTrackingTimeout" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getTrackingTimeout()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getTrackingTimeout()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getImportConnectTimeout" name="method_getImportConnectTimeout" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getImportConnectTimeout()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getImportConnectTimeout()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getImportTimeout" name="method_getImportTimeout" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getImportTimeout()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getImportTimeout()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPageContentEncoding" name="method_getPageContentEncoding" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getPageContentEncoding()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPageContentEncoding()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getClientUrlEncoding" name="method_getClientUrlEncoding" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getClientUrlEncoding()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getClientUrlEncoding()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setPageContentEncoding" name="method_setPageContentEncoding" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setPageContentEncoding()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setPageContentEncoding( <span class="argument">$encoding</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$encoding</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setClientUrlEncoding" name="method_setClientUrlEncoding" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setClientUrlEncoding()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setClientUrlEncoding( <span class="argument">$encoding</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$encoding</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_retrieveAuthenticationType" name="method_retrieveAuthenticationType" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">retrieveAuthenticationType()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">retrieveAuthenticationType()</pre>
+                <p><em></em></p>
+                
+
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_retrieveMappings" name="method_retrieveMappings" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">retrieveMappings()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">retrieveMappings(\SimpleXMLElement <span class="argument">$section</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\SimpleXMLElement</td>
+                                <td>$section</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_retrieveIgnoredParameters" name="method_retrieveIgnoredParameters" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">retrieveIgnoredParameters()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">retrieveIgnoredParameters(\SimpleXMLElement <span class="argument">$section</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\SimpleXMLElement</td>
+                                <td>$section</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_retrieveRequiredParameters" name="method_retrieveRequiredParameters" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">retrieveRequiredParameters()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">retrieveRequiredParameters(\SimpleXMLElement <span class="argument">$section</span>)</pre>
+                <p><em></em></p>
+                
+
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\SimpleXMLElement</td>
+                                <td>$section</td>
+                                <td>
+</td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">XmlConfiguration.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Core\XmlConfiguration.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/FACTFinder.html">\FACTFinder</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="">Errors</a></li>
+                                    <li><a href="">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on January 10th, 2014 at 18:34.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
