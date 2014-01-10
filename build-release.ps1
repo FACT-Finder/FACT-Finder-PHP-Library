@@ -4,6 +4,11 @@
 # is very important as the target version will be read from that file.
 # You do NOT need to build the documentation yet. This script takes care of
 # that.
+# Note that this script does NOT merge the updated 'release' branch back into
+# 'development'. If you need the documentation, CHANGELOG or other commits on
+# 'release' in 'development', you'll need to do that extra merge manually.
+# We recommend that you use git's credential cache or an SSH agent so you don't
+# have to enter your credentials several times during the script.
 
 # Make the project root directory the working directory (regardless of where the
 # script has been called from).
