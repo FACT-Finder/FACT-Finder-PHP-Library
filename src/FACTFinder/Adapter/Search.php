@@ -454,14 +454,23 @@ class Search extends AbstractAdapter
             }
         }
 
+        if (!$currentPage)
+            $currentPage = FF::getInstance(
+                'Data\Page',
+                $pagingData['currentPage'],
+                $pagingData['currentPage'],
+                '#',
+                true
+            );
+
         return FF::getInstance(
             'Data\Paging',
             $pages,
             $pageCount,
+            $currentPage,
             $this->createPageItem($pagingData['firstLink']),
             $this->createPageItem($pagingData['lastLink']),
             $this->createPageItem($pagingData['previousLink']),
-            $currentPage,
             $this->createPageItem($pagingData['nextLink'])
         );
     }
@@ -472,8 +481,11 @@ class Search extends AbstractAdapter
      *        for a single page link.
      * @return \FACTFinder\Data\Item
      */
-    private function createPageItem(array $pageData)
+    private function createPageItem(array $pageData = null)
     {
+        if (is_null($pageData))
+            return null;
+
         $pageLink = $this->convertServerQueryToClientUrl(
             $pageData['searchParams']
         );
