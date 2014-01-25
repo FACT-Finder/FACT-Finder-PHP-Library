@@ -36,20 +36,20 @@ class Paging extends \ArrayIterator
     /**
      * @param Page[] $pages Array of page links.
      * @param int $pageCount
+     * @param Page $currentPage
      * @param Page $firstPage
      * @param Page $lastPage
      * @param Page $previousPage
-     * @param Page $currentPage
      * @param Page $nextPage
      */
     public function __construct (
         array $pages,
         $pageCount,
-        Page $firstPage,
-        Page $lastPage,
-        Page $previousPage,
         Page $currentPage,
-        Page $nextPage
+        Page $firstPage = null,
+        Page $lastPage = null,
+        Page $previousPage = null,
+        Page $nextPage = null
     ) {
         parent::__construct($pages);
 
@@ -70,7 +70,7 @@ class Paging extends \ArrayIterator
     }
 
     /**
-     * @return Page
+     * @return Page can be null
      */
     public function getFirstPage()
     {
@@ -78,7 +78,7 @@ class Paging extends \ArrayIterator
     }
 
     /**
-     * @return Page
+     * @return Page can be null
      */
     public function getLastPage()
     {
@@ -86,7 +86,7 @@ class Paging extends \ArrayIterator
     }
 
     /**
-     * @return Page
+     * @return Page can be null
      */
     public function getPreviousPage()
     {
@@ -94,7 +94,7 @@ class Paging extends \ArrayIterator
     }
 
     /**
-     * @return Page
+     * @return Page can be null
      */
     public function getCurrentPage()
     {
@@ -102,7 +102,7 @@ class Paging extends \ArrayIterator
     }
 
     /**
-     * @return Page
+     * @return Page can be null
      */
     public function getNextPage()
     {
