@@ -30,13 +30,17 @@ class UrlBuilder
 
     public function __construct(
         $loggerClass,
-        \FACTFinder\Core\ParametersConverter $parametersConverter,
+        \FACTFinder\Core\ConfigurationInterface $configuration,
         \FACTFinder\Core\Client\RequestParser $requestParser,
         \FACTFinder\Core\AbstractEncodingConverter $encodingConverter
     ) {
         $this->log = $loggerClass::getLogger(__CLASS__);
 
-        $this->parametersConverter = $parametersConverter;
+        $this->parametersConverter = FF::getInstance(
+            'Core\ParametersConverter',
+            $loggerClass,
+            $configuration
+        );
         $this->requestParser = $requestParser;
         $this->encodingConverter = $encodingConverter;
     }
