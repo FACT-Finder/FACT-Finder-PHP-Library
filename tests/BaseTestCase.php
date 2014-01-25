@@ -68,7 +68,7 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
             return FF::getInstance(
                 'Core\Client\UrlBuilder',
                 $c['loggerClass'],
-                $c['parametersConverter'],
+                $c['configuration'],
                 $c['requestParser'],
                 $c['encodingConverter']
             );
@@ -105,14 +105,6 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
 
         self::$dic['request'] = function($c) {
             return $c['requestFactory']->getRequest();
-        };
-
-        self::$dic['parametersConverter'] = function($c) {
-            return FF::getInstance(
-                'Core\ParametersConverter',
-                $c['loggerClass'],
-                $c['configuration']
-            );
         };
 
         self::$dic['requestParser'] = self::$dic->share(function($c) {

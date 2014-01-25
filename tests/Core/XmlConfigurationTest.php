@@ -60,7 +60,6 @@ class XmlConfigurationTest extends \FACTFinder\Test\BaseTestCase
     public function testParameterSettings()
     {
         $expectedIgnoredServerParameters = array(
-            'sid' => true,
             'password' => true,
             'username' => true,
             'timestamp' => true
@@ -79,9 +78,7 @@ class XmlConfigurationTest extends \FACTFinder\Test\BaseTestCase
 
         $this->assertEquals($expectedIgnoredClientParameters, $this->configuration->getIgnoredClientParameters());
 
-        $expectedRequiredServerParameters = array(
-            'test' => 'value'
-        );
+        $expectedRequiredServerParameters = array();
 
         $this->assertEquals($expectedRequiredServerParameters, $this->configuration->getRequiredServerParameters());
 
