@@ -34,12 +34,10 @@
 		<parameters>
 			<!-- parameter settings for the server -->
 			<server>
-				<ignore name="sid" />
 				<ignore name="password" />
 				<ignore name="username" />
 				<ignore name="timestamp" />
 				<mapping from="keywords" to="query" />
-				<require name="test" default="value" />
 			</server>
 
 			<!-- parameter settings for the client -->

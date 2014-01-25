@@ -27,7 +27,7 @@ class UrlBuilderTest extends \FACTFinder\Test\BaseTestCase
         $this->urlBuilder = FF::getInstance(
             'Core\Client\UrlBuilder',
             self::$dic['loggerClass'],
-            self::$dic['parametersConverter'],
+            self::$dic['configuration'],
             self::$dic['requestParser'],
             self::$dic['encodingConverter']
         );

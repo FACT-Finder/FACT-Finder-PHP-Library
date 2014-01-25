@@ -47,6 +47,7 @@ class RequestParserTest extends \FACTFinder\Test\BaseTestCase
         $this->assertParameters(array(
             'a' => 'b',
             'c' => 'd',
+            'channel' => 'de', // is always added
         ));
     }
 
@@ -59,6 +60,17 @@ class RequestParserTest extends \FACTFinder\Test\BaseTestCase
         $this->assertParameters(array(
             "\xC3\xA4" => "\xC3\xB6", // 'ä' => 'ö'
             "\xC3\xBC" => "\xC3\x9F", // 'ü' => 'ß'
+            'channel' => 'de', // is always added
+        ));
+    }
+
+    public function testParameterConversion()
+    {
+        $_SERVER['QUERY_STRING'] = 'keywords=test';
+
+        $this->assertParameters(array(
+            'query' => 'test',
+            'channel' => 'de',
         ));
     }
 

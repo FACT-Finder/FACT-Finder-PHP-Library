@@ -44,7 +44,6 @@ class ParametersConverterTest extends \FACTFinder\Test\BaseTestCase
             'query' => 'test',
             'productsPerPage' => '12',
             'channel' => 'de',
-            'test' => 'value',
         );
 
         $actualServerParameters = $this->parametersConverter
@@ -69,7 +68,6 @@ class ParametersConverterTest extends \FACTFinder\Test\BaseTestCase
 
         $expectedServerParameters = array(
             'channel' => 'en',
-            'test' => 'value',
         );
 
         $actualServerParameters = $this->parametersConverter
