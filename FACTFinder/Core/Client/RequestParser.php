@@ -27,6 +27,11 @@ class RequestParser
     protected $encodingConverter;
 
     /**
+     * @var ParametersConverter
+     */
+    protected $parametersConverter;
+
+    /**
      * @param string $loggerClass Class name of logger to use. The class should
      *                            implement FACTFinder\Util\LoggerInterface.
      * @param ConfigurationInterface $configuration
@@ -40,6 +45,11 @@ class RequestParser
         $this->log = $loggerClass::getLogger(__CLASS__);
         $this->configuration = $configuration;
         $this->encodingConverter = $encodingConverter;
+        $this->parametersConverter = FF::getInstance(
+            'Core\ParametersConverter',
+            $loggerClass,
+            $configuration
+        );
     }
 
     /**
@@ -79,8 +89,11 @@ class RequestParser
                 $parameters = FF::getInstance('Util\Parameters');
             }
 
-            $this->requestParameters = $this->encodingConverter
-                                            ->decodeClientUrlData($parameters);
+            // Convert encoding and then the parameters themselves
+            $this->requestParameters =
+                $this->parametersConverter->convertClientToServerParameters(
+                    $this->encodingConverter->decodeClientUrlData($parameters)
+                );
         }
         return $this->requestParameters;
     }
