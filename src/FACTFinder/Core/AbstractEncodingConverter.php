@@ -122,7 +122,7 @@ abstract class AbstractEncodingConverter
 
     /**
      * Converts data held by the library for use in a client URL.
-     * Hence, it converts fromthe configured client URL encoding to the
+     * Hence, it converts from the configured client URL encoding to the
      * library's encoding (UTF-8).
      * @param mixed $data Data to be used in the client URL. Note that this
      *        data should not yet be URL encoded. Could either be a string or an

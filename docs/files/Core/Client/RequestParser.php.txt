@@ -8,7 +8,8 @@ use FACTFinder\Loader as FF;
  */
 class RequestParser
 {
-    protected $requestParameters;
+    protected $clientRequestParameters;
+    protected $serverRequestParameters;
     protected $requestTarget;
 
     /**
@@ -54,14 +55,47 @@ class RequestParser
 
     /**
      * Loads parameters from the request and returns a Parameter object.
-     * Also takes care of encoding conversion if necessary.
+     * Also takes care of encoding conversion if necessary. Finally it will make
+     * all necessary conversions according to the ignore/require/mapping
+     * directives given in the configuration for the server. Use this method
+     * for any other part of the library that needs the request parameters.
      *
-     * @return Parameters Array of UTF-8 encoded parameters
+     * @return Parameters Array of UTF-8 encoded and converted parameters
      */
     public function getRequestParameters()
     {
-        if ($this->requestParameters === null) {
-            if (isset($_SERVER['QUERY_STRING'])) {
+        if (is_null($this->serverRequestParameters))
+        {
+            $clientParameters = $this->getClientRequestParameters();
+            $this->serverRequestParameters =
+                $this->parametersConverter->convertClientToServerParameters(
+                    $clientParameters
+                );
+        }
+
+        return $this->serverRequestParameters;
+    }
+
+    /**
+     * Loads parameters from the request and returns a Parameter object.
+     * Also takes care of encoding conversion if necessary. However, the
+     * parameters themselves are not converted (that is ignore, require and
+     * mapping directives in the configuration are not taken into account).
+     *
+     * You won't usually need this method unless you really want to get access
+     * to some parameters that would be ignored or mapped otherwise.
+     *
+     * For use with any other part of the library, use getRequestParameters()
+     * instead, which converts the parameters for usage with the server.
+     *
+     * @return Parameters Array of UTF-8 encoded parameters
+     */
+    public function getClientRequestParameters()
+    {
+        if (is_null($this->clientRequestParameters))
+        {
+            if (isset($_SERVER['QUERY_STRING']))
+            {
                 // TODO: Respect variables_order so that conflicting variables
                 //       lead to the same result as in $_REQUEST (save for
                 //       $_COOKIE variables). This todo also goes for the second
@@ -71,7 +105,9 @@ class RequestParser
                     $_SERVER['QUERY_STRING']
                 );
                 $parameters->setAll($_POST);
-            } else if (isset($_GET)) {
+            }
+            else if (isset($_GET))
+            {
                 $this->log->warn('$_SERVER[\'QUERY_STRING\'] is not available. '
                                . 'Using $_GET instead. This may cause problems '
                                . 'if the query string contains parameters with '
@@ -84,18 +120,19 @@ class RequestParser
                     'Util\Parameters',
                     array_merge($_POST, $_GET)
                 );
-            } else {
+            }
+            else
+            {
                 // For CLI use:
                 $parameters = FF::getInstance('Util\Parameters');
             }
 
             // Convert encoding and then the parameters themselves
-            $this->requestParameters =
-                $this->parametersConverter->convertClientToServerParameters(
-                    $this->encodingConverter->decodeClientUrlData($parameters)
-                );
+            $this->clientRequestParameters =
+                $this->encodingConverter->decodeClientUrlData($parameters);
         }
-        return $this->requestParameters;
+
+        return $this->clientRequestParameters;
     }
 
     /**
