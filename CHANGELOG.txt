@@ -1,2 +1,6 @@
+Version 1.0.0-beta.1
+    - ParametersConverter is no longer used anywhere outside of the library.
+    - Its usage has been fixed within the library.
+
 Version 1.0.0-beta
     - Initial release
