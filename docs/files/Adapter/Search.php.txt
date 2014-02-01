@@ -548,10 +548,10 @@ class Search extends AbstractAdapter
      */
     public function getBreadCrumbTrail()
     {
-        if (is_null($this->sorting))
-            $this->sorting = $this->createBreadCrumbTrail();
+        if (is_null($this->breadCrumbTrail))
+            $this->breadCrumbTrail = $this->createBreadCrumbTrail();
 
-        return $this->sorting;
+        return $this->breadCrumbTrail;
     }
 
     /**
