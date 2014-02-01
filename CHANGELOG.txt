@@ -1,3 +1,7 @@
+Version 1.0.0-beta.6
+    - Add a separate getter to Suggest adapter in order to retrieve the raw data
+      from the server.
+
 Version 1.0.0-beta.5
     - Fixed bread crumb trail creation.
 
