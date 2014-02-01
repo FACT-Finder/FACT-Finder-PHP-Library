@@ -49,4 +49,28 @@ class SuggestTest extends \FACTFinder\Test\BaseTestCase
         $this->assertEquals('category', $suggestions[1]->getType(), 'wrong type delivered for second suggest item');
         $this->assertEquals('productName', $suggestions[2]->getType(), 'wrong type delivered for third suggest item');
     }
+
+    public function testGetRawSuggestions()
+    {
+        $suggestions = $this->adapter->getRawSuggestions();
+        $expectedString = 'Verde BMX######brand###Total BMX######brand###BMX Bikes######category###';
+        $this->assertEquals($expectedString,
+                            substr(preg_replace('/[\n\r]/', '', $suggestions), 0, strlen($expectedString)));
+    }
+
+    public function testGetRawJsonSuggestions()
+    {
+        $suggestions = $this->adapter->getRawSuggestions('json');
+        $expectedString = '[{"attributes":{"sourceField":"Brand"},"hitCount":0,';
+        $this->assertEquals($expectedString,
+                            substr(preg_replace('/\s/', '', $suggestions), 0, strlen($expectedString)));
+    }
+
+    public function testGetRawJsonpSuggestions()
+    {
+        $suggestions = $this->adapter->getRawSuggestions('jsonp', 'suggest_callbackfunc');
+        $expectedString = 'suggest_callbackfunc([{"attributes":{"sourceField":"Brand"},"hitCount":0,';
+        $this->assertEquals($expectedString,
+                            substr(preg_replace('/\s/', '', $suggestions), 0, strlen($expectedString)));
+    }
 }
