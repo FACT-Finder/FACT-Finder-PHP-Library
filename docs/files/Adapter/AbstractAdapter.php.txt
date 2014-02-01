@@ -129,6 +129,9 @@ abstract class AbstractAdapter
             throw new \InvalidArgumentException('Content processor is neither a Closure or invokable object.');
 
         $this->responseContentProcessor = $callable;
+
+        // Invalidate processed response content
+        $this->responseContent = null;
     }
 
     protected function getResponseContent()
