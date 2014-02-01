@@ -31,18 +31,13 @@ class Suggest extends AbstractAdapter
         $this->log = $loggerClass::getLogger(__CLASS__);
 
         $this->request->setAction('Suggest.ff');
-        $this->parameters['format'] = 'json';
 
         $this->request->setConnectTimeout($configuration->getSuggestConnectTimeout());
         $this->request->setTimeout($configuration->getSuggestTimeout());
-
-        $this->useJsonResponseContentProcessor();
     }
 
     /**
      * Get the suggestions from FACT-Finder as an array of SuggestQuery's.
-     *
-     * @param
      *
      * @return FACTFinder\Data\SuggestQuery[]
      */
@@ -58,6 +53,12 @@ class Suggest extends AbstractAdapter
     {
         $suggestions = array();
 
+        $this->useJsonResponseContentProcessor();
+
+        if (isset($this->parameters['format']))
+            $oldFormat = $this->parameters['format'];
+
+        $this->parameters['format'] = 'json';
         $suggestData = $this->getResponseContent();
         if (!empty($suggestData))
         {
@@ -79,7 +80,34 @@ class Suggest extends AbstractAdapter
             }
         }
 
+        if (isset($oldFormat))
+            $this->parameters['format'] = $oldFormat;
+
         return $suggestions;
+    }
+
+    /**
+     * Get the suggestions from FACT-Finder as the string returned by the
+     * server.
+     *
+     * @param string $format Optional. Either 'json' or 'jsonp'. Use to
+     *                       overwrite the 'format' parameter.
+     * @param string $callback Optional name to overwrite the 'callback'
+     *                         parameter, which determines the name of the
+     *                         callback the response is wrapped in.
+     *
+     * @return string
+     */
+    public function getRawSuggestions($format = null, $callback = null)
+    {
+        $this->usePassthroughResponseContentProcessor();
+
+        if (!is_null($format))
+            $this->parameters['format'] = $format;
+        if (!is_null($callback))
+            $this->parameters['callback'] = $callback;
+
+        return $this->getResponseContent();
     }
 }
 
