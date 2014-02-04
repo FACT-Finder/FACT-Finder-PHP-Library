@@ -17,19 +17,19 @@ if (!defined('DS'))
     define('DS', DIRECTORY_SEPARATOR);
 }
 
-if (!defined('LIB_DIR'))
+if (!defined('FF_LIB_DIR'))
 {
     /**
      * Contains the absolute directory path to the library.
      */
-    define('LIB_DIR', dirname(dirname(__FILE__)));
+    define('FF_LIB_DIR', dirname(dirname(__FILE__)));
 }
 
 // set as include path if this is not the case yet
 $includePaths = explode(PATH_SEPARATOR, get_include_path());
-if ( array_search(LIB_DIR, $includePaths, true) === false )
+if ( array_search(FF_LIB_DIR, $includePaths, true) === false )
 {
-	set_include_path( get_include_path() . PATH_SEPARATOR . LIB_DIR);
+	set_include_path( get_include_path() . PATH_SEPARATOR . FF_LIB_DIR);
 }
 spl_autoload_register(array('FACTFinder\Loader', 'autoload'));
 
@@ -62,7 +62,7 @@ class Loader
 
     private static function getFilename($classname)
     {
-        return LIB_DIR . DS . str_replace('\\', DS, $classname) . '.php';
+        return FF_LIB_DIR . DS . str_replace('\\', DS, $classname) . '.php';
     }
 
     // TODO: Check parent namespaces, too?
