@@ -1,6 +1,10 @@
+Version 1.0.0-beta.7
+    - Renamed LIB_DIR constant in FF_LIB_DIR.
+    - Made Curl an optional constructor parameter to relevant request factories.
+
 Version 1.0.0-beta.6
-    - Add a separate getter to Suggest adapter in order to retrieve the raw data
-      from the server.
+    - Added a separate getter to Suggest adapter in order to retrieve the raw
+      data from the server.
 
 Version 1.0.0-beta.5
     - Fixed bread crumb trail creation.
