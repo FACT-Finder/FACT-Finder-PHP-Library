@@ -4,7 +4,7 @@ namespace FACTFinder\Util;
 /**
  * Implements LoggerInterface by using log4php's Logger class.
  */
-include_once LIB_DIR . DS . 'log4php' . DS . 'Logger.php';
+include_once FF_LIB_DIR . DS . 'log4php' . DS . 'Logger.php';
 
 class Log4PhpLogger implements LoggerInterface
 {

@@ -34,8 +34,8 @@ class EasyCurlRequestFactoryTest extends \FACTFinder\Test\BaseTestCase
             'Core\Server\EasyCurlRequestFactory',
             self::$dic['loggerClass'],
             self::$dic['configuration'],
-            self::$dic['curlStub'],
-            FF::getInstance('Util\Parameters', array('query' => 'bmx'))
+            FF::getInstance('Util\Parameters', array('query' => 'bmx')),
+            self::$dic['curlStub']
         );
 
         $loggerClass = self::$dic['loggerClass'];
