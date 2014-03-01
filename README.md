@@ -75,3 +75,4 @@ Documentation ToDos
   - Concepts: Loader and name lookup
   - Concepts: Encodings
   - Upgrade guide
+  - Guide for contributors
