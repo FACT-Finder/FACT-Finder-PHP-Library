@@ -68,8 +68,11 @@ This list is still subject to change (ironically...).
 Documentation ToDos
 -------------------
 
-- General documentation (on recommended usage)
--- Page vs Client vs Server
--- Encodings
-- Upgrade guide
-- Demo documentation using Docco.
+- PHPDoc of the code
+- General documentation in GitHub wiki
+  - How to use
+  - Concepts: Namespace structure (esp. Page vs Client vs Server)
+  - Concepts: Loader and name lookup
+  - Concepts: Encodings
+  - Upgrade guide
+  - Guide for contributors
