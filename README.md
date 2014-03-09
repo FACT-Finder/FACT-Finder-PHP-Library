@@ -8,6 +8,8 @@ This is a complete rewrite of and will replace the old
 
 **Please do not use it in productive code yet unless you know what you are doing!**
 
+For documentation please see [the library's GitHub wiki](https://github.com/FACT-Finder/FACT-Finder-PHP-Library/wiki) as well as [the demo's GitHub wiki](https://github.com/FACT-Finder/FACT-Finder-PHP-Library-Demo/wiki). There is also source documentation generated with [phpDocumentor](http://www.phpdoc.org/), which you can view if you clone the repository.
+
 
 Motivation & Goals
 ------------------
