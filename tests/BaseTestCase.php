@@ -26,35 +26,33 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
 
         self::$dic['loggerClass'] = $logClass;
 
-        self::$dic['configuration'] = self::$dic->share(function($c) {
+        self::$dic['configuration'] = function($c) {
             return FF::getInstance(
                 'Core\XmlConfiguration',
                 RESOURCES_DIR.DS.'config.xml',
                 'test'
             );
-        });
+        };
 
         // $this cannot be passed into closures before PHP 5.4
         //$that = $this;
-        self::$dic['encodingConverter'] = self::$dic->share(
-            function($c) {
-                if (extension_loaded('iconv'))
-                    $type = 'Core\IConvEncodingConverter';
-                else if (function_exists('utf8_encode')
-                         && function_exists('utf8_decode'))
-                    $type = 'Core\Utf8EncodingConverter';
-                else
-                    return;
-                //TODO: Skip test if no conversion method is available.
-                //    $that->markTestSkipped('No encoding conversion available.');
+        self::$dic['encodingConverter'] = function($c) {
+            if (extension_loaded('iconv'))
+                $type = 'Core\IConvEncodingConverter';
+            else if (function_exists('utf8_encode')
+                     && function_exists('utf8_decode'))
+                $type = 'Core\Utf8EncodingConverter';
+            else
+                return;
+            //TODO: Skip test if no conversion method is available.
+            //    $that->markTestSkipped('No encoding conversion available.');
 
-                return FF::getInstance(
-                    $type,
-                    $c['loggerClass'],
-                    $c['configuration']
-                );
-            }
-        );
+            return FF::getInstance(
+                $type,
+                $c['loggerClass'],
+                $c['configuration']
+            );
+        };
 
         self::$dic['serverUrlBuilder'] = function($c) {
             return FF::getInstance(
@@ -74,11 +72,11 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
             );
         };
 
-        self::$dic['curlStub'] = self::$dic->share(function($c) {
+        self::$dic['curlStub'] = function($c) {
             return FF::getInstance('Util\CurlStub');
-        });
+        };
 
-        self::$dic['dataProvider'] = self::$dic->share(function($c) {
+        self::$dic['dataProvider'] = function($c) {
             $dataProvider = FF::getInstance(
                 'Core\Server\FileSystemDataProvider',
                 $c['loggerClass'],
@@ -88,9 +86,9 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
             $dataProvider->setFileLocation(RESOURCES_DIR . DS . 'responses');
 
             return $dataProvider;
-        });
+        };
 
-        self::$dic['requestFactory'] = self::$dic->share(function($c) {
+        self::$dic['requestFactory'] = function($c) {
             $requestFactory = FF::getInstance(
                 'Core\Server\FileSystemRequestFactory',
                 $c['loggerClass'],
@@ -101,19 +99,19 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
             $requestFactory->setFileLocation(RESOURCES_DIR . DS . 'responses');
 
             return $requestFactory;
-        });
-
-        self::$dic['request'] = function($c) {
-            return $c['requestFactory']->getRequest();
         };
 
-        self::$dic['requestParser'] = self::$dic->share(function($c) {
+        self::$dic['request'] = self::$dic->factory(function($c) {
+            return $c['requestFactory']->getRequest();
+        });
+
+        self::$dic['requestParser'] = function($c) {
             return FF::getInstance(
                 'Core\Client\RequestParser',
                 $c['loggerClass'],
                 $c['configuration'],
                 $c['encodingConverter']
             );
-        });
+        };
     }
 }
