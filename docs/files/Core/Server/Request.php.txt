@@ -97,7 +97,7 @@ class Request
     }
 
     /**
-     * @return string
+     * @return Response
      */
     public function getResponse()
     {

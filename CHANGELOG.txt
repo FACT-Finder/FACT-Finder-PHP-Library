@@ -1,3 +1,7 @@
+Version 1.0.0-beta.8
+    - Upgraded Pimple to version 2.0.
+    - Checked that test suite works with PHPUnit 4.0.
+
 Version 1.0.0-beta.7
     - Renamed LIB_DIR constant in FF_LIB_DIR.
     - Made Curl an optional constructor parameter to relevant request factories.
