@@ -10,6 +10,8 @@ This is a complete rewrite of and will replace the old
 
 For documentation please see [the library's GitHub wiki](https://github.com/FACT-Finder/FACT-Finder-PHP-Library/wiki) as well as [the demo's GitHub wiki](https://github.com/FACT-Finder/FACT-Finder-PHP-Library-Demo/wiki). There is also source documentation generated with [phpDocumentor](http://www.phpdoc.org/), which you can view if you clone the repository.
 
+If you want to contribute to the library, please see our [guide for contributors](https://github.com/FACT-Finder/FACT-Finder-PHP-Library/wiki/Guide-for-contributors).
+
 
 Motivation & Goals
 ------------------
