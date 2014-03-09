@@ -26,5 +26,3 @@ Documentation ToDos
 - PHPDoc of the code
 - General documentation in GitHub wiki
   - How to use
-  - Upgrade guide
-  - Adapters, Requests and DataProviders
