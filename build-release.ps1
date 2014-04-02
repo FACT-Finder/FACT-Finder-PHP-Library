@@ -10,6 +10,8 @@
 # We recommend that you use git's credential cache or an SSH agent so you don't
 # have to enter your credentials several times during the script.
 
+################################################################################
+
 # Make the project root directory the working directory (regardless of where the
 # script has been called from).
 
