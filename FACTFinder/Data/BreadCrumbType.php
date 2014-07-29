@@ -18,7 +18,7 @@ class BreadCrumbType
     }
 
     static private $initialized = false;
-    public function initialize()
+    static public function initialize()
     {
         if (!self::$initialized)
         {
