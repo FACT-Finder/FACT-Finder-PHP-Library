@@ -37,7 +37,7 @@ class FilterStyle
     // By the way, alternatively we could generate these instances lazily in all
     // the getters at the bottom.
     static private $initialized = false;
-    public function initialize()
+    static public function initialize()
     {
         if (!self::$initialized)
         {
