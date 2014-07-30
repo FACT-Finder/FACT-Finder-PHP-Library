@@ -379,14 +379,14 @@ class Search extends AbstractAdapter
     {
         $options = array();
 
+        $defaultOption = null;
+        $selectedOption = null;
+
         $jsonData = $this->getResponseContent();
 
         $rppData = $jsonData['searchResult']['resultsPerPageList'];
         if (!empty($rppData))
         {
-            $defaultOption = null;
-            $selectedOption = null;
-
             foreach ($rppData as $optionData)
             {
                 $optionLink = $this->convertServerQueryToClientUrl(
