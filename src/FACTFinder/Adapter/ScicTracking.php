@@ -272,6 +272,6 @@ class ScicTracking extends AbstractAdapter
      */
     public function applyTracking() {
         $success = trim($this->getResponseContent());
-        return $success == 'true';
+        return $success == 'The event was successfully tracked';
     }
 }
