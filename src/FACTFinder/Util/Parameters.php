@@ -64,8 +64,8 @@ class Parameters implements \ArrayAccess, \Countable
 
             // Use rawurldecode(), because encoding spaces as '+' is only for
             // legacy compatibility.
-            $k = rawurldecode($pair[0]);
-            $v = rawurldecode($pair[1]);
+            $k = urldecode($pair[0]);
+            $v = urldecode($pair[1]);
 
             // TODO: This does not currently pay attention to potential array
             //       keys in the parameter name and simply appends the value
