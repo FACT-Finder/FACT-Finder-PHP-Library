@@ -392,28 +392,32 @@ class Search extends AbstractAdapter
 
         $jsonData = $this->getResponseContent();
 
-        $rppData = $jsonData['searchResult']['resultsPerPageList'];
-        if (!empty($rppData))
-        {
-            foreach ($rppData as $optionData)
+        if (isset($jsonData['searchResult'])
+            && isset($jsonData['searchResult']['resultsPerPageList'])
+        ) {
+            $rppData = $jsonData['searchResult']['resultsPerPageList'];
+            if (!empty($rppData))
             {
-                $optionLink = $this->convertServerQueryToClientUrl(
-                    $optionData['searchParams']
-                );
+                foreach ($rppData as $optionData)
+                {
+                    $optionLink = $this->convertServerQueryToClientUrl(
+                        $optionData['searchParams']
+                    );
 
-                $option = FF::getInstance(
-                    'Data\Item',
-                    $optionData['value'],
-                    $optionLink,
-                    $optionData['selected']
-                );
+                    $option = FF::getInstance(
+                        'Data\Item',
+                        $optionData['value'],
+                        $optionLink,
+                        $optionData['selected']
+                    );
 
-                if ($optionData['default'])
-                    $defaultOption = $option;
-                if ($optionData['selected'])
-                    $selectedOption = $option;
+                    if ($optionData['default'])
+                        $defaultOption = $option;
+                    if ($optionData['selected'])
+                        $selectedOption = $option;
 
-                $options[] = $option;
+                    $options[] = $option;
+                }
             }
         }
 
