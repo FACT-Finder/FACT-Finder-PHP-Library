@@ -100,8 +100,8 @@ class Search extends AbstractAdapter
         $jsonData = $this->getResponseContent();
 
         if (isset($jsonData['searchResult'])) {
-            $refKey = $searchResultData['refKey'];
             $searchResultData = $jsonData['searchResult'];
+            $refKey = $searchResultData['refKey'];
 
             if (!empty($searchResultData['records']))
             {
