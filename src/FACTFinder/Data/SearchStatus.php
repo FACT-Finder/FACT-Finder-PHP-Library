@@ -20,7 +20,7 @@ class SearchStatus
     }
 
     static private $initialized = false;
-    public static function initialize()
+    static public function initialize()
     {
         if (!self::$initialized)
         {

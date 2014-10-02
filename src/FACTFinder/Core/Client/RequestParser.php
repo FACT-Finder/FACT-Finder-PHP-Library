@@ -104,7 +104,18 @@ class RequestParser
                     'Util\Parameters',
                     $_SERVER['QUERY_STRING']
                 );
-                $parameters->setAll($_POST);
+
+                $data = $_POST;
+
+                if (!empty($data)) {
+                    foreach ($data as $key => $value) {
+                        if (is_array($value)) {
+                            unset($data[$key]);
+                        }
+                    }
+                }
+
+                $parameters->setAll($data);
             }
             else if (isset($_GET))
             {
