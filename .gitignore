@@ -6,3 +6,4 @@
 /tests/report
 
 phpdoc*.log
+.idea/
