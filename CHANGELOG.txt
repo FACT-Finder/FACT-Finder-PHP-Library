@@ -1,3 +1,11 @@
+Version 1.0.1
+    - Fix tracking response
+    - Fix the Util\Parameters cannot contain a value that is an array
+    - Fix undefined variable notices when resultsPerPageList in json data is empty
+    - Fix strict standard warnings for static methods
+    - Create composer.json file
+    - rename xxxProductIDs methods to xxxProductNumbers, because for campaigns FF needs numbers instead IDs
+    
 Version 1.0.0
     - Upgraded Pimple to version 2.0.
     - Checked that test suite works with PHPUnit 4.0.
