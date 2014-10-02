@@ -40,37 +40,61 @@ class ProductCampaign extends AbstractAdapter
     }
 
     /**
-     * Set one or multiple product IDs to get campaigns for, overwriting any IDs
-     * previously set. Note that multiple IDs will only be considered for
-     * shopping cart campaigns. For product detail campaigns only the first ID
+     * Set one or multiple product numbers to get campaigns for, overwriting any
+     * numbers previously set. Note that multiple numbers will only be considered for
+     * shopping cart campaigns. For product detail campaigns only the first number
      * will be used.
      *
-     * @param string|string[] $productIDs One or more product IDs.
+     * @param string|string[] $productNumbers One or more product numbers.
      */
-    public function setProductIDs($productIDs)
+    public function setProductNumbers($productNumbers)
     {
         $parameters = $this->request->getParameters();
-        $parameters['productNumber'] = $productIDs;
+        $parameters['productNumber'] = $productNumbers;
         $this->campaignsUpToDate = false;
     }
 
     /**
-     * Add one or multiple product IDs to get campaigns for, in addition to any IDs
-     * previously set.
+     * For product campaigns, FACT-Finder needs the product numbers - not the IDs.
      *
-     * @param string|string[] $productIDs One or more product IDs.
+     * @deprecated use setProductNumbers instead
+     * @param string|string[] $productIDs
+     */
+    public function setProductIDs($productIDs)
+    {
+        // preserve the previous logic
+        $this->setProductNumbers($productIDs);
+    }
+
+    /**
+     * Add one or multiple product numbser to get campaigns for, in addition to any
+     * numbers previously set.
+     *
+     * @param string|string[] $productNumbers One or more product numbers.
+     */
+    public function addProductNumbers($productNumbers)
+    {
+        $parameters = $this->request->getParameters();
+        $parameters->add('productNumber', $productNumbers);
+        $this->campaignsUpToDate = false;
+    }
+
+    /**
+     * For product campaigns, FACT-Finder needs the product numbers - not the IDs.
+     *
+     * @deprecated use addProductNumbers instead
+     * @param string|string[] $productIDs
      */
     public function addProductIDs($productIDs)
     {
-        $parameters = $this->request->getParameters();
-        $parameters->add('productNumber', $productIDs);
-        $this->campaignsUpToDate = false;
+        $this->addProductNumbers($productIDs);
     }
 
     /**
      * Sets the adapter up for fetching campaigns on product detail pages
      */
-    public function makeProductCampaign() {
+    public function makeProductCampaign()
+    {
         $this->isShoppingCartCampaign = false;
         $this->campaignsUpToDate = false;
         $this->parameters['do'] = 'getProductCampaigns';
@@ -79,7 +103,8 @@ class ProductCampaign extends AbstractAdapter
     /**
      * Sets the adapter up for fetching campaigns on shopping cart pages
      */
-    public function makeShoppingCartCampaign() {
+    public function makeShoppingCartCampaign()
+    {
         $this->isShoppingCartCampaign = true;
         $this->campaignsUpToDate = false;
         $this->parameters['do'] = 'getShoppingCartCampaigns';
