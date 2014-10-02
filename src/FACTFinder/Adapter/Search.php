@@ -94,36 +94,41 @@ class Search extends AbstractAdapter
     {
         //init default values
         $records      = array();
+        $refKey = null;
         $resultCount = 0;
 
         $jsonData = $this->getResponseContent();
-        $searchResultData = $jsonData['searchResult'];
 
-        if (!empty($searchResultData['records']))
-        {
-            $resultCount = $searchResultData['resultCount'];
+        if (isset($jsonData['searchResult'])) {
+            $searchResultData = $jsonData['searchResult'];
+            $refKey = $searchResultData['refKey'];
 
-            foreach ($searchResultData['records'] as $recordData)
+            if (!empty($searchResultData['records']))
             {
-                $position = $recordData['position'];
+                $resultCount = $searchResultData['resultCount'];
 
-                $record = FF::getInstance('Data\Record',
-                    (string)$recordData['id'],
-                    $recordData['record'],
-                    $recordData['searchSimilarity'],
-                    $position,
-                    $recordData['seoPath'],
-                    $recordData['keywords']
-                );
+                foreach ($searchResultData['records'] as $recordData)
+                {
+                    $position = $recordData['position'];
 
-                $records[] = $record;
+                    $record = FF::getInstance('Data\Record',
+                        (string)$recordData['id'],
+                        $recordData['record'],
+                        $recordData['searchSimilarity'],
+                        $position,
+                        $recordData['seoPath'],
+                        $recordData['keywords']
+                    );
+
+                    $records[] = $record;
+                }
             }
         }
 
         return FF::getInstance(
             'Data\Result',
             $records,
-            $searchResultData['refKey'],
+            $refKey,
             $resultCount
         );
     }
@@ -231,8 +236,11 @@ class Search extends AbstractAdapter
         $jsonData = $this->getResponseContent();
 
         $filterGroups = array();
-        foreach ($jsonData['searchResult']['groups'] as $groupData)
+
+        if (isset($jsonData['searchResult'])) {
+            foreach ($jsonData['searchResult']['groups'] as $groupData)
                 $filterGroups[] = $this->createFilterGroup($groupData);
+        }
 
         return FF::getInstance(
             'Data\AfterSearchNavigation',
@@ -384,28 +392,32 @@ class Search extends AbstractAdapter
 
         $jsonData = $this->getResponseContent();
 
-        $rppData = $jsonData['searchResult']['resultsPerPageList'];
-        if (!empty($rppData))
-        {
-            foreach ($rppData as $optionData)
+        if (isset($jsonData['searchResult'])
+            && isset($jsonData['searchResult']['resultsPerPageList'])
+        ) {
+            $rppData = $jsonData['searchResult']['resultsPerPageList'];
+            if (!empty($rppData))
             {
-                $optionLink = $this->convertServerQueryToClientUrl(
-                    $optionData['searchParams']
-                );
+                foreach ($rppData as $optionData)
+                {
+                    $optionLink = $this->convertServerQueryToClientUrl(
+                        $optionData['searchParams']
+                    );
 
-                $option = FF::getInstance(
-                    'Data\Item',
-                    $optionData['value'],
-                    $optionLink,
-                    $optionData['selected']
-                );
+                    $option = FF::getInstance(
+                        'Data\Item',
+                        $optionData['value'],
+                        $optionLink,
+                        $optionData['selected']
+                    );
 
-                if ($optionData['default'])
-                    $defaultOption = $option;
-                if ($optionData['selected'])
-                    $selectedOption = $option;
+                    if ($optionData['default'])
+                        $defaultOption = $option;
+                    if ($optionData['selected'])
+                        $selectedOption = $option;
 
-                $options[] = $option;
+                    $options[] = $option;
+                }
             }
         }
 
