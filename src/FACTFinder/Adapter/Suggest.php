@@ -68,6 +68,14 @@ class Suggest extends AbstractAdapter
                     $suggestQueryData['searchParams']
                 );
 
+                if (isset($suggestQueryData['attributes'])
+                    && is_array($suggestQueryData['attributes'])
+                ) {
+                    $suggestAttributes = $suggestQueryData['attributes'];
+                } else {
+                    $suggestAttributes = array();
+                }
+
                 $suggestions[] = FF::getInstance(
                     'Data\SuggestQuery',
                     $suggestQueryData['name'],
@@ -75,7 +83,8 @@ class Suggest extends AbstractAdapter
                     $suggestQueryData['hitCount'],
                     $suggestQueryData['type'],
                     $suggestQueryData['image'],
-                    $suggestQueryData['refKey']
+                    $suggestQueryData['refKey'],
+                    $suggestAttributes
                 );
             }
         }
