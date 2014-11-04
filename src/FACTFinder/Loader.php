@@ -65,12 +65,6 @@ class Loader
         return FF_LIB_DIR . DS . str_replace('\\', DS, $classname) . '.php';
     }
 
-    // TODO: Check parent namespaces, too?
-    private static function canLoadClass($classname)
-    {
-        return file_exists(self::getFilename($classname));
-    }
-
     /**
      * Creates an instance of a class taking into account classes within the
      * "FACTFinder\Custom\" namespace instead of "FACTFinder\".
@@ -142,9 +136,9 @@ class Loader
         $factfinderClassName = 'FACTFinder\\' . $name;
         $defaultClassName    = $name;
 
-        if (self::canLoadClass($customClassName))
+        if (class_exists($customClassName))
             $className = $customClassName;
-        else if (self::canLoadClass($factfinderClassName))
+        else if (class_exists($factfinderClassName))
             $className = $factfinderClassName;
         else if (class_exists($defaultClassName))
             $className = $defaultClassName;
