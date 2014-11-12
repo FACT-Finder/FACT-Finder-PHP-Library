@@ -95,35 +95,40 @@ class Search extends AbstractAdapter
         //init default values
         $records      = array();
         $resultCount = 0;
+        $refKey = null;
 
         $jsonData = $this->getResponseContent();
-        $searchResultData = $jsonData['searchResult'];
 
-        if (!empty($searchResultData['records']))
-        {
-            $resultCount = $searchResultData['resultCount'];
+        if (isset($jsonData['searchResult'])) {
+            $searchResultData = $jsonData['searchResult'];
+            $refKey = $searchResultData['refKey'];
 
-            foreach ($searchResultData['records'] as $recordData)
+            if (!empty($searchResultData['records']))
             {
-                $position = $recordData['position'];
+                $resultCount = $searchResultData['resultCount'];
 
-                $record = FF::getInstance('Data\Record',
-                    (string)$recordData['id'],
-                    $recordData['record'],
-                    $recordData['searchSimilarity'],
-                    $position,
-                    $recordData['seoPath'],
-                    $recordData['keywords']
-                );
+                foreach ($searchResultData['records'] as $recordData)
+                {
+                    $position = $recordData['position'];
 
-                $records[] = $record;
+                    $record = FF::getInstance('Data\Record',
+                        (string)$recordData['id'],
+                        $recordData['record'],
+                        $recordData['searchSimilarity'],
+                        $position,
+                        $recordData['seoPath'],
+                        $recordData['keywords']
+                    );
+
+                    $records[] = $record;
+                }
             }
         }
 
         return FF::getInstance(
             'Data\Result',
             $records,
-            $searchResultData['refKey'],
+            $refKey,
             $resultCount
         );
     }
@@ -231,8 +236,11 @@ class Search extends AbstractAdapter
         $jsonData = $this->getResponseContent();
 
         $filterGroups = array();
-        foreach ($jsonData['searchResult']['groups'] as $groupData)
+
+        if (isset($jsonData['searchResult']['groups'])) {
+            foreach ($jsonData['searchResult']['groups'] as $groupData)
                 $filterGroups[] = $this->createFilterGroup($groupData);
+        }
 
         return FF::getInstance(
             'Data\AfterSearchNavigation',
