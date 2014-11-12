@@ -160,7 +160,7 @@ class RequestParser
             // http://php.net/manual/en/reserved.variables.server.php#108186
             if(!isset($_SERVER['REQUEST_URI'])) {
                 $_SERVER['REQUEST_URI'] = $_SERVER['SCRIPT_NAME'];
-                if($_SERVER['QUERY_STRING']) {
+                if(isset($_SERVER['QUERY_STRING'])) {
                     $_SERVER['REQUEST_URI'] .= '?' . $_SERVER['QUERY_STRING'];
                 }
             }
