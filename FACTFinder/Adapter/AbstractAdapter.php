@@ -89,6 +89,11 @@ abstract class AbstractAdapter
     protected function useJsonResponseContentProcessor()
     {
         $this->responseContentProcessor = function($string) {
+
+            if (strpos($string, 'Infinity') !== false) {
+                $string = str_replace('Infinity', '"0"', $string);
+            }
+
             // The second parameter turns objects into associative arrays.
             // stdClass objects don't really have any advantages over plain
             // arrays but miss out on some of the built-in array functions.
