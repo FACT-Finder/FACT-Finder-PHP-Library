@@ -25,10 +25,11 @@ class ProductCampaign extends AbstractAdapter
         $loggerClass,
         \FACTFinder\Core\ConfigurationInterface $configuration,
         \FACTFinder\Core\Server\Request $request,
-        \FACTFinder\Core\Client\UrlBuilder $urlBuilder
+        \FACTFinder\Core\Client\UrlBuilder $urlBuilder,
+        \FACTFinder\Core\AbstractEncodingConverter $encodingConverter
     ) {
         parent::__construct($loggerClass, $configuration, $request,
-                            $urlBuilder);
+                            $urlBuilder, $encodingConverter);
 
         $this->log = $loggerClass::getLogger(__CLASS__);
 

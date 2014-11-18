@@ -63,18 +63,22 @@ abstract class AbstractAdapter
      *        which to obtain the server data.
      * @param \FACTFinder\Core\Client\UrlBuilder $urlBuilder
      *        Client URL builder object to use.
+     * @param \FACTFinder\Core\encodingConverter $encodingConverter
+     *        Encoding converter object to use
      */
     public function __construct(
         $loggerClass,
         \FACTFinder\Core\ConfigurationInterface $configuration,
         \FACTFinder\Core\Server\Request $request,
-        \FACTFinder\Core\Client\UrlBuilder $urlBuilder
+        \FACTFinder\Core\Client\UrlBuilder $urlBuilder,
+        \FACTFinder\Core\AbstractEncodingConverter $encodingConverter
     ) {
         $this->log = $loggerClass::getLogger(__CLASS__);
         $this->configuration = $configuration;
         $this->request = $request;
         $this->parameters = $request->getParameters();
         $this->urlBuilder = $urlBuilder;
+        $this->encodingConverter = $encodingConverter;
 
         $this->usePassthroughResponseContentProcessor();
     }
@@ -146,8 +150,11 @@ abstract class AbstractAdapter
 
             // PHP does not (yet?) support $this->method($args) for callable
             // properties
-            $this->responseContent = $this->responseContentProcessor
-                                          ->__invoke($content);
+            $this->responseContent = $this->encodingConverter
+                                          ->encodeContentForPage(
+                                              $this->responseContentProcessor
+                                              ->__invoke($content)
+                                          );
             $this->lastResponse = $response;
         }
 
