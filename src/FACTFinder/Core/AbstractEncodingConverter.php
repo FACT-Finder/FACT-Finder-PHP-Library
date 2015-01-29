@@ -60,10 +60,17 @@ abstract class AbstractEncodingConverter
     {
         if (FF::isInstanceOf($data, 'Util\Parameters'))
         {
-            $result = FF::getInstance(
-                'Util\Parameters',
-                $this->convert($inCharset, $outCharset, $data->getArray())
-            );
+            if (count($data->getArray()) == 1 && current(array_keys($data->getArray())) == '')
+            {
+                $result = $data;
+            }
+            else
+            {
+                $result = FF::getInstance(
+                    'Util\Parameters',
+                    $this->convert($inCharset, $outCharset, $data->getArray())
+                );
+            }
         }
         else if (is_array($data))
         {
