@@ -10,6 +10,7 @@ class SuggestQuery extends Item
     private $type;
     private $imageUrl;
     private $refKey;
+    private $attributes;
 
     /**
      * @param string $query The query's name - will be used as the item's label.
@@ -20,6 +21,7 @@ class SuggestQuery extends Item
      *        query comes from (e.g. product name, category, log file).
      * @param string $imageUrl
      * @param string $refKey
+     * @param array $attributes Additional return data fields
      */
     public function __construct(
         $query,
@@ -27,7 +29,8 @@ class SuggestQuery extends Item
         $hitCount = 0,
         $type = '',
         $imageUrl = '',
-        $refKey = ''
+        $refKey = '',
+        array $attributes = array()
     ) {
         // Suggestions are never pre-selected.
         parent::__construct($query, $url, false);
@@ -35,6 +38,7 @@ class SuggestQuery extends Item
         $this->type = (string)$type;
         $this->imageUrl = (string)$imageUrl;
         $this->refKey = (string)$refKey;
+        $this->attributes = $attributes;
     }
 
     /**
@@ -64,5 +68,12 @@ class SuggestQuery extends Item
      */
     public function getRefKey() {
         return $this->refKey;
+    }
+
+    /**
+     * @return array Returns the additional return data fields
+     */
+    public function getAttributes() {
+        return $this->attributes;
     }
 }

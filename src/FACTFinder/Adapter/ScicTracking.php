@@ -19,10 +19,11 @@ class ScicTracking extends AbstractAdapter
         $loggerClass,
         \FACTFinder\Core\ConfigurationInterface $configuration,
         \FACTFinder\Core\Server\Request $request,
-        \FACTFinder\Core\Client\UrlBuilder $urlBuilder
+        \FACTFinder\Core\Client\UrlBuilder $urlBuilder,
+        \FACTFinder\Core\AbstractEncodingConverter $encodingConverter
     ) {
         parent::__construct($loggerClass, $configuration, $request,
-                            $urlBuilder);
+                            $urlBuilder, $encodingConverter);
 
         $this->log = $loggerClass::getLogger(__CLASS__);
 
@@ -272,6 +273,6 @@ class ScicTracking extends AbstractAdapter
      */
     public function applyTracking() {
         $success = trim($this->getResponseContent());
-        return $success == 'The event was successfully tracked';
+        return $success == 'The event was successfully tracked' || $success == 'true' || $success == '1';
     }
 }
