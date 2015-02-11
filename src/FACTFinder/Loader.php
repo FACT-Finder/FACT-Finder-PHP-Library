@@ -84,15 +84,7 @@ class Loader
      */
     public static function getInstance($name)
     {
-        if (isset(self::$classNames[$name]))
-        {
-            $className = self::$classNames[$name];
-        }
-        else
-        {
-            $className = self::getClassName($name);
-            self::$classNames[$name] = $className;
-        }
+        $className = self::getClassName($name);
 
         // this snippet is from the typo3 class "t3lib_div"
         // written by Kasper Skaarhoj <kasperYYYY@typo3.com>
@@ -129,6 +121,11 @@ class Loader
      */
     public static function getClassName($name)
     {
+        if (isset(self::$classNames[$name]))
+        {
+            return self::$classNames[$name];
+        }
+
         $name = trim(preg_replace('/^FACTFinder\\\\/i', '', $name));
 
         // check whether there is a custom or lib-unrelated class
@@ -144,7 +141,7 @@ class Loader
             $className = $defaultClassName;
         else
             throw new \Exception("class '$factfinderClassName' not found");
-        return $className;
+        return self::$classNames[$name] = $className;
     }
 
     /**
