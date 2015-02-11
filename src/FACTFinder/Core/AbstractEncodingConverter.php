@@ -58,11 +58,11 @@ abstract class AbstractEncodingConverter
      */
     protected function convert($inCharset, $outCharset, $data)
     {
-        if (FF::isInstanceOf($data, 'Util\Parameters'))
+        if ($data instanceof Parameters)
         {
             if (count($data->getArray()) == 1 && current(array_keys($data->getArray())) == '')
             {
-                $result = $data;
+                $result = $data->getArray();
             }
             else
             {
