@@ -125,6 +125,7 @@ class Loader
         {
             return self::$classNames[$name];
         }
+        $orig = $name;
 
         $name = trim(preg_replace('/^FACTFinder\\\\/i', '', $name));
 
@@ -141,7 +142,7 @@ class Loader
             $className = $defaultClassName;
         else
             throw new \Exception("class '$factfinderClassName' not found");
-        return self::$classNames[$name] = $className;
+        return self::$classNames[$orig] = $className;
     }
 
     /**
