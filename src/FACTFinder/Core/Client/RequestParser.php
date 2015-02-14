@@ -41,7 +41,7 @@ class RequestParser
     function __construct(
         $loggerClass,
         \FACTFinder\Core\ConfigurationInterface $configuration,
-        \FACTFinder\Core\AbstractEncodingConverter $encodingConverter
+        \FACTFinder\Core\AbstractEncodingConverter $encodingConverter = null
     ) {
         $this->log = $loggerClass::getLogger(__CLASS__);
         $this->configuration = $configuration;

@@ -29,6 +29,11 @@ class FilterGroup extends \ArrayIterator
     private $unit;
 
     /**
+     * @var FilterSelectionType
+     */
+    private $selectionType;
+
+    /**
      * @param Filter[] $filters The Filter objects to add to the group.
      * @param string $refKey
      * @param int $foundRecordsCount Total number of records found for the
@@ -42,7 +47,8 @@ class FilterGroup extends \ArrayIterator
         $name = '',
         FilterStyle $style = null,
         $detailedLinkCount = 0,
-        $unit = ''
+        $unit = '',
+        FilterSelectionType $selectionType = null
     ) {
         parent::__construct($filters);
 
@@ -51,6 +57,8 @@ class FilterGroup extends \ArrayIterator
         $this->style = $style ?: $filterStyleEnum::Regular();
         $this->detailedLinkCount = (int)$detailedLinkCount;
         $this->unit = (string)$unit;
+        $filterSelectionTypeEnum = FF::getClassName('Data\FilterSelectionType');
+        $this->selectionType = $selectionType ?: $filterSelectionTypeEnum::SingleHideUnselected();
     }
 
     /**
@@ -145,4 +153,41 @@ class FilterGroup extends \ArrayIterator
 
         return false;
     }
+
+    /**
+     * @return bool
+     */
+    public function isSingleHideUnselectedType()
+    {
+        $filterSelectionTypeEnum = FF::getClassName('Data\FilterSelectionType');
+        return $this->selectionType == $filterSelectionTypeEnum::SingleHideUnselected();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSingleShowUnselectedType()
+    {
+        $filterSelectionTypeEnum = FF::getClassName('Data\FilterSelectionType');
+        return $this->selectionType == $filterSelectionTypeEnum::SingleShowUnselected();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMultiSelectOrType()
+    {
+        $filterSelectionTypeEnum = FF::getClassName('Data\FilterSelectionType');
+        return $this->selectionType == $filterSelectionTypeEnum::MultiSelectOr();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMultiSelectAndType()
+    {
+        $filterSelectionTypeEnum = FF::getClassName('Data\FilterSelectionType');
+        return $this->selectionType == $filterSelectionTypeEnum::MultiSelectAnd();
+    }
+
 }
