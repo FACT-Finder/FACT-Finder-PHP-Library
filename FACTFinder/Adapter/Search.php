@@ -55,7 +55,7 @@ class Search extends AbstractAdapter
         \FACTFinder\Core\ConfigurationInterface $configuration,
         \FACTFinder\Core\Server\Request $request,
         \FACTFinder\Core\Client\UrlBuilder $urlBuilder,
-        \FACTFinder\Core\AbstractEncodingConverter $encodingConverter
+        \FACTFinder\Core\AbstractEncodingConverter $encodingConverter = null
     ) {
         parent::__construct($loggerClass, $configuration, $request,
                             $urlBuilder, $encodingConverter);
@@ -117,7 +117,7 @@ class Search extends AbstractAdapter
                         $recordData['record'],
                         $recordData['searchSimilarity'],
                         $position,
-                        $recordData['seoPath'],
+                        isset($recordData['seoPath']) ? $recordData['seoPath'] : '',
                         $recordData['keywords']
                     );
 
@@ -290,13 +290,34 @@ class Search extends AbstractAdapter
                 $filters[] = $this->createFilter($filterData);
         }
 
+        $filterSelectionType = null;
+        $filterSelectionTypeEnum = FF::getClassName('Data\FilterSelectionType');
+        if (isset($groupData['selectionType']))
+        {
+            switch ($groupData['selectionType'])
+            {
+            case 'multiSelectOr':
+                $filterSelectionType = $filterSelectionTypeEnum::MultiSelectOr();
+                break;
+            case 'multiSelectAnd':
+                $filterSelectionType = $filterSelectionTypeEnum::MultiSelectAnd();
+                break;
+            case 'singleShowUnselected':
+                $filterSelectionType = $filterSelectionTypeEnum::SingleShowUnselected();
+                break;
+            default:
+                $filterSelectionType = $filterSelectionTypeEnum::SingleHideUnselected();
+                break;
+            }
+        }
         return FF::getInstance(
             'Data\FilterGroup',
             $filters,
             $groupData['name'],
             $filterStyle,
             $groupData['detailedLinks'],
-            $groupData['unit']
+            $groupData['unit'],
+            $filterSelectionType
         );
     }
 
@@ -445,7 +466,7 @@ class Search extends AbstractAdapter
         $pages = array();
 
         $jsonData = $this->getResponseContent();
-
+        
         $pagingData = $jsonData['searchResult']['paging'];
         if (!empty($pagingData))
         {
