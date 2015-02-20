@@ -146,7 +146,7 @@ class Recommendation extends AbstractAdapter
             $recommenderData = $this->getResponseContent();
             if (isset($recommenderData['resultRecords']))
             {
-                $recommenderData=$recommenderData['resultRecords'];
+                $recommenderData = $recommenderData['resultRecords'];
             }
             $position = 1;
             foreach($recommenderData as $recordData)
