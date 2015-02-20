@@ -65,7 +65,7 @@ class Suggest extends AbstractAdapter
         {
             if (isset($suggestData['suggestions']))
             {
-                $suggestData=$suggestData['suggestions'];
+                $suggestData = $suggestData['suggestions'];
             }
             
             foreach ($suggestData as $suggestQueryData)
@@ -89,7 +89,7 @@ class Suggest extends AbstractAdapter
                     $suggestQueryData['hitCount'],
                     $suggestQueryData['type'],
                     $suggestQueryData['image'],
-                    isset($suggestQueryData['refKey']) ? $suggestQueryData['refKey'] : ''
+                    isset($suggestQueryData['refKey']) ? $suggestQueryData['refKey'] : '',
                     $suggestAttributes
                 );
             }
