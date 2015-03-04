@@ -66,8 +66,7 @@ class UrlBuilder
         $parameters = $this->parametersConverter
                            ->convertServerToClientParameters($parameters);
 
-        $parameters = $this->encodingConverter
-                           ->encodeClientUrlData($parameters);
+        $parameters = $this->encodingConverter != null ? $this->encodingConverter->encodeClientUrlData($parameters) : $parameters;
 
         if (!is_string($target))
             $target = $this->requestParser->getRequestTarget();

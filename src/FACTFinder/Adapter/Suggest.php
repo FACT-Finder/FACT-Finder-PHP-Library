@@ -74,6 +74,7 @@ class Suggest extends AbstractAdapter
                     $suggestQueryData['searchParams']
                 );
 
+                $suggestAttributes = null;
                 if (isset($suggestQueryData['attributes'])
                     && is_array($suggestQueryData['attributes'])
                 ) {
