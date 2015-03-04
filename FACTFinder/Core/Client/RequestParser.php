@@ -139,8 +139,8 @@ class RequestParser
             }
 
             // Convert encoding and then the parameters themselves
-            $this->clientRequestParameters =
-                $this->encodingConverter->decodeClientUrlData($parameters);
+            $this->clientRequestParameters = $this->encodingConverter != null ? $this->encodingConverter->decodeClientUrlData($parameters) : $parameters;
+           
         }
 
         return $this->clientRequestParameters;
