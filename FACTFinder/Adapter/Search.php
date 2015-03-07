@@ -50,6 +50,8 @@ class Search extends AbstractAdapter
      */
     private $campaigns;
 
+    private $pageContentEncoding;
+
     public function __construct(
         $loggerClass,
         \FACTFinder\Core\ConfigurationInterface $configuration,
@@ -66,6 +68,7 @@ class Search extends AbstractAdapter
         $this->parameters['format'] = 'json';
 
         $this->useJsonResponseContentProcessor();
+        $this->pageContentEncoding = $configuration->getPageContentEncoding();
     }
 
     /**
@@ -310,6 +313,22 @@ class Search extends AbstractAdapter
                 break;
             }
         }
+
+        $filterType = null;
+        $filterTypeEnum = FF::getClassName('Data\FilterType');
+        if (isset($groupData['type']))
+        {
+            switch ($groupData['type'])
+            {
+            case 'number':
+                $filterType = $filterTypeEnum::Number();
+                break;
+            default:
+                $filterType = $filterTypeEnum::Text();
+                break;
+            }
+        }
+
         return FF::getInstance(
             'Data\FilterGroup',
             $filters,
@@ -317,7 +336,8 @@ class Search extends AbstractAdapter
             $filterStyle,
             $groupData['detailedLinks'],
             $groupData['unit'],
-            $filterSelectionType
+            $filterSelectionType,
+            $filterType
         );
     }
 
@@ -466,7 +486,7 @@ class Search extends AbstractAdapter
         $pages = array();
 
         $jsonData = $this->getResponseContent();
-        
+
         $pagingData = $jsonData['searchResult']['paging'];
         if (!empty($pagingData))
         {
@@ -707,7 +727,7 @@ class Search extends AbstractAdapter
      * @param mixed[] $campaignData An associative array corresponding to the
      *        JSON for that campaign.
      */
-    private function fillCampaignWithFeedback(
+    protected function fillCampaignWithFeedback(
         \FACTFinder\Data\Campaign $campaign,
         array $campaignData
     ) {
@@ -718,13 +738,20 @@ class Search extends AbstractAdapter
             foreach ($campaignData['feedbackTexts'] as $feedbackData)
             {
                 // If present, add the feedback to both the label and the ID.
+                $html = $feedbackData['html'];
+                $text = $feedbackData['text'];
+                if (!$html)
+                {
+                    $text = htmlspecialchars($text, ENT_QUOTES, $this->pageContentEncoding);
+                }
+
                 $label = $feedbackData['label'];
                 if ($label !== '')
-                    $feedback[$label] = $feedbackData['text'];
+                    $feedback[$label] = $text;
 
                 $id = $feedbackData['id'];
                 if ($id !== null)
-                    $feedback[$id] = $feedbackData['text'];
+                    $feedback[$id] = $text;
             }
 
             $campaign->addFeedback($feedback);
