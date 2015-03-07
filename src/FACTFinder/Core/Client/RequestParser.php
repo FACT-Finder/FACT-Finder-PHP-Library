@@ -175,8 +175,10 @@ class RequestParser
 
             // Use rawurldecode() so that +'s are not converted to spaces.
             $this->requestTarget = rawurldecode($this->requestTarget);
-            $this->requestTarget = $this->encodingConverter
-                                        ->decodeClientUrlData($this->requestTarget);
+            if ($this->encodingConverter != null)
+            {
+                $this->requestTarget = $this->encodingConverter ->decodeClientUrlData($this->requestTarget);
+            }
         }
         return $this->requestTarget;
     }

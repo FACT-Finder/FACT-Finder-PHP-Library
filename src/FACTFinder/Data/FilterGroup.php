@@ -34,6 +34,11 @@ class FilterGroup extends \ArrayIterator
     private $selectionType;
 
     /**
+     * @var FilterType
+     */
+    private $type;
+
+    /**
      * @param Filter[] $filters The Filter objects to add to the group.
      * @param string $refKey
      * @param int $foundRecordsCount Total number of records found for the
@@ -48,7 +53,8 @@ class FilterGroup extends \ArrayIterator
         FilterStyle $style = null,
         $detailedLinkCount = 0,
         $unit = '',
-        FilterSelectionType $selectionType = null
+        FilterSelectionType $selectionType = null,
+        FilterType $type = null
     ) {
         parent::__construct($filters);
 
@@ -59,6 +65,8 @@ class FilterGroup extends \ArrayIterator
         $this->unit = (string)$unit;
         $filterSelectionTypeEnum = FF::getClassName('Data\FilterSelectionType');
         $this->selectionType = $selectionType ?: $filterSelectionTypeEnum::SingleHideUnselected();
+        $filterTypeEnum = FF::getClassName('Data\FilterType');
+        $this->type = $type ?: $filterTypeEnum::Text();
     }
 
     /**
@@ -188,6 +196,24 @@ class FilterGroup extends \ArrayIterator
     {
         $filterSelectionTypeEnum = FF::getClassName('Data\FilterSelectionType');
         return $this->selectionType == $filterSelectionTypeEnum::MultiSelectAnd();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTextType()
+    {
+        $filterTypeEnum = FF::getClassName('Data\FilterType');
+        return $this->type == $filterTypeEnum::Text();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNumberType()
+    {
+        $filterTypeEnum = FF::getClassName('Data\FilterType');
+        return $this->type == $filterTypeEnum::Number();
     }
 
 }
