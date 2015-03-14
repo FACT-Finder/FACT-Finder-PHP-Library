@@ -50,8 +50,6 @@ class Search extends AbstractAdapter
      */
     private $campaigns;
 
-    private $pageContentEncoding;
-
     public function __construct(
         $loggerClass,
         \FACTFinder\Core\ConfigurationInterface $configuration,
@@ -68,7 +66,6 @@ class Search extends AbstractAdapter
         $this->parameters['format'] = 'json';
 
         $this->useJsonResponseContentProcessor();
-        $this->pageContentEncoding = $configuration->getPageContentEncoding();
     }
 
     /**
@@ -742,7 +739,7 @@ class Search extends AbstractAdapter
                 $text = $feedbackData['text'];
                 if (!$html)
                 {
-                    $text = htmlspecialchars($text, ENT_QUOTES, $this->pageContentEncoding);
+                    $text = htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
                 }
 
                 $label = $feedbackData['label'];
