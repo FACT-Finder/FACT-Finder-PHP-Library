@@ -71,7 +71,7 @@ abstract class AbstractAdapter
         \FACTFinder\Core\ConfigurationInterface $configuration,
         \FACTFinder\Core\Server\Request $request,
         \FACTFinder\Core\Client\UrlBuilder $urlBuilder,
-        \FACTFinder\Core\AbstractEncodingConverter $encodingConverter
+        \FACTFinder\Core\AbstractEncodingConverter $encodingConverter = null
     ) {
         $this->log = $loggerClass::getLogger(__CLASS__);
         $this->configuration = $configuration;
@@ -93,10 +93,6 @@ abstract class AbstractAdapter
     protected function useJsonResponseContentProcessor()
     {
         $this->responseContentProcessor = function($string) {
-
-            if (strpos($string, 'Infinity') !== false) {
-                $string = str_replace('Infinity', '"0"', $string);
-            }
 
             // The second parameter turns objects into associative arrays.
             // stdClass objects don't really have any advantages over plain
@@ -155,11 +151,12 @@ abstract class AbstractAdapter
 
             // PHP does not (yet?) support $this->method($args) for callable
             // properties
-            $this->responseContent = $this->encodingConverter
-                                          ->encodeContentForPage(
-                                              $this->responseContentProcessor
-                                              ->__invoke($content)
-                                          );
+          
+            $this->responseContent =  $this->responseContentProcessor->__invoke($content);
+            if ($this->encodingConverter != null)
+            {
+                $this->responseContent = $this->encodingConverter->encodeContentForPage($this->responseContent);
+            }
             $this->lastResponse = $response;
         }
 

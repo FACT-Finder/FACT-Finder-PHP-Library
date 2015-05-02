@@ -24,7 +24,7 @@ class Suggest extends AbstractAdapter
         \FACTFinder\Core\ConfigurationInterface $configuration,
         \FACTFinder\Core\Server\Request $request,
         \FACTFinder\Core\Client\UrlBuilder $urlBuilder,
-        \FACTFinder\Core\AbstractEncodingConverter $encodingConverter
+        \FACTFinder\Core\AbstractEncodingConverter $encodingConverter = null
     ) {
         parent::__construct($loggerClass, $configuration, $request,
                             $urlBuilder, $encodingConverter);
@@ -63,12 +63,18 @@ class Suggest extends AbstractAdapter
         $suggestData = $this->getResponseContent();
         if (!empty($suggestData))
         {
+            if (isset($suggestData['suggestions']))
+            {
+                $suggestData = $suggestData['suggestions'];
+            }
+            
             foreach ($suggestData as $suggestQueryData)
             {
                 $suggestLink = $this->convertServerQueryToClientUrl(
                     $suggestQueryData['searchParams']
                 );
 
+                $suggestAttributes = null;
                 if (isset($suggestQueryData['attributes'])
                     && is_array($suggestQueryData['attributes'])
                 ) {
@@ -84,7 +90,7 @@ class Suggest extends AbstractAdapter
                     $suggestQueryData['hitCount'],
                     $suggestQueryData['type'],
                     $suggestQueryData['image'],
-                    $suggestQueryData['refKey'],
+                    isset($suggestQueryData['refKey']) ? $suggestQueryData['refKey'] : '',
                     $suggestAttributes
                 );
             }

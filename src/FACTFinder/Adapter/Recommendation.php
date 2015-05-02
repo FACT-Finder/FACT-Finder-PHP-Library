@@ -31,7 +31,7 @@ class Recommendation extends AbstractAdapter
         \FACTFinder\Core\ConfigurationInterface $configuration,
         \FACTFinder\Core\Server\Request $request,
         \FACTFinder\Core\Client\UrlBuilder $urlBuilder,
-        \FACTFinder\Core\AbstractEncodingConverter $encodingConverter
+        \FACTFinder\Core\AbstractEncodingConverter $encodingConverter = null
     ) {
         parent::__construct($loggerClass, $configuration, $request,
                             $urlBuilder, $encodingConverter);
@@ -143,8 +143,13 @@ class Recommendation extends AbstractAdapter
         }
         else
         {
+            $recommenderData = $this->getResponseContent();
+            if (isset($recommenderData['resultRecords']))
+            {
+                $recommenderData = $recommenderData['resultRecords'];
+            }
             $position = 1;
-            foreach($this->getResponseContent() as $recordData)
+            foreach($recommenderData as $recordData)
             {
                 if ($this->idsOnly)
                     $records[] = $this->createSparseRecord($recordData);
@@ -178,5 +183,29 @@ class Recommendation extends AbstractAdapter
             100.0,
             $position
         );
+    }
+	
+    /**
+     * Get the recommendations from FACT-Finder as the string returned by the
+     * server.
+     *
+     * @param string $format Optional. Either 'json' or 'jsonp'. Use to
+     *                       overwrite the 'format' parameter.
+     * @param string $callback Optional name to overwrite the 'callback'
+     *                         parameter, which determines the name of the
+     *                         callback the response is wrapped in.
+     *
+     * @return string
+     */
+    public function getRawRecommendations($format = null, $callback = null)
+    {
+        $this->usePassthroughResponseContentProcessor();
+
+        if (!is_null($format))
+            $this->parameters['format'] = $format;
+        if (!is_null($callback))
+            $this->parameters['callback'] = $callback;
+
+        return $this->getResponseContent();
     }
 }

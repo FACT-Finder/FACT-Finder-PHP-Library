@@ -41,7 +41,7 @@ class RequestParser
     function __construct(
         $loggerClass,
         \FACTFinder\Core\ConfigurationInterface $configuration,
-        \FACTFinder\Core\AbstractEncodingConverter $encodingConverter
+        \FACTFinder\Core\AbstractEncodingConverter $encodingConverter = null
     ) {
         $this->log = $loggerClass::getLogger(__CLASS__);
         $this->configuration = $configuration;
@@ -139,8 +139,8 @@ class RequestParser
             }
 
             // Convert encoding and then the parameters themselves
-            $this->clientRequestParameters =
-                $this->encodingConverter->decodeClientUrlData($parameters);
+            $this->clientRequestParameters = $this->encodingConverter != null ? $this->encodingConverter->decodeClientUrlData($parameters) : $parameters;
+           
         }
 
         return $this->clientRequestParameters;
@@ -175,8 +175,10 @@ class RequestParser
 
             // Use rawurldecode() so that +'s are not converted to spaces.
             $this->requestTarget = rawurldecode($this->requestTarget);
-            $this->requestTarget = $this->encodingConverter
-                                        ->decodeClientUrlData($this->requestTarget);
+            if ($this->encodingConverter != null)
+            {
+                $this->requestTarget = $this->encodingConverter ->decodeClientUrlData($this->requestTarget);
+            }
         }
         return $this->requestTarget;
     }
