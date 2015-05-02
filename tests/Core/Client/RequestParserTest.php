@@ -54,12 +54,13 @@ class RequestParserTest extends \FACTFinder\Test\BaseTestCase
     public function testClientUrlEncoding()
     {
         // 'ä=ö&ü=ß' in ISO-8859-1
-        $_SERVER['QUERY_STRING'] = '%E4=%F6&%FC=%DF';
+        $_SERVER['QUERY_STRING'] = '%E4=%F6&%FC=%DF&%2B+%7E=%7E+%2B';
 
         // We expect to get the result UTF-8 encoded
         $this->assertParameters(array(
             "\xC3\xA4" => "\xC3\xB6", // 'ä' => 'ö'
             "\xC3\xBC" => "\xC3\x9F", // 'ü' => 'ß'
+            "\x2B \x7E" => "\x7E \x2B", // '+ ~' => '~ +'
             'channel' => 'de', // is always added
         ));
     }
