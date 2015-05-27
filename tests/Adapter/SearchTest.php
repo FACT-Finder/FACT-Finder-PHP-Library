@@ -31,7 +31,8 @@ class SearchTest extends \FACTFinder\Test\BaseTestCase
             self::$dic['loggerClass'],
             self::$dic['configuration'],
             self::$dic['request'],
-            self::$dic['clientUrlBuilder']
+            self::$dic['clientUrlBuilder'],
+            self::$dic['encodingConverter']
         );
     }
 
@@ -246,5 +247,46 @@ class SearchTest extends \FACTFinder\Test\BaseTestCase
 
         $this->assertEquals('500', $this->adapter->getError());
         $this->assertEquals('stacktrace', $this->adapter->getStackTrace());
+    }
+
+    public function testGetResultWithInfinityInResponseContent()
+    {
+        $request = $this->getMockBuilder('FACTFinder\Core\Server\Request')
+            ->setMethods(array('getParameters', 'getResponse', 'setAction', '__destruct'))
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $response = $this->getMockBuilder('FACTFinder\Core\Server\Response')
+            ->setMethods(array('getContent'))
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $response->expects($this->once())
+            ->method('getContent')
+            ->will($this->returnValue('{"description": "This product is Infinity good"}'));
+
+        $request->expects($this->once())
+            ->method('getResponse')
+            ->will($this->returnValue($response));
+
+        $adapter = FF::getInstance(
+            'FACTFinder\Adapter\Search',
+            self::$dic['loggerClass'],
+            self::$dic['configuration'],
+            $request,
+            self::$dic['clientUrlBuilder'],
+            self::$dic['encodingConverter']
+        );
+
+        $exception = null;
+        $result = null;
+
+        try {
+            $result = $adapter->getResult();
+        } catch (\InvalidArgumentException $exception) {
+        }
+
+        $this->assertEquals(null, $exception);
+        $this->assertInstanceOf('FACTFinder\Data\Result', $result);
     }
 }
