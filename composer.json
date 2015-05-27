@@ -18,7 +18,7 @@
     "autoload": {
         "psr-0": {
             "FACTFinder\\": "src/"
-        },
+        }
     },
     "autoload-dev": {    
         "psr-4": {
