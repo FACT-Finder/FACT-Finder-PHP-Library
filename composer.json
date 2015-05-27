@@ -19,6 +19,8 @@
         "psr-0": {
             "FACTFinder\\": "src/"
         },
+    },
+    "autoload-dev": {    
         "psr-4": {
             "FACTFinder\\Test\\": "tests/"
         }
