@@ -31,7 +31,8 @@ class SearchTest extends \FACTFinder\Test\BaseTestCase
             self::$dic['loggerClass'],
             self::$dic['configuration'],
             self::$dic['request'],
-            self::$dic['clientUrlBuilder']
+            self::$dic['clientUrlBuilder'],
+            self::$dic['encodingConverter']
         );
     }
 
