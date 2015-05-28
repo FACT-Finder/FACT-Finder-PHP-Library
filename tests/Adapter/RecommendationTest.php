@@ -71,6 +71,7 @@ class RecommendationTest extends \FACTFinder\Test\BaseTestCase
         $recommendations = $this->adapter->getRecommendations();
         $this->adapter->setIdsOnly(false);
         $recommendations = $this->adapter->getRecommendations();
+        $this->assertNull($recommendations[0]->getField('Description'), 'full recommendation record details loaded although adapter is not designed for reuse');
     }
 
     public function testMultiProductRecommendationLoading()
