@@ -47,6 +47,13 @@ class TagCloudTest extends \FACTFinder\Test\BaseTestCase
         $this->assertFalse($tagCloud[0]->isSelected(), 'first tag query should not be selected');
     }
 
+    public function testDefaultWordCount()
+    {
+        $this->adapter->setWordCount(-1);
+        $tagCloud = $this->adapter->getTagCloud();
+        $this->assertEquals(5, count($tagCloud), 'wrong number of tag queries delivered');
+    }
+
     public function testWordCount()
     {
         $this->adapter->setWordCount(3);
@@ -59,10 +66,6 @@ class TagCloudTest extends \FACTFinder\Test\BaseTestCase
         $this->assertEquals(0.561, $tagCloud[0]->getWeight(), 'wrong weight delivered for first tag query', 0.0001);
         $this->assertEquals(1266, $tagCloud[0]->getSearchCount(), 'wrong search count delivered for first tag query');
         $this->assertFalse($tagCloud[0]->isSelected(), 'first tag query should not be selected');
-
-        $this->adapter->setWordCount(-1);
-        $tagCloud = $this->adapter->getTagCloud();
-        $this->assertEquals(5, count($tagCloud), 'wrong number of tag queries delivered');
     }
 
     public function testSelectedTagQuery()

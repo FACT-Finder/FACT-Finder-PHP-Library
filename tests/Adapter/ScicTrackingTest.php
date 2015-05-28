@@ -20,7 +20,7 @@ class ScicTrackingTest extends \FACTFinder\Test\BaseTestCase
         parent::setUp();
 
         // For the request parser to retrieve
-        $_SERVER['QUERY_STRING'] = 'event=cart&id=1&price=4&count=3&sid=c81e728d9d4c2f636f067f89cc14862c&userid=5';
+        $_SERVER['QUERY_STRING'] = 'event=cart&id=1&price=4&count=3&sid=mysid&userid=5';
 
         $loggerClass = self::$dic['loggerClass'];
         $this->log = $loggerClass::getLogger(__CLASS__);
@@ -43,7 +43,7 @@ class ScicTrackingTest extends \FACTFinder\Test\BaseTestCase
     {
         $result = $this->adapter->trackClick(
             1,
-            md5(2),
+            'mysid',
             'query',
             3,
             4,
@@ -61,7 +61,7 @@ class ScicTrackingTest extends \FACTFinder\Test\BaseTestCase
     {
         $result = $this->adapter->trackCart(
             1,
-            md5(2),
+            'mysid',
             3,
             4.00,
             5
@@ -74,7 +74,7 @@ class ScicTrackingTest extends \FACTFinder\Test\BaseTestCase
     {
         $result = $this->adapter->trackCheckout(
             1,
-            md5(2),
+            'mysid',
             3,
             4.00,
             5
@@ -87,7 +87,7 @@ class ScicTrackingTest extends \FACTFinder\Test\BaseTestCase
     {
         $result = $this->adapter->trackRecommendationClick(
             1,
-            md5(2),
+            'mysid',
             3
         );
 

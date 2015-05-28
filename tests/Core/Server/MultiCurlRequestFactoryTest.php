@@ -198,13 +198,13 @@ class MultiCurlRequestFactoryTest extends \FACTFinder\Test\BaseTestCase
         // there is nothing to be done for $id1 itself.
         $this->assertSame($response1,  $request1->getResponse());
 
-        // This should now load the second response but should NOT reload the
+        // This should not load the second response and should NOT reload the
         // first one.
         $response = $request2->getResponse();
         $this->assertEquals(0, $response->getConnectionErrorCode());
-        $this->assertEquals('CURLE_OK', $response->getConnectionError());
-        $this->assertEquals(200, $response->getHttpCode());
-        $this->assertEquals($responseContent2, $response->getContent());
+        $this->assertEquals('', $response->getConnectionError());
+        $this->assertEquals('0', $response->getHttpCode());
+        $this->assertEquals('', $response->getContent());
 
         $this->assertSame($response1, $request1->getResponse());
     }
