@@ -32,7 +32,7 @@ class UrlBuilder
         $loggerClass,
         \FACTFinder\Core\ConfigurationInterface $configuration,
         \FACTFinder\Core\Client\RequestParser $requestParser,
-        \FACTFinder\Core\AbstractEncodingConverter $encodingConverter
+        \FACTFinder\Core\AbstractEncodingConverter $encodingConverter = null
     ) {
         $this->log = $loggerClass::getLogger(__CLASS__);
 
@@ -66,8 +66,7 @@ class UrlBuilder
         $parameters = $this->parametersConverter
                            ->convertServerToClientParameters($parameters);
 
-        $parameters = $this->encodingConverter
-                           ->encodeClientUrlData($parameters);
+        $parameters = $this->encodingConverter != null ? $this->encodingConverter->encodeClientUrlData($parameters) : $parameters;
 
         if (!is_string($target))
             $target = $this->requestParser->getRequestTarget();

@@ -54,10 +54,11 @@ class Search extends AbstractAdapter
         $loggerClass,
         \FACTFinder\Core\ConfigurationInterface $configuration,
         \FACTFinder\Core\Server\Request $request,
-        \FACTFinder\Core\Client\UrlBuilder $urlBuilder
+        \FACTFinder\Core\Client\UrlBuilder $urlBuilder,
+        \FACTFinder\Core\AbstractEncodingConverter $encodingConverter = null
     ) {
         parent::__construct($loggerClass, $configuration, $request,
-                            $urlBuilder);
+                            $urlBuilder, $encodingConverter);
 
         $this->log = $loggerClass::getLogger(__CLASS__);
 
@@ -95,35 +96,40 @@ class Search extends AbstractAdapter
         //init default values
         $records      = array();
         $resultCount = 0;
+        $refKey = null;
 
         $jsonData = $this->getResponseContent();
-        $searchResultData = $jsonData['searchResult'];
 
-        if (!empty($searchResultData['records']))
-        {
-            $resultCount = $searchResultData['resultCount'];
+        if (isset($jsonData['searchResult'])) {
+            $searchResultData = $jsonData['searchResult'];
+            $refKey = $searchResultData['refKey'];
 
-            foreach ($searchResultData['records'] as $recordData)
+            if (!empty($searchResultData['records']))
             {
-                $position = $recordData['position'];
+                $resultCount = $searchResultData['resultCount'];
 
-                $record = FF::getInstance('Data\Record',
-                    (string)$recordData['id'],
-                    $recordData['record'],
-                    $recordData['searchSimilarity'],
-                    $position,
-                    $recordData['seoPath'],
-                    $recordData['keywords']
-                );
+                foreach ($searchResultData['records'] as $recordData)
+                {
+                    $position = $recordData['position'];
 
-                $records[] = $record;
+                    $record = FF::getInstance('Data\Record',
+                        (string)$recordData['id'],
+                        $recordData['record'],
+                        $recordData['searchSimilarity'],
+                        $position,
+                        isset($recordData['seoPath']) ? $recordData['seoPath'] : '',
+                        $recordData['keywords']
+                    );
+
+                    $records[] = $record;
+                }
             }
         }
 
         return FF::getInstance(
             'Data\Result',
             $records,
-            $searchResultData['refKey'],
+            $refKey,
             $resultCount
         );
     }
@@ -231,8 +237,11 @@ class Search extends AbstractAdapter
         $jsonData = $this->getResponseContent();
 
         $filterGroups = array();
-        foreach ($jsonData['searchResult']['groups'] as $groupData)
+
+        if (isset($jsonData['searchResult']['groups'])) {
+            foreach ($jsonData['searchResult']['groups'] as $groupData)
                 $filterGroups[] = $this->createFilterGroup($groupData);
+        }
 
         return FF::getInstance(
             'Data\AfterSearchNavigation',
@@ -281,13 +290,51 @@ class Search extends AbstractAdapter
                 $filters[] = $this->createFilter($filterData);
         }
 
+        $filterSelectionType = null;
+        $filterSelectionTypeEnum = FF::getClassName('Data\FilterSelectionType');
+        if (isset($groupData['selectionType']))
+        {
+            switch ($groupData['selectionType'])
+            {
+            case 'multiSelectOr':
+                $filterSelectionType = $filterSelectionTypeEnum::MultiSelectOr();
+                break;
+            case 'multiSelectAnd':
+                $filterSelectionType = $filterSelectionTypeEnum::MultiSelectAnd();
+                break;
+            case 'singleShowUnselected':
+                $filterSelectionType = $filterSelectionTypeEnum::SingleShowUnselected();
+                break;
+            default:
+                $filterSelectionType = $filterSelectionTypeEnum::SingleHideUnselected();
+                break;
+            }
+        }
+
+        $filterType = null;
+        $filterTypeEnum = FF::getClassName('Data\FilterType');
+        if (isset($groupData['type']))
+        {
+            switch ($groupData['type'])
+            {
+            case 'number':
+                $filterType = $filterTypeEnum::Number();
+                break;
+            default:
+                $filterType = $filterTypeEnum::Text();
+                break;
+            }
+        }
+
         return FF::getInstance(
             'Data\FilterGroup',
             $filters,
             $groupData['name'],
             $filterStyle,
             $groupData['detailedLinks'],
-            $groupData['unit']
+            $groupData['unit'],
+            $filterSelectionType,
+            $filterType
         );
     }
 
@@ -379,14 +426,14 @@ class Search extends AbstractAdapter
     {
         $options = array();
 
+        $defaultOption = null;
+        $selectedOption = null;
+
         $jsonData = $this->getResponseContent();
 
         $rppData = $jsonData['searchResult']['resultsPerPageList'];
         if (!empty($rppData))
         {
-            $defaultOption = null;
-            $selectedOption = null;
-
             foreach ($rppData as $optionData)
             {
                 $optionLink = $this->convertServerQueryToClientUrl(
@@ -677,7 +724,7 @@ class Search extends AbstractAdapter
      * @param mixed[] $campaignData An associative array corresponding to the
      *        JSON for that campaign.
      */
-    private function fillCampaignWithFeedback(
+    protected function fillCampaignWithFeedback(
         \FACTFinder\Data\Campaign $campaign,
         array $campaignData
     ) {
@@ -688,13 +735,20 @@ class Search extends AbstractAdapter
             foreach ($campaignData['feedbackTexts'] as $feedbackData)
             {
                 // If present, add the feedback to both the label and the ID.
+                $html = $feedbackData['html'];
+                $text = $feedbackData['text'];
+                if (!$html)
+                {
+                    $text = htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+                }
+
                 $label = $feedbackData['label'];
                 if ($label !== '')
-                    $feedback[$label] = $feedbackData['text'];
+                    $feedback[$label] = $text;
 
                 $id = $feedbackData['id'];
                 if ($id !== null)
-                    $feedback[$id] = $feedbackData['text'];
+                    $feedback[$id] = $text;
             }
 
             $campaign->addFeedback($feedback);
