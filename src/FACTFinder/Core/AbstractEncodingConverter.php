@@ -58,12 +58,19 @@ abstract class AbstractEncodingConverter
      */
     protected function convert($inCharset, $outCharset, $data)
     {
-        if (FF::isInstanceOf($data, 'Util\Parameters'))
+        if ($data instanceof Parameters)
         {
-            $result = FF::getInstance(
-                'Util\Parameters',
-                $this->convert($inCharset, $outCharset, $data->getArray())
-            );
+            if (count($data->getArray()) == 1 && current(array_keys($data->getArray())) == '')
+            {
+                $result = $data->getArray();
+            }
+            else
+            {
+                $result = FF::getInstance(
+                    'Util\Parameters',
+                    $this->convert($inCharset, $outCharset, $data->getArray())
+                );
+            }
         }
         else if (is_array($data))
         {
