@@ -63,18 +63,22 @@ abstract class AbstractAdapter
      *        which to obtain the server data.
      * @param \FACTFinder\Core\Client\UrlBuilder $urlBuilder
      *        Client URL builder object to use.
+     * @param \FACTFinder\Core\encodingConverter $encodingConverter
+     *        Encoding converter object to use
      */
     public function __construct(
         $loggerClass,
         \FACTFinder\Core\ConfigurationInterface $configuration,
         \FACTFinder\Core\Server\Request $request,
-        \FACTFinder\Core\Client\UrlBuilder $urlBuilder
+        \FACTFinder\Core\Client\UrlBuilder $urlBuilder,
+        \FACTFinder\Core\AbstractEncodingConverter $encodingConverter = null
     ) {
         $this->log = $loggerClass::getLogger(__CLASS__);
         $this->configuration = $configuration;
         $this->request = $request;
         $this->parameters = $request->getParameters();
         $this->urlBuilder = $urlBuilder;
+        $this->encodingConverter = $encodingConverter;
 
         $this->usePassthroughResponseContentProcessor();
     }
@@ -89,6 +93,7 @@ abstract class AbstractAdapter
     protected function useJsonResponseContentProcessor()
     {
         $this->responseContentProcessor = function($string) {
+
             // The second parameter turns objects into associative arrays.
             // stdClass objects don't really have any advantages over plain
             // arrays but miss out on some of the built-in array functions.
@@ -146,8 +151,12 @@ abstract class AbstractAdapter
 
             // PHP does not (yet?) support $this->method($args) for callable
             // properties
-            $this->responseContent = $this->responseContentProcessor
-                                          ->__invoke($content);
+          
+            $this->responseContent =  $this->responseContentProcessor->__invoke($content);
+            if ($this->encodingConverter != null)
+            {
+                $this->responseContent = $this->encodingConverter->encodeContentForPage($this->responseContent);
+            }
             $this->lastResponse = $response;
         }
 
