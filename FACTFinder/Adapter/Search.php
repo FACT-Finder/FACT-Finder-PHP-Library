@@ -5,6 +5,10 @@ use FACTFinder\Loader as FF;
 
 class Search extends AbstractAdapter
 {
+    
+    const STATUS_NO_ARTNRSEARCH = "noArticleNumberSearch";
+    const STATUS_ARTNRSEARCH    = "resultsFound";
+    
     /**
      * @var FACTFinder\Util\LoggerInterface
      */
@@ -75,6 +79,15 @@ class Search extends AbstractAdapter
     public function setQuery($query)
     {
         $this->parameters['query'] = $query;
+    }
+    
+    /**
+     * Set Value for parameter sid
+     * @param string $sSid session id
+     */
+    public function setSid($sSid)
+    {
+        $this->parameters['sid'] = $sSid;
     }
 
     /**
@@ -872,5 +885,37 @@ class Search extends AbstractAdapter
     {
         $jsonData = $this->getResponseContent();
         return isset($jsonData['stacktrace']) ? $jsonData['stacktrace'] : null;
+    }
+    
+    /**
+     * Value for parameter "followSearch" for followups on initial search like filters, pagination, ...
+     * Either from request parameters or from search results "simiFirstRecord".
+     * @return int
+     */
+    public function getFollowSearchValue()
+    {
+        //check if followSearch was set in request data else use simiFirstRecord
+        $searchParameters = FF::getInstance(
+            'Data\SearchParameters',
+            $this->parameters
+        );
+        if($searchParameters->getFollowSearch() !== 10000) {
+            $followSearch =  $searchParameters->getFollowSearch();
+        } else {
+            $jsonData = $this->getResponseContent();
+            if($jsonData && $jsonData['searchResult'] && isset($jsonData['searchResult']['simiFirstRecord']))
+                $followSearch = $jsonData['searchResult']['simiFirstRecord'];
+        }
+        return $followSearch;
+    }
+    
+    /**
+     * f current search is article number search
+     * @return bool
+     */
+    public function isArticleNumberSearch()
+    {
+        $jsonData = $this->getResponseContent();
+        return $jsonData['searchResult']['resultArticleNumberStatus'] == self::STATUS_ARTNRSEARCH;
     }
 }
