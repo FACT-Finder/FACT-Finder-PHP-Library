@@ -247,4 +247,20 @@ class SearchTest extends \FACTFinder\Test\BaseTestCase
         $this->assertEquals('500', $this->adapter->getError());
         $this->assertEquals('stacktrace', $this->adapter->getStackTrace());
     }
+
+    public function testGetFollowSearchValue()
+    {
+        $this->assertEquals(9798, $this->adapter->getFollowSearchValue());
+    }
+
+    public function testIsArticleNumberSearch()
+    {
+        $this->adapter->setQuery('278003');
+        $this->assertTrue($this->adapter->isArticleNumberSearch());
+    }
+
+    public function testIsNoArticleNumberSearch()
+    {
+        $this->assertFalse($this->adapter->isArticleNumberSearch());
+    }
 }
