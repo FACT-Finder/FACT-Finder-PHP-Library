@@ -53,6 +53,16 @@ class Search extends AbstractAdapter
      * @var FACTFinder\Data\CampaignIterator
      */
     private $campaigns;
+    
+    /**
+     * @var bool
+     */
+    private $recordsUpToDate = false;
+    
+    /**
+     * @var bool
+     */
+    private $idsOnly = false;
 
     public function __construct(
         $loggerClass,
@@ -89,14 +99,33 @@ class Search extends AbstractAdapter
     {
         $this->parameters['sid'] = $sSid;
     }
+    
+    /**
+     * Set this to true to only retrieve the IDs of similar products instead
+     * of full Record objects.
+     * 
+     * @param $idsOnly bool
+     */
+    public function setIDsOnly($idsOnly)
+    {
+        if($this->idsOnly && !$idsOnly)
+            $this->recordsUpToDate = false;
+
+        $this->idsOnly = $idsOnly;
+        $parameters = $this->request->getParameters();
+        $parameters['idsOnly'] = $idsOnly ? 'true' : 'false';
+    }
 
     /**
      * @return \FACTFinder\Data\Result
      */
     public function getResult()
     {
-        if (is_null($this->result))
+        if (is_null($this->result) || !$this->recordsUpToDate) {
+            $this->request->resetLoaded();
             $this->result = $this->createResult();
+            $this->recordsUpToDate = true;
+        }
 
         return $this->result;
     }
