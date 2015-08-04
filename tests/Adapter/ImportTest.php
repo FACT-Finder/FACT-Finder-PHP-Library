@@ -45,4 +45,11 @@ class ImportTest extends \FACTFinder\Test\BaseTestCase
     {
         $this->adapter->triggerRecommendationImport();
     }
+    
+    public function testMultipleImports()
+    {
+        $oReport1 = $this->adapter->triggerDataImport();
+        $oReport2 = $this->adapter->triggerRecommendationImport();
+        $this->assertNotSame($oReport1, $oReport2);
+    }
 }

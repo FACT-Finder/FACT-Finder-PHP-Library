@@ -52,6 +52,28 @@ class SearchTest extends \FACTFinder\Test\BaseTestCase
         $this->assertEquals(0, count($record->getKeywords()));
         $this->assertEquals(97.98, $record->getSimilarity(), 1e-10);
     }
+    
+    public function testReloadAfterSetIdsOnly()
+    {
+        $this->adapter->setIdsOnly(true);
+        $result = $this->adapter->getResult();
+
+        $this->assertInstanceOf('FACTFinder\Data\Result', $result);
+        $this->assertEquals(66, $result->getFoundRecordsCount());
+        $this->assertEquals('WOwfiHGNS', $result->getRefKey());
+        $this->assertEquals(1, count($result));
+
+        $record = $result[0];
+        $this->assertEquals('278003', $record->getId());
+        $this->assertNull($record->getField('Brand'));
+        
+        //idsOnly=false should be reloaded with full detailed records
+        $this->adapter->setIdsOnly(false);
+        $result = $this->adapter->getResult();
+        $record = $result[0];
+        $this->assertEquals('278003', $record->getId());
+        $this->assertEquals('KHE', $record->getField('Brand'));
+    }
 
     public function testGetStatus()
     {

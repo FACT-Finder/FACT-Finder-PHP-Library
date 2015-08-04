@@ -65,4 +65,36 @@ class RequestTest extends \FACTFinder\Test\BaseTestCase
         $this->assertEquals(200, $response->getHttpCode());
         $this->assertEquals($expectedContent, $response->getContent());
     }
+    
+    public function testResetLoaded()
+    {
+        //setup first request
+        $this->configuration->makeHttpAuthenticationType();
+
+        $parameters = $this->request->getParameters();
+
+        $parameters['format'] = 'json';
+        $parameters['do'] = 'getTagCloud';
+
+        $this->request->setAction('TagCloud.ff');
+
+        $response = $this->request->getResponse();
+        $expectedContent = file_get_contents(RESOURCES_DIR . DS
+                                             . 'responses' . DS
+                                             . 'TagCloud_do=getTagCloud.json');
+        $this->assertEquals($expectedContent, $response->getContent());
+        
+        //setup second request without changing parameters
+        $this->request->resetLoaded();
+        $response2 = $this->request->getResponse();
+        //should not be reloaded as url/parameters did not change
+        $this->assertSame($response, $response2);
+        
+        //setup third request with changed parameters
+        $this->request->resetLoaded();
+        $parameters['wordCount'] = '3';
+        $response2 = $this->request->getResponse();
+        //should be reloaded as url/parameters did change
+        $this->assertNotSame($response, $response2);
+    }
 }
