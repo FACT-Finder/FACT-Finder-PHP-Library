@@ -55,6 +55,14 @@ class Item
     {
         return $this->url;
     }
+    
+    /**
+     * @return string
+     */
+    public function setUrl()
+    {
+        $this->url = $url;
+    }
 
     /**
      * @return bool
