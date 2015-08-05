@@ -59,7 +59,7 @@ class Item
     /**
      * @return string
      */
-    public function setUrl()
+    public function setUrl($url)
     {
         $this->url = $url;
     }
