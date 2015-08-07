@@ -5,6 +5,7 @@ use FACTFinder\Loader as FF;
 
 class Search extends AbstractAdapter
 {
+    
     /**
      * @var FACTFinder\Util\LoggerInterface
      */
@@ -49,6 +50,16 @@ class Search extends AbstractAdapter
      * @var FACTFinder\Data\CampaignIterator
      */
     private $campaigns;
+    
+    /**
+     * @var bool
+     */
+    private $recordsUpToDate = false;
+    
+    /**
+     * @var bool
+     */
+    private $idsOnly = false;
 
     public function __construct(
         $loggerClass,
@@ -76,14 +87,42 @@ class Search extends AbstractAdapter
     {
         $this->parameters['query'] = $query;
     }
+    
+    /**
+     * Set Value for parameter sid
+     * @param string $sSid session id
+     */
+    public function setSid($sSid)
+    {
+        $this->parameters['sid'] = $sSid;
+    }
+    
+    /**
+     * Set this to true to only retrieve the IDs of products instead
+     * of full Record objects.
+     * 
+     * @param $idsOnly bool
+     */
+    public function setIDsOnly($idsOnly)
+    {
+        if($this->idsOnly && !$idsOnly)
+            $this->recordsUpToDate = false;
+
+        $this->idsOnly = $idsOnly;
+        $parameters = $this->request->getParameters();
+        $parameters['idsOnly'] = $idsOnly ? 'true' : 'false';
+    }
 
     /**
      * @return \FACTFinder\Data\Result
      */
     public function getResult()
     {
-        if (is_null($this->result))
+        if (is_null($this->result) || !$this->recordsUpToDate) {
+            $this->request->resetLoaded();
             $this->result = $this->createResult();
+            $this->recordsUpToDate = true;
+        }
 
         return $this->result;
     }
@@ -184,8 +223,9 @@ class Search extends AbstractAdapter
 
         return $singleWordSearch;
     }
+
     /**
-     * @return string
+     * @return \FACTFinder\Data\SearchStatus
      */
     public function getStatus()
     {
@@ -205,6 +245,28 @@ class Search extends AbstractAdapter
             break;
         }
 
+        return $status;
+    }
+
+    /**
+     * @return \FACTFinder\Data\ArticleNumberSearchStatus
+     */
+    public function getArticleNumberStatus()
+    {
+        $jsonData = $this->getResponseContent();
+        
+        $articleNumberSearchStatusEnum = FF::getClassName('Data\ArticleNumberSearchStatus');
+        switch ($jsonData['searchResult']['resultArticleNumberStatus']) {
+        case 'resultsFound':
+            $status = $articleNumberSearchStatusEnum::IsArticleNumberResultFound();
+            break;
+        case 'nothingFound':
+            $status = $articleNumberSearchStatusEnum::IsNoArticleNumberResultFound();
+            break;
+        default:
+            $status = $articleNumberSearchStatusEnum::IsNoArticleNumberSearch();
+            break;
+        }
         return $status;
     }
 
@@ -872,5 +934,34 @@ class Search extends AbstractAdapter
     {
         $jsonData = $this->getResponseContent();
         return isset($jsonData['stacktrace']) ? $jsonData['stacktrace'] : null;
+    }
+    
+    /**
+     * Value for parameter "followSearch" for followups on initial search like filters, pagination, ...
+     * Either from request parameters or from search results "simiFirstRecord".
+     * Returns 0 if no valid value for followSearch exists.
+     * @return int
+     */
+    public function getFollowSearchValue()
+    {
+        
+        $searchParameters = FF::getInstance(
+            'Data\SearchParameters',
+            $this->parameters
+        );
+        $sorting = $searchParameters->getSortings();
+        // check if followSearch was set in request data
+        if($searchParameters->getFollowSearch() !== 10000) {
+            $followSearch =  $searchParameters->getFollowSearch();
+        // use simiFirstRecord only if result was not sorted
+        } elseif (empty($sorting)) {
+            $jsonData = $this->getResponseContent();
+            if($jsonData && $jsonData['searchResult'] && isset($jsonData['searchResult']['simiFirstRecord']))
+                $followSearch = $jsonData['searchResult']['simiFirstRecord'];
+        // mark as no followSearch
+        } else {
+            $followSearch = 0;
+        }
+        return $followSearch;
     }
 }

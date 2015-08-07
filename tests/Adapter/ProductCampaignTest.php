@@ -59,6 +59,31 @@ class ProductCampaignTest extends \FACTFinder\Test\BaseTestCase
 
         $this->assertFalse($campaigns->hasActiveQuestions());
     }
+    
+    public function testIdsOnlyProductCampaignLoading()
+    {
+        $productIds = array();
+        $productIds[] = 123;
+        $productIds[] = 456; // should be ignored
+        $this->adapter->setProductIDs($productIds);
+        $this->adapter->setIdsOnly(true);
+        $campaigns = $this->adapter->getCampaigns();
+        
+        $this->assertTrue($campaigns->hasPushedProducts());
+        $products = $campaigns->getPushedProducts();
+        $this->assertEquals(1, count($products));
+        $this->assertEquals('221910', $products[0]->getId());
+        $this->assertNull($products[0]->getField('Brand'));
+        
+        $this->adapter->setIdsOnly(false);
+        $campaigns = $this->adapter->getCampaigns();
+        
+        $this->assertTrue($campaigns->hasPushedProducts());
+        $products = $campaigns->getPushedProducts();
+        $this->assertEquals(1, count($products));
+        $this->assertEquals('221910', $products[0]->getId());
+        $this->assertEquals('KHE', $products[0]->getField('Brand'), 'not full record details loaded after switching to idsOnly=false');
+    }
 
     public function testShoppingCartCampaignLoading()
     {
