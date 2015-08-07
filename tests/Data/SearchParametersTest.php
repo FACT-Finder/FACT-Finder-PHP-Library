@@ -22,6 +22,7 @@ class SearchParametersTest extends \FACTFinder\Test\BaseTestCase
         $parameters = FF::getInstance('Util\Parameters');
         $parameters['query'] = 'bmx';
         $parameters['channel'] = 'de';
+        $parameters['advisorStatus'] = '2-_0_0';
         $parameters['productsPerPage'] = 12;
         $parameters['filterBrand'] = 'KHE';
         $parameters['filterColor'] = 'green';
@@ -35,6 +36,7 @@ class SearchParametersTest extends \FACTFinder\Test\BaseTestCase
 
         $this->assertEquals('bmx', $searchParameters->getQuery());
         $this->assertEquals('de', $searchParameters->getChannel());
+        $this->assertEquals('2-_0_0', $searchParameters->getAdvisorStatus());
         $this->assertEquals(12, $searchParameters->getProductsPerPage());
         $this->assertEquals(1, $searchParameters->getCurrentPage());
         $this->assertEquals(10000, $searchParameters->getFollowSearch());

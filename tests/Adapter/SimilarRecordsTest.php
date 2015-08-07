@@ -70,8 +70,8 @@ class SimilarRecordsTest extends \FACTFinder\Test\BaseTestCase
 
         $this->assertInstanceOf('FACTFinder\Data\Record', $similarRecords[0], 'similar product is no record');
         $this->assertNotEmpty($similarRecords[0], 'first similar record is empty');
-        $this->assertEquals('278006', $similarRecords[0]->getId(), 'new response found although adapter is not designed for reuse');
-        $this->assertNull($similarRecords[0]->getField('Category3'), 'full similar record details loaded although adapter is not designed for reuse');
+        $this->assertEquals('221911', $similarRecords[0]->getId(), 'no new request was made');
+        $this->assertEquals('..BMX Bikes..', $similarRecords[0]->getField('Category3'), 'not full similar record details loaded after switching to idsOnly=false');
     }
 
     public function testMaxRecordCount()

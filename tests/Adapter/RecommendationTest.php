@@ -61,7 +61,7 @@ class RecommendationTest extends \FACTFinder\Test\BaseTestCase
         $this->assertEquals('274035', $recommendations[0]->getId(), 'wrong id delivered for first recommended record');
         $this->adapter->setProductIds('233431');
         $recommendations = $this->adapter->getRecommendations();
-        $this->assertEquals('274035', $recommendations[0]->getId(), 'new response found although adapter is not designed for reuse');
+        $this->assertEquals('327212', $recommendations[0]->getId(), 'no new response found after changing product id');
     }
 
     public function testReloadAfterIdsOnly()
@@ -71,7 +71,7 @@ class RecommendationTest extends \FACTFinder\Test\BaseTestCase
         $recommendations = $this->adapter->getRecommendations();
         $this->adapter->setIdsOnly(false);
         $recommendations = $this->adapter->getRecommendations();
-        $this->assertNull($recommendations[0]->getField('Description'), 'full recommendation record details loaded although adapter is not designed for reuse');
+        $this->assertEquals('..Fahrräder..', $recommendations[0]->getField('Category1'), 'not full recommendation record details loaded after switching to idsOnly=false');
     }
 
     public function testMultiProductRecommendationLoading()
