@@ -6,9 +6,6 @@ use FACTFinder\Loader as FF;
 class Search extends AbstractAdapter
 {
     
-    const STATUS_NO_ARTNRSEARCH = "noArticleNumberSearch";
-    const STATUS_ARTNRSEARCH    = "resultsFound";
-    
     /**
      * @var FACTFinder\Util\LoggerInterface
      */
@@ -226,8 +223,9 @@ class Search extends AbstractAdapter
 
         return $singleWordSearch;
     }
+
     /**
-     * @return string
+     * @return \FACTFinder\Data\SearchStatus
      */
     public function getStatus()
     {
@@ -247,6 +245,28 @@ class Search extends AbstractAdapter
             break;
         }
 
+        return $status;
+    }
+
+    /**
+     * @return \FACTFinder\Data\ArticleNumberSearchStatus
+     */
+    public function getArticleNumberStatus()
+    {
+        $jsonData = $this->getResponseContent();
+        
+        $articleNumberSearchStatusEnum = FF::getClassName('Data\ArticleNumberSearchStatus');
+        switch ($jsonData['searchResult']['resultArticleNumberStatus']) {
+        case 'resultsFound':
+            $status = $articleNumberSearchStatusEnum::IsArticleNumberResultFound();
+            break;
+        case 'nothingFound':
+            $status = $articleNumberSearchStatusEnum::IsNoArticleNumberResultFound();
+            break;
+        default:
+            $status = $articleNumberSearchStatusEnum::IsNoArticleNumberSearch();
+            break;
+        }
         return $status;
     }
 
@@ -936,15 +956,5 @@ class Search extends AbstractAdapter
                 $followSearch = $jsonData['searchResult']['simiFirstRecord'];
         }
         return $followSearch;
-    }
-    
-    /**
-     * f current search is article number search
-     * @return bool
-     */
-    public function isArticleNumberSearch()
-    {
-        $jsonData = $this->getResponseContent();
-        return $jsonData['searchResult']['resultArticleNumberStatus'] == self::STATUS_ARTNRSEARCH;
     }
 }
