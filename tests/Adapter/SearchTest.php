@@ -275,14 +275,16 @@ class SearchTest extends \FACTFinder\Test\BaseTestCase
         $this->assertEquals(9798, $this->adapter->getFollowSearchValue());
     }
 
-    public function testIsArticleNumberSearch()
+    public function testArticleNumberSearchStatus()
     {
         $this->adapter->setQuery('278003');
-        $this->assertTrue($this->adapter->isArticleNumberSearch());
+        $articleNumberSearchStatusEnum = FF::getClassName('Data\ArticleNumberSearchStatus');
+        $this->assertEquals($articleNumberSearchStatusEnum::IsArticleNumberResultFound(), $this->adapter->getArticleNumberStatus());
     }
 
-    public function testIsNoArticleNumberSearch()
+    public function testNoArticleNumberSearchStatus()
     {
-        $this->assertFalse($this->adapter->isArticleNumberSearch());
+        $articleNumberSearchStatusEnum = FF::getClassName('Data\ArticleNumberSearchStatus');
+        $this->assertEquals($articleNumberSearchStatusEnum::IsNoArticleNumberSearch(), $this->adapter->getArticleNumberStatus());
     }
 }
