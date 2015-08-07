@@ -101,7 +101,7 @@ class Search extends AbstractAdapter
     }
     
     /**
-     * Set this to true to only retrieve the IDs of similar products instead
+     * Set this to true to only retrieve the IDs of products instead
      * of full Record objects.
      * 
      * @param $idsOnly bool
