@@ -939,21 +939,28 @@ class Search extends AbstractAdapter
     /**
      * Value for parameter "followSearch" for followups on initial search like filters, pagination, ...
      * Either from request parameters or from search results "simiFirstRecord".
+     * Returns 0 if no valid value for followSearch exists.
      * @return int
      */
     public function getFollowSearchValue()
     {
-        //check if followSearch was set in request data else use simiFirstRecord
+        
         $searchParameters = FF::getInstance(
             'Data\SearchParameters',
             $this->parameters
         );
+        $sorting = $searchParameters->getSortings();
+        // check if followSearch was set in request data
         if($searchParameters->getFollowSearch() !== 10000) {
             $followSearch =  $searchParameters->getFollowSearch();
-        } else {
+        // use simiFirstRecord only if result was not sorted
+        } elseif (empty($sorting)) {
             $jsonData = $this->getResponseContent();
             if($jsonData && $jsonData['searchResult'] && isset($jsonData['searchResult']['simiFirstRecord']))
                 $followSearch = $jsonData['searchResult']['simiFirstRecord'];
+        // mark as no followSearch
+        } else {
+            $followSearch = 0;
         }
         return $followSearch;
     }
