@@ -39,6 +39,11 @@ class FilterGroup extends \ArrayIterator
     private $type;
 
     /**
+     * @var bool
+     */
+    private $showPreviewImages;
+
+    /**
      * @param Filter[] $filters The Filter objects to add to the group.
      * @param string $refKey
      * @param int $foundRecordsCount Total number of records found for the
@@ -54,7 +59,8 @@ class FilterGroup extends \ArrayIterator
         $detailedLinkCount = 0,
         $unit = '',
         FilterSelectionType $selectionType = null,
-        FilterType $type = null
+        FilterType $type = null,
+        $showPreviewImages = false
     ) {
         parent::__construct($filters);
 
@@ -67,6 +73,7 @@ class FilterGroup extends \ArrayIterator
         $this->selectionType = $selectionType ?: $filterSelectionTypeEnum::SingleHideUnselected();
         $filterTypeEnum = FF::getClassName('Data\FilterType');
         $this->type = $type ?: $filterTypeEnum::Text();
+        $this->showPreviewImages = (bool)$showPreviewImages;
     }
 
     /**
@@ -114,6 +121,7 @@ class FilterGroup extends \ArrayIterator
     }
 
     /**
+     * @deprecated use hasPreviewImages instead
      * @return bool
      */
     public function isColorStyle()
@@ -143,11 +151,7 @@ class FilterGroup extends \ArrayIterator
      */
     public function hasPreviewImages()
     {
-        foreach ($this as $filter)
-            if ($filter->hasPreviewImage())
-                return true;
-
-        return false;
+        return $this->showPreviewImages;
     }
 
     /**
