@@ -141,7 +141,7 @@ class SearchTest extends \FACTFinder\Test\BaseTestCase
         $this->assertEquals('/index.php?seoPath=%2Fbmx%2Fq&filterCategory2=BMX&filterCategory1=Fahrr%E4der&followSearch=9798&filterRatingAverage=4-5', $slider->getUrl());
 
         unset($asn[0][1]);
-        $this->assertFalse($asn->hasPreviewImages());
+        $this->assertTrue($asn->hasPreviewImages());
     }
 
     public function testGetResultsPerPageOptions()

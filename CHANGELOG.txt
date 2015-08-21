@@ -1,3 +1,8 @@
+Version 1.1.2
+    - Fixed uncatched json_decode exception by @thakilla
+    - Added possibilty to disable the custom classes by @thakilla
+    - Minor optimizations
+
 Version 1.1.1
     - Added several methods to the adapters through PR#33
     - Performance improvements in most of the cases

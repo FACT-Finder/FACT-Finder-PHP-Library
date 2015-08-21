@@ -334,9 +334,6 @@ class Search extends AbstractAdapter
         case 'SLIDER':
             $filterStyle = $filterStyleEnum::Slider();
             break;
-        case 'COLOR':
-            $filterStyle = $filterStyleEnum::Color();
-            break;
         case 'TREE':
             $filterStyle = $filterStyleEnum::Tree();
             break;
@@ -401,7 +398,8 @@ class Search extends AbstractAdapter
             $groupData['detailedLinks'],
             $groupData['unit'],
             $filterSelectionType,
-            $filterType
+            $filterType,
+            $groupData['showPreviewImages']
         );
     }
 
@@ -456,7 +454,7 @@ class Search extends AbstractAdapter
         $query = $matches[1] . $matches[3];
         $fieldName = $matches[2];
 
-        if ($fieldName != $filterData['associatedFieldName'])
+        if (urldecode($fieldName) != $filterData['associatedFieldName'])
             $this->log->warn('Filter parameter of slider does not correspond '
                            . 'to transmitted "associatedFieldName". Parameter: '
                            . "$fieldName. Field name: "
