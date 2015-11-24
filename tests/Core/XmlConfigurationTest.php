@@ -97,6 +97,22 @@ class XmlConfigurationTest extends \FACTFinder\Test\BaseTestCase
         );
 
         $this->assertEquals($expectedClientMappings, $this->configuration->getClientMappings());
+
+        $expectedServerWhitelist = array(
+            'query' => true,
+            '/^filter.*/' => true,
+            'followSearch' => true
+        );
+        
+        $this->assertArraySubset($expectedServerWhitelist, $this->configuration->getWhitelistServerParameters());
+        
+        $expectedClientWhitelist = array(
+            'keywords' => true,
+            '/^filter.*/' => true,
+            'followSearch' => true
+        );
+        
+        $this->assertArraySubset($expectedClientWhitelist, $this->configuration->getWhitelistClientParameters());
     }
 
     public function testEncodingSettings()
