@@ -124,6 +124,16 @@ class ManualConfiguration implements ConfigurationInterface
         return $this->configuration['ignoredServerParameters'];
     }
 
+    public function getWhitelistClientParameters()
+    {
+        return $this->configuration['whitelistServerParameters'];
+    }
+
+    public function getWhitelistServerParameters()
+    {
+        return $this->configuration['whitelistServerParameters'];
+    }
+
     public function getRequiredClientParameters()
     {
         return $this->configuration['requiredClientParameters'];
@@ -184,3 +194,4 @@ class ManualConfiguration implements ConfigurationInterface
         return $this->configuration['clientUrlEncoding'];
     }
 }
+
