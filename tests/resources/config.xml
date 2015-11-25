@@ -44,10 +44,18 @@
 				<whitelist name="followSearch" />
 				<whitelist name="advisorStatus" />
 				<whitelist name="/^filter.*/" />
+				<whitelist name="/^sort.*/" />
 				<whitelist name="productsPerPage" />
 				<whitelist name="navigation" />
 				<whitelist name="catalog" />
 				<whitelist name="page" />
+				<whitelist name="useKeywords" />
+				<whitelist name="useFoundWords" />
+				<whitelist name="searchField" />
+				<whitelist name="omitContextName" />
+				<whitelist name="productNumber" />
+				<whitelist name="useSemanticEnhancer" />
+				<whitelist name="usePersonalization" />
 				<!-- allow general settings parameters -->
 				<whitelist name="channel" />
 				<whitelist name="format" />
@@ -58,7 +66,6 @@
 				<whitelist name="log" />
 				<whitelist name="do" />
 				<whitelist name="callback" />
-				<whitelist name="site" />
 				<!-- allow suggestions parameters -->
 				<whitelist name="ignoreForCache" />
 				<whitelist name="userInput" />
@@ -75,7 +82,6 @@
 				<whitelist name="pageSize" />
 				<whitelist name="origPageSize" />
 				<whitelist name="userId" />
-				<whitelist name="userid" />
 				<whitelist name="cookieId" />
 				<whitelist name="masterId" />
 				<whitelist name="count" />
@@ -113,13 +119,19 @@
 				<whitelist name="navigation" />
 				<whitelist name="catalog" />
 				<whitelist name="page" />
+				<whitelist name="useKeywords" />
+				<whitelist name="useFoundWords" />
+				<whitelist name="searchField" />
+				<whitelist name="omitContextName" />
+				<whitelist name="productNumber" />
+				<whitelist name="useSemanticEnhancer" />
+				<whitelist name="usePersonalization" />
 				<!-- allow general settings parameters -->
 				<whitelist name="idsOnly" />
 				<whitelist name="useAsn" />
 				<whitelist name="useCampaigns" />
 				<whitelist name="verbose" />
 				<whitelist name="log" />
-				<whitelist name="site" />
 				<!-- allow suggestions parameters -->
 				<whitelist name="ignoreForCache" />
 				<whitelist name="userInput" />

@@ -180,7 +180,7 @@ class ScicTracking extends AbstractAdapter
         );
 
         if (strlen($price) > 0) $params['price'] = $price;
-        if (strlen($userid) > 0) $params['userid'] = $userid;
+        if (strlen($userid) > 0) $params['userId'] = $userid;
 
         $this->parameters->clear();
         $this->parameters->setAll($params);
@@ -228,7 +228,7 @@ class ScicTracking extends AbstractAdapter
         );
 
         if (strlen($price) > 0) $params['price'] = $price;
-        if (strlen($userid) > 0) $params['userid'] = $userid;
+        if (strlen($userid) > 0) $params['userId'] = $userid;
 
         $this->parameters->clear();
         $this->parameters->setAll($params);

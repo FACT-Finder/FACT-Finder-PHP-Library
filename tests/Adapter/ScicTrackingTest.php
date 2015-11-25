@@ -20,7 +20,7 @@ class ScicTrackingTest extends \FACTFinder\Test\BaseTestCase
         parent::setUp();
 
         // For the request parser to retrieve
-        $_SERVER['QUERY_STRING'] = 'event=cart&id=1&price=4&count=3&sid=mysid&userid=5';
+        $_SERVER['QUERY_STRING'] = 'event=cart&id=1&price=4&count=3&sid=mysid&userId=5';
 
         $loggerClass = self::$dic['loggerClass'];
         $this->log = $loggerClass::getLogger(__CLASS__);
