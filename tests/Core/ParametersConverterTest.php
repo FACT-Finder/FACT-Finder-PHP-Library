@@ -37,6 +37,8 @@ class ParametersConverterTest extends \FACTFinder\Test\BaseTestCase
                 'keywords' => 'test',
                 'username' => 'admin',
                 'productsPerPage' => '12',
+                'shop' => 'main',
+                'filterSize' => '10',
             )
         );
 
@@ -44,6 +46,7 @@ class ParametersConverterTest extends \FACTFinder\Test\BaseTestCase
             'query' => 'test',
             'productsPerPage' => '12',
             'channel' => 'de',
+            'filterSize' => '10',
         );
 
         $actualServerParameters = $this->parametersConverter
@@ -94,6 +97,7 @@ class ParametersConverterTest extends \FACTFinder\Test\BaseTestCase
                 'password' => 'test',
                 'channel' => 'de',
                 'productsPerPage' => '12',
+                'any' => 'something',
             )
         );
 

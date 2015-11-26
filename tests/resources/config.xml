@@ -37,6 +37,65 @@
 				<ignore name="password" />
 				<ignore name="username" />
 				<ignore name="timestamp" />
+
+				<!-- no whitelist elements means allow everything -->
+				<!-- allow search parameters -->
+				<whitelist name="query" />
+				<whitelist name="followSearch" />
+				<whitelist name="advisorStatus" />
+				<whitelist name="/^filter.*/" />
+				<whitelist name="/^sort.*/" />
+				<whitelist name="productsPerPage" />
+				<whitelist name="navigation" />
+				<whitelist name="catalog" />
+				<whitelist name="page" />
+				<whitelist name="useKeywords" />
+				<whitelist name="useFoundWords" />
+				<whitelist name="searchField" />
+				<whitelist name="omitContextName" />
+				<whitelist name="productNumber" />
+				<whitelist name="useSemanticEnhancer" />
+				<whitelist name="usePersonalization" />
+				<!-- allow general settings parameters -->
+				<whitelist name="channel" />
+				<whitelist name="format" />
+				<whitelist name="idsOnly" />
+				<whitelist name="useAsn" />
+				<whitelist name="useCampaigns" />
+				<whitelist name="verbose" />
+				<whitelist name="log" />
+				<whitelist name="do" />
+				<whitelist name="callback" />
+				<!-- allow suggestions parameters -->
+				<whitelist name="ignoreForCache" />
+				<whitelist name="userInput" />
+				<whitelist name="queryFromSuggest" />
+				<!-- allow tracking parameters -->
+				<whitelist name="id" />
+				<whitelist name="pos" />
+				<whitelist name="sid" />
+				<whitelist name="origPos" />
+				<whitelist name="page" />
+				<whitelist name="simi" />
+				<whitelist name="title" />
+				<whitelist name="event" />
+				<whitelist name="pageSize" />
+				<whitelist name="origPageSize" />
+				<whitelist name="userId" />
+				<whitelist name="cookieId" />
+				<whitelist name="masterId" />
+				<whitelist name="count" />
+				<whitelist name="price" />
+				<!-- allow similar/recommandation parameters -->
+				<whitelist name="maxRecordCount" />
+				<whitelist name="maxResults" />
+				<!-- allow special test cases -->
+				<whitelist name="a" />
+				<whitelist name="c" />
+				<whitelist name="ä" />
+				<whitelist name="ü" />
+				<whitelist name="+ ~" />
+
 				<mapping from="keywords" to="query" />
 			</server>
 
@@ -48,6 +107,38 @@
 				<ignore name="password" />
 				<ignore name="username" />
 				<ignore name="timestamp" />
+
+				<!-- no whitelist elements means allow everything -->
+				<!-- allow search parameters -->
+				<whitelist name="keywords" />
+				<whitelist name="followSearch" />
+				<whitelist name="advisorStatus" />
+				<whitelist name="/^filter.*/" />
+				<whitelist name="seoPath" />
+				<whitelist name="productsPerPage" />
+				<whitelist name="navigation" />
+				<whitelist name="catalog" />
+				<whitelist name="page" />
+				<whitelist name="useKeywords" />
+				<whitelist name="useFoundWords" />
+				<whitelist name="searchField" />
+				<whitelist name="omitContextName" />
+				<whitelist name="productNumber" />
+				<whitelist name="useSemanticEnhancer" />
+				<whitelist name="usePersonalization" />
+				<!-- allow general settings parameters -->
+				<whitelist name="idsOnly" />
+				<whitelist name="useAsn" />
+				<whitelist name="useCampaigns" />
+				<whitelist name="verbose" />
+				<whitelist name="log" />
+				<!-- allow suggestions parameters -->
+				<whitelist name="ignoreForCache" />
+				<whitelist name="userInput" />
+				<whitelist name="queryFromSuggest" />
+				<!-- allow special test cases -->
+				<whitelist name="foo" />
+
 				<mapping from="query" to="keywords" />
 			</client>
 		</parameters>
