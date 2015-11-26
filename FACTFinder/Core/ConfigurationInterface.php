@@ -112,7 +112,7 @@ interface ConfigurationInterface
     public function getIgnoredServerParameters();
 
     /**
-     * Get parameters which are allowed in server URLs.
+     * Get parameters which are allowed in client URLs.
      * 
      * @return array with string as key and boolean true as value for each item
      */

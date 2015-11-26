@@ -126,7 +126,7 @@ class ManualConfiguration implements ConfigurationInterface
 
     public function getWhitelistClientParameters()
     {
-        return $this->configuration['whitelistServerParameters'];
+        return $this->configuration['whitelistClientParameters'];
     }
 
     public function getWhitelistServerParameters()
