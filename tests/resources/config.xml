@@ -89,6 +89,7 @@
 				<!-- allow similar/recommandation parameters -->
 				<whitelist name="maxRecordCount" />
 				<whitelist name="maxResults" />
+				<whitelist name="mainId" />
 				<!-- allow special test cases -->
 				<whitelist name="a" />
 				<whitelist name="c" />
