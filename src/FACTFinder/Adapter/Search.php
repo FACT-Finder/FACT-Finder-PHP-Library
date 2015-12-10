@@ -954,27 +954,38 @@ class Search extends AbstractAdapter
     
     /**
      * Value for parameter "followSearch" for followups on initial search like filters, pagination, ...
-     * Either from request parameters or from search results "simiFirstRecord".
-     * Returns 0 if no valid value for followSearch exists.
+     * Either from search results searchParams, request parameters or from search results "simiFirstRecord".
+     * Returns 0 if no parameter "followSearch" could be acquired.
+     * 
      * @return int
      */
     public function getFollowSearchValue()
     {
-        
+        $jsonData = $this->getResponseContent();
+        //use searchParams of result if available
+        if($jsonData && $jsonData['searchResult'] && isset($jsonData['searchResult']['searchParams'])) {
+            $parameters = FF::getInstance(
+                'Util\Parameters',
+                $jsonData['searchResult']['searchParams']
+            );
+        //fallback to current request
+        } else {
+            $parameters = $this->parameters;
+        }
         $searchParameters = FF::getInstance(
             'Data\SearchParameters',
-            $this->parameters
+            $parameters
         );
         $sorting = $searchParameters->getSortings();
-        // check if followSearch was set in request data
-        if($searchParameters->getFollowSearch() !== 10000) {
+        // check if followSearch was set in request data or sent by FF in result searchParams
+        if($searchParameters->getFollowSearch() !== 0) {
             $followSearch =  $searchParameters->getFollowSearch();
         // use simiFirstRecord only if result was not sorted
         } elseif (empty($sorting)) {
             $jsonData = $this->getResponseContent();
             if($jsonData && $jsonData['searchResult'] && isset($jsonData['searchResult']['simiFirstRecord']))
                 $followSearch = $jsonData['searchResult']['simiFirstRecord'];
-        // mark as no followSearch
+        //mark as not valid
         } else {
             $followSearch = 0;
         }
