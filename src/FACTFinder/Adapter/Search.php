@@ -451,8 +451,15 @@ class Search extends AbstractAdapter
             $matches
         );
 
-        $query = $matches[1] . $matches[3];
-        $fieldName = $matches[2];
+        if(!empty($matches)) {
+         $query = $matches[1] . $matches[3];
+            $fieldName = $matches[2];
+        } else {
+            // The URL of searchParams was not as expected, propably the current filter was not
+            // added as an empty parameter. Therefore no need to remove it and we can use full searchParams URL.
+            $query = $filterData['searchParams'];
+            $fieldName = $filterData['associatedFieldName'];
+        }
 
         if (urldecode($fieldName) != $filterData['associatedFieldName'])
             $this->log->warn('Filter parameter of slider does not correspond '
