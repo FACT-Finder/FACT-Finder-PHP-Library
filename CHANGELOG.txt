@@ -1,3 +1,10 @@
+Version 1.2.0
+    - Fixed followSearch and slider parameter handling by @s-diez
+    - Added parameter whitelisting by @s-diez
+    - Added stack trace logging in all adapters by @s-diez
+    - Added AbstractConfiguration as a base class for configuration implementations. It holds a default server parameters whitelist. Please adjust your configuration implementation in order to extend the base class instead implementing directly the ConfigurationInterface.
+    - Removed legacy tracking code
+
 Version 1.1.2
     - Fixed uncatched json_decode exception by @thakilla
     - Added possibilty to disable the custom classes by @thakilla

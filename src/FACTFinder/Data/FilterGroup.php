@@ -45,7 +45,6 @@ class FilterGroup extends \ArrayIterator
 
     /**
      * @param Filter[] $filters The Filter objects to add to the group.
-     * @param string $refKey
      * @param int $foundRecordsCount Total number of records found for the
      *        search these records are from. This can be greater than
      *        count($records), because $records may just be the records from a
