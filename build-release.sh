@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
-pushd $(dirname $(readlink -f $0)) > /dev/null
+SCRIPT_PATH="$(dirname "$(readlink -f "$0")")"
+pushd ${SCRIPT_PATH} > /dev/null
 
 # Read current branch
 GIT_BRANCH=$(git branch|grep -E '^\*'|awk '{ print $2 }')
