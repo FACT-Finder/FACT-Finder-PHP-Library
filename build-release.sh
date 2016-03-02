@@ -32,9 +32,6 @@ git tag ${APP_VERSION}+src src-only
 git push --tags origin
 
 # Move back to original branch
-
 git checkout ${GIT_BRANCH}
-
-Pop-Location
 
 popd > /dev/null
