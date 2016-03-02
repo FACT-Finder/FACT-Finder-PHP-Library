@@ -7,3 +7,5 @@
 
 phpdoc*.log
 .idea/
+/composer.lock
+/vendor
