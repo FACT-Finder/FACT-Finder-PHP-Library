@@ -5,7 +5,7 @@ namespace FACTFinder\Core;
  * Implements ConfigurationInterface by reading from an XML file. Also allows
  * for some values to be changed later on.
  */
-class XmlConfiguration implements ConfigurationInterface
+class XmlConfiguration extends AbstractConfiguration
 {
     const HTTP_AUTHENTICATION     = 'http';
     const SIMPLE_AUTHENTICATION   = 'simple';
@@ -229,6 +229,9 @@ class XmlConfiguration implements ConfigurationInterface
             $this->whitelistServerParameters = $this->retrieveWhitelistParameters(
                 $this->configuration->parameters->server
             );
+            if (empty($this->whitelistServerParameters)) {
+                $this->whitelistServerParameters = parent::getWhitelistServerParameters();
+            }
         }
         return $this->whitelistServerParameters;
     }
