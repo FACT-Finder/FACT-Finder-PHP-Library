@@ -6,7 +6,7 @@ namespace FACTFinder\Core;
  * values to be set manually through the magic __set(). Really only useful for
  * testing.
  */
-class ManualConfiguration implements ConfigurationInterface
+class ManualConfiguration extends AbstractConfiguration
 {
     const HTTP_AUTHENTICATION     = 'http';
     const SIMPLE_AUTHENTICATION   = 'simple';
