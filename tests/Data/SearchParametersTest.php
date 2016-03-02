@@ -28,6 +28,7 @@ class SearchParametersTest extends \FACTFinder\Test\BaseTestCase
         $parameters['filterColor'] = 'green';
         $parameters['sortPrice'] = 'asc';
         $parameters['catalog'] = 'true';
+        $parameters['followSearch'] = '9832';
 
         $searchParameters = FF::getInstance(
             'Data\SearchParameters',
@@ -39,7 +40,7 @@ class SearchParametersTest extends \FACTFinder\Test\BaseTestCase
         $this->assertEquals('2-_0_0', $searchParameters->getAdvisorStatus());
         $this->assertEquals(12, $searchParameters->getProductsPerPage());
         $this->assertEquals(1, $searchParameters->getCurrentPage());
-        $this->assertEquals(10000, $searchParameters->getFollowSearch());
+        $this->assertEquals(9832, $searchParameters->getFollowSearch());
 
         $this->assertEquals(array('Brand' => 'KHE', 'Color' => 'green'),
                             $searchParameters->getFilters());

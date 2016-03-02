@@ -42,7 +42,6 @@ class SuggestTest extends \FACTFinder\Test\BaseTestCase
         $this->assertInstanceOf('FACTFinder\Data\SuggestQuery', $suggestions[0], 'suggestion element is no suggest query');
         $this->assertEquals('Verde BMX', $suggestions[0]->getLabel(), 'wrong query delivered for first suggest item');
         $this->assertEquals('/index.php?filterBrand=Verde%20BMX&ignoreForCache%5B0%5D=queryFromSuggest&ignoreForCache%5B1%5D=userInput&queryFromSuggest=true&userInput=bmx&keywords=Verde%20BMX%20%2A', $suggestions[0]->getUrl(), 'wrong url delivered for first suggest item');
-        $this->assertEquals('8blKVw-P5', $suggestions[0]->getRefKey(), 'wrong ref key delivered for first suggest item');
         $this->assertEquals('brand', $suggestions[0]->getType(), 'wrong type delivered for first suggest item');
         $this->assertEquals(0, $suggestions[0]->getHitCount(), 'wrong hit count delivered for first suggest item');
         $this->assertEquals('', $suggestions[0]->getImageUrl(), 'wrong image url delivered for first suggest item');
