@@ -2,6 +2,9 @@
 SCRIPT_PATH="$(dirname "$(readlink -f "$0")")"
 pushd ${SCRIPT_PATH} > /dev/null
 
+# Fetch all branches and tags from all remotes.
+git fetch --all --prune
+
 # Read current branch
 GIT_BRANCH=$(git branch|grep -E '^\*'|awk '{ print $2 }')
 
