@@ -1,6 +1,6 @@
-#!/usr/bin/env sh
+#!/bin/bash
 SCRIPT_PATH="$(dirname "$(readlink -f "$0")")"
-pushd ${SCRIPT_PATH} > /dev/null
+pushd "${SCRIPT_PATH}" > /dev/null
 
 # Fetch all branches and tags from all remotes.
 git fetch --all --prune
