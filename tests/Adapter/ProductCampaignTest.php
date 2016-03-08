@@ -34,10 +34,10 @@ class ProductCampaignTest extends \FACTFinder\Test\BaseTestCase
 
     public function testProductCampaignLoading()
     {
-        $productIds = array();
-        $productIds[] = 123;
-        $productIds[] = 456; // should be ignored
-        $this->adapter->setProductIDs($productIds);
+        $productNumbers = array();
+        $productNumbers[] = 123;
+        $productNumbers[] = 456; // should be ignored
+        $this->adapter->setProductNumbers($productNumbers);
         $campaigns = $this->adapter->getCampaigns();
 
         $this->assertInstanceOf('FACTFinder\Data\CampaignIterator', $campaigns);
@@ -62,10 +62,10 @@ class ProductCampaignTest extends \FACTFinder\Test\BaseTestCase
     
     public function testIdsOnlyProductCampaignLoading()
     {
-        $productIds = array();
-        $productIds[] = 123;
-        $productIds[] = 456; // should be ignored
-        $this->adapter->setProductIDs($productIds);
+        $productNumbers = array();
+        $productNumbers[] = 123;
+        $productNumbers[] = 456; // should be ignored
+        $this->adapter->setProductNumbers($productNumbers);
         $this->adapter->setIdsOnly(true);
         $campaigns = $this->adapter->getCampaigns();
         
@@ -87,11 +87,11 @@ class ProductCampaignTest extends \FACTFinder\Test\BaseTestCase
 
     public function testShoppingCartCampaignLoading()
     {
-        $productIds = array();
-        $productIds[] = 456;
-        $productIds[] = 789;
+        $productNumbers = array();
+        $productNumbers[] = 456;
+        $productNumbers[] = 789;
         $this->adapter->makeShoppingCartCampaign();
-        $this->adapter->setProductIDs($productIds);
+        $this->adapter->setProductNumbers($productNumbers);
         $campaigns = $this->adapter->getCampaigns();
 
         $this->assertInstanceOf('FACTFinder\Data\CampaignIterator', $campaigns);
