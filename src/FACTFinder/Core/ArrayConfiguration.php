@@ -27,11 +27,17 @@ class ArrayConfiguration extends AbstractConfiguration
     /**
      * Create a new configuration from an array
      * @param array $config The configuration data as array
+     * @param string $section The configuration section
      * @return ArrayConfiguration
+     *
+     * @throws \Exception
      */
-    public function __construct(array $config)
+    public function __construct(array $config, $section)
     {
-        $this->configuration = $config;
+        if (!isset($config[$section]))
+            throw new \Exception("Specified configuration array does not contain section $section");
+
+        $this->configuration = $config[$section];
     }
 
     public function isDebugEnabled()
