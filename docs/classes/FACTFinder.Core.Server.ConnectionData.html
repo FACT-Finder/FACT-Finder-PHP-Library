@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/FACTFinder.html">\FACTFinder</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">1186</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">23</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1831330003"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1831330003" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-843983148"></a>
+                                <a href="../namespaces/FACTFinder.html" style="margin-left: 30px; padding-left: 0">FACTFinder</a>
+            </div>
+            <div id="namespace-843983148" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1137104996"></a>
+                                <a href="../namespaces/FACTFinder.Adapter.html" style="margin-left: 30px; padding-left: 0">Adapter</a>
+            </div>
+            <div id="namespace-1137104996" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/FACTFinder.Adapter.AbstractAdapter.html">AbstractAdapter</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Adapter.Compare.html">Compare</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Adapter.Import.html">Import</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Adapter.ProductCampaign.html">ProductCampaign</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Adapter.Recommendation.html">Recommendation</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Adapter.Search.html">Search</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Adapter.SimilarRecords.html">SimilarRecords</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Adapter.Suggest.html">Suggest</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Adapter.TagCloud.html">TagCloud</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Adapter.Tracking.html">Tracking</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-664037920"></a>
+                                <a href="../namespaces/FACTFinder.Core.html" style="margin-left: 30px; padding-left: 0">Core</a>
+            </div>
+            <div id="namespace-664037920" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1769078535"></a>
+                                <a href="../namespaces/FACTFinder.Core.Client.html" style="margin-left: 30px; padding-left: 0">Client</a>
+            </div>
+            <div id="namespace-1769078535" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/FACTFinder.Core.Client.RequestParser.html">RequestParser</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Client.UrlBuilder.html">UrlBuilder</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1559818183"></a>
+                                <a href="../namespaces/FACTFinder.Core.Server.html" style="margin-left: 30px; padding-left: 0">Server</a>
+            </div>
+            <div id="namespace-1559818183" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/FACTFinder.Core.Server.RequestFactoryInterface.html">RequestFactoryInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.AbstractDataProvider.html">AbstractDataProvider</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.ConnectionData.html">ConnectionData</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.EasyCurlDataProvider.html">EasyCurlDataProvider</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.EasyCurlRequestFactory.html">EasyCurlRequestFactory</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.FileSystemDataProvider.html">FileSystemDataProvider</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.FileSystemRequestFactory.html">FileSystemRequestFactory</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.MultiCurlDataProvider.html">MultiCurlDataProvider</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.MultiCurlRequestFactory.html">MultiCurlRequestFactory</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.NullResponse.html">NullResponse</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.Request.html">Request</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.Response.html">Response</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Server.UrlBuilder.html">UrlBuilder</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/FACTFinder.Core.ConfigurationInterface.html">ConfigurationInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/FACTFinder.Core.AbstractConfiguration.html">AbstractConfiguration</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.AbstractEncodingConverter.html">AbstractEncodingConverter</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.ArrayConfiguration.html">ArrayConfiguration</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.IConvEncodingConverter.html">IConvEncodingConverter</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.ManualConfiguration.html">ManualConfiguration</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.ParametersConverter.html">ParametersConverter</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.Utf8EncodingConverter.html">Utf8EncodingConverter</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Core.XmlConfiguration.html">XmlConfiguration</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1028008292"></a>
+                                <a href="../namespaces/FACTFinder.Data.html" style="margin-left: 30px; padding-left: 0">Data</a>
+            </div>
+            <div id="namespace-1028008292" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/FACTFinder.Data.AdvisorAnswer.html">AdvisorAnswer</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.AdvisorQuestion.html">AdvisorQuestion</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.AfterSearchNavigation.html">AfterSearchNavigation</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.ArticleNumberSearchStatus.html">ArticleNumberSearchStatus</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.BreadCrumb.html">BreadCrumb</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.BreadCrumbTrail.html">BreadCrumbTrail</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.BreadCrumbType.html">BreadCrumbType</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.Campaign.html">Campaign</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.CampaignIterator.html">CampaignIterator</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.Filter.html">Filter</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.FilterGroup.html">FilterGroup</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.FilterSelectionType.html">FilterSelectionType</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.FilterStyle.html">FilterStyle</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.FilterType.html">FilterType</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.Item.html">Item</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.Page.html">Page</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.Paging.html">Paging</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.Record.html">Record</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.Result.html">Result</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.ResultsPerPageOptions.html">ResultsPerPageOptions</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.SearchParameters.html">SearchParameters</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.SearchStatus.html">SearchStatus</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.SingleWordSearchItem.html">SingleWordSearchItem</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.SliderFilter.html">SliderFilter</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.Sorting.html">Sorting</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.SuggestQuery.html">SuggestQuery</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Data.TagQuery.html">TagQuery</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1739003393"></a>
+                                <a href="../namespaces/FACTFinder.Util.html" style="margin-left: 30px; padding-left: 0">Util</a>
+            </div>
+            <div id="namespace-1739003393" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/FACTFinder.Util.CurlInterface.html">CurlInterface</a></li>
+                                                    <li class="interface"><a href="../classes/FACTFinder.Util.LoggerInterface.html">LoggerInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/FACTFinder.Util.Curl.html">Curl</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Util.CurlHandle.html">CurlHandle</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Util.CurlMultiHandle.html">CurlMultiHandle</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Util.CurlStub.html">CurlStub</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Util.Log4PhpLogger.html">Log4PhpLogger</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Util.NullLogger.html">NullLogger</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Util.Parameters.html">Parameters</a></li>
+                                                    <li class="class"><a href="../classes/FACTFinder.Util.Pimple.html">Pimple</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/FACTFinder.Loader.html">Loader</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/FACTFinder.Core.Server.html">\FACTFinder\Core\Server</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\FACTFinder\Core\Server</small>ConnectionData</h1>
+                    <p><em>Represents all data belonging to a single connection. It holds all data
+necessary to configure a request and can also be filled with the
+corresponding response.</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/FACTFinder.Core.Server.ConnectionData.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.Server.ConnectionData.html#method_getHttpHeaderFields" class="">getHttpHeaderFields()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.Server.ConnectionData.html#method_setAction" class="">setAction()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.Server.ConnectionData.html#method_getAction" class="">getAction()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.Server.ConnectionData.html#method_getParameters" class="">getParameters()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.Server.ConnectionData.html#method_setConnectionOption" class="">setConnectionOption()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.Server.ConnectionData.html#method_setConnectionOptions" class="">setConnectionOptions()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.Server.ConnectionData.html#method_issetConnectionOption" class="">issetConnectionOption()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.Server.ConnectionData.html#method_getConnectionOption" class="">getConnectionOption()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.Server.ConnectionData.html#method_getConnectionOptions" class="">getConnectionOptions()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.Server.ConnectionData.html#method_setResponse" class="">setResponse()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.Server.ConnectionData.html#method_setNullResponse" class="">setNullResponse()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.Server.ConnectionData.html#method_getResponse" class="">getResponse()</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.Server.ConnectionData.html#method_getPreviousUrl" class="">getPreviousUrl()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/FACTFinder.Core.Server.ConnectionData.html#property_httpHeaderFields" class="">$httpHeaderFields</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.Server.ConnectionData.html#property_action" class="">$action</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.Server.ConnectionData.html#property_parameters" class="">$parameters</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.Server.ConnectionData.html#property_connectionOptions" class="">$connectionOptions</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.Server.ConnectionData.html#property_response" class="">$response</a><br />
+                                                                    <a href="../classes/FACTFinder.Core.Server.ConnectionData.html#property_previousUrl" class="">$previousUrl</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Core.Server.ConnectionData.html"><div class="path-wrapper">Core\Server\ConnectionData.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\FACTFinder\Core\Server\ConnectionData</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_httpHeaderFields" name="property_httpHeaderFields" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$httpHeaderFields</h3>
+                <pre class="signature">$httpHeaderFields : \FACTFinder\Util\Parameters</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                <a href="../classes/FACTFinder.Util.Parameters.html">\FACTFinder\Util\Parameters</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_action" name="property_action" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$action</h3>
+                <pre class="signature">$action : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_parameters" name="property_parameters" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$parameters</h3>
+                <pre class="signature">$parameters : \FACTFinder\Util\Parameters</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                <a href="../classes/FACTFinder.Util.Parameters.html">\FACTFinder\Util\Parameters</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_connectionOptions" name="property_connectionOptions" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$connectionOptions</h3>
+                <pre class="signature">$connectionOptions : array&lt;mixed,mixed&gt;</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array&lt;mixed,mixed&gt;
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_response" name="property_response" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$response</h3>
+                <pre class="signature">$response : \FACTFinder\Core\Server\Response</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                <a href="../classes/FACTFinder.Core.Server.Response.html">\FACTFinder\Core\Server\Response</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_previousUrl" name="property_previousUrl" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$previousUrl</h3>
+                <pre class="signature">$previousUrl : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(\FACTFinder\Util\Parameters  <span class="argument">$parameters = null</span>) : \FACTFinder\Core\Server\type</pre>
+                <p><em>Optionally takes a Parameters object to initialize the query parameters.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/FACTFinder.Util.Parameters.html">\FACTFinder\Util\Parameters</a></td>
+                                <td>$parameters </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \FACTFinder\Core\Server\type
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getHttpHeaderFields" name="method_getHttpHeaderFields" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getHttpHeaderFields()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getHttpHeaderFields() : \FACTFinder\Util\Parameters</pre>
+                <p><em>Returns the parameters object used for the connection, on which HTTP
+header fields can be read and changed.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/FACTFinder.Util.Parameters.html">\FACTFinder\Util\Parameters</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setAction" name="method_setAction" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setAction()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setAction(string  <span class="argument">$action</span>) </pre>
+                <p><em>Set the action to be queried on the FACT-Finder server. e.g. &quot;Search.ff&quot;.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$action </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getAction" name="method_getAction" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getAction()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getAction() : string</pre>
+                <p><em>Get the action to be queried on the FACT-Finder server. e.g. &quot;Search.ff&quot;.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getParameters" name="method_getParameters" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getParameters()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getParameters() : \FACTFinder\Util\Parameters</pre>
+                <p><em>Returns the parameters object used for the connection, on which query
+parameters can be read and changed.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/FACTFinder.Util.Parameters.html">\FACTFinder\Util\Parameters</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setConnectionOption" name="method_setConnectionOption" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setConnectionOption()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setConnectionOption(mixed  <span class="argument">$name</span>, mixed  <span class="argument">$value</span>) </pre>
+                <p><em>Set an option for the connection. This can be an arbitrary pair of key
+and value. How this is used depends on the kind of connection that is set
+up (e.g. cURL or socket). We simply provide an array to store options
+specific to this connection.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$name </td>
+                                <td><p>The option's identifier. This can be any value that is
+a valid array index in PHP (hence, it SHOULD be a string or an
+integer; all other types will be interpreted as a string).</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value </td>
+                                <td><p>The option's value.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setConnectionOptions" name="method_setConnectionOptions" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setConnectionOptions()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setConnectionOptions(array&lt;mixed,mixed&gt;  <span class="argument">$options</span>) </pre>
+                <p><em>Sets all given connection options at once. If an option with the same
+name already exists, the old value will be replaced. Options that are not
+contained in the $options parameter will retain their value(s).</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array&lt;mixed,mixed&gt;</td>
+                                <td>$options </td>
+                                <td><p>An array of options. For more information on
+valid keys and values see setConnectionOption($name, $value).</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_issetConnectionOption" name="method_issetConnectionOption" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">issetConnectionOption()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">issetConnectionOption(mixed  <span class="argument">$name</span>) : boolean</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$name </td>
+                                <td><p>The option's identifier.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getConnectionOption" name="method_getConnectionOption" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getConnectionOption()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getConnectionOption(mixed  <span class="argument">$name</span>) : mixed</pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$name </td>
+                                <td><p>The option's identifier.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>The option's value.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getConnectionOptions" name="method_getConnectionOptions" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getConnectionOptions()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getConnectionOptions() : array&lt;mixed,mixed&gt;</pre>
+                <p><em>Get an array of all set connection options.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array&lt;mixed,mixed&gt;
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setResponse" name="method_setResponse" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setResponse()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setResponse(\FACTFinder\Core\Server\Response  <span class="argument">$response</span>, string  <span class="argument">$url</span>) </pre>
+                <p><em>Set a response for the current connection settings along with the URL
+which was used to obtain the response.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/FACTFinder.Core.Server.Response.html">\FACTFinder\Core\Server\Response</a></td>
+                                <td>$response </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$url </td>
+                                <td><p>The URL corresponding to $response.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setNullResponse" name="method_setNullResponse" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setNullResponse()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setNullResponse() </pre>
+                <p><em>Set a null response - e.g. if the connection could not even be attempted
+at all.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getResponse" name="method_getResponse" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getResponse()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getResponse() : \FACTFinder\Core\Server\Response</pre>
+                <p><em>Get the response that was most recently set.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/FACTFinder.Core.Server.Response.html">\FACTFinder\Core\Server\Response</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPreviousUrl" name="method_getPreviousUrl" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getPreviousUrl()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPreviousUrl() : string</pre>
+                <p><em>Get the URL corresponding to the currently stored Response.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">ConnectionData.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Core\Server\ConnectionData.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/FACTFinder.html">\FACTFinder</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on May 6th, 2016 at 18:09.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

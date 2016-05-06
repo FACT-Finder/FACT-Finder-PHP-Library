@@ -1,0 +1,32 @@
+[
+    {
+        "params": "/FACT-Finder/TagCloud.ff?seoPath=%2F28%2Bzoll%2Bdamen%2Fq&channel=de",
+        "query": "28+zoll+damen",
+        "searchCount": 1266,
+        "weight": 0.5610195336122503
+    },
+    {
+        "params": "/FACT-Finder/TagCloud.ff?seoPath=%2Fbike%2Fq&channel=de",
+        "query": "bike",
+        "searchCount": 471,
+        "weight": 0.10609844619397336
+    },
+    {
+        "params": "/FACT-Finder/TagCloud.ff?seoPath=%2Fbikes%2Fq&channel=de",
+        "query": "bikes",
+        "searchCount": 1512,
+        "weight": 0.6427186432479985
+    },
+    {
+        "params": "/FACT-Finder/TagCloud.ff?seoPath=%2Fbmx%2Fq&channel=de",
+        "query": "bmx",
+        "searchCount": 1029,
+        "weight": 0.46565386885504384
+    },
+    {
+        "params": "/FACT-Finder/TagCloud.ff?seoPath=%2Fbmx+teile%2Fq&channel=de",
+        "query": "bmx teile",
+        "searchCount": 746,
+        "weight": 0.317680154531459
+    }
+]

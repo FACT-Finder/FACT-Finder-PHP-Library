@@ -1,0 +1,434 @@
+{
+    "searchResult": {
+        "breadCrumbTrailItems": [
+            {
+                "associatedFieldName": null,
+                "refKey": "5-y92rMNC",
+                "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&channel=de&followSearch=9798&format=JSON",
+                "text": "mountainbike",
+                "type": "search",
+                "value": "mountainbike"
+            }
+        ],
+        "campaigns": [
+            {
+                "activeQuestions": [],
+                "advisorTree": [],
+                "category": "Service",
+                "feedbackTexts": [],
+                "flavour": "REDIRECT",
+                "id": "0",
+                "name": "Kontakt",
+                "pushedProductsRecords": [],
+                "refKey": "ObKCR0cpd",
+                "target": {
+                    "destination": "http://www.fact-finder.de",
+                    "name": ""
+                }
+            },
+            {
+                "activeQuestions": [],
+                "advisorTree": [],
+                "category": "Banner",
+                "feedbackTexts": [
+                    {
+                        "html": true,
+                        "id": 9,
+                        "label": "html header",
+                        "text": "test feedback 1"
+                    }
+                ],
+                "flavour": "FEEDBACK",
+                "id": "9",
+                "name": "Mountainbike",
+                "pushedProductsRecords": [],
+                "refKey": "FwHVbLY31",
+                "target": {
+                    "destination": "",
+                    "name": ""
+                }
+            },
+            {
+                "activeQuestions": [],
+                "advisorTree": [],
+                "category": "Banner",
+                "feedbackTexts": [
+                    {
+                        "html": true,
+                        "id": 6,
+                        "label": "below header",
+                        "text": "test feedback 3"
+                    },
+                    {
+                        "html": true,
+                        "id": 9,
+                        "label": "html header",
+                        "text": "test feedback 2"
+                    }
+                ],
+                "flavour": "FEEDBACK",
+                "id": "9",
+                "name": "Mountainbike",
+                "pushedProductsRecords": [],
+                "refKey": "FwHVbLY31",
+                "target": {
+                    "destination": "",
+                    "name": ""
+                }
+            },
+            {
+                "activeQuestions": [
+                    {
+                        "answers": [
+                            {
+                                "id": "1",
+                                "params": "/FACT-Finder/Search.ff?query=fahrrad&channel=de&advisorStatus=12-_0_0&format=JSON",
+                                "questions": [],
+                                "text": "answer text 1"
+                            },
+                            {
+                                "id": "6",
+                                "params": "/FACT-Finder/Search.ff?query=fahrrad&channel=de&advisorStatus=12-_0_1&format=JSON",
+                                "questions": [],
+                                "text": "answer text 2"
+                            }
+                        ],
+                        "id": "0",
+                        "text": "question text",
+                        "visible": true
+                    }
+                ],
+                "advisorTree": [],
+                "category": "Beraterkampagne",
+                "feedbackTexts": [],
+                "flavour": "ADVISOR",
+                "id": "12",
+                "name": "Fahrradberater",
+                "pushedProductsRecords": [],
+                "refKey": "86XC4i6GA",
+                "target": {
+                    "destination": "",
+                    "name": ""
+                }
+            },
+            {
+                "activeQuestions": [],
+                "advisorTree": [],
+                "category": "Service",
+                "feedbackTexts": [],
+                "flavour": "FEEDBACK",
+                "id": "3",
+                "name": "NoMatch",
+                "pushedProductsRecords": [
+                    {
+                        "foundWords": [],
+                        "id": "17552",
+                        "keywords": null,
+                        "position": 0,
+                        "record": {
+                            "Brand": "Puky",
+                            "PricePurchase": "0.00",
+                            "PriceRetail": "99.99",
+                            "ImageURL": "http://images.internetstores.de/products/puky_lr1lbr_sharkyblue[219x140].jpg?forceSize=true&forceAspectRatio=true",
+                            "ProductRankingCharge": "33381",
+                            "EAN": "4015731040382",
+                            "RatingAverage": "4.0000",
+                            "ArticleNumber": "17552",
+                            "FFAutomaticSearchOptimization": "",
+                            "__ASO_DEVALUATION__": "0",
+                            "RatingQuantity": "1",
+                            "ProductReductionMoney": "0.00",
+                            "TargetGroupBike": "..Urban..",
+                            "ProductURL": "fahrraeder/kinderfahrraeder/puky-lr-1-br-captn-sharky/17552.html",
+                            "Category3": "..Lauflernräder..",
+                            "Category2": "..Kinderfahrräder..",
+                            "Availability": "3",
+                            "Category1": "..Fahrräder..",
+                            "ProductRankingProfit": "20414",
+                            "__SIMILARITY_BEFORE_ASO__": "98.0",
+                            "ProductReductionPercent": "0",
+                            "Description": "Wenn der Matrose statt zu Laufen noch schunkelt ist das Laufrad von PUKY ein tüchtiger Helfer und eine Alternative zum klassischen Roller. Wie bei einem Roller kann ein Fuß aufs Trittbrett gestellt werden, während das andere Bein für Tempo sorgt. Der ergonomisch geformte Sattel macht aber auch eine Laufbewegung, mit beiden Beinen sicher auf der Erde, möglich. Mit ein bisschen Übung wird der kleine Capt?n auf seinem Laufrad bald sicher auf dem ganzen Schiff umher düsen können. Ein kindergerechtes Bremssystem gibt die Möglichkeit das Bremsen und die Kontrolle der Geschwindigkeit zu lernen, um nicht mit anderen Leichtmatrosen zu kollidieren. Der Umstieg aufs Fahrrad wird einfach sein, wer schon Gleichgewicht halten kann und die Technik drauf hat. Ein Seemann schunkelt nicht beim Laufen! PUKY ist Spezialist für Kinderfahrzeuge und konstruiert seine Laufräder auf hohen Sicherheitsstandards. Durch seine soften Luftreifen ist dieser PUKY für unebene Spaziergänge auf dem Feldweg, wie auch für die Stadt und Hafen geeignet. Der Lenker ist nicht einschlagsbegrenzt, damit bei das Rad bei einem Sturz möglichst flach fällt und nichts quetscht. Mit einem Ständer ausgestattet kann es schon wie die großen Räder vor der Kajüte geparkt werden. Übersicht: - Rahmen mit tiefem Einstieg und Trittbrett - spezieller Laufradsattel - Räder und Lenkung sind kugelgelagert - Sicherheitslenkergriffe - luftbereifte Räder 47-203 (12 Zoll) - Sattel und Lenker höhenverstellbar - Ständer - stoßfeste Pulverlackierung - empfohlen ab 3 Jahre / 90 cm Körpergröße Sicherheitsmerkmale: - Sicherheitslenkergriffe - kindgerechtes Bremssystem Gewicht: ca. 5 KG",
+                            "Colors": "..blau..",
+                            "Options": "",
+                            "TargetGroupOutdoor": "",
+                            "Features": "|Lenkergriffe=Sicherheitslenkergriffe|empfohlenes Alter=3|empfohlene Körpergröße=90|Bremse=Handbremse hinten|mit Ständer zum Abstellen=1|Bauart Reifen=Luftreifen|Kategorie=Lauflernrad|Sattel=spezieller Laufradsattel|Reifengröße=12|",
+                            "Name": "Puky LR 1L BR Laufrad Capt'n Sharky",
+                            "BrandId": "188",
+                            "Category": "Fahrräder/Kinderfahrräder/Lauflernräder",
+                            "FFCliplisterQuality": "",
+                            "Sizes": "",
+                            "FFCheckoutCount": "0",
+                            "ProductProperty": "",
+                            "Gender": "..Kinder..",
+                            "Price": "99.99",
+                            "CategoryIds": "36896 >> 36897 >> 36906 >> 37189",
+                            "SlowSeller": "",
+                            "ProductModelYear": "2013",
+                            "FFAfterSearchReorder": ""
+                        },
+                        "refKey": "KjuGPDVFY",
+                        "searchSimilarity": 0,
+                        "seoPath": "",
+                        "simiMalusAdd": 0
+                    }
+                ],
+                "refKey": "hBn4Dm_Pb",
+                "target": {
+                    "destination": "",
+                    "name": ""
+                }
+            }
+        ],
+        "channel": "de",
+        "filters": [],
+        "groups": [
+            {
+                "detailedLinks": 5,
+                "elements": [
+                    {
+                        "absoluteMaxValue": 5,
+                        "absoluteMinValue": 1,
+                        "associatedFieldName": "RatingAverage",
+                        "clusterLevel": 0,
+                        "name": "Bewertung",
+                        "previewImageURL": null,
+                        "recordCount": 3607,
+                        "refKey": "kuQ_7EHiz",
+                        "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&channel=de&followSearch=9798&format=JSON&filterRatingAverage=",
+                        "selected": false,
+                        "selectedMaxValue": 5,
+                        "selectedMinValue": 1
+                    }
+                ],
+                "filterStyle": "SLIDER",
+                "groupOrder": 10,
+                "name": "Bewertung",
+                "refKey": "kx-C3268t",
+                "selectedElements": [],
+                "showPreviewImages": false,
+                "type": "number",
+                "unit": ""
+            }
+        ],
+        "paging": {
+            "currentPage": 1,
+            "firstLink": {
+                "caption": "1",
+                "currentPage": false,
+                "number": 1,
+                "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&channel=de&followSearch=9798&format=JSON"
+            },
+            "lastLink": {
+                "caption": "301",
+                "currentPage": false,
+                "number": 301,
+                "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&channel=de&page=301&followSearch=9798&format=JSON"
+            },
+            "nextLink": {
+                "caption": "paging.next",
+                "currentPage": false,
+                "number": 2,
+                "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&channel=de&page=2&followSearch=9798&format=JSON"
+            },
+            "pageCount": 301,
+            "pageLinks": [
+                {
+                    "caption": "1",
+                    "currentPage": true,
+                    "number": 1,
+                    "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&channel=de&followSearch=9798&format=JSON"
+                },
+                {
+                    "caption": "2",
+                    "currentPage": false,
+                    "number": 2,
+                    "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&channel=de&page=2&followSearch=9798&format=JSON"
+                },
+                {
+                    "caption": "3",
+                    "currentPage": false,
+                    "number": 3,
+                    "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&channel=de&page=3&followSearch=9798&format=JSON"
+                },
+                {
+                    "caption": "4",
+                    "currentPage": false,
+                    "number": 4,
+                    "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&channel=de&page=4&followSearch=9798&format=JSON"
+                },
+                {
+                    "caption": "5",
+                    "currentPage": false,
+                    "number": 5,
+                    "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&channel=de&page=5&followSearch=9798&format=JSON"
+                },
+                {
+                    "caption": "6",
+                    "currentPage": false,
+                    "number": 6,
+                    "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&channel=de&page=6&followSearch=9798&format=JSON"
+                },
+                {
+                    "caption": "7",
+                    "currentPage": false,
+                    "number": 7,
+                    "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&channel=de&page=7&followSearch=9798&format=JSON"
+                },
+                {
+                    "caption": "8",
+                    "currentPage": false,
+                    "number": 8,
+                    "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&channel=de&page=8&followSearch=9798&format=JSON"
+                },
+                {
+                    "caption": "9",
+                    "currentPage": false,
+                    "number": 9,
+                    "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&channel=de&page=9&followSearch=9798&format=JSON"
+                },
+                {
+                    "caption": "10",
+                    "currentPage": false,
+                    "number": 10,
+                    "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&channel=de&page=10&followSearch=9798&format=JSON"
+                }
+            ],
+            "previousLink": null,
+            "resultsPerPage": 12
+        },
+        "records": [
+            {
+                "foundWords": [],
+                "id": "284250",
+                "keywords": [],
+                "position": 1,
+                "record": {
+                    "Brand": "Vermont",
+                    "PricePurchase": "0.00",
+                    "PriceRetail": "499.00",
+                    "ImageURL": "http://images.internetstores.de/products/vermont_madoc[219x140].jpg?forceSize=true&forceAspectRatio=true",
+                    "ProductRankingCharge": "33083",
+                    "EAN": "4000990118743|4000990118750|4000990118767",
+                    "RatingAverage": "4.6667",
+                    "ArticleNumber": "284250",
+                    "FFAutomaticSearchOptimization": "",
+                    "__ASO_DEVALUATION__": "0",
+                    "RatingQuantity": "6",
+                    "ProductReductionMoney": "219.01",
+                    "TargetGroupBike": "..MTB..",
+                    "ProductURL": "fahrraeder/mtb-fullsuspensions/vermont-madoc-21g-alivio-26-zoll/284250.html",
+                    "Category3": "..MTB Fullys bis 1000€..|..MTBs & Fullys..",
+                    "Category2": "..MTB Fullsuspensions..|..Fahrräder..",
+                    "Availability": "3",
+                    "Category1": "..Fahrräder..|..SALE..",
+                    "ProductRankingProfit": "25406",
+                    "__SIMILARITY_BEFORE_ASO__": "97.98",
+                    "ProductReductionPercent": "44",
+                    "Description": "Das Vermont Madoc bietet Mountainbike Vollfederung preisgünstig und mit attraktiver Ausstattung. Egal ob aus Gründen der Sportlichkeit oder des Komforts - sinnvoll ist ein vollgefedertes Rad in jedem Fall. Wer seine Vollfederung bergab genießen möchte, der braucht gleichzeitig auch griffige Bremsen. Die Blackcomp Alu V-Brakes sind zuverlässige Partner beim Abfahrtsgenuss. Im Gegenzug bietet der Shimano Antrieb ausreichend Gänge zur Auswahl, je nachdem, was das Gelände vom Madoc Fahrer so alles abverlangt. Mit der Schalt- Bremshebelkombination ist das Schalten auch in Situationen, die für den Fahrer anspruchsvoll oder neu sind, leicht und sicher. Das Madoc ist ein grundsolides Einsteiger-Fully mit dem Hang ins Sportliche. Mit ein wenig Training finden Bikeanfänger hier ein Bike, das sie nicht im Stich lässt.",
+                    "Colors": "..schwarz..",
+                    "Options": "|Rahmengrösse=45 cm|Rahmengrösse=50 cm|Rahmengrösse=55 cm|",
+                    "TargetGroupOutdoor": "",
+                    "Features": "|Typ=MF-TZ21 7-fach|Kategorie=Tour|weitere Merkmale=MTB FS Y Rahmen|Pedale=Sport, mit Metall-Käfig|Radgröße=26|Griffe=Shimano|Sattel=Black Comp MTB|Marke=Black Comp|Marke=Black Comp|Typ=Yak, Verschleißindikator|Steuersatz=Zero Stack A-Head, semi-integriert|Typ=Quando|Marke=Black Comp|Dämpfer Marke=Kind KS 261|Federweg=80|Typ=Black Comp|Marke=Impac|Marke=Impac|Typ=Aluminium, gedichtet|Materialtyp=Aluminium|Bauart=V-Brake|Anzahl Gänge=21|Reifenbreite=2.25|Bauart=V-Brake|Größe=26|Marke=KT|Übersetzung Blatt 2=34|Typ=Alu CW-RX170 mit Kettenschutzscheibe|Typ=M3000|Speichen=silber|Typ=1-Gelenker|Marke=Shimano|Typ=Trailpac|Typ=Trailpac|Material=Alu|Material=Aluminium|Marke=Shimano|Marke=Schürmann|Bauart=Fullsuspension|Typ=Tourney|Bauart=A-Head|Typ=Industrielager|Marke=Suntour|Übersetzung Blatt 1=42|Marke=Black Comp|Marke=Shimano|Marke=Shimano|Bauart=Patentstütze|Gewicht=15.2|Federweg=80|Marke=KMC|Bauart=Rise Bar|Größe=26|Material=Hi-Ten light steel|Ausführung=3-fach|Schaltungstyp=Kettenschaltung|Übersetzung=14|Bauart=Cartridge|Marke=Shimano|Übersetzung Blatt 3=24|Reifenbreite=2.25|Bauart=Hohlkammer|Einsatzzweck=Freizeit|Material=Aluminium|Typ=Alivio|Marke=Suntour|Bauart=Federgabel|Größe=26|Typ=Z51|Material=Alu|",
+                    "Name": "Vermont Madoc 21G Alivio 26 Zoll",
+                    "BrandId": "463",
+                    "Category": "Fahrräder/MTB Fullsuspensions/MTB Fullys bis 1000€|SALE/Fahrräder/MTBs & Fullys",
+                    "FFCliplisterQuality": "",
+                    "Sizes": "|Size3=45|Size3=50|Size3=55|",
+                    "FFCheckoutCount": "0",
+                    "ProductProperty": "",
+                    "Gender": "..Damen..|..Herren..",
+                    "Price": "279.99",
+                    "CategoryIds": "36896 >> 36897 >> 36900 >> 37172|36896 >> 38500 >> 37451 >> 37210",
+                    "SlowSeller": "",
+                    "ProductModelYear": "2012",
+                    "FFAfterSearchReorder": ""
+                },
+                "refKey": "06jZs24uz",
+                "searchSimilarity": 97.98,
+                "seoPath": "/Vermont-Madoc-21G-Alivio-26-Zoll-284250.html",
+                "simiMalusAdd": 0
+            }
+        ],
+        "refKey": "2Wd-FWIIp",
+        "resultArticleNumberStatus": "noArticleNumberSearch",
+        "resultCount": 3607,
+        "resultStatus": "resultsFound",
+        "resultsPerPageList": [
+            {
+                "default": true,
+                "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&channel=de&followSearch=9798&format=JSON",
+                "selected": true,
+                "value": 12
+            },
+            {
+                "default": false,
+                "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&channel=de&productsPerPage=24&followSearch=9798&format=JSON",
+                "selected": false,
+                "value": 24
+            },
+            {
+                "default": false,
+                "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&channel=de&productsPerPage=36&followSearch=9798&format=JSON",
+                "selected": false,
+                "value": 36
+            }
+        ],
+        "searchControlParams": {
+            "disableCache": false,
+            "generateAdvisorTree": false,
+            "idsOnly": false,
+            "useAsn": true,
+            "useCampaigns": true,
+            "useFoundWords": false,
+            "useKeywords": true
+        },
+        "searchParams": "/FACT-Finder/Search.ff?query=mountainbike&channel=de&followSearch=9798&format=JSON",
+        "searchTime": 304,
+        "simiFirstRecord": 9798,
+        "simiLastRecord": 8598,
+        "singleWordResults": null,
+        "sortsList": [
+            {
+                "description": "sort.relevanceDescription",
+                "name": null,
+                "order": "desc",
+                "refKey": "nzKpjqXHj",
+                "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&channel=de&followSearch=9798&format=JSON",
+                "selected": true
+            },
+            {
+                "description": "sort.titleAsc",
+                "name": "Name",
+                "order": "asc",
+                "refKey": "Al_-XHq5f",
+                "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&sortName=asc&channel=de&followSearch=9798&format=JSON",
+                "selected": false
+            },
+            {
+                "description": "sort.titleDesc",
+                "name": "Name",
+                "order": "desc",
+                "refKey": "Ao9dtBkVt",
+                "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&sortName=desc&channel=de&followSearch=9798&format=JSON",
+                "selected": false
+            },
+            {
+                "description": "sort.priceAsc",
+                "name": "Price",
+                "order": "asc",
+                "refKey": "hIvpzIDty",
+                "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&sortPrice=asc&channel=de&followSearch=9798&format=JSON",
+                "selected": false
+            },
+            {
+                "description": "sort.priceDesc",
+                "name": "Price",
+                "order": "desc",
+                "refKey": "ftS9Eceyk",
+                "searchParams": "/FACT-Finder/Search.ff?seoPath=%2Fmountainbike%2Fq&sortPrice=desc&channel=de&followSearch=9798&format=JSON",
+                "selected": false
+            }
+        ],
+        "timedOut": false
+    }
+}

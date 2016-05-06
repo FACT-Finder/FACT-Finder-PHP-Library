@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<importProgress>
+    <currentChannel></currentChannel>
+    <progress>0</progress>
+    <percentage></percentage>
+    <totalPercentage></totalPercentage>
+    <finished>false</finished>
+    <running></running>
+    <status>
+            <message>Import of 37 fields for channel &#039;de&#039;.</message>
+            <message>Start time: 03-Nov-2013 17:16:06</message>
+            <message>489 records from &#039;Brand name&#039; (channel &#039;de&#039;)</message>
+            <message>1,174 records from &#039;Category&#039; (channel &#039;de&#039;)</message>
+            <message>1 records from &#039;Hilfe&#039; (channel &#039;de&#039;)</message>
+            <message>17,641 records from &#039;Product name&#039; (channel &#039;de&#039;)</message>
+            <message>19,305 records imported for channel &#039;de&#039; in 6 seconds.</message>
+            <message>A total of 19,305 records imported in 6 seconds.</message>
+            <message>3,217.5 records per second.</message>
+            <message>Finished: 03-Nov-2013 17:16:13</message>
+    </status>
+    <errors></errors>
+</importProgress>
