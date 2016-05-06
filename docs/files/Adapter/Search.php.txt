@@ -194,7 +194,7 @@ class Search extends AbstractAdapter
         $jsonData = $this->getResponseContent();
         if (!empty($jsonData['searchResult']['singleWordResults']))
         {
-            foreach ($jsonData['searchResults']['singleWordResults'] as $swsData)
+            foreach ($jsonData['searchResult']['singleWordResults'] as $swsData)
             {
                 $item = FF::getInstance(
                     'Data\SingleWordSearchItem',
@@ -202,18 +202,18 @@ class Search extends AbstractAdapter
                     $this->convertServerQueryToClientUrl(
                         $swsData['searchParams']
                     ),
-                    $swsData['count']
+                    $swsData['recordCount']
                 );
 
                 foreach ($swsData['previewRecords'] as $recordData)
                 {
-                    $item->addPreviewRecord(FF::getInstance(
-                        'Data\Record',
+                    $item->addPreviewRecord(FF::getInstance('Data\Record',
                         (string)$recordData['id'],
-                        $recordData['record']
-                        // TODO: Which are other fields are returned for preview
-                        // records?
-                        // TODO: Add a test for this.
+                        $recordData['record'],
+                        $recordData['searchSimilarity'],
+                        $recordData['position'],
+                        '',
+                        $recordData['keywords']
                     ));
                 }
 

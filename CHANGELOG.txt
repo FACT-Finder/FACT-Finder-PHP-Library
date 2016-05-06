@@ -1,3 +1,9 @@
+Version 1.2.1
+    - Fixed single word search feature in search adapter
+    - Fixed too long test file resources names by using the md5 hash of the query string
+    - Added ArrayConfiguration by @Estigy
+    - Removed deprecated methods/types from product campaign adapter and FilterStyle
+
 Version 1.2.0
     - Fixed followSearch and slider parameter handling by @s-diez
     - Added parameter whitelisting by @s-diez

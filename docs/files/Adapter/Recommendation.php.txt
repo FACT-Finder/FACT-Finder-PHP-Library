@@ -185,7 +185,7 @@ class Recommendation extends AbstractAdapter
             $position
         );
     }
-	
+    
     /**
      * Get the recommendations from FACT-Finder as the string returned by the
      * server.

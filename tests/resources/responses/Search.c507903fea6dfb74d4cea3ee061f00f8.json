@@ -1,0 +1,201 @@
+{
+  "searchResult": {
+    "breadCrumbTrailItems": [
+      {
+        "associatedFieldName": null,
+        "searchParams": "/FACT-Finder/Search.ff?query=helm+%26%26+fahrrad+%26%26+bekleidung+%26%26+schuhe\u0026channel=fahrrad-de\u0026searchField=*\u0026productsPerPage=10\u0026followSearch=7899\u0026format=JSON",
+        "text": "helm \u0026\u0026 fahrrad \u0026\u0026 bekleidung \u0026\u0026 schuhe",
+        "type": "search",
+        "value": "helm \u0026\u0026 fahrrad \u0026\u0026 bekleidung \u0026\u0026 schuhe"
+      }
+    ],
+    "campaigns": [],
+    "channel": "fahrrad-de",
+    "filters": [],
+    "groups": [],
+    "paging": {
+      "currentPage": 1,
+      "firstLink": null,
+      "lastLink": null,
+      "nextLink": null,
+      "pageCount": 1,
+      "pageLinks": [],
+      "previousLink": null,
+      "resultsPerPage": 10
+    },
+    "records": [],
+    "resultArticleNumberStatus": "noArticleNumberSearch",
+    "resultCount": 0,
+    "resultStatus": "nothingFound",
+    "resultsPerPageList": [
+    ],
+    "searchControlParams": {
+      "disableCache": false,
+      "generateAdvisorTree": false,
+      "idsOnly": false,
+      "useAsn": true,
+      "useAso": true,
+      "useCampaigns": true,
+      "useFoundWords": false,
+      "useKeywords": false,
+      "usePersonalization": true,
+      "useSemanticEnhancer": true
+    },
+    "searchParams": "/FACT-Finder/Search.ff?query=helm+%26%26+fahrrad+%26%26+bekleidung+%26%26+schuhe\u0026channel=fahrrad-de\u0026searchField=*\u0026productsPerPage=10\u0026followSearch=7899\u0026format=JSON",
+    "searchTime": 232,
+    "simiFirstRecord": 0,
+    "simiLastRecord": 0,
+    "singleWordResults": [
+      {
+        "previewRecords": [
+          {
+            "foundWords": [],
+            "id": "19451",
+            "keywords": [],
+            "position": 1,
+            "record": {
+			  "__ORIG_POSITION__": "1",
+              "Name": "Bell Solar white unisize",
+              "ImageURL": "http://images.internetstores.de/products/09_Bell_Sport_Solar_white[219x140].jpg?forceSize=true\u0026forceAspectRatio=true",
+              "ProductURL": "http://www.fahrrad.de/bekleidung/fahrradhelme/bell-solar-white/19451.html"
+            },
+            "searchSimilarity": 96.97,
+            "simiMalusAdd": 0
+          },
+          {
+            "foundWords": [],
+            "id": "227483",
+            "keywords": [],
+            "position": 2,
+            "record": {
+              "__ORIG_POSITION__": "2",
+              "Name": "Uvex fp3.0 blue-white-black Rennradhelm",
+              "ImageURL": "http://images.internetstores.de/products/fp3.0_SS41014141_JPG[219x140].jpg?forceSize=true\u0026forceAspectRatio=true",
+              "ProductURL": "http://www.fahrrad.de/bekleidung/fahrradhelme/uvex-fp30-blue-white-black-53-56/227483.html"
+            },
+            "searchSimilarity": 96.93,
+            "simiMalusAdd": 0
+          }
+        ],
+        "recordCount": 1350,
+        "searchParams": "/FACT-Finder/Search.ff?query=helm\u0026channel=fahrrad-de\u0026searchField=*\u0026productsPerPage=10\u0026format=JSON",
+        "word": "helm"
+      },
+      {
+        "previewRecords": [
+          {
+            "foundWords": [],
+            "id": "17568",
+            "keywords": [],
+            "position": 1,
+            "record": {
+              "__ORIG_POSITION__": "1",
+              "Name": "Puky Z2 Kinderfahrrad lovely pink",
+              "ImageURL": "http://images.internetstores.de/products/Z2_LovelyPink[219x140].jpg?forceSize=true\u0026forceAspectRatio=true",
+              "ProductURL": "http://www.fahrrad.de/fahrraeder/kinderfahrraeder/puky-12-zoll-kinderfahrrad-z2-lovely-pink/17568.html"
+            },
+            "searchSimilarity": 97.0,
+            "simiMalusAdd": 0
+          },
+          {
+            "foundWords": [],
+            "id": "332488",
+            "keywords": [],
+            "position": 2,
+            "record": {
+			  "__ORIG_POSITION__": "2",
+              "Name": "Puky Z2  Kinderfahrrad gelb",
+              "ImageURL": "http://images.internetstores.de/products/Z_2_gelb_1_bild0_bg5[219x140].jpg?forceSize=true\u0026forceAspectRatio=true",
+              "ProductURL": "http://www.fahrrad.de/fahrraeder/kinderfahrraeder/puky-z2-kinderfahrrad-gelb/332488.html"
+            },
+            "searchSimilarity": 96.98,
+            "simiMalusAdd": 0
+          }
+        ],
+        "recordCount": 7338,
+        "searchParams": "/FACT-Finder/Search.ff?query=fahrrad\u0026channel=fahrrad-de\u0026searchField=*\u0026productsPerPage=10\u0026format=JSON",
+        "word": "fahrrad"
+      },
+      {
+        "previewRecords": [
+          {
+            "foundWords": [],
+            "id": "285683",
+            "keywords": [],
+            "position": 1,
+            "record": {
+              "__ORIG_POSITION__": "1",
+              "Name": "The North Face Women\u0027s Redpoint Optimus Jacket tnf black",
+              "ImageURL": "http://images.internetstores.de/products/redpoint_women_black[219x140].jpg?forceSize=true\u0026forceAspectRatio=true",
+              "ProductURL": "http://www.fahrrad.de/outdoor/bekleidung/the-north-face-womens-redpoint-optimus-jacket-tnf-black/285683.html"
+            },
+            "searchSimilarity": 96.8,
+            "simiMalusAdd": 0
+          },
+          {
+            "foundWords": [],
+            "id": "283507",
+            "keywords": [],
+            "position": 2,
+            "record": {
+			  "__ORIG_POSITION__": "2",
+              "Name": "Mammut Mava Jacket Women anemone-berry",
+              "ImageURL": "http://images.internetstores.de/products/283507_Mava_JA_WO_anemone_berry_bild1[219x140].jpg?forceSize=true\u0026forceAspectRatio=true",
+              "ProductURL": "http://www.fahrrad.de/outdoor/bekleidung/mammut-mava-jacket-women-anemone-berry/283507.html"
+            },
+            "searchSimilarity": 96.8,
+            "simiMalusAdd": 0
+          }
+        ],
+        "recordCount": 8119,
+        "searchParams": "/FACT-Finder/Search.ff?query=bekleidung\u0026channel=fahrrad-de\u0026searchField=*\u0026productsPerPage=10\u0026format=JSON",
+        "word": "bekleidung"
+      },
+      {
+        "previewRecords": [
+          {
+            "foundWords": [],
+            "id": "334944",
+            "keywords": [],
+            "position": 1,
+            "record": {
+			  "__ORIG_POSITION__": "1",
+              "Name": "Asics Women\u0027s Gel Fujisensor G-TX W blue/black/lime",
+              "ImageURL": "http://images.internetstores.de/products/T2B7N_4290_334944[219x140].jpg?forceSize=true\u0026forceAspectRatio=true",
+              "ProductURL": "http://www.fahrrad.de/laufsport/laufschuhe/asics-gel-fujisensor-g-tx-w-blueblacklime/334944.html"
+            },
+            "searchSimilarity": 97.08,
+            "simiMalusAdd": 0
+          },
+          {
+            "foundWords": [],
+            "id": "334809",
+            "keywords": [],
+            "position": 2,
+            "record": {
+              "__ORIG_POSITION__": "2",
+              "Name": "Asics Men\u0027s Gel Fujitrabuco G-TX titanium/sunshine/black",
+              "ImageURL": "http://images.internetstores.de/products/T2B4N_9304_334809[219x140].jpg?forceSize=true\u0026forceAspectRatio=true",
+              "ProductURL": "http://www.fahrrad.de/laufsport/laufschuhe/asics-gel-fujitrabuco-g-tx-titaniumsunshineblack/334809.html"
+            },
+            "searchSimilarity": 97.08,
+            "simiMalusAdd": 0
+          }
+        ],
+        "recordCount": 1515,
+        "searchParams": "/FACT-Finder/Search.ff?query=schuhe\u0026channel=fahrrad-de\u0026searchField=*\u0026productsPerPage=10\u0026format=JSON",
+        "word": "schuhe"
+      }
+    ],
+    "sortsList": [
+      {
+        "description": "sort.relevanceDescription",
+        "name": null,
+        "order": "desc",
+        "searchParams": "/FACT-Finder/Search.ff?query=helm+%26%26+fahrrad+%26%26+bekleidung+%26%26+schuhe\u0026channel=fahrrad-de\u0026searchField=*\u0026productsPerPage=10\u0026followSearch=7899\u0026format=JSON",
+        "selected": true
+      }
+    ],
+    "timedOut": false
+  }
+}
