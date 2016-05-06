@@ -56,7 +56,7 @@ class FileSystemDataProviderTest extends \FACTFinder\Test\BaseTestCase
         $response = $connectionData->getResponse();
         $expectedContent = file_get_contents(RESOURCES_DIR . DS
                                              . 'responses' . DS
-                                             . 'TagCloud_do=getTagCloud.json');
+                                             . 'TagCloud.86b6b33590e092674009abfe3d7fc170.json');
         $this->assertEquals(0, $response->getConnectionErrorCode());
         $this->assertEquals('', $response->getConnectionError());
         $this->assertEquals(200, $response->getHttpCode());

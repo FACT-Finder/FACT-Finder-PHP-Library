@@ -31,7 +31,6 @@ class FilterStyleTest extends \FACTFinder\Test\BaseTestCase
         $this->assertInstanceOf($styleClass, $styleClass::Slider());
         $this->assertInstanceOf($styleClass, $styleClass::Tree());
         $this->assertInstanceOf($styleClass, $styleClass::MultiSelect());
-        $this->assertInstanceOf($styleClass, $styleClass::Color());
     }
 
     public function testEquality()
@@ -40,6 +39,5 @@ class FilterStyleTest extends \FACTFinder\Test\BaseTestCase
         $this->assertTrue($styleClass::Regular() == $styleClass::Regular());
         $this->assertTrue($styleClass::Slider() == $styleClass::Slider());
         $this->assertFalse($styleClass::Regular() == $styleClass::Slider());
-        $this->assertFalse($styleClass::Regular() == $styleClass::Color());
     }
 }
