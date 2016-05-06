@@ -20,6 +20,11 @@ class ProductCampaign extends AbstractAdapter
      */
     protected $isShoppingCartCampaign = false;
     private $campaignsUpToDate = false;
+    
+    /**
+     * @var bool
+     */
+    private $idsOnly = false;
 
     public function __construct(
         $loggerClass,
@@ -56,18 +61,6 @@ class ProductCampaign extends AbstractAdapter
     }
 
     /**
-     * For product campaigns, FACT-Finder needs the product numbers - not the IDs.
-     *
-     * @deprecated use setProductNumbers instead
-     * @param string|string[] $productIDs
-     */
-    public function setProductIDs($productIDs)
-    {
-        // preserve the previous logic
-        $this->setProductNumbers($productIDs);
-    }
-
-    /**
      * Add one or multiple product numbser to get campaigns for, in addition to any
      * numbers previously set.
      *
@@ -79,16 +72,21 @@ class ProductCampaign extends AbstractAdapter
         $parameters->add('productNumber', $productNumbers);
         $this->campaignsUpToDate = false;
     }
-
+    
     /**
-     * For product campaigns, FACT-Finder needs the product numbers - not the IDs.
-     *
-     * @deprecated use addProductNumbers instead
-     * @param string|string[] $productIDs
+     * Set this to true to only retrieve the IDs of pushed products instead
+     * of full Record objects.
+     * 
+     * @param $idsOnly bool
      */
-    public function addProductIDs($productIDs)
+    public function setIDsOnly($idsOnly)
     {
-        $this->addProductNumbers($productIDs);
+        if($this->idsOnly && !$idsOnly)
+            $this->campaignsUpToDate = false;
+
+        $this->idsOnly = $idsOnly;
+        $parameters = $this->request->getParameters();
+        $parameters['idsOnly'] = $idsOnly ? 'true' : 'false';
     }
 
     /**
@@ -122,6 +120,7 @@ class ProductCampaign extends AbstractAdapter
         if (is_null($this->campaigns)
             || !$this->campaignsUpToDate
         ) {
+            $this->request->resetLoaded();
             $this->campaigns = $this->createCampaigns();
             $this->campaignsUpToDate = true;
         }
