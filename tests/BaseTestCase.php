@@ -26,13 +26,24 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
 
         self::$dic['loggerClass'] = $logClass;
 
-        self::$dic['configuration'] = function($c) {
-            return FF::getInstance(
-                'Core\XmlConfiguration',
-                RESOURCES_DIR.DS.'config.xml',
-                'test'
-            );
-        };
+        if (strpos(static::class, 'ArrayConfiguration')) {
+            self::$dic['configuration'] = function($c) {
+                $config = include RESOURCES_DIR.DS.'config.php';
+                return FF::getInstance(
+                    'Core\ArrayConfiguration',
+                    $config,
+                    'test'
+                );
+            };
+        } else {
+            self::$dic['configuration'] = function ($c) {
+                return FF::getInstance(
+                    'Core\XmlConfiguration',
+                    RESOURCES_DIR . DS . 'config.xml',
+                    'test'
+                );
+            };
+        }
 
         // $this cannot be passed into closures before PHP 5.4
         //$that = $this;
