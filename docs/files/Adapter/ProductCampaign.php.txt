@@ -147,23 +147,27 @@ class ProductCampaign extends AbstractAdapter
             {
                 // Use only the first product ID
                 $productIDs = $this->parameters['productNumber'];
-                if (is_array($productIDs))
+                if (is_array($productIDs) && !empty($productIDs))
+                {
                     $this->parameters['productNumber'] = $productIDs[0];
-
+                }
                 $jsonData = $this->getResponseContent();
 
                 // Restore IDs
                 $this->parameters['productNumber'] = $productIDs;
             }
 
-            foreach ($jsonData as $campaignData) {
-                $campaign = $this->createEmptyCampaignObject($campaignData);
+            if(parent::isValidResponse($jsonData))
+            {
+                foreach ($jsonData as $campaignData) {
+                    $campaign = $this->createEmptyCampaignObject($campaignData);
 
-                $this->fillCampaignWithFeedback($campaign, $campaignData);
-                $this->fillCampaignWithPushedProducts($campaign, $campaignData);
+                    $this->fillCampaignWithFeedback($campaign, $campaignData);
+                    $this->fillCampaignWithPushedProducts($campaign, $campaignData);
 
-                $campaigns[] = $campaign;
-            }
+                    $campaigns[] = $campaign;
+                }
+            }        
         }
 
         $campaignIterator = FF::getInstance(
