@@ -262,14 +262,6 @@ class SearchTest extends \FACTFinder\Test\BaseTestCase
         $this->assertNull($this->adapter->getStackTrace());
     }
 
-    public function testError()
-    {
-        $this->adapter->setQuery('error');
-
-        $this->assertEquals('500', $this->adapter->getError());
-        $this->assertEquals('stacktrace', $this->adapter->getStackTrace());
-    }
-
     public function testGetFollowSearchValue()
     {
         $this->assertEquals(9798, $this->adapter->getFollowSearchValue());

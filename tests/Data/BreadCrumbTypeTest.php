@@ -29,6 +29,7 @@ class BreadCrumbTypeTest extends \FACTFinder\Test\BaseTestCase
         $typeClass = $this->typeClass;
         $this->assertInstanceOf($typeClass, $typeClass::Search());
         $this->assertInstanceOf($typeClass, $typeClass::Filter());
+        $this->assertInstanceOf($typeClass, $typeClass::Advisor());
     }
 
     public function testEquality()
@@ -36,6 +37,8 @@ class BreadCrumbTypeTest extends \FACTFinder\Test\BaseTestCase
         $typeClass = $this->typeClass;
         $this->assertTrue($typeClass::Search() == $typeClass::Search());
         $this->assertTrue($typeClass::Filter() == $typeClass::Filter());
+        $this->assertTrue($typeClass::Advisor() == $typeClass::Advisor());
         $this->assertFalse($typeClass::Search() == $typeClass::Filter());
+        $this->assertFalse($typeClass::Search() == $typeClass::Advisor());
     }
 }
