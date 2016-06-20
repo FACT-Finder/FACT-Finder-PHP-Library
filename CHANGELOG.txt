@@ -1,3 +1,9 @@
+Version 1.2.3
+    - Fixed wrong function name called by @ marfis
+    - Moved methods getError and getStacktrace to AbstractAdapter
+    - Improved tracking adapter doc
+    - Added BreadCrumbType advisor
+
 Version 1.2.2
     - Fixed undefined index issues
 
