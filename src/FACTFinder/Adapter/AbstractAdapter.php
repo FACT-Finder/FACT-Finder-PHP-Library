@@ -60,7 +60,7 @@ abstract class AbstractAdapter
     private $error = null;
     
     /**
-     * @var object The last stack trace.
+     * @var string The last stack trace.
      */
     private $stackTrace = null;
 
