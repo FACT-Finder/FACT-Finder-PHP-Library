@@ -1,3 +1,8 @@
+Version 1.2.4
+    - Added userId parameter to TrackingAdapter methods doTrackingFromRequest/setupTrackingFromRequest
+    - Extended constructor in order to support not only file based XMLConfiguration by @asdfklgash
+    - Removed legacy tracking code
+
 Version 1.2.3
     - Fixed wrong function name called by @ marfis
     - Moved methods getError and getStacktrace to AbstractAdapter
