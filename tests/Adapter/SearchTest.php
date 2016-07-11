@@ -41,7 +41,6 @@ class SearchTest extends \FACTFinder\Test\BaseTestCase
 
         $this->assertInstanceOf('FACTFinder\Data\Result', $result);
         $this->assertEquals(66, $result->getFoundRecordsCount());
-        $this->assertEquals('WOwfiHGNS', $result->getRefKey());
         $this->assertEquals(1, count($result));
 
         $record = $result[0];
@@ -60,7 +59,6 @@ class SearchTest extends \FACTFinder\Test\BaseTestCase
 
         $this->assertInstanceOf('FACTFinder\Data\Result', $result);
         $this->assertEquals(66, $result->getFoundRecordsCount());
-        $this->assertEquals('WOwfiHGNS', $result->getRefKey());
         $this->assertEquals(1, count($result));
 
         $record = $result[0];
