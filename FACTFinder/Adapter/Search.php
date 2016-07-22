@@ -94,12 +94,14 @@ class Search extends AbstractAdapter
     }
     
     /**
-     * Set Value for parameter sid
-     * @param string $sSid session id
+     * Set value for parameter sid for personalization.
+     *
+     * @param string $sid session id
      */
-    public function setSid($sSid)
+    public function setSid($sid)
     {
-        $this->parameters['sid'] = $sSid;
+        $this->parameters['sid'] = $sid;
+        $this->recordsUpToDate = false;
     }
     
     /**
