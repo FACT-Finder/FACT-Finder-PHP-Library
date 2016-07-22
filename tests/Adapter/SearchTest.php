@@ -185,10 +185,28 @@ class SearchTest extends \FACTFinder\Test\BaseTestCase
 
         $this->assertInstanceOf('FACTFinder\Data\Sorting', $sorting);
         $this->assertEquals(5, count($sorting));
-        $this->assertInstanceOf("FACTFinder\Data\Item", $sorting[0]);
+        $this->assertInstanceOf('FACTFinder\Data\Item', $sorting[0]);
         $this->assertEquals('sort.relevanceDescription', $sorting[0]->getLabel());
         $this->assertTrue($sorting[0]->isSelected());
         $this->assertFalse($sorting[1]->isSelected());
+    }
+
+    public function testSortingItemsLoading()
+    {
+        $sorting = $this->adapter->getSortingItems();
+        $this->assertInstanceOf('FACTFinder\Data\SortingItems', $sorting);
+        $this->assertEquals(5, count($sorting));
+        $this->assertInstanceOf('FACTFinder\Data\SortingItem', $sorting[0]);
+        $this->assertEquals('sort.relevanceDescription', $sorting[0]->getLabel());
+        $this->assertTrue($sorting[0]->isSelected());
+        $this->assertFalse($sorting[1]->isSelected());
+        $this->assertTrue($sorting[0]->isDescending());
+        $this->assertFalse($sorting[0]->isAscending());
+        $this->assertFalse($sorting[1]->isDescending());
+        $this->assertTrue($sorting[1]->isAscending());
+
+        $this->assertEquals('', $sorting[0]->getName());
+        $this->assertEquals('Name', $sorting[1]->getName());
     }
 
     public function testBreadCrumbLoading()
