@@ -49,4 +49,19 @@ class SearchParametersTest extends \FACTFinder\Test\BaseTestCase
 
         $this->assertTrue($searchParameters->isNavigationEnabled());
     }
+
+    public function testSeoPathFromParameters()
+    {
+        $parameters = FF::getInstance('Util\Parameters');
+        $parameters['seoPath'] = '/bmx-bike/q';
+        $parameters['channel'] = 'de';
+
+        $searchParameters = FF::getInstance(
+            'Data\SearchParameters',
+            $parameters
+        );
+
+        $this->assertEquals('/bmx-bike/q', $searchParameters->getSeoPath());
+        $this->assertEquals('de', $searchParameters->getChannel());
+    }
 }
