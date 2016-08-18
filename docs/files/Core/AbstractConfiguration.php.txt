@@ -222,6 +222,7 @@ abstract class AbstractConfiguration implements ConfigurationInterface
             'query' => true,
             'queryFromSuggest' => true,
             'searchField' => true,
+            'seoPath' => true,
             'sid' => true,
             'simi' => true,
             'title' => true,

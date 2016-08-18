@@ -1,3 +1,10 @@
+Version 1.2.5
+    - Added special SortingItems to use full information about sortings as returned in FACT-Finder response by @s-diez 
+    - Changed hasSelectedItems() to work on a copy of the filters by @SvenBrunk
+    - Session ID setter for recommendations by @tuegeb
+    - SEO-Enhancer integration by @tuegeb
+    - Changed license type to MIT by @tuegeb
+
 Version 1.2.4
     - Added userId parameter to TrackingAdapter methods doTrackingFromRequest/setupTrackingFromRequest
     - Extended constructor in order to support not only file based XMLConfiguration by @asdfklgash
