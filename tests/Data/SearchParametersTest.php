@@ -21,6 +21,7 @@ class SearchParametersTest extends \FACTFinder\Test\BaseTestCase
     {
         $parameters = FF::getInstance('Util\Parameters');
         $parameters['query'] = 'bmx';
+        $parameters['seoPath'] = '/bmx-bike/q';
         $parameters['channel'] = 'de';
         $parameters['advisorStatus'] = '2-_0_0';
         $parameters['productsPerPage'] = 12;
@@ -36,6 +37,7 @@ class SearchParametersTest extends \FACTFinder\Test\BaseTestCase
         );
 
         $this->assertEquals('bmx', $searchParameters->getQuery());
+        $this->assertEquals('/bmx-bike/q', $searchParameters->getSeoPath());
         $this->assertEquals('de', $searchParameters->getChannel());
         $this->assertEquals('2-_0_0', $searchParameters->getAdvisorStatus());
         $this->assertEquals(12, $searchParameters->getProductsPerPage());
@@ -48,20 +50,5 @@ class SearchParametersTest extends \FACTFinder\Test\BaseTestCase
                             $searchParameters->getSortings());
 
         $this->assertTrue($searchParameters->isNavigationEnabled());
-    }
-
-    public function testSeoPathFromParameters()
-    {
-        $parameters = FF::getInstance('Util\Parameters');
-        $parameters['seoPath'] = '/bmx-bike/q';
-        $parameters['channel'] = 'de';
-
-        $searchParameters = FF::getInstance(
-            'Data\SearchParameters',
-            $parameters
-        );
-
-        $this->assertEquals('/bmx-bike/q', $searchParameters->getSeoPath());
-        $this->assertEquals('de', $searchParameters->getChannel());
     }
 }

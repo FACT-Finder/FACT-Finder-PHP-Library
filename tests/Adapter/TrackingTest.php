@@ -54,7 +54,9 @@ class TrackingTest extends \FACTFinder\Test\BaseTestCase
             'product',
             9,
             10,
-            11
+            11,
+            'adscampaign',
+            true
         );
         $this->assertTrue($result);
     }
@@ -70,7 +72,8 @@ class TrackingTest extends \FACTFinder\Test\BaseTestCase
             'mycid',
             5,
             6.00,
-            7
+            7,
+            'anycampaign'
         );
 
         $this->assertTrue($result);
@@ -87,7 +90,9 @@ class TrackingTest extends \FACTFinder\Test\BaseTestCase
             'mycid',
             5,
             6.00,
-            7
+            7,
+            '',
+            false
         );
 
         $this->assertTrue($result);

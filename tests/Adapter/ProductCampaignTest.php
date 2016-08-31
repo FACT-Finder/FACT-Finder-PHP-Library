@@ -113,4 +113,31 @@ class ProductCampaignTest extends \FACTFinder\Test\BaseTestCase
 
         $this->assertFalse($campaigns->hasActiveQuestions());
     }
+
+    public function testPageCampaignLoading()
+    {
+        $pageId = "123";
+        $this->adapter->makePageCampaign();
+        $this->adapter->setPageId($pageId);
+        $campaigns = $this->adapter->getCampaigns();
+
+        $this->assertInstanceOf('FACTFinder\Data\CampaignIterator', $campaigns);
+        $this->assertInstanceOf('FACTFinder\Data\Campaign', $campaigns[0]);
+
+        $this->assertTrue($campaigns->hasRedirect());
+        $this->assertEquals('http://www.fact-finder.de', $campaigns->getRedirectUrl());
+
+        $this->assertTrue($campaigns->hasFeedback());
+        $expectedFeedback = "test feedback";
+        $this->assertEquals($expectedFeedback, $campaigns->getFeedback('html header'));
+        $this->assertEquals($expectedFeedback, $campaigns->getFeedback('9'));
+
+        $this->assertTrue($campaigns->hasPushedProducts());
+        $products = $campaigns->getPushedProducts();
+        $this->assertEquals(1, count($products));
+        $this->assertEquals('221910', $products[0]->getId());
+        $this->assertEquals('KHE', $products[0]->getField('Brand'));
+
+        $this->assertFalse($campaigns->hasActiveQuestions());
+    }
 }
