@@ -1,0 +1,90 @@
+[
+    {
+        "activeQuestions": [],
+        "advisorTree": [],
+        "category": "",
+        "feedbackTexts": [],
+        "flavour": "REDIRECT",
+        "id": "18",
+        "name": "Shopping Cart Test",
+        "pushedProductsRecords": [],
+        "refKey": "xAwRWrwWE",
+        "target": {
+            "destination": "http://www.fact-finder.de",
+            "name": ""
+        }
+    },
+    {
+        "activeQuestions": [],
+        "advisorTree": [],
+        "category": "",
+        "feedbackTexts": [
+            {
+                "html": true,
+                "id": 9,
+                "label": "html header",
+                "text": "test feedback"
+            }
+        ],
+        "flavour": "FEEDBACK",
+        "id": "19",
+        "name": "Shopping Cart Test",
+        "pushedProductsRecords": [
+            {
+                "foundWords": [],
+                "id": "221910",
+                "keywords": null,
+                "position": 0,
+                "record": {
+                    "Brand": "KHE",
+                    "PricePurchase": "0.00",
+                    "PriceRetail": "299.99",
+                    "ImageURL": "http://images.internetstores.de/products/10_Serious_BMX_Spot_1024x768[219x140].jpg?forceSize=true&forceAspectRatio=true",
+                    "ProductRankingCharge": "34483",
+                    "EAN": "4250355585134",
+                    "RatingAverage": "4.6038",
+                    "ArticleNumber": "221910",
+                    "FFAutomaticSearchOptimization": "",
+                    "RatingQuantity": "53",
+                    "ProductReductionMoney": "120.00",
+                    "TargetGroupBike": "..Gravity..",
+                    "ProductURL": "fahrraeder/bmx/khe-serious-bmx-spot-/221910.html",
+                    "Category3": "",
+                    "Category2": "..BMX..",
+                    "Availability": "3",
+                    "Category1": "..Fahrräder..",
+                    "ProductRankingProfit": "26175",
+                    "ProductReductionPercent": "40",
+                    "Description": "Serious Spot ? Einsteiger 20 Zoll BMX mit soliden Komponenten. Jeder fängt mal an und das Serious Spot bietet hierfür den perfekten Einstieg in die BMX Szene. Der solide Stahl-Rahmen made by KHE hält grundsätzlich was er verspricht und erlaubt auch harte Tricks und manche unsanfte Landungen. Ausgestattet mit einfachen, wartungsarmen Komponenten und stabilen Laufrädern, ist das Spot der ideale Begleiter für erste Ausflüge in den Adrenalinsport BMX.",
+                    "Colors": "..grau..|..weiß..",
+                    "Options": "|Oberrohrlänge=52 cm|",
+                    "TargetGroupOutdoor": "",
+                    "Features": "|Material=Hi-Ten light steel|Größe=20|Typ=14 mm Achse|Bauart=V-Brake|Material=Hi-Ten light steel|Typ=Prism Freestyle|Marke=Trax|Marke=KHE|Material=Hi-Ten Steel|im Lieferumfang enthalten=1|Typ=1 1/8 Zoll Aluminium|Typ=Grind Pegs|Reifenbreite=2|Marke=KHE|Anzahl Gänge=1|Anzahl=1 Paar|Sonstiges=Kettenspanner, verstärkte Kettenradgarnitur |Marke=KHE|Bauart=V-Brake|Typ=MAC |weitere Merkmale=Rahmen mit F-Set Rotor System|Pedale=PVC Allround B/B|Übersetzung Blatt 1=36|Gewicht=13.9|Bauart=A-Head|Reifenbreite=2|Typ=14 mm Achse|Typ=F-Set|Sattel=Prism Jump|Bauart=2-teilig|Größe=20|Marke=KHE|Bauart=1-teilig|Materialtyp=Stahl|",
+                    "Name": "KHE Serious BMX Spot",
+                    "BrandId": "63",
+                    "Category": "Fahrräder/BMX",
+                    "FFCliplisterQuality": "",
+                    "Sizes": "",
+                    "FFCheckoutCount": "0",
+                    "ProductProperty": "",
+                    "Gender": "..Damen..|..Herren..",
+                    "Price": "179.99",
+                    "CategoryIds": "36896 >> 36897 >> 36904",
+                    "SlowSeller": "",
+                    "ProductModelYear": "2013",
+                    "FFAfterSearchReorder": ""
+                },
+                "refKey": "uXI-myyHO",
+                "searchSimilarity": 0,
+                "seoPath": "",
+                "simiMalusAdd": 0,
+                "simiMalusMul": 1
+            }
+        ],
+        "refKey": "d3XlV96AR",
+        "target": {
+            "destination": "",
+            "name": ""
+        }
+    }
+]
