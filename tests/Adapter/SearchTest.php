@@ -135,8 +135,8 @@ class SearchTest extends \FACTFinder\Test\BaseTestCase
         $this->assertEquals(4, $slider->getSelectedMinimum());
         $this->assertEquals('RatingAverage', $slider->getFieldName());
         $this->assertFalse($slider->isSelected());
-        $this->assertEquals('/index.php?seoPath=%2Fbmx%2Fq&filterCategory2=BMX&filterCategory1=Fahrr%E4der&followSearch=9798&filterRatingAverage=', $slider->getBaseUrl());
-        $this->assertEquals('/index.php?seoPath=%2Fbmx%2Fq&filterCategory2=BMX&filterCategory1=Fahrr%E4der&followSearch=9798&filterRatingAverage=4-5', $slider->getUrl());
+        $this->assertEquals('/index.php/s/bmx/q?filterCategory2=BMX&filterCategory1=Fahrr%E4der&followSearch=9798&filterRatingAverage=', $slider->getBaseUrl());
+        $this->assertEquals('/index.php/s/bmx/q?filterCategory2=BMX&filterCategory1=Fahrr%E4der&followSearch=9798&filterRatingAverage=4-5', $slider->getUrl());
 
         unset($asn[0][1]);
         $this->assertTrue($asn->hasPreviewImages());
