@@ -137,7 +137,15 @@ class RequestParser
                 // For CLI use:
                 $parameters = FF::getInstance('Util\Parameters');
             }
-
+            
+            if(isset($_SERVER['REQUEST_URI'])) {
+                $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+                $seoPathPosition = strrpos($path, "/s/");
+                if ($seoPathPosition > -1) {
+                    $parameters['seoPath'] = substr($path, $seoPathPosition + 2);    
+                }
+            }
+            
             // Convert encoding and then the parameters themselves
             $this->clientRequestParameters = $this->encodingConverter != null ? $this->encodingConverter->decodeClientUrlData($parameters) : $parameters;
            
@@ -172,6 +180,11 @@ class RequestParser
                 $parts = explode('?', $_SERVER['REQUEST_URI']);
                 $this->requestTarget = $parts[0];
             }
+            
+            $seoPathPosition = strrpos($this->requestTarget , "/s/");
+            if ($seoPathPosition > -1) {
+                 $this->requestTarget = substr($this->requestTarget , 0, $seoPathPosition);
+            }    
 
             // Use rawurldecode() so that +'s are not converted to spaces.
             $this->requestTarget = rawurldecode($this->requestTarget);

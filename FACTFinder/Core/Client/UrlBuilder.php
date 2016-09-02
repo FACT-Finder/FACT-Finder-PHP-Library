@@ -71,7 +71,17 @@ class UrlBuilder
         if (!is_string($target))
             $target = $this->requestParser->getRequestTarget();
 
-        $url = $target . '?' . $parameters->toPhpQueryString();
+        if ($parameters->offsetExists('seoPath')) {
+            $seoPath = $parameters['seoPath'];
+            $parameters->offsetUnset('seoPath');
+            $seoPathPosition = strrpos($target, "/s/");
+            if ($seoPathPosition > -1) {
+                $target = substr($target, 0, $seoPathPosition);    
+            }            
+            $url = rtrim($target, '/') . '/s' . urldecode($seoPath) . '?' . $parameters->toPhpQueryString();
+        } else {    
+            $url = $target . '?' . $parameters->toPhpQueryString();
+        }
         return $url;
     }
 }
