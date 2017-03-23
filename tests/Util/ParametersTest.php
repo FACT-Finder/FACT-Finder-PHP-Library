@@ -215,6 +215,20 @@ class ParameterTest extends \FACTFinder\Test\BaseTestCase
         $this->assertEquals($expectedParameters, $parameters->getArray());
     }
 
+    public function testParametersFromPhpQueryStringWithSpacesAsPlusSign()
+    {
+        $parameters = FF::getInstance(
+            'Util\Parameters',
+            'a+b=c&d=e+f'
+        );
+
+        $expectedParameters = array(
+            'a b' => 'c',
+            'd' => 'e f',
+        );
+        $this->assertEquals($expectedParameters, $parameters->getArray());
+    }
+
     public function testParametersFromPhpUrl()
     {
 

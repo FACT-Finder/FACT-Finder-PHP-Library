@@ -54,6 +54,12 @@ class Parameters implements \ArrayAccess, \Countable
             $query = $parts[1];
         }
 
+        $query = str_replace(
+            array( '+'   , '%7E' ),
+            array( '%20' , '~'   ),
+            $query
+        );
+
         $pairs = explode('&', $query);
         foreach ($pairs AS $pair)
         {
