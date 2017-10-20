@@ -142,7 +142,9 @@ class RequestParser
                 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                 $seoPathPosition = strrpos($path, "/s/");
                 if ($seoPathPosition > -1) {
-                    $parameters['seoPath'] = substr($path, $seoPathPosition + 2);    
+                    $encodedSeoPath = substr($path, $seoPathPosition + 2);
+                    $decodedSeoPath = urldecode($encodedSeoPath);  
+                    $parameters['seoPath'] = $decodedSeoPath; 
                 }
             }
             

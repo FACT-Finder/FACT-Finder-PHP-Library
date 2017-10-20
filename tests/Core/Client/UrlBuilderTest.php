@@ -46,6 +46,7 @@ class UrlBuilderTest extends \FACTFinder\Test\BaseTestCase
         $this->parameters['foo'] = "b\xC3\xA4r"; // UTF-8 encoded 'bär'
         $this->parameters['query'] = 'bmx bike'; // maps to 'keywords' and has spaces
 
+
         $actualUrl = $this->urlBuilder->generateUrl($this->parameters);
 
         // The 'ä' gets ISO-8859-1 encoded.
@@ -53,6 +54,21 @@ class UrlBuilderTest extends \FACTFinder\Test\BaseTestCase
         // query parameters (although it shouldn't).
         $this->assertEquals(
             'has spaces/index.php?foo=b%E4r&keywords=bmx%20bike',
+            $actualUrl
+        );
+    }
+
+    public function testGenerateUrlWithSeoPathFromRequestTarget()
+    {
+        $_SERVER['REQUEST_URI'] = 'has%20spaces/index.php';
+
+        $this->parameters['format'] = 'json'; // is ignored
+        $this->parameters['seoPath'] = '/a b'; // less common seo path which has spaces
+
+        $actualUrl = $this->urlBuilder->generateUrl($this->parameters);
+
+        $this->assertEquals(
+            'has spaces/index.php/s/a b?',
             $actualUrl
         );
     }
@@ -75,6 +91,24 @@ class UrlBuilderTest extends \FACTFinder\Test\BaseTestCase
         // query parameters (although it shouldn't).
         $this->assertEquals(
             '/detail.php?foo=b%E4r&keywords=bmx%20bike',
+            $actualUrl
+        );
+    }
+
+    public function testGenerateUrlWithSeoPathFromExplicitTarget()
+    {
+        $_SERVER['REQUEST_URI'] = 'has%20spaces/index.php';
+
+        $this->parameters['format'] = 'json'; // is ignored
+        $this->parameters['seoPath'] = '/a-b'; // common seo path with no spaces
+
+        $actualUrl = $this->urlBuilder->generateUrl(
+            $this->parameters,
+            '/'
+        );
+
+        $this->assertEquals(
+            '/s/a-b?',
             $actualUrl
         );
     }
