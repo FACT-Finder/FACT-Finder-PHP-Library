@@ -91,4 +91,17 @@ class RequestParserTest extends \FACTFinder\Test\BaseTestCase
         $this->assertEquals("/ind\xC3\xA4x.php", $this->requestParser
                                                       ->getRequestTarget());
     }
+
+    function testSeoParameterConversion()
+    {
+        $_SERVER['REQUEST_URI'] = '/s/a%20b';
+
+        $expectedParameters = array(
+            'seoPath' => '/a b',
+        );
+        $actualParameters = $this->requestParser
+                                 ->getClientRequestParameters()
+                                 ->getArray();
+        $this->assertEquals($expectedParameters, $actualParameters);
+    }
 }
