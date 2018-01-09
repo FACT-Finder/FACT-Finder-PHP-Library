@@ -113,7 +113,7 @@ class Parameters implements \ArrayAccess, \Countable
      * @param mixed  $value A string or an array of strings. Nested arrays are
      *        not allowed. All other types are cast to strings.
      *
-     * @throws InvalidArgumentException if no name is given or the value is a
+     * @throws \InvalidArgumentException if no name is given or the value is a
      *         nested array.
      */
     public function offsetSet($name, $value)
@@ -146,7 +146,7 @@ class Parameters implements \ArrayAccess, \Countable
      * @return mixed The parameter's value(s). Either a single string or an
      *         array of multiple strings.
      *
-     * @throws InvalidArgumentException if the name has no values set.
+     * @throws \InvalidArgumentException if the name has no values set.
      */
     public function offsetGet($name)
     {
@@ -263,7 +263,7 @@ class Parameters implements \ArrayAccess, \Countable
      * @param mixed  $value A string or an array of strings. Nested arrays are
      *        not allowed. All other types are cast to strings.
      *
-     * @throws InvalidArgumentException if no name is given or the value is a
+     * @throws \InvalidArgumentException if no name is given or the value is a
      *         nested array.
      */
     public function set($name, $value)
@@ -291,7 +291,7 @@ class Parameters implements \ArrayAccess, \Countable
      * @param mixed  $value A string or an array of strings. Nested arrays are
      *        not allowed. All other types are cast to strings.
      *
-     * @throws InvalidArgumentException if no name is given or the value is a
+     * @throws \InvalidArgumentException if no name is given or the value is a
      *         nested array.
      */
     public function add($name, $value)

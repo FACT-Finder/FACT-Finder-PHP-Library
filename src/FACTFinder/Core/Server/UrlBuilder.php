@@ -10,12 +10,12 @@ use FACTFinder\Loader as FF;
 class UrlBuilder
 {
     /**
-     * @var FACTFinder\Util\LoggerInterface
+     * @var \FACTFinder\Util\LoggerInterface
      */
     private $log;
 
     /**
-     * @var ConfigurationInterface
+     * @var \FACTFinder\Core\ConfigurationInterface
      */
     protected $configuration;
 
@@ -23,8 +23,8 @@ class UrlBuilder
     /**
      * @param string $loggerClass Class name of logger to use. The class should
      *        implement FACTFinder\Util\LoggerInterface.
-     * @param ConfigurationInterface $configuration
-     * @param FACTFinder\Util\Parameters $parameters Optional parameters object
+     * @param \FACTFinder\Core\ConfigurationInterface $configuration
+     * @param \FACTFinder\Util\Parameters $parameters Optional parameters object
      *        to initialize the UrlBuilder with.
      */
     public function __construct(
@@ -44,7 +44,7 @@ class UrlBuilder
      *
      * @param string $action The action to be targeted on the FACT-Finder
      *        server.
-     * @param FACTFinder\Util\Parameters $parameters The parameters object from
+     * @param \FACTFinder\Util\Parameters $parameters The parameters object from
      *        which to build the URL.
      *
      * @return string The full URL.
@@ -71,12 +71,12 @@ class UrlBuilder
      *
      * @param string $action The action to be targeted on the FACT-Finder
      *        server.
-     * @param FACTFinder\Util\Parameters $parameters The parameters object from
+     * @param \FACTFinder\Util\Parameters $parameters The parameters object from
      *        which to build the URL.
      *
      * @return string The full URL.
      *
-     * @throws Exception if no valid authentication type was configured.
+     * @throws \Exception if no valid authentication type was configured.
      */
     public function getAuthenticationUrl(
         $action,
@@ -100,7 +100,7 @@ class UrlBuilder
      *
      * @param string $action The action to be targeted on the FACT-Finder
      *        server.
-     * @param FACTFinder\Util\Parameters $parameters The parameters object from
+     * @param \FACTFinder\Util\Parameters $parameters The parameters object from
      *        which to build the URL.
      *
      * @return string The full URL.
@@ -135,7 +135,7 @@ class UrlBuilder
      *
      * @param string $action The action to be targeted on the FACT-Finder
      *        server.
-     * @param FACTFinder\Util\Parameters $parameters The parameters object from
+     * @param \FACTFinder\Util\Parameters $parameters The parameters object from
      *        which to build the URL.
      *
      * @return string The full URL.
@@ -164,7 +164,7 @@ class UrlBuilder
      *
      * @param string $action The action to be targeted on the FACT-Finder
      *        server.
-     * @param FACTFinder\Util\Parameters $parameters The parameters object from
+     * @param \FACTFinder\Util\Parameters $parameters The parameters object from
      *        which to build the URL.
      *
      * @return string The full URL.
@@ -192,7 +192,7 @@ class UrlBuilder
     /**
      * If no channel is set, try to fill it from configuration data.
      *
-     * @param FACTFinder\Util\Parameters $parameters The parameters object to
+     * @param \FACTFinder\Util\Parameters $parameters The parameters object to
      *        check.
      */
     protected function ensureChannelParameter($parameters) {

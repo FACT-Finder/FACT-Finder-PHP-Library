@@ -8,7 +8,7 @@ namespace FACTFinder\Core;
 class ParametersConverter
 {
     /**
-     * @var FACTFinder\Util\LoggerInterface
+     * @var \FACTFinder\Util\LoggerInterface
      */
     private $log;
 
@@ -31,9 +31,9 @@ class ParametersConverter
     }
 
     /**
-     * @param Parameters $clientParameters Parameters obtained from a request to
+     * @param \FACTFinder\Util\Parameters $clientParameters Parameters obtained from a request to
      *        the client.
-     * @return Parameters Parameters ready for use with FACT-Finder.
+     * @return \FACTFinder\Util\Parameters Parameters ready for use with FACT-Finder.
      */
     public function convertClientToServerParameters($clientParameters)
     {
@@ -48,8 +48,8 @@ class ParametersConverter
     }
 
     /**
-     * @param Parameters $clientParameters Parameters obtained from FACT-Finder.
-     * @return Parameters Parameters ready for use in requests to the client.
+     * @param \FACTFinder\Util\Parameters $serverParameters Parameters obtained from FACT-Finder.
+     * @return \FACTFinder\Util\Parameters Parameters ready for use in requests to the client.
      */
     public function convertServerToClientParameters($serverParameters)
     {
@@ -65,7 +65,7 @@ class ParametersConverter
     /**
      * Changes the keys in a Parameters object according to the given mapping
      * rules.
-     * @param Parameters $parameters Parameters to be modified.
+     * @param \FACTFinder\Util\Parameters $parameters Parameters to be modified.
      * @param string[] $mappingRules Associative array of mapping rules.
      *        Parameter names will be mapped from keys to values of this array.
      */
@@ -85,7 +85,7 @@ class ParametersConverter
      * Removes keys from a Parameters object according to the given ignore
      * rules. It basically turns the parameters into the set difference of the
      * parameters and the ignore rules based on keys.
-     * @param Parameters $parameters Parameters to be modified.
+     * @param \FACTFinder\Util\Parameters $parameters Parameters to be modified.
      * @param bool[] $ignoreRules Array of parameters to be ignored. The keys
      *        are the parameter names, the values are simply "true", but could
      *        technically have any value.
@@ -101,7 +101,7 @@ class ParametersConverter
      * An empty whitelist means do NOT apply any whitelist (anything is allowed).
      * It removes any keys that are not keys in the given whitelist array aswell.
      * If the key of any rule starts with '/' the key is interpreted as a regular expression to be matched against.
-     * @param type $parameters
+     * @param \FACTFinder\Util\Parameters $parameters
      * @param bool[] $whitelistRules Array of parameters to be allowed. The keys
      *        are the parameter names, the values are simply "true", but could
      *        technically have any value.
@@ -134,7 +134,7 @@ class ParametersConverter
     /**
      * Ensures that the passed parameters object has a "channel" parameter by
      * adding one if necessary.
-     * @param Parameters $parameters Parameters to be modifier.
+     * @param \FACTFinder\Util\Parameters $parameters Parameters to be modifier.
      */
     protected function ensureChannelParameter($parameters)
     {
@@ -144,7 +144,7 @@ class ParametersConverter
 
     /**
      * Adds keys to an array of parameters according to the given require rules.
-     * @param Parameters $parameters Parameters to be modified.
+     * @param \FACTFinder\Util\Parameters $parameters Parameters to be modified.
      * @param string[] $ignoreRules Array of required parameters. The keys are
      *        the names of the required parameter, the values are default values
      *        to be used if the parameter is not present.

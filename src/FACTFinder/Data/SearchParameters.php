@@ -36,7 +36,7 @@ class SearchParameters
     private $navigationEnabled;
 
     /**
-     * @param Parameters $parameters The server parameters used for the current
+     * @param \FACTFinder\Util\Parameters $parameters The server parameters used for the current
      *                               request.
      */
     public function __construct(

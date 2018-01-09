@@ -18,7 +18,7 @@ abstract class AbstractEncodingConverter
     const LIBRARY_ENCODING = 'UTF-8';
 
     /**
-     * @var FACTFinder\Util\LoggerInterface
+     * @var \FACTFinder\Util\LoggerInterface
      */
     private $log;
 

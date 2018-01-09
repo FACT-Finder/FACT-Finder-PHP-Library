@@ -70,7 +70,7 @@ class Pimple implements \ArrayAccess
      *
      * @param  string           $id    The unique identifier for the parameter or object
      * @param  mixed            $value The value of the parameter or a closure to define an object
-     * @throws RuntimeException Prevent override of a frozen service
+     * @throws \RuntimeException Prevent override of a frozen service
      */
     public function offsetSet($id, $value)
     {
@@ -89,7 +89,7 @@ class Pimple implements \ArrayAccess
      *
      * @return mixed The value of the parameter or an object
      *
-     * @throws InvalidArgumentException if the identifier is not defined
+     * @throws \InvalidArgumentException if the identifier is not defined
      */
     public function offsetGet($id)
     {
@@ -151,7 +151,7 @@ class Pimple implements \ArrayAccess
      *
      * @return callable The passed callable
      *
-     * @throws InvalidArgumentException Service definition has to be a closure of an invokable object
+     * @throws \InvalidArgumentException Service definition has to be a closure of an invokable object
      */
     public function factory($callable)
     {
@@ -173,7 +173,7 @@ class Pimple implements \ArrayAccess
      *
      * @return callable The passed callable
      *
-     * @throws InvalidArgumentException Service definition has to be a closure of an invokable object
+     * @throws \InvalidArgumentException Service definition has to be a closure of an invokable object
      */
     public function protect($callable)
     {
@@ -193,7 +193,7 @@ class Pimple implements \ArrayAccess
      *
      * @return mixed The value of the parameter or the closure defining an object
      *
-     * @throws InvalidArgumentException if the identifier is not defined
+     * @throws \InvalidArgumentException if the identifier is not defined
      */
     public function raw($id)
     {
@@ -219,7 +219,7 @@ class Pimple implements \ArrayAccess
      *
      * @return callable The wrapped callable
      *
-     * @throws InvalidArgumentException if the identifier is not defined or not a service definition
+     * @throws \InvalidArgumentException if the identifier is not defined or not a service definition
      */
     public function extend($id, $callable)
     {

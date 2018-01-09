@@ -10,12 +10,12 @@ use FACTFinder\Loader as FF;
 class Suggest extends AbstractAdapter
 {
     /**
-     * @var FACTFinder\Util\LoggerInterface
+     * @var \FACTFinder\Util\LoggerInterface
      */
     private $log;
 
     /**
-     * @var FACTFinder\Data\SuggestQuery[]
+     * @var \FACTFinder\Data\SuggestQuery[]
      */
     private $suggestions;
 
@@ -40,7 +40,7 @@ class Suggest extends AbstractAdapter
     /**
      * Get the suggestions from FACT-Finder as an array of SuggestQuery's.
      *
-     * @return FACTFinder\Data\SuggestQuery[]
+     * @return \FACTFinder\Data\SuggestQuery[]
      */
     public function getSuggestions()
     {
