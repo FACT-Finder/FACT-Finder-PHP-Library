@@ -46,11 +46,13 @@ class MultiCurlRequestFactory implements RequestFactoryInterface
         $this->log = $loggerClass::getLogger(__CLASS__);
         $this->configuration = $configuration;
 
-        $urlBuilder = FF::getInstance('Core\Server\UrlBuilder',
+        $urlBuilder = FF::getInstance(
+            'Core\Server\UrlBuilder',
             $loggerClass,
             $configuration
         );
-        $this->dataProvider = FF::getInstance('Core\Server\MultiCurlDataProvider',
+        $this->dataProvider = FF::getInstance(
+            'Core\Server\MultiCurlDataProvider',
             $loggerClass,
             $configuration,
             is_null($curl) ? FF::getInstance('Util\Curl') : $curl,
@@ -70,7 +72,8 @@ class MultiCurlRequestFactory implements RequestFactoryInterface
             'Core\Server\ConnectionData',
             clone $this->requestParameters
         );
-        return FF::getInstance('Core\Server\Request',
+        return FF::getInstance(
+            'Core\Server\Request',
             $this->loggerClass,
             $connectionData,
             $this->dataProvider

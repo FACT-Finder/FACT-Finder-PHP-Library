@@ -68,18 +68,19 @@ class UrlBuilder
 
         $parameters = $this->encodingConverter != null ? $this->encodingConverter->encodeClientUrlData($parameters) : $parameters;
 
-        if (!is_string($target))
+        if (!is_string($target)) {
             $target = $this->requestParser->getRequestTarget();
+        }
 
         if ($parameters->offsetExists('seoPath')) {
             $seoPath = $parameters['seoPath'];
             $parameters->offsetUnset('seoPath');
             $seoPathPosition = strrpos($target, "/s/");
             if ($seoPathPosition > -1) {
-                $target = substr($target, 0, $seoPathPosition);    
-            }            
+                $target = substr($target, 0, $seoPathPosition);
+            }
             $url = rtrim($target, '/') . '/s' . urldecode($seoPath) . '?' . $parameters->toPhpQueryString();
-        } else {    
+        } else {
             $url = $target . '?' . $parameters->toPhpQueryString();
         }
         return $url;

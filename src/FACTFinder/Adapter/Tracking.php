@@ -20,8 +20,13 @@ class Tracking extends AbstractAdapter
         \FACTFinder\Core\Client\UrlBuilder $urlBuilder,
         \FACTFinder\Core\AbstractEncodingConverter $encodingConverter = null
     ) {
-        parent::__construct($loggerClass, $configuration, $request,
-                            $urlBuilder, $encodingConverter);
+        parent::__construct(
+            $loggerClass,
+            $configuration,
+            $request,
+                            $urlBuilder,
+            $encodingConverter
+        );
 
         $this->log = $loggerClass::getLogger(__CLASS__);
 
@@ -60,16 +65,17 @@ class Tracking extends AbstractAdapter
      */
     public function setupTrackingFromRequest($sid = null, $userId = null)
     {
-        if (strlen($sid) > 0)
+        if (strlen($sid) > 0) {
             $this->parameters['sid'] = $sid;
-        else if (!isset($this->parameters['sid'])
+        } elseif (!isset($this->parameters['sid'])
                  || strlen($this->parameters['sid']) == 0
         ) {
             $this->parameters['sid'] = session_id();
         }
 
-        if (strlen($userId) > 0)
+        if (strlen($userId) > 0) {
             $this->parameters['userId'] = $userId;
+        }
     }
 
     /**
@@ -109,8 +115,23 @@ class Tracking extends AbstractAdapter
         $campaign = null,
         $instoreAds = false
     ) {
-        $this->setupClickTracking($id, $query, $pos, $masterId, $sid, $cookieId, $origPos, $page,
-                                  $simi, $title, $pageSize, $origPageSize, $userId, $campaign, $instoreAds);
+        $this->setupClickTracking(
+            $id,
+            $query,
+            $pos,
+            $masterId,
+            $sid,
+            $cookieId,
+            $origPos,
+            $page,
+                                  $simi,
+            $title,
+            $pageSize,
+            $origPageSize,
+            $userId,
+            $campaign,
+            $instoreAds
+        );
         return $this->applyTracking();
     }
 
@@ -136,9 +157,15 @@ class Tracking extends AbstractAdapter
         $campaign = null,
         $instoreAds = false
     ) {
-        if (strlen($sid) == 0) $sid = session_id();
-        if ($origPos == -1) $origPos = $pos;
-        if ($origPageSize == -1) $origPageSize = $pageSize;
+        if (strlen($sid) == 0) {
+            $sid = session_id();
+        }
+        if ($origPos == -1) {
+            $origPos = $pos;
+        }
+        if ($origPageSize == -1) {
+            $origPageSize = $pageSize;
+        }
         $params = array(
             'id'            => $id,
             'query'         => $query,
@@ -153,11 +180,21 @@ class Tracking extends AbstractAdapter
             'origPageSize'  => $origPageSize,
         );
         
-        if (strlen($userId) > 0) $params['userId'] = $userId;
-        if (strlen($cookieId) > 0) $params['cookieId'] = $cookieId;
-        if (strlen($masterId) > 0) $params['masterId'] = $masterId;
-        if (strlen($campaign) > 0) $params['campaign'] = $campaign;
-        if ($instoreAds) $params['instoreAds'] = 'true';
+        if (strlen($userId) > 0) {
+            $params['userId'] = $userId;
+        }
+        if (strlen($cookieId) > 0) {
+            $params['cookieId'] = $cookieId;
+        }
+        if (strlen($masterId) > 0) {
+            $params['masterId'] = $masterId;
+        }
+        if (strlen($campaign) > 0) {
+            $params['campaign'] = $campaign;
+        }
+        if ($instoreAds) {
+            $params['instoreAds'] = 'true';
+        }
         
         $this->parameters->clear();
         $this->parameters->setAll($params);
@@ -214,7 +251,9 @@ class Tracking extends AbstractAdapter
         $campaign = null,
         $instoreAds = false
     ) {
-        if (strlen($sid) == 0) $sid = session_id();
+        if (strlen($sid) == 0) {
+            $sid = session_id();
+        }
         $params = array(
             'id'        => $id,
             'title'     => $title,
@@ -223,13 +262,27 @@ class Tracking extends AbstractAdapter
             'event'     => 'cart'
         );
 
-        if (strlen($price) > 0) $params['price'] = $price;
-        if (strlen($userId) > 0) $params['userId'] = $userId;
-        if (strlen($cookieId) > 0) $params['cookieId'] = $cookieId;
-        if (strlen($masterId) > 0) $params['masterId'] = $masterId;
-        if (strlen($query) > 0) $params['query'] = $query;
-        if (strlen($campaign) > 0) $params['campaign'] = $campaign;
-        if ($instoreAds) $params['instoreAds'] = 'true';
+        if (strlen($price) > 0) {
+            $params['price'] = $price;
+        }
+        if (strlen($userId) > 0) {
+            $params['userId'] = $userId;
+        }
+        if (strlen($cookieId) > 0) {
+            $params['cookieId'] = $cookieId;
+        }
+        if (strlen($masterId) > 0) {
+            $params['masterId'] = $masterId;
+        }
+        if (strlen($query) > 0) {
+            $params['query'] = $query;
+        }
+        if (strlen($campaign) > 0) {
+            $params['campaign'] = $campaign;
+        }
+        if ($instoreAds) {
+            $params['instoreAds'] = 'true';
+        }
         
         $this->parameters->clear();
         $this->parameters->setAll($params);
@@ -286,7 +339,9 @@ class Tracking extends AbstractAdapter
         $campaign = null,
         $instoreAds = false
     ) {
-        if (strlen($sid) == 0) $sid = session_id();
+        if (strlen($sid) == 0) {
+            $sid = session_id();
+        }
         $params = array(
             'id'        => $id,
             'masterId'  => $masterId,
@@ -296,13 +351,27 @@ class Tracking extends AbstractAdapter
             'event'     => 'checkout'
         );
 
-        if (strlen($price) > 0) $params['price'] = $price;
-        if (strlen($userId) > 0) $params['userId'] = $userId;
-        if (strlen($cookieId) > 0) $params['cookieId'] = $cookieId;
-        if (strlen($query) > 0) $params['query'] = $query;
-        if (strlen($masterId) > 0) $params['masterId'] = $masterId;
-        if (strlen($campaign) > 0) $params['campaign'] = $campaign;
-        if ($instoreAds) $params['instoreAds'] = 'true';
+        if (strlen($price) > 0) {
+            $params['price'] = $price;
+        }
+        if (strlen($userId) > 0) {
+            $params['userId'] = $userId;
+        }
+        if (strlen($cookieId) > 0) {
+            $params['cookieId'] = $cookieId;
+        }
+        if (strlen($query) > 0) {
+            $params['query'] = $query;
+        }
+        if (strlen($masterId) > 0) {
+            $params['masterId'] = $masterId;
+        }
+        if (strlen($campaign) > 0) {
+            $params['campaign'] = $campaign;
+        }
+        if ($instoreAds) {
+            $params['instoreAds'] = 'true';
+        }
         
         $this->parameters->clear();
         $this->parameters->setAll($params);
@@ -344,7 +413,9 @@ class Tracking extends AbstractAdapter
         $cookieId = null,
         $userId = null
     ) {
-        if (strlen($sid) == 0) $sid = session_id();
+        if (strlen($sid) == 0) {
+            $sid = session_id();
+        }
         $params = array(
             'id'        => $id,
             'masterId'  => $masterId,
@@ -354,9 +425,15 @@ class Tracking extends AbstractAdapter
             'event'     => 'recommendationClick'
         );
         
-        if (strlen($userId) > 0) $params['userId'] = $userId;
-        if (strlen($cookieId) > 0) $params['cookieId'] = $cookieId;
-        if (strlen($masterId) > 0) $params['masterId'] = $masterId;
+        if (strlen($userId) > 0) {
+            $params['userId'] = $userId;
+        }
+        if (strlen($cookieId) > 0) {
+            $params['cookieId'] = $cookieId;
+        }
+        if (strlen($masterId) > 0) {
+            $params['masterId'] = $masterId;
+        }
         
         $this->parameters->clear();
         $this->parameters->setAll($params);
@@ -389,14 +466,18 @@ class Tracking extends AbstractAdapter
         $cookieId = null,
         $userId = null
     ) {
-        if (strlen($sid) == 0) $sid = session_id();
+        if (strlen($sid) == 0) {
+            $sid = session_id();
+        }
         $params = array(
             'sid'       => $sid,
             'userId'    => $userId,
             'event'     => 'login'
         );
         
-        if (strlen($cookieId) > 0) $params['cookieId'] = $cookieId;
+        if (strlen($cookieId) > 0) {
+            $params['cookieId'] = $cookieId;
+        }
         
         $this->parameters->clear();
         $this->parameters->setAll($params);
@@ -407,7 +488,8 @@ class Tracking extends AbstractAdapter
      *
      * @return boolean $success
      */
-    public function applyTracking() {
+    public function applyTracking()
+    {
         $success = trim($this->getResponseContent());
         return $success == 'The event was successfully tracked' || $success == 'true' || $success == '1';
     }

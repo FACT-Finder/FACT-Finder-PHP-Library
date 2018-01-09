@@ -38,7 +38,8 @@ class FileSystemRequestFactory implements RequestFactoryInterface
         $this->log = $loggerClass::getLogger(__CLASS__);
         $this->configuration = $configuration;
 
-        $this->dataProvider = FF::getInstance('Core\Server\FileSystemDataProvider',
+        $this->dataProvider = FF::getInstance(
+            'Core\Server\FileSystemDataProvider',
             $loggerClass,
             $configuration
         );
@@ -61,7 +62,8 @@ class FileSystemRequestFactory implements RequestFactoryInterface
             'Core\Server\ConnectionData',
             clone $this->requestParameters
         );
-        return FF::getInstance('Core\Server\Request',
+        return FF::getInstance(
+            'Core\Server\Request',
             $this->loggerClass,
             $connectionData,
             $this->dataProvider

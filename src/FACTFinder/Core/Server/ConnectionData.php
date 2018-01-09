@@ -47,10 +47,11 @@ class ConnectionData
      */
     public function __construct($parameters = null)
     {
-        if (FF::isInstanceOf($parameters, 'Util\Parameters'))
+        if (FF::isInstanceOf($parameters, 'Util\Parameters')) {
             $this->parameters = $parameters;
-        else
+        } else {
             $this->parameters = FF::getInstance('Util\Parameters');
+        }
 
         $this->httpHeaderFields = FF::getInstance('Util\Parameters');
         $this->action = '';
@@ -127,8 +128,9 @@ class ConnectionData
         // We cannot use array_merge() here, because that does not preserve
         // numeric keys. Implementing this with a loop also has the advantage
         // of not creating a new, third array.
-        foreach ($options as $k => $v)
+        foreach ($options as $k => $v) {
             $this->connectionOptions[$k] = $v;
+        }
     }
 
     /**

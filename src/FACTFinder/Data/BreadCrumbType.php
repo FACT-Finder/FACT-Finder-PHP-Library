@@ -7,22 +7,21 @@ namespace FACTFinder\Data;
  */
 class BreadCrumbType
 {
-    static private $search;
-    static private $filter;
-    static private $advisor;
+    private static $search;
+    private static $filter;
+    private static $advisor;
 
-    static private $nextID = 0;
+    private static $nextID = 0;
     private $id;
     private function __construct()
     {
         $this->id = self::$nextID++;
     }
 
-    static private $initialized = false;
-    static public function initialize()
+    private static $initialized = false;
+    public static function initialize()
     {
-        if (!self::$initialized)
-        {
+        if (!self::$initialized) {
             self::$search      = new BreadCrumbType();
             self::$filter      = new BreadCrumbType();
             self::$advisor     = new BreadCrumbType();
@@ -31,9 +30,18 @@ class BreadCrumbType
         }
     }
 
-    static public function Search()      { return self::$search; }
-    static public function Filter()      { return self::$filter; }
-    static public function Advisor()     { return self::$advisor; }
+    public static function Search()
+    {
+        return self::$search;
+    }
+    public static function Filter()
+    {
+        return self::$filter;
+    }
+    public static function Advisor()
+    {
+        return self::$advisor;
+    }
 }
 
 BreadCrumbType::initialize();

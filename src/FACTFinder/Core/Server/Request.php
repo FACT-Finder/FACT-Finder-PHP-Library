@@ -107,7 +107,7 @@ class Request
      */
     public function getResponse()
     {
-        if(!$this->blLoaded) {
+        if (!$this->blLoaded) {
             $this->dataProvider->loadResponse($this->id);
             $this->blLoaded = true;
         }
@@ -116,7 +116,7 @@ class Request
     
     /**
      * Reset loaded state of request to force reloading from server.
-     * 
+     *
      * @return void
      */
     public function resetLoaded()

@@ -70,5 +70,4 @@ class Log4PhpLogger implements LoggerInterface
     {
         $this->log->fatal($message);
     }
-
 }

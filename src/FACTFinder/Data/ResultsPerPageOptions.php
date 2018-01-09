@@ -13,22 +13,24 @@ class ResultsPerPageOptions extends \ArrayIterator
      */
     private $selectOption;
 
-    public function __construct (
+    public function __construct(
         array $options,
         Item $defaultOption = null,
         Item $selectedOption = null
     ) {
         parent::__construct($options);
 
-        if (!is_null($defaultOption))
+        if (!is_null($defaultOption)) {
             $this->defaultOption = $defaultOption;
-        else if (count($options))
+        } elseif (count($options)) {
             $this->defaultOption = $options[0];
+        }
 
-        if (!is_null($selectedOption))
+        if (!is_null($selectedOption)) {
             $this->selectedOption = $selectedOption;
-        else if (!is_null($this->defaultOption))
+        } elseif (!is_null($this->defaultOption)) {
             $this->selectedOption = $this->defaultOption;
+        }
     }
 
     /**

@@ -8,21 +8,20 @@ namespace FACTFinder\Data;
 class FilterType
 {
     // These will store distinct instances of the class.
-    static private $text;
-    static private $number;
+    private static $text;
+    private static $number;
 
-    static private $nextID = 0;
+    private static $nextID = 0;
     private $id;
     private function __construct()
     {
         $this->id = self::$nextID++;
     }
 
-    static private $initialized = false;
-    static public function initialize()
+    private static $initialized = false;
+    public static function initialize()
     {
-        if (!self::$initialized)
-        {
+        if (!self::$initialized) {
             self::$text         = new FilterType();
             self::$number       = new FilterType();
 
@@ -30,8 +29,14 @@ class FilterType
         }
     }
 
-    static public function Text()     { return self::$text; }
-    static public function Number()   { return self::$number; }
+    public static function Text()
+    {
+        return self::$text;
+    }
+    public static function Number()
+    {
+        return self::$number;
+    }
 }
 
 FilterType::initialize();

@@ -42,7 +42,7 @@ class Paging extends \ArrayIterator
      * @param Page $previousPage
      * @param Page $nextPage
      */
-    public function __construct (
+    public function __construct(
         array $pages,
         $pageCount,
         Page $currentPage,

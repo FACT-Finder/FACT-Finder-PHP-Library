@@ -85,14 +85,15 @@ class UrlBuilder
         $this->ensureChannelParameter($parameters);
 
         $c = $this->configuration;
-        if ($c->isAdvancedAuthenticationType())
+        if ($c->isAdvancedAuthenticationType()) {
             return $this->getAdvancedAuthenticationUrl($action, $parameters);
-        else if ($c->isSimpleAuthenticationType())
+        } elseif ($c->isSimpleAuthenticationType()) {
             return $this->getSimpleAuthenticationUrl($action, $parameters);
-        else if ($c->isHttpAuthenticationType())
+        } elseif ($c->isHttpAuthenticationType()) {
             return $this->getHttpAuthenticationUrl($action, $parameters);
-        else
+        } else {
             throw new \Exception('Invalid authentication type configured.');
+        }
     }
 
     /**
@@ -180,7 +181,9 @@ class UrlBuilder
             $configuration->getUserName(),
             $configuration->getPassword()
         );
-        if ($authentication == ':@') $authentication = '';
+        if ($authentication == ':@') {
+            $authentication = '';
+        }
 
         $url = $this->buildAddress($action, true)
              . (count($parameters) ? '?' : '') . $parameters->toJavaQueryString();
@@ -195,7 +198,8 @@ class UrlBuilder
      * @param \FACTFinder\Util\Parameters $parameters The parameters object to
      *        check.
      */
-    protected function ensureChannelParameter($parameters) {
+    protected function ensureChannelParameter($parameters)
+    {
         if ((!isset($parameters['channel'])
             || $parameters['channel'] == '')
             && $this->configuration->getChannel() != ''

@@ -34,8 +34,9 @@ class ArrayConfiguration extends AbstractConfiguration
      */
     public function __construct(array $config, $section)
     {
-        if (!isset($config[$section]))
+        if (!isset($config[$section])) {
             throw new \Exception("Specified configuration array does not contain section $section");
+        }
 
         $this->configuration = $config[$section];
     }
@@ -156,7 +157,7 @@ class ArrayConfiguration extends AbstractConfiguration
         $mappings = array();
         if (isset($section['mapping']) && is_array($section['mapping'])) {
             //load mappings
-            foreach($section['mapping'] as $rule) {
+            foreach ($section['mapping'] as $rule) {
                 $mappings[$rule['from']] = $rule['to'];
             }
         }
@@ -188,7 +189,7 @@ class ArrayConfiguration extends AbstractConfiguration
         $ignoredParameters = array();
         if (isset($section['ignore']) && is_array($section['ignore'])) {
             //load ignore rules
-            foreach($section['ignore'] as $name) {
+            foreach ($section['ignore'] as $name) {
                 $ignoredParameters[$name] = true;
             }
         }
@@ -223,7 +224,7 @@ class ArrayConfiguration extends AbstractConfiguration
         $whitelist = array();
         if (isset($section['whitelist']) && is_array($section['whitelist'])) {
             //load whitelist
-            foreach($section['whitelist'] as $name) {
+            foreach ($section['whitelist'] as $name) {
                 $whitelist[$name] = true;
             }
         }
@@ -255,7 +256,7 @@ class ArrayConfiguration extends AbstractConfiguration
         $requiredParameters = array();
         if (isset($section['require']) && is_array($section['require'])) {
             //load require rules
-            foreach($section['require'] as $rule) {
+            foreach ($section['require'] as $rule) {
                 $requiredParameters[$rule['name']] = $rule['default'];
             }
         }

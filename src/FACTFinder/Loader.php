@@ -9,16 +9,14 @@ namespace FACTFinder;
 use FACTFinder\Loader as FF;
 use FACTFinder\Util\LoggerInterface;
 
-if (!defined('DS'))
-{
+if (!defined('DS')) {
     /**
      * Short alias for the constant DIRECTORY_SEPARATOR
      */
     define('DS', DIRECTORY_SEPARATOR);
 }
 
-if (!defined('FF_LIB_DIR'))
-{
+if (!defined('FF_LIB_DIR')) {
     /**
      * Contains the absolute directory path to the library.
      */
@@ -27,16 +25,14 @@ if (!defined('FF_LIB_DIR'))
 
 // set as include path if this is not the case yet
 $includePaths = explode(PATH_SEPARATOR, get_include_path());
-if ( array_search(FF_LIB_DIR, $includePaths, true) === false )
-{
-    set_include_path( get_include_path() . PATH_SEPARATOR . FF_LIB_DIR);
+if (array_search(FF_LIB_DIR, $includePaths, true) === false) {
+    set_include_path(get_include_path() . PATH_SEPARATOR . FF_LIB_DIR);
 }
 spl_autoload_register(array('FACTFinder\Loader', 'autoload'));
 
 // don't know, whether I should do that
 if (function_exists('__autoload')
-    && array_search('__autoload', spl_autoload_functions()) === false)
-{
+    && array_search('__autoload', spl_autoload_functions()) === false) {
     spl_autoload_register('__autoload');
 }
 
@@ -58,8 +54,9 @@ class Loader
     public static function autoload($classname)
     {
         $filename = self::getFilename($classname);
-        if (file_exists($filename))
+        if (file_exists($filename)) {
             include_once $filename;
+        }
     }
 
     private static function getFilename($classname)
@@ -86,20 +83,16 @@ class Loader
      */
     public static function getInstance($name)
     {
-        if (isset(self::$classNames[$name]))
-        {
+        if (isset(self::$classNames[$name])) {
             $className = self::$classNames[$name];
-        }
-        else
-        {
+        } else {
             $className = self::getClassName($name);
             self::$classNames[$name] = $className;
         }
 
         // this snippet is from the typo3 class "t3lib_div"
         // written by Kasper Skaarhoj <kasperYYYY@typo3.com>
-        if (func_num_args() > 1)
-        {
+        if (func_num_args() > 1) {
             // getting the constructor arguments by removing this
             // method's first argument (the class name)
             $constructorArguments = func_get_args();
@@ -107,9 +100,7 @@ class Loader
 
             $reflectedClass = new \ReflectionClass($className);
             $instance = $reflectedClass->newInstanceArgs($constructorArguments);
-        }
-        else
-        {
+        } else {
             $instance = new $className;
         }
 
@@ -138,14 +129,15 @@ class Loader
         $factfinderClassName = 'FACTFinder\\' . $name;
         $defaultClassName    = $name;
 
-        if (self::$loadCustomClasses && class_exists($customClassName))
+        if (self::$loadCustomClasses && class_exists($customClassName)) {
             $className = $customClassName;
-        else if (class_exists($factfinderClassName))
+        } elseif (class_exists($factfinderClassName)) {
             $className = $factfinderClassName;
-        else if (class_exists($defaultClassName))
+        } elseif (class_exists($defaultClassName)) {
             $className = $defaultClassName;
-        else
+        } else {
             throw new \Exception("class '$factfinderClassName' not found");
+        }
         return $className;
     }
 

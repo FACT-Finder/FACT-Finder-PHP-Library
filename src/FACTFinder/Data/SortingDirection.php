@@ -8,21 +8,20 @@ namespace FACTFinder\Data;
 class SortingDirection
 {
     // These will store distinct instances of the class.
-    static private $asc;
-    static private $desc;
+    private static $asc;
+    private static $desc;
 
-    static private $nextID = 0;
+    private static $nextID = 0;
     private $id;
     private function __construct()
     {
         $this->id = self::$nextID++;
     }
 
-    static private $initialized = false;
-    static public function initialize()
+    private static $initialized = false;
+    public static function initialize()
     {
-        if (!self::$initialized)
-        {
+        if (!self::$initialized) {
             self::$asc         = new SortingDirection();
             self::$desc       = new SortingDirection();
 
@@ -30,8 +29,14 @@ class SortingDirection
         }
     }
 
-    static public function Ascending()     { return self::$asc; }
-    static public function Descending()   { return self::$desc; }
+    public static function Ascending()
+    {
+        return self::$asc;
+    }
+    public static function Descending()
+    {
+        return self::$desc;
+    }
 }
 
 SortingDirection::initialize();

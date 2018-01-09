@@ -11,15 +11,15 @@ namespace FACTFinder\Data;
 class FilterStyle
 {
     // These will store distinct instances of the class.
-    static private $regular;
-    static private $slider;
-    static private $tree;
-    static private $multiSelect;
+    private static $regular;
+    private static $slider;
+    private static $tree;
+    private static $multiSelect;
 
     // This ID is never used, but it ensures that an equality test between two
     // different instances will return false (since '==' object comparison is
     // decided by attributes).
-    static private $nextID = 0;
+    private static $nextID = 0;
     private $id;
     private function __construct()
     {
@@ -35,11 +35,10 @@ class FilterStyle
     // calling the initializer again will have no effect.
     // By the way, alternatively we could generate these instances lazily in all
     // the getters at the bottom.
-    static private $initialized = false;
-    static public function initialize()
+    private static $initialized = false;
+    public static function initialize()
     {
-        if (!self::$initialized)
-        {
+        if (!self::$initialized) {
             self::$regular       = new FilterStyle();
             self::$slider        = new FilterStyle();
             self::$tree          = new FilterStyle();
@@ -50,10 +49,22 @@ class FilterStyle
     }
 
     // Let's provide read-access to those instances.
-    static public function Regular()     { return self::$regular; }
-    static public function Slider()      { return self::$slider; }
-    static public function Tree()        { return self::$tree; }
-    static public function MultiSelect() { return self::$multiSelect; }
+    public static function Regular()
+    {
+        return self::$regular;
+    }
+    public static function Slider()
+    {
+        return self::$slider;
+    }
+    public static function Tree()
+    {
+        return self::$tree;
+    }
+    public static function MultiSelect()
+    {
+        return self::$multiSelect;
+    }
 }
 
 // And finally we call the class initializer.

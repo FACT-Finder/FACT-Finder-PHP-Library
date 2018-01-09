@@ -169,7 +169,7 @@ abstract class AbstractConfiguration implements ConfigurationInterface
 
     /**
      * Get parameters which are allowed in client URLs.
-     * 
+     *
      * @return array with string as key and boolean true as value for each item
      */
     public function getWhitelistClientParameters()
@@ -179,7 +179,7 @@ abstract class AbstractConfiguration implements ConfigurationInterface
 
     /**
      * Get parameters which are allowed in server URLs.
-     * 
+     *
      * @return array with string as key and boolean true as value for each item
      */
     public function getWhitelistServerParameters()
@@ -363,4 +363,3 @@ abstract class AbstractConfiguration implements ConfigurationInterface
         return 'UTF-8';
     }
 }
-

@@ -36,7 +36,7 @@ abstract class AbstractEncodingConverter
      *                            implement FACTFinder\Util\LoggerInterface.
      * @param ConfigurationInterface $configuration Configuration object to use.
      */
-    function __construct(
+    public function __construct(
         $loggerClass,
         ConfigurationInterface $configuration
     ) {
@@ -58,7 +58,7 @@ abstract class AbstractEncodingConverter
      */
     protected function convert($inCharset, $outCharset, $data)
     {
-        if($inCharset == $outCharset) {
+        if ($inCharset == $outCharset) {
             return $data;
         }
         return $this->convert_recursive($inCharset, $outCharset, $data);
@@ -74,28 +74,20 @@ abstract class AbstractEncodingConverter
      */
     protected function convert_recursive($inCharset, $outCharset, $data)
     {
-        if (FF::isInstanceOf($data, 'Util\Parameters'))
-        {
+        if (FF::isInstanceOf($data, 'Util\Parameters')) {
             $result = FF::getInstance(
                 'Util\Parameters',
                 $this->convert($inCharset, $outCharset, $data->getArray())
             );
-        }
-        else if (is_array($data))
-        {
+        } elseif (is_array($data)) {
             $result = array();
-            foreach ($data as $k => $v)
-            {
+            foreach ($data as $k => $v) {
                 $k = $this->convert_recursive($inCharset, $outCharset, $k);
                 $result[$k] = $this->convert_recursive($inCharset, $outCharset, $v);
             }
-        }
-        else if (is_string($data))
-        {
+        } elseif (is_string($data)) {
             $result = $this->convertString($inCharset, $outCharset, $data);
-        }
-        else
-        {
+        } else {
             $result = $data;
         }
 

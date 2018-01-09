@@ -40,7 +40,8 @@ class SuggestQuery extends Item
     /**
      * @return int Indicates how many products this suggestions will lead to.
      */
-    public function getHitCount() {
+    public function getHitCount()
+    {
         return $this->hitCount;
     }
 
@@ -48,21 +49,24 @@ class SuggestQuery extends Item
      * @return string Indicates where this suggest query comes from (e.g.
      *         product name, category, log file).
      */
-    public function getType() {
+    public function getType()
+    {
         return $this->type;
     }
 
     /**
      * @return string
      */
-    public function getImageUrl() {
+    public function getImageUrl()
+    {
         return $this->imageUrl;
     }
 
     /**
      * @return array Returns the additional return data fields
      */
-    public function getAttributes() {
+    public function getAttributes()
+    {
         return $this->attributes;
     }
 }

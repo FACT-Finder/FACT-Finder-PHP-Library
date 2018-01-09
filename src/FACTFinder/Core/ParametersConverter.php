@@ -71,10 +71,8 @@ class ParametersConverter
      */
     protected function applyParameterMappings($parameters, $mappingRules)
     {
-        foreach ($mappingRules as $k => $v)
-        {
-            if ($k != $v && isset($parameters[$k]))
-            {
+        foreach ($mappingRules as $k => $v) {
+            if ($k != $v && isset($parameters[$k])) {
                 $parameters[$v] = $parameters[$k];
                 unset($parameters[$k]);
             }
@@ -92,8 +90,9 @@ class ParametersConverter
      */
     protected function removeIgnoredParameters($parameters, $ignoreRules)
     {
-        foreach ($ignoreRules as $k => $v)
+        foreach ($ignoreRules as $k => $v) {
             unset($parameters[$k]);
+        }
     }
 
     /**
@@ -109,14 +108,14 @@ class ParametersConverter
     protected function applyWhitelist($parameters, $whitelistRules)
     {
         //do not apply empty whitelist as this means no whitelist desired
-        if(empty($whitelistRules)) {
+        if (empty($whitelistRules)) {
             return;
         }
         //collect all keys of parameters that pass any whitelist rule
         $allowedKeys = array();
         $keys = array_keys($parameters->getArray());
         foreach ($whitelistRules as $rule => $v) {
-            if(strpos($rule, '/') === 0) {
+            if (strpos($rule, '/') === 0) {
                 $allowedKeys = array_merge($allowedKeys, preg_grep($rule, $keys));
             } else {
                 $allowedKeys[] = $rule;
@@ -124,8 +123,8 @@ class ParametersConverter
         }
         $allowedKeys = array_flip($allowedKeys);
         //unset any parameters that did not pass any whitelist rule
-        foreach($parameters->getArray() as $k => $v) {
-            if(!isset($allowedKeys[$k])) {
+        foreach ($parameters->getArray() as $k => $v) {
+            if (!isset($allowedKeys[$k])) {
                 unset($parameters[$k]);
             }
         }
@@ -138,8 +137,9 @@ class ParametersConverter
      */
     protected function ensureChannelParameter($parameters)
     {
-        if (!isset($parameters['channel']) || strlen($parameters['channel']) == 0)
+        if (!isset($parameters['channel']) || strlen($parameters['channel']) == 0) {
             $parameters['channel'] = $this->configuration->getChannel();
+        }
     }
 
     /**
@@ -151,8 +151,10 @@ class ParametersConverter
      */
     protected function addRequiredParameters($parameters, $requireRules)
     {
-        foreach ($requireRules as $k => $v)
-            if (!isset($parameters[$k]))
+        foreach ($requireRules as $k => $v) {
+            if (!isset($parameters[$k])) {
                 $parameters[$k] = $v;
+            }
+        }
     }
 }

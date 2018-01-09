@@ -6,7 +6,7 @@ namespace FACTFinder\Core;
  */
 class IConvEncodingConverter extends AbstractEncodingConverter
 {
-    function __construct(
+    public function __construct(
         $loggerClass,
         ConfigurationInterface $configuration
     ) {
@@ -26,8 +26,7 @@ class IConvEncodingConverter extends AbstractEncodingConverter
         // information on '//TRANSLIT'.
         $result = iconv($inCharset, $outCharset.'//TRANSLIT', $string);
 
-        if ($result === false)
-        {
+        if ($result === false) {
             $this->log->warn(
                 "Conversion from $inCharset to $outCharset not possible. "
               . "The string is still encoded with $inCharset."

@@ -38,8 +38,9 @@ class AdvisorAnswer extends Item
      */
     public function addFollowUpQuestions(array $followUpQuestions)
     {
-        foreach ($followUpQuestions as $question)
+        foreach ($followUpQuestions as $question) {
             $this->followUpQuestions[] = $question;
+        }
     }
 
     /**

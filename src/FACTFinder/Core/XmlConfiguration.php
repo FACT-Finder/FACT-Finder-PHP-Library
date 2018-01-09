@@ -43,8 +43,9 @@ class XmlConfiguration extends AbstractConfiguration
     {
         libxml_use_internal_errors(true);
         $xmlData = new \SimpleXMLElement($fileName, 0, $data_is_url);
-        if (!isset($xmlData->$element))
+        if (!isset($xmlData->$element)) {
             throw new \Exception("Specified configuration file does not contain section $element");
+        }
         $this->configuration = $xmlData->$element;
     }
 
@@ -105,11 +106,12 @@ class XmlConfiguration extends AbstractConfiguration
 
     private function retrieveAuthenticationType()
     {
-        if (is_null($this->authenticationType))
+        if (is_null($this->authenticationType)) {
             $this->authenticationType = (string)$this->configuration
                                                      ->connection
                                                      ->authentication
                                                      ->type;
+        }
         return strtolower($this->authenticationType);
     }
 
@@ -173,7 +175,7 @@ class XmlConfiguration extends AbstractConfiguration
         $mappings = array();
         if (isset($section->mapping)) {
             //load mappings
-            foreach($section->mapping as $rule) {
+            foreach ($section->mapping as $rule) {
                 $mappings[(string)$rule->attributes()->from] =
                     (string)$rule->attributes()->to;
             }
@@ -206,7 +208,7 @@ class XmlConfiguration extends AbstractConfiguration
         $ignoredParameters = array();
         if (isset($section->ignore)) {
             //load ignore rules
-            foreach($section->ignore as $rule) {
+            foreach ($section->ignore as $rule) {
                 $ignoredParameters[(string)$rule->attributes()->name] = true;
             }
         }
@@ -241,7 +243,7 @@ class XmlConfiguration extends AbstractConfiguration
         $whitelist = array();
         if (isset($section->whitelist)) {
             //load whitelist
-            foreach($section->whitelist as $rule) {
+            foreach ($section->whitelist as $rule) {
                 $whitelist[(string)$rule->attributes()->name] = true;
             }
         }
@@ -273,7 +275,7 @@ class XmlConfiguration extends AbstractConfiguration
         $requiredParameters = array();
         if (isset($section->require)) {
             //load require rules
-            foreach($section->require as $rule) {
+            foreach ($section->require as $rule) {
                 $requiredParameters[(string)$rule->attributes()->name] =
                     (string)$rule->attributes()->default;
             }
@@ -323,16 +325,18 @@ class XmlConfiguration extends AbstractConfiguration
 
     public function getPageContentEncoding()
     {
-        if (is_null($this->pageContentEncoding))
+        if (is_null($this->pageContentEncoding)) {
             $this->pageContentEncoding = (string)$this->configuration->encoding->pageContent;
+        }
 
         return $this->pageContentEncoding;
     }
 
     public function getClientUrlEncoding()
     {
-        if (is_null($this->clientUrlEncoding))
+        if (is_null($this->clientUrlEncoding)) {
             $this->clientUrlEncoding = (string)$this->configuration->encoding->clientUrl;
+        }
 
         return $this->clientUrlEncoding;
     }

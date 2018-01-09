@@ -18,7 +18,7 @@ class ProductCampaign extends PersonalisedResponse
     /**
      * @var bool
      */
-    protected $isShoppingCartCampaign = false;    
+    protected $isShoppingCartCampaign = false;
     protected $isLandingPageCampaign = false;
 
     public function __construct(
@@ -28,8 +28,13 @@ class ProductCampaign extends PersonalisedResponse
         \FACTFinder\Core\Client\UrlBuilder $urlBuilder,
         \FACTFinder\Core\AbstractEncodingConverter $encodingConverter = null
     ) {
-        parent::__construct($loggerClass, $configuration, $request,
-                            $urlBuilder, $encodingConverter);
+        parent::__construct(
+            $loggerClass,
+            $configuration,
+            $request,
+                            $urlBuilder,
+            $encodingConverter
+        );
 
         $this->log = $loggerClass::getLogger(__CLASS__);
 
@@ -135,28 +140,19 @@ class ProductCampaign extends PersonalisedResponse
     {
         $campaigns = array();
         
-        if ($this->isLandingPageCampaign && !isset($this->parameters['pageId']))
-        {
+        if ($this->isLandingPageCampaign && !isset($this->parameters['pageId'])) {
             $this->log->warn('Page campaigns cannot be loaded without a page ID. '
                            . 'Use setPageId() first.');
-        }
-        else if (!$this->isLandingPageCampaign && !isset($this->parameters['productNumber']))
-        {
+        } elseif (!$this->isLandingPageCampaign && !isset($this->parameters['productNumber'])) {
             $this->log->warn('Product campaigns cannot be loaded without a product ID. '
                            . 'Use setProductIDs() or addProductIDs() first.');
-        }
-        else
-        {
-            if ($this->isShoppingCartCampaign || $this->isLandingPageCampaign)
-            {
+        } else {
+            if ($this->isShoppingCartCampaign || $this->isLandingPageCampaign) {
                 $jsonData = $this->getResponseContent();
-            }
-            else
-            {
+            } else {
                 // Use only the first product ID
                 $productIDs = $this->parameters['productNumber'];
-                if (is_array($productIDs) && !empty($productIDs))
-                {
+                if (is_array($productIDs) && !empty($productIDs)) {
                     $this->parameters['productNumber'] = $productIDs[0];
                 }
                 $jsonData = $this->getResponseContent();
@@ -165,8 +161,7 @@ class ProductCampaign extends PersonalisedResponse
                 $this->parameters['productNumber'] = $productIDs;
             }
 
-            if(parent::isValidResponse($jsonData))
-            {
+            if (parent::isValidResponse($jsonData)) {
                 foreach ($jsonData as $campaignData) {
                     $campaign = $this->createEmptyCampaignObject($campaignData);
 
@@ -175,7 +170,7 @@ class ProductCampaign extends PersonalisedResponse
 
                     $campaigns[] = $campaign;
                 }
-            }        
+            }
         }
 
         $campaignIterator = FF::getInstance(
@@ -210,27 +205,26 @@ class ProductCampaign extends PersonalisedResponse
         \FACTFinder\Data\Campaign $campaign,
         array $campaignData
     ) {
-        if (!empty($campaignData['feedbackTexts']))
-        {
+        if (!empty($campaignData['feedbackTexts'])) {
             $feedback = array();
 
-            foreach ($campaignData['feedbackTexts'] as $feedbackData)
-            {
+            foreach ($campaignData['feedbackTexts'] as $feedbackData) {
                 // If present, add the feedback to both the label and the ID.
                 $html = $feedbackData['html'];
                 $text = $feedbackData['text'];
-                if (!$html)
-                {
+                if (!$html) {
                     $text = htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
                 }
 
                 $label = $feedbackData['label'];
-                if ($label !== '')
+                if ($label !== '') {
                     $feedback[$label] = $text;
+                }
 
                 $id = $feedbackData['id'];
-                if ($id !== null)
+                if ($id !== null) {
                     $feedback[$id] = $text;
+                }
             }
 
             $campaign->addFeedback($feedback);
@@ -247,12 +241,10 @@ class ProductCampaign extends PersonalisedResponse
         \FACTFinder\Data\Campaign $campaign,
         array $campaignData
     ) {
-        if (!empty($campaignData['pushedProductsRecords']))
-        {
+        if (!empty($campaignData['pushedProductsRecords'])) {
             $pushedProducts = array();
 
-            foreach ($campaignData['pushedProductsRecords'] as $recordData)
-            {
+            foreach ($campaignData['pushedProductsRecords'] as $recordData) {
                 $pushedProducts[] = FF::getInstance(
                     'Data\Record',
                     (string)$recordData['id'],
@@ -280,10 +272,12 @@ class ProductCampaign extends PersonalisedResponse
     {
         $this->usePassthroughResponseContentProcessor();
 
-        if (!is_null($format))
+        if (!is_null($format)) {
             $this->parameters['format'] = $format;
-        if (!is_null($callback))
+        }
+        if (!is_null($callback)) {
             $this->parameters['callback'] = $callback;
+        }
 
         return $this->getResponseContent();
     }

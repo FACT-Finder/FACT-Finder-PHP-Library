@@ -26,7 +26,7 @@ abstract class AbstractDataProvider
     /**
      * @var int
      */
-    static private $nextID = 0;
+    private static $nextID = 0;
 
     public function __construct(
         $loggerClass,

@@ -26,8 +26,13 @@ class Suggest extends AbstractAdapter
         \FACTFinder\Core\Client\UrlBuilder $urlBuilder,
         \FACTFinder\Core\AbstractEncodingConverter $encodingConverter = null
     ) {
-        parent::__construct($loggerClass, $configuration, $request,
-                            $urlBuilder, $encodingConverter);
+        parent::__construct(
+            $loggerClass,
+            $configuration,
+            $request,
+                            $urlBuilder,
+            $encodingConverter
+        );
 
         $this->log = $loggerClass::getLogger(__CLASS__);
 
@@ -44,8 +49,9 @@ class Suggest extends AbstractAdapter
      */
     public function getSuggestions()
     {
-        if (is_null($this->suggestions))
+        if (is_null($this->suggestions)) {
             $this->suggestions = $this->createSuggestions();
+        }
 
         return $this->suggestions;
     }
@@ -56,20 +62,18 @@ class Suggest extends AbstractAdapter
 
         $this->useJsonResponseContentProcessor();
 
-        if (isset($this->parameters['format']))
+        if (isset($this->parameters['format'])) {
             $oldFormat = $this->parameters['format'];
+        }
 
         $this->parameters['format'] = 'json';
         $suggestData = $this->getResponseContent();
-        if (parent::isValidResponse($suggestData))
-        {
-            if (isset($suggestData['suggestions']))
-            {
+        if (parent::isValidResponse($suggestData)) {
+            if (isset($suggestData['suggestions'])) {
                 $suggestData = $suggestData['suggestions'];
             }
             
-            foreach ($suggestData as $suggestQueryData)
-            {
+            foreach ($suggestData as $suggestQueryData) {
                 $suggestLink = $this->convertServerQueryToClientUrl(
                     $suggestQueryData['searchParams']
                 );
@@ -95,8 +99,9 @@ class Suggest extends AbstractAdapter
             }
         }
 
-        if (isset($oldFormat))
+        if (isset($oldFormat)) {
             $this->parameters['format'] = $oldFormat;
+        }
 
         return $suggestions;
     }
@@ -117,10 +122,12 @@ class Suggest extends AbstractAdapter
     {
         $this->usePassthroughResponseContentProcessor();
 
-        if (!is_null($format))
+        if (!is_null($format)) {
             $this->parameters['format'] = $format;
-        if (!is_null($callback))
+        }
+        if (!is_null($callback)) {
             $this->parameters['callback'] = $callback;
+        }
 
         return $this->getResponseContent();
     }

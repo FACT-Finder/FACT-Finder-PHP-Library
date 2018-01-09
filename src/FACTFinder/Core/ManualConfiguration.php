@@ -14,12 +14,12 @@ class ManualConfiguration extends AbstractConfiguration
 
     private $configuration ;
 
-    function __construct($configuration = null)
+    public function __construct($configuration = null)
     {
         $this->configuration = $configuration ?: array();
     }
 
-    function __set($name, $value)
+    public function __set($name, $value)
     {
         $this->configuration[$name] = $value;
     }
@@ -194,4 +194,3 @@ class ManualConfiguration extends AbstractConfiguration
         return $this->configuration['clientUrlEncoding'];
     }
 }
-

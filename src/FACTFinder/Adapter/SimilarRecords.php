@@ -28,8 +28,13 @@ class SimilarRecords extends ConfigurableResponse
         \FACTFinder\Core\Client\UrlBuilder $urlBuilder,
         \FACTFinder\Core\AbstractEncodingConverter $encodingConverter = null
     ) {
-        parent::__construct($loggerClass, $configuration, $request,
-                            $urlBuilder, $encodingConverter);
+        parent::__construct(
+            $loggerClass,
+            $configuration,
+            $request,
+                            $urlBuilder,
+            $encodingConverter
+        );
 
         $this->log = $loggerClass::getLogger(__CLASS__);
 
@@ -55,9 +60,7 @@ class SimilarRecords extends ConfigurableResponse
             && $recordCount > 0
         ) {
             $parameters['maxRecordCount'] = $recordCount;
-        }
-        else
-        {
+        } else {
             unset($parameters['maxRecordCount']);
         }
         // Make sure that the records are fetched again. In principle, we only
@@ -102,18 +105,13 @@ class SimilarRecords extends ConfigurableResponse
         $attributes = array();
 
         $parameters = $this->request->getParameters();
-        if (!isset($parameters['id']))
-        {
+        if (!isset($parameters['id'])) {
             $this->log->warn('Similar attributes cannot be loaded without a product ID. '
                            . 'Use setProductID() first.');
-        }
-        else
-        {
+        } else {
             $jsonData = $this->getResponseContent();
-            if(parent::isValidResponse($jsonData))
-            {
-                foreach($jsonData['attributes'] as $attributeData)
-                {
+            if (parent::isValidResponse($jsonData)) {
+                foreach ($jsonData['attributes'] as $attributeData) {
                     $attributes[$attributeData['name']] = $attributeData['value'];
                 }
             }
@@ -147,19 +145,14 @@ class SimilarRecords extends ConfigurableResponse
         $records = array();
 
         $parameters = $this->request->getParameters();
-        if (!isset($parameters['id']))
-        {
+        if (!isset($parameters['id'])) {
             $this->log->warn('Similar records cannot be loaded without a product ID. '
                            . 'Use setProductID() first.');
-        }
-        else
-        {
+        } else {
             $position = 1;
             $jsonData = $this->getResponseContent();
-            if(parent::isValidResponse($jsonData))
-            {
-                foreach($jsonData['records'] as $recordData)
-                {
+            if (parent::isValidResponse($jsonData)) {
+                foreach ($jsonData['records'] as $recordData) {
                     $records[] = $this->createRecord($recordData, $position++);
                 }
             }

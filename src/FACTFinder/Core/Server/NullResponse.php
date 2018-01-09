@@ -7,10 +7,24 @@ namespace FACTFinder\Core\Server;
  */
 class NullResponse extends Response
 {
-    public function __construct() {}
+    public function __construct()
+    {
+    }
 
-    public function getContent() { return ''; }
-    public function getHttpCode() { return 0; }
-    public function getConnectionErrorNumber() { return 0; }
-    public function getConnectionError() { return ''; }
+    public function getContent()
+    {
+        return '';
+    }
+    public function getHttpCode()
+    {
+        return 0;
+    }
+    public function getConnectionErrorNumber()
+    {
+        return 0;
+    }
+    public function getConnectionError()
+    {
+        return '';
+    }
 }

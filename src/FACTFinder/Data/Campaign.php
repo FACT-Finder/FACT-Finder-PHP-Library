@@ -101,8 +101,9 @@ class Campaign
      */
     public function addPushedProducts(array $pushedProducts)
     {
-        foreach ($pushedProducts as $product)
+        foreach ($pushedProducts as $product) {
             $this->pushedProducts[] = $product;
+        }
     }
 
     /**
@@ -129,8 +130,9 @@ class Campaign
      */
     public function addFeedback(array $feedback)
     {
-        foreach($feedback as $label => $text)
+        foreach ($feedback as $label => $text) {
             $this->feedback[$label] = (string)$text;
+        }
     }
 
     /**
@@ -141,12 +143,13 @@ class Campaign
      */
     public function hasFeedback($label = null)
     {
-        if (is_null($label))
+        if (is_null($label)) {
             return count($this->feedback) > 0
                    && implode('', $this->feedback) != '';
-        else
+        } else {
             return isset($this->feedback[$label])
                    && $this->feedback[$label] != '';
+        }
     }
 
     /**
@@ -155,10 +158,11 @@ class Campaign
      */
     public function getFeedback($label)
     {
-        if (isset($this->feedback[$label]))
+        if (isset($this->feedback[$label])) {
             return $this->feedback[$label];
-        else
+        } else {
             return '';
+        }
     }
 
     /**
@@ -174,8 +178,9 @@ class Campaign
      */
     public function addActiveQuestions(array $activeQuestions)
     {
-        foreach ($activeQuestions as $question)
+        foreach ($activeQuestions as $question) {
             $this->activeQuestions[] = $question;
+        }
     }
 
     /**
@@ -201,8 +206,9 @@ class Campaign
      */
     public function addToAdvisorTree(array $advisorTree)
     {
-        foreach ($advisorTree as $question)
+        foreach ($advisorTree as $question) {
             $this->advisorTree[] = $question;
+        }
     }
 
     /**

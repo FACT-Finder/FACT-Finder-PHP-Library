@@ -12,7 +12,7 @@ class SearchParameters
     /**
      * @var string
      */
-    private $query;    
+    private $query;
     private $seoPath;
     private $channel;
     private $advisorStatus;
@@ -71,13 +71,13 @@ class SearchParameters
 
         // TODO: Let Parameters implement the necessary interface so that it
         //       can be used directly in foreach.
-        foreach ($parameters->getArray() as $key => $value)
-        {
-            if (strpos($key, 'filter') === 0)
+        foreach ($parameters->getArray() as $key => $value) {
+            if (strpos($key, 'filter') === 0) {
                 $this->filters[substr($key, strlen('filter'))] = $value;
-            else if (strpos($key, 'sort') === 0
-                     && ($value == 'asc' || $value == 'desc'))
+            } elseif (strpos($key, 'sort') === 0
+                     && ($value == 'asc' || $value == 'desc')) {
                 $this->sortings[substr($key, strlen('sort'))] = $value;
+            }
         }
     }
 

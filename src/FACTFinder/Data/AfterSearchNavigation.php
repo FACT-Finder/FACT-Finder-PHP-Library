@@ -20,9 +20,11 @@ class AfterSearchNavigation extends \ArrayIterator
      */
     public function hasPreviewImages()
     {
-        foreach ($this as $group)
-            if ($group->hasPreviewImages())
+        foreach ($this as $group) {
+            if ($group->hasPreviewImages()) {
                 return true;
+            }
+        }
 
         return false;
     }

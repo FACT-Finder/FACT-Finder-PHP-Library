@@ -32,10 +32,12 @@ class FileSystemDataProvider extends AbstractDataProvider
     }
 
     public function setConnectTimeout($id, $timeout)
-    { }
+    {
+    }
 
     public function setTimeout($id, $timeout)
-    { }
+    {
+    }
 
     public function setFileLocation($path)
     {
@@ -44,15 +46,15 @@ class FileSystemDataProvider extends AbstractDataProvider
 
     public function loadResponse($id)
     {
-        if (!isset($this->connectionData[$id]))
+        if (!isset($this->connectionData[$id])) {
             throw new \InvalidArgumentException('Tried to get response for invalid ID $id.');
+        }
 
 
         $connectionData = $this->connectionData[$id];
 
         $action = $connectionData->getAction();
-        if (empty($action))
-        {
+        if (empty($action)) {
             $this->log->error('Request type missing.');
             $connectionData->setNullResponse();
             return;
@@ -63,14 +65,14 @@ class FileSystemDataProvider extends AbstractDataProvider
         $queryString = $this->getQueryString($connectionData);
         $fileName = $this->getFileName($fileNamePrefix, md5($queryString), $fileExtension);
 
-        if (!$this->hasFileNameChanged($id, $fileName))
+        if (!$this->hasFileNameChanged($id, $fileName)) {
             return;
+        }
 
         $this->log->info("Trying to load file: $fileName");
         
         $fileContent = null;
-        if(!$fileContent = @file_get_contents($fileName))
-        {
+        if (!$fileContent = @file_get_contents($fileName)) {
             throw new \Exception('File "'.$fileName.' (original: ' . $fileNamePrefix . $queryString . $fileExtension . '" not found');
         }
 
@@ -100,10 +102,11 @@ class FileSystemDataProvider extends AbstractDataProvider
         $parameters = $connectionData->getParameters();
 
         $fileExtension = null;
-        if (isset($parameters['format']))
+        if (isset($parameters['format'])) {
             $fileExtension = '.' . $parameters['format'];
-        else
+        } else {
             $fileExtension = '.raw';
+        }
         
         return $fileExtension;
     }
@@ -137,8 +140,9 @@ class FileSystemDataProvider extends AbstractDataProvider
     {
         $connectionData = $this->connectionData[$id];
 
-        if (FF::isInstanceOf($connectionData->getResponse(), 'Core\Server\NullResponse'))
+        if (FF::isInstanceOf($connectionData->getResponse(), 'Core\Server\NullResponse')) {
             return true;
+        }
 
         return $newFileName != $connectionData->getPreviousUrl();
     }

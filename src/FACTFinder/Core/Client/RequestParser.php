@@ -38,7 +38,7 @@ class RequestParser
      * @param \FACTFinder\Core\ConfigurationInterface $configuration
      * @param \FACTFinder\Core\AbstractEncodingConverter $encodingConverter
      */
-    function __construct(
+    public function __construct(
         $loggerClass,
         \FACTFinder\Core\ConfigurationInterface $configuration,
         \FACTFinder\Core\AbstractEncodingConverter $encodingConverter = null
@@ -64,8 +64,7 @@ class RequestParser
      */
     public function getRequestParameters()
     {
-        if (is_null($this->serverRequestParameters))
-        {
+        if (is_null($this->serverRequestParameters)) {
             $clientParameters = $this->getClientRequestParameters();
             $this->serverRequestParameters =
                 $this->parametersConverter->convertClientToServerParameters(
@@ -92,10 +91,8 @@ class RequestParser
      */
     public function getClientRequestParameters()
     {
-        if (is_null($this->clientRequestParameters))
-        {
-            if (isset($_SERVER['QUERY_STRING']))
-            {
+        if (is_null($this->clientRequestParameters)) {
+            if (isset($_SERVER['QUERY_STRING'])) {
                 // TODO: Respect variables_order so that conflicting variables
                 //       lead to the same result as in $_REQUEST (save for
                 //       $_COOKIE variables). This todo also goes for the second
@@ -116,9 +113,7 @@ class RequestParser
                 }
 
                 $parameters->setAll($data);
-            }
-            else if (isset($_GET))
-            {
+            } elseif (isset($_GET)) {
                 $this->log->warn('$_SERVER[\'QUERY_STRING\'] is not available. '
                                . 'Using $_GET instead. This may cause problems '
                                . 'if the query string contains parameters with '
@@ -131,26 +126,23 @@ class RequestParser
                     'Util\Parameters',
                     array_merge($_POST, $_GET)
                 );
-            }
-            else
-            {
+            } else {
                 // For CLI use:
                 $parameters = FF::getInstance('Util\Parameters');
             }
             
-            if(isset($_SERVER['REQUEST_URI'])) {
+            if (isset($_SERVER['REQUEST_URI'])) {
                 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                 $seoPathPosition = strrpos($path, "/s/");
                 if ($seoPathPosition > -1) {
                     $encodedSeoPath = substr($path, $seoPathPosition + 2);
-                    $decodedSeoPath = urldecode($encodedSeoPath);  
-                    $parameters['seoPath'] = $decodedSeoPath; 
+                    $decodedSeoPath = urldecode($encodedSeoPath);
+                    $parameters['seoPath'] = $decodedSeoPath;
                 }
             }
             
             // Convert encoding and then the parameters themselves
             $this->clientRequestParameters = $this->encodingConverter != null ? $this->encodingConverter->decodeClientUrlData($parameters) : $parameters;
-           
         }
 
         return $this->clientRequestParameters;
@@ -163,35 +155,32 @@ class RequestParser
      */
     public function getRequestTarget()
     {
-        if ($this->requestTarget === null)
-        {
+        if ($this->requestTarget === null) {
             // Workaround for some servers (IIS) which do not provide
             // $_SERVER['REQUEST_URI']. Taken from
             // http://php.net/manual/en/reserved.variables.server.php#108186
-            if(!isset($_SERVER['REQUEST_URI'])) {
+            if (!isset($_SERVER['REQUEST_URI'])) {
                 $_SERVER['REQUEST_URI'] = $_SERVER['SCRIPT_NAME'];
-                if(isset($_SERVER['QUERY_STRING'])) {
+                if (isset($_SERVER['QUERY_STRING'])) {
                     $_SERVER['REQUEST_URI'] .= '?' . $_SERVER['QUERY_STRING'];
                 }
             }
 
-            if (strpos($_SERVER['REQUEST_URI'], '?') === false)
+            if (strpos($_SERVER['REQUEST_URI'], '?') === false) {
                 $this->requestTarget = $_SERVER['REQUEST_URI'];
-            else
-            {
+            } else {
                 $parts = explode('?', $_SERVER['REQUEST_URI']);
                 $this->requestTarget = $parts[0];
             }
             
-            $seoPathPosition = strrpos($this->requestTarget , "/s/");
+            $seoPathPosition = strrpos($this->requestTarget, "/s/");
             if ($seoPathPosition > -1) {
-                 $this->requestTarget = substr($this->requestTarget , 0, $seoPathPosition);
-            }    
+                $this->requestTarget = substr($this->requestTarget, 0, $seoPathPosition);
+            }
 
             // Use rawurldecode() so that +'s are not converted to spaces.
             $this->requestTarget = rawurldecode($this->requestTarget);
-            if ($this->encodingConverter != null)
-            {
+            if ($this->encodingConverter != null) {
                 $this->requestTarget = $this->encodingConverter ->decodeClientUrlData($this->requestTarget);
             }
         }

@@ -39,8 +39,9 @@ class AdvisorQuestion
      */
     public function addAnswers(array $answers)
     {
-        foreach ($answers as $question)
+        foreach ($answers as $question) {
             $this->answers[] = $question;
+        }
     }
 
     /**

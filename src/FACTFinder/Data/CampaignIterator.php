@@ -21,9 +21,11 @@ class CampaignIterator extends \ArrayIterator
      */
     public function hasRedirect()
     {
-        foreach ($this as $campaign)
-            if ($campaign->hasRedirect())
+        foreach ($this as $campaign) {
+            if ($campaign->hasRedirect()) {
                 return true;
+            }
+        }
 
         return false;
     }
@@ -37,9 +39,11 @@ class CampaignIterator extends \ArrayIterator
      */
     public function getRedirectUrl()
     {
-        foreach ($this as $campaign)
-            if ($campaign->hasRedirect())
+        foreach ($this as $campaign) {
+            if ($campaign->hasRedirect()) {
                 return $campaign->getRedirectUrl();
+            }
+        }
 
         return null;
     }
@@ -50,9 +54,11 @@ class CampaignIterator extends \ArrayIterator
      */
     public function hasFeedback()
     {
-        foreach ($this as $campaign)
-            if ($campaign->hasFeedback())
+        foreach ($this as $campaign) {
+            if ($campaign->hasFeedback()) {
                 return true;
+            }
+        }
 
         return false;
     }
@@ -68,9 +74,11 @@ class CampaignIterator extends \ArrayIterator
     public function getFeedback($label)
     {
         $feedback = array();
-        foreach ($this as $campaign)
-            if ($campaign->hasFeedback($label))
+        foreach ($this as $campaign) {
+            if ($campaign->hasFeedback($label)) {
                 $feedback[] = $campaign->getFeedback($label);
+            }
+        }
 
         return implode(PHP_EOL, $feedback);
     }
@@ -81,9 +89,11 @@ class CampaignIterator extends \ArrayIterator
      */
     public function hasPushedProducts()
     {
-        foreach ($this as $campaign)
-            if ($campaign->hasPushedProducts())
+        foreach ($this as $campaign) {
+            if ($campaign->hasPushedProducts()) {
                 return true;
+            }
+        }
 
         return false;
     }
@@ -99,10 +109,13 @@ class CampaignIterator extends \ArrayIterator
     public function getPushedProducts()
     {
         $pushedProducts = array();
-        foreach ($this as $campaign)
-            if ($campaign->hasPushedProducts())
-                foreach ($campaign->getPushedProducts() as $product)
+        foreach ($this as $campaign) {
+            if ($campaign->hasPushedProducts()) {
+                foreach ($campaign->getPushedProducts() as $product) {
                     $pushedProducts[] = $product;
+                }
+            }
+        }
 
         return $pushedProducts;
     }
@@ -113,9 +126,11 @@ class CampaignIterator extends \ArrayIterator
      */
     public function hasActiveQuestions()
     {
-        foreach ($this as $campaign)
-            if ($campaign->hasActiveQuestions())
+        foreach ($this as $campaign) {
+            if ($campaign->hasActiveQuestions()) {
                 return true;
+            }
+        }
 
         return false;
     }
@@ -129,10 +144,13 @@ class CampaignIterator extends \ArrayIterator
     public function getActiveQuestions()
     {
         $activeQuestions = array();
-        foreach ($this as $campaign)
-            if ($campaign->hasActiveQuestions())
-                foreach ($campaign->getActiveQuestions() as $question)
+        foreach ($this as $campaign) {
+            if ($campaign->hasActiveQuestions()) {
+                foreach ($campaign->getActiveQuestions() as $question) {
                     $activeQuestions[] = $question;
+                }
+            }
+        }
 
         return $activeQuestions;
     }
@@ -143,9 +161,11 @@ class CampaignIterator extends \ArrayIterator
      */
     public function hasAdvisorTree()
     {
-        foreach ($this as $campaign)
-            if ($campaign->hasAdvisorTree())
+        foreach ($this as $campaign) {
+            if ($campaign->hasAdvisorTree()) {
                 return true;
+            }
+        }
 
         return false;
     }
@@ -160,10 +180,13 @@ class CampaignIterator extends \ArrayIterator
     public function getAdvisorTree()
     {
         $advisorTree = array();
-        foreach ($this as $campaign)
-            if ($campaign->hasAdvisorTree())
-                foreach ($campaign->getAdvisorTree() as $question)
+        foreach ($this as $campaign) {
+            if ($campaign->hasAdvisorTree()) {
+                foreach ($campaign->getAdvisorTree() as $question) {
                     $advisorTree[] = $question;
+                }
+            }
+        }
 
         return $advisorTree;
     }
