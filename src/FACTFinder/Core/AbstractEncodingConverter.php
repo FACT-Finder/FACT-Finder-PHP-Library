@@ -20,7 +20,7 @@ abstract class AbstractEncodingConverter
     /**
      * @var FACTFinder\Util\LoggerInterface
      */
-    private $log;
+    protected $log;
 
     /**
      * @var string
