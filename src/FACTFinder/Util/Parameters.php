@@ -33,34 +33,33 @@ class Parameters implements \ArrayAccess, \Countable
      */
     public function __construct($parameters = null, $java = false)
     {
-        if (is_string($parameters))
-        {
-            if (!$java)
+        if (is_string($parameters)) {
+            if (!$java) {
                 $this->parseFromPhpQueryString($parameters);
-            else
+            } else {
                 $this->parseFromJavaQueryString($parameters);
-        }
-        else if (is_array($parameters))
+            }
+        } elseif (is_array($parameters)) {
             $this->setAll($parameters);
-        else if (!is_null($parameters))
+        } elseif (!is_null($parameters)) {
             throw new \InvalidArgumentException('Can only construct Parameters from string or array.');
+        }
     }
 
     private function parseFromPhpQueryString($query)
     {
-        if (strpos($query, '?') !== false)
-        {
+        if (strpos($query, '?') !== false) {
             $parts = explode('?', $query, 2);
             $query = $parts[1];
         }
 
         $pairs = explode('&', $query);
-        foreach ($pairs AS $pair)
-        {
+        foreach ($pairs as $pair) {
             $pair = explode('=', $pair);
 
-            if (count($pair) == 1)
+            if (count($pair) == 1) {
                 $pair[1] = '';
+            }
 
             // Use urldecode() because in the QUERY_STRING space is replaced by '+' (http://www.w3.org/TR/html4/interact/forms.html#h-17.13.4.1)
             $k = urldecode($pair[0]);
@@ -70,33 +69,34 @@ class Parameters implements \ArrayAccess, \Countable
             //       keys in the parameter name and simply appends the value
             //       whenever it encounters an array parameter. Should this
             //       functionality be added?
-            if (preg_match('/^[^\]]*(?=\[[^\]]*\])/', $k, $matches))
+            if (preg_match('/^[^\]]*(?=\[[^\]]*\])/', $k, $matches)) {
                 $this->add($matches[0], $v);
-            else
+            } else {
                 $this[$k] = $v;
+            }
         }
     }
 
     private function parseFromJavaQueryString($query)
     {
-        if (strpos($query, '?') !== false)
-        {
+        if (strpos($query, '?') !== false) {
             $parts = explode('?', $query, 2);
             $query = $parts[1];
         }
 
         $pairs = explode('&', $query);
-        foreach ($pairs AS $pair)
-        {
+        foreach ($pairs as $pair) {
             // Java ignores parameters only if they are completely empty (i.e.
             // neither key name nor equals sign).
-            if ($pair == '')
+            if ($pair == '') {
                 continue;
+            }
 
             $pair = explode('=', $pair);
 
-            if (count($pair) == 1)
+            if (count($pair) == 1) {
                 $pair[1] = '';
+            }
 
             // Use urldecode(), because Tomcat does encode spaces as '+'.
             $k = urldecode($pair[0]);
@@ -113,13 +113,14 @@ class Parameters implements \ArrayAccess, \Countable
      * @param mixed  $value A string or an array of strings. Nested arrays are
      *        not allowed. All other types are cast to strings.
      *
-     * @throws InvalidArgumentException if no name is given or the value is a
+     * @throws \InvalidArgumentException if no name is given or the value is a
      *         nested array.
      */
     public function offsetSet($name, $value)
     {
-        if (is_null($name))
+        if (is_null($name)) {
             throw new \InvalidArgumentException('No parameter name given.');
+        }
 
         $value = $this->sanitizeValue($value);
 
@@ -146,12 +147,13 @@ class Parameters implements \ArrayAccess, \Countable
      * @return mixed The parameter's value(s). Either a single string or an
      *         array of multiple strings.
      *
-     * @throws InvalidArgumentException if the name has no values set.
+     * @throws \InvalidArgumentException if the name has no values set.
      */
     public function offsetGet($name)
     {
-        if (!isset($this->parameters[$name]))
+        if (!isset($this->parameters[$name])) {
             throw new \InvalidArgumentException('Requested parameter has no value set.');
+        }
 
         return $this->parameters[$name];
     }
@@ -174,11 +176,13 @@ class Parameters implements \ArrayAccess, \Countable
     public function count()
     {
         $count = 0;
-        foreach ($this->parameters as $value)
-            if (is_string($value))
+        foreach ($this->parameters as $value) {
+            if (is_string($value)) {
                 ++$count;
-            else
+            } else {
                 $count += count($value);
+            }
+        }
         return $count;
     }
 
@@ -193,26 +197,27 @@ class Parameters implements \ArrayAccess, \Countable
      */
     protected function sanitizeValue($value)
     {
-        if (is_string($value))
+        if (is_string($value)) {
             return $value;
+        }
 
-        if (!is_array($value))
+        if (!is_array($value)) {
             return (string)$value;
+        }
 
-        foreach ($value as $k => $v)
-        {
-            if (is_string($v))
+        foreach ($value as $k => $v) {
+            if (is_string($v)) {
                 continue;
-            else if (is_array($v))
+            } elseif (is_array($v)) {
                 throw new \InvalidArgumentException(
                     'Value must not be an array of arrays.'
                 );
-            else
+            } else {
                 $value[$k] = (string)$v;
+            }
         }
 
-        if (count($value) == 1)
-        {
+        if (count($value) == 1) {
             reset($value);
             $value = current($value);
         }
@@ -251,8 +256,9 @@ class Parameters implements \ArrayAccess, \Countable
      */
     public function setAll($parameters)
     {
-        foreach ($parameters as $k => $v)
+        foreach ($parameters as $k => $v) {
             $this[$k] = $v;
+        }
     }
 
     /**
@@ -263,7 +269,7 @@ class Parameters implements \ArrayAccess, \Countable
      * @param mixed  $value A string or an array of strings. Nested arrays are
      *        not allowed. All other types are cast to strings.
      *
-     * @throws InvalidArgumentException if no name is given or the value is a
+     * @throws \InvalidArgumentException if no name is given or the value is a
      *         nested array.
      */
     public function set($name, $value)
@@ -279,8 +285,9 @@ class Parameters implements \ArrayAccess, \Countable
      */
     public function addAll($parameters)
     {
-        foreach ($parameters as $k => $v)
+        foreach ($parameters as $k => $v) {
             $this->add($k, $v);
+        }
     }
 
     /**
@@ -291,44 +298,47 @@ class Parameters implements \ArrayAccess, \Countable
      * @param mixed  $value A string or an array of strings. Nested arrays are
      *        not allowed. All other types are cast to strings.
      *
-     * @throws InvalidArgumentException if no name is given or the value is a
+     * @throws \InvalidArgumentException if no name is given or the value is a
      *         nested array.
      */
     public function add($name, $value)
     {
-        if (is_null($name))
+        if (is_null($name)) {
             throw new \InvalidArgumentException('No parameter name given.');
+        }
 
         $value = $this->sanitizeValue($value);
 
-        if (is_string($value))
+        if (is_string($value)) {
             $this->addString($name, $value);
-        else
+        } else {
             $this->addArray($name, $value);
+        }
     }
 
     protected function addString($name, $value)
     {
-        if (!isset($this[$name]))
+        if (!isset($this[$name])) {
             $this->parameters[$name] = $value;
-        else if (is_array($this[$name]))
+        } elseif (is_array($this[$name])) {
             $this->parameters[$name][] = $value;
-        else
+        } else {
             $this->parameters[$name] = array($this[$name], $value);
+        }
     }
 
     protected function addArray($name, $value)
     {
         // Drop the keys, so that array_merge won't overwrite any existing ones.
         $value = array_values($value);
-        if (!isset($this[$name]))
+        if (!isset($this[$name])) {
             $this->parameters[$name] = $value;
-        else
-        {
-            if (!is_array($this[$name]))
+        } else {
+            if (!is_array($this[$name])) {
                 $oldValue = array($this[$name]);
-            else
+            } else {
                 $oldValue = $this[$name];
+            }
 
             $this->parameters[$name] = array_merge($oldValue, $value);
         }
@@ -407,10 +417,10 @@ class Parameters implements \ArrayAccess, \Countable
     {
         $result = array();
 
-        foreach ($this->parameters as $name => $value)
-        {
-            if (is_array($value))
+        foreach ($this->parameters as $name => $value) {
+            if (is_array($value)) {
                 $value = implode(',', $value);
+            }
 
             // TODO: Warn about invalid field names?
             $result[] = "$name: $value";

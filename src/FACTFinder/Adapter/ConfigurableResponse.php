@@ -1,8 +1,6 @@
 <?php
 namespace FACTFinder\Adapter;
 
-use FACTFinder\Loader as FF;
-
 /**
  * Base class for all adapters which support the response of records with ids only.
  */
@@ -32,8 +30,13 @@ abstract class ConfigurableResponse extends AbstractAdapter
         \FACTFinder\Core\Client\UrlBuilder $urlBuilder,
         \FACTFinder\Core\AbstractEncodingConverter $encodingConverter = null
     ) {
-        parent::__construct($loggerClass, $configuration, $request,
-                            $urlBuilder, $encodingConverter);
+        parent::__construct(
+            $loggerClass,
+            $configuration,
+            $request,
+                            $urlBuilder,
+            $encodingConverter
+        );
     }
     
     /**
@@ -43,11 +46,12 @@ abstract class ConfigurableResponse extends AbstractAdapter
      */
     public function setIdsOnly($idsOnly)
     {
-        if($this->idsOnly && !$idsOnly)
+        if ($this->idsOnly && !$idsOnly) {
             $this->upToDate = false;
+        }
 
         $this->idsOnly = $idsOnly;
         $parameters = $this->request->getParameters();
         $parameters['idsOnly'] = $idsOnly ? 'true' : 'false';
     }
- }
+}

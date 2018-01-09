@@ -1,8 +1,6 @@
 <?php
 namespace FACTFinder\Core\Server;
 
-use FACTFinder\Loader as FF;
-
 /**
  * Assembles URLs to the FACT-Finder server for different kinds of
  * authentication based on the given parameters and the configuration.
@@ -10,12 +8,12 @@ use FACTFinder\Loader as FF;
 class UrlBuilder
 {
     /**
-     * @var FACTFinder\Util\LoggerInterface
+     * @var \FACTFinder\Util\LoggerInterface
      */
     private $log;
 
     /**
-     * @var ConfigurationInterface
+     * @var \FACTFinder\Core\ConfigurationInterface
      */
     protected $configuration;
 
@@ -23,8 +21,8 @@ class UrlBuilder
     /**
      * @param string $loggerClass Class name of logger to use. The class should
      *        implement FACTFinder\Util\LoggerInterface.
-     * @param ConfigurationInterface $configuration
-     * @param FACTFinder\Util\Parameters $parameters Optional parameters object
+     * @param \FACTFinder\Core\ConfigurationInterface $configuration
+     * @param \FACTFinder\Util\Parameters $parameters Optional parameters object
      *        to initialize the UrlBuilder with.
      */
     public function __construct(
@@ -44,7 +42,7 @@ class UrlBuilder
      *
      * @param string $action The action to be targeted on the FACT-Finder
      *        server.
-     * @param FACTFinder\Util\Parameters $parameters The parameters object from
+     * @param \FACTFinder\Util\Parameters $parameters The parameters object from
      *        which to build the URL.
      *
      * @return string The full URL.
@@ -71,12 +69,12 @@ class UrlBuilder
      *
      * @param string $action The action to be targeted on the FACT-Finder
      *        server.
-     * @param FACTFinder\Util\Parameters $parameters The parameters object from
+     * @param \FACTFinder\Util\Parameters $parameters The parameters object from
      *        which to build the URL.
      *
      * @return string The full URL.
      *
-     * @throws Exception if no valid authentication type was configured.
+     * @throws \Exception if no valid authentication type was configured.
      */
     public function getAuthenticationUrl(
         $action,
@@ -85,14 +83,15 @@ class UrlBuilder
         $this->ensureChannelParameter($parameters);
 
         $c = $this->configuration;
-        if ($c->isAdvancedAuthenticationType())
+        if ($c->isAdvancedAuthenticationType()) {
             return $this->getAdvancedAuthenticationUrl($action, $parameters);
-        else if ($c->isSimpleAuthenticationType())
+        } elseif ($c->isSimpleAuthenticationType()) {
             return $this->getSimpleAuthenticationUrl($action, $parameters);
-        else if ($c->isHttpAuthenticationType())
+        } elseif ($c->isHttpAuthenticationType()) {
             return $this->getHttpAuthenticationUrl($action, $parameters);
-        else
+        } else {
             throw new \Exception('Invalid authentication type configured.');
+        }
     }
 
     /**
@@ -100,7 +99,7 @@ class UrlBuilder
      *
      * @param string $action The action to be targeted on the FACT-Finder
      *        server.
-     * @param FACTFinder\Util\Parameters $parameters The parameters object from
+     * @param \FACTFinder\Util\Parameters $parameters The parameters object from
      *        which to build the URL.
      *
      * @return string The full URL.
@@ -135,7 +134,7 @@ class UrlBuilder
      *
      * @param string $action The action to be targeted on the FACT-Finder
      *        server.
-     * @param FACTFinder\Util\Parameters $parameters The parameters object from
+     * @param \FACTFinder\Util\Parameters $parameters The parameters object from
      *        which to build the URL.
      *
      * @return string The full URL.
@@ -164,7 +163,7 @@ class UrlBuilder
      *
      * @param string $action The action to be targeted on the FACT-Finder
      *        server.
-     * @param FACTFinder\Util\Parameters $parameters The parameters object from
+     * @param \FACTFinder\Util\Parameters $parameters The parameters object from
      *        which to build the URL.
      *
      * @return string The full URL.
@@ -180,7 +179,9 @@ class UrlBuilder
             $configuration->getUserName(),
             $configuration->getPassword()
         );
-        if ($authentication == ':@') $authentication = '';
+        if ($authentication == ':@') {
+            $authentication = '';
+        }
 
         $url = $this->buildAddress($action, true)
              . (count($parameters) ? '?' : '') . $parameters->toJavaQueryString();
@@ -192,10 +193,11 @@ class UrlBuilder
     /**
      * If no channel is set, try to fill it from configuration data.
      *
-     * @param FACTFinder\Util\Parameters $parameters The parameters object to
+     * @param \FACTFinder\Util\Parameters $parameters The parameters object to
      *        check.
      */
-    protected function ensureChannelParameter($parameters) {
+    protected function ensureChannelParameter($parameters)
+    {
         if ((!isset($parameters['channel'])
             || $parameters['channel'] == '')
             && $this->configuration->getChannel() != ''

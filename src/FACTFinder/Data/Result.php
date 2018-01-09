@@ -35,5 +35,4 @@ class Result extends \ArrayIterator
     {
         return $this->foundRecordsCount;
     }
-
 }

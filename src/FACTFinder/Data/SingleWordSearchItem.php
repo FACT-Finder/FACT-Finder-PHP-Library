@@ -23,8 +23,9 @@ class SingleWordSearchItem extends SuggestQuery
     public function addPreviewRecords(
         array $records
     ) {
-        foreach ($records as $record)
+        foreach ($records as $record) {
             $this->addPreviewRecord($record);
+        }
     }
 
     /**

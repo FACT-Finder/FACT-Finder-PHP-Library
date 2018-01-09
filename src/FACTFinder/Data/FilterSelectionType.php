@@ -8,23 +8,22 @@ namespace FACTFinder\Data;
 class FilterSelectionType
 {
     // These will store distinct instances of the class.
-    static private $singleHideUnselected;
-    static private $singleShowUnselected;
-    static private $multiSelectOr;
-    static private $multiSelectAnd;
+    private static $singleHideUnselected;
+    private static $singleShowUnselected;
+    private static $multiSelectOr;
+    private static $multiSelectAnd;
 
-    static private $nextID = 0;
+    private static $nextID = 0;
     private $id;
     private function __construct()
     {
         $this->id = self::$nextID++;
     }
 
-    static private $initialized = false;
-    static public function initialize()
+    private static $initialized = false;
+    public static function initialize()
     {
-        if (!self::$initialized)
-        {
+        if (!self::$initialized) {
             self::$singleHideUnselected = new FilterSelectionType();
             self::$singleShowUnselected = new FilterSelectionType();
             self::$multiSelectOr        = new FilterSelectionType();
@@ -34,10 +33,22 @@ class FilterSelectionType
         }
     }
 
-    static public function SingleHideUnselected()     { return self::$singleHideUnselected; }
-    static public function SingleShowUnselected()     { return self::$singleShowUnselected; }
-    static public function MultiSelectOr()            { return self::$multiSelectOr; }
-    static public function MultiSelectAnd()           { return self::$multiSelectAnd; }
+    public static function SingleHideUnselected()
+    {
+        return self::$singleHideUnselected;
+    }
+    public static function SingleShowUnselected()
+    {
+        return self::$singleShowUnselected;
+    }
+    public static function MultiSelectOr()
+    {
+        return self::$multiSelectOr;
+    }
+    public static function MultiSelectAnd()
+    {
+        return self::$multiSelectAnd;
+    }
 }
 
 FilterSelectionType::initialize();

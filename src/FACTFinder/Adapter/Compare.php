@@ -6,7 +6,7 @@ use FACTFinder\Loader as FF;
 class Compare extends ConfigurableResponse
 {
     /**
-     * @var FACTFinder\Util\LoggerInterface
+     * @var \FACTFinder\Util\LoggerInterface
      */
     private $log;
 
@@ -17,7 +17,7 @@ class Compare extends ConfigurableResponse
     private $comparableAttributes;
 
     /**
-     * @var FACTFinder\Data\Result
+     * @var \FACTFinder\Data\Result
      */
     private $comparedRecords;
 
@@ -28,8 +28,13 @@ class Compare extends ConfigurableResponse
         \FACTFinder\Core\Client\UrlBuilder $urlBuilder,
         \FACTFinder\Core\AbstractEncodingConverter $encodingConverter = null
     ) {
-        parent::__construct($loggerClass, $configuration, $request,
-                            $urlBuilder, $encodingConverter);
+        parent::__construct(
+            $loggerClass,
+            $configuration,
+            $request,
+                            $urlBuilder,
+            $encodingConverter
+        );
 
         $this->log = $loggerClass::getLogger(__CLASS__);
 
@@ -76,18 +81,13 @@ class Compare extends ConfigurableResponse
         $attributes = array();
 
         $parameters = $this->request->getParameters();
-        if (!isset($parameters['ids']))
-        {
+        if (!isset($parameters['ids'])) {
             $this->log->warn('Comparable attributes cannot be loaded without product IDs. '
                            . 'Use setProductIDs() first.');
-        }
-        else
-        {
+        } else {
             $jsonData = $this->getResponseContent();
-            if (parent::isValidResponse($jsonData))
-            {
-                foreach($jsonData['attributes'] as $attributeData)
-                {
+            if (parent::isValidResponse($jsonData)) {
+                foreach ($jsonData['attributes'] as $attributeData) {
                     $name = $attributeData['attributeName'];
                     $attributes[$name] = $attributeData['different'];
                 }
@@ -120,19 +120,14 @@ class Compare extends ConfigurableResponse
         $records = array();
 
         $parameters = $this->request->getParameters();
-        if (!isset($parameters['ids']))
-        {
+        if (!isset($parameters['ids'])) {
             $this->log->warn('Compared records cannot be loaded without product IDs. '
                            . 'Use setProductIDs() first.');
-        }
-        else
-        {
+        } else {
             $position = 1;
             $jsonData = $this->getResponseContent();
-            if (parent::isValidResponse($jsonData))
-            {
-                foreach($jsonData['records'] as $recordData)
-                {
+            if (parent::isValidResponse($jsonData)) {
+                foreach ($jsonData['records'] as $recordData) {
                     $records[] = FF::getInstance(
                         'Data\Record',
                         (string)$recordData['id'],

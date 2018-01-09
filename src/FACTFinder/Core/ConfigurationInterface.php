@@ -13,7 +13,7 @@ interface ConfigurationInterface
     public function isDebugEnabled();
 
     /**
-     * @param string name
+     * @param string $name
      * @return string value
      */
     public function getCustomValue($name);
@@ -113,14 +113,14 @@ interface ConfigurationInterface
 
     /**
      * Get parameters which are allowed in client URLs.
-     * 
+     *
      * @return array with string as key and boolean true as value for each item
      */
     public function getWhitelistClientParameters();
 
     /**
      * Get parameters which are allowed in server URLs.
-     * 
+     *
      * @return array with string as key and boolean true as value for each item
      */
     public function getWhitelistServerParameters();
@@ -209,4 +209,3 @@ interface ConfigurationInterface
      */
     public function getClientUrlEncoding();
 }
-

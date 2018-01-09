@@ -148,9 +148,11 @@ class FilterGroup extends \ArrayIterator
      */
     public function hasSelectedItems()
     {
-        foreach ($this->getArrayCopy() as $filter)
-            if ($filter->isSelected())
+        foreach ($this->getArrayCopy() as $filter) {
+            if ($filter->isSelected()) {
                 return true;
+            }
+        }
 
         return false;
     }
@@ -208,5 +210,4 @@ class FilterGroup extends \ArrayIterator
         $filterTypeEnum = FF::getClassName('Data\FilterType');
         return $this->type == $filterTypeEnum::Number();
     }
-
 }

@@ -6,12 +6,12 @@ use FACTFinder\Loader as FF;
 class TagCloud extends AbstractAdapter
 {
     /**
-     * @var FACTFinder\Util\LoggerInterface
+     * @var \FACTFinder\Util\LoggerInterface
      */
     private $log;
 
     /**
-     * @var FACTFinder\Data\TagQuery[]
+     * @var \FACTFinder\Data\TagQuery[]
      */
     private $tagCloud;
 
@@ -27,8 +27,13 @@ class TagCloud extends AbstractAdapter
         \FACTFinder\Core\Client\UrlBuilder $urlBuilder,
         \FACTFinder\Core\AbstractEncodingConverter $encodingConverter = null
     ) {
-        parent::__construct($loggerClass, $configuration, $request,
-                            $urlBuilder, $encodingConverter);
+        parent::__construct(
+            $loggerClass,
+            $configuration,
+            $request,
+                            $urlBuilder,
+            $encodingConverter
+        );
 
         $this->log = $loggerClass::getLogger(__CLASS__);
 
@@ -44,7 +49,7 @@ class TagCloud extends AbstractAdapter
      *
      * @param
      *
-     * @return FACTFinder\Data\TagQuery[]
+     * @return \FACTFinder\Data\TagQuery[]
      */
     public function getTagCloud($requestQuery = null)
     {
@@ -73,9 +78,7 @@ class TagCloud extends AbstractAdapter
             && $wordCount > 0
         ) {
             $parameters['wordCount'] = $wordCount;
-        }
-        else
-        {
+        } else {
             unset($parameters['wordCount']);
         }
         // Make sure that the tag cloud is fetched again. In theory, we only
@@ -88,10 +91,8 @@ class TagCloud extends AbstractAdapter
         $tagCloud = array();
 
         $tagCloudData = $this->getResponseContent();
-        if (parent::isValidResponse($tagCloudData))
-        {
-            foreach ($tagCloudData as $tagQueryData)
-            {
+        if (parent::isValidResponse($tagCloudData)) {
+            foreach ($tagCloudData as $tagQueryData) {
                 $query = $tagQueryData['query'];
 
                 // TODO: Once JIRA issue FF-5328 is fixed, retrieve the

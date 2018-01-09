@@ -100,27 +100,28 @@ abstract class AbstractAdapter
 
     protected function usePassthroughResponseContentProcessor()
     {
-        $this->responseContentProcessor = function($string) {
+        $this->responseContentProcessor = function ($string) {
             return $string;
         };
     }
 
     protected function useJsonResponseContentProcessor()
     {
-        $this->responseContentProcessor = function($string) {
+        $this->responseContentProcessor = function ($string) {
 
             // The second parameter turns objects into associative arrays.
             // stdClass objects don't really have any advantages over plain
             // arrays but miss out on some of the built-in array functions.
             $jsonData = json_decode($string, true);
-            if (is_null($jsonData))
+            if (is_null($jsonData)) {
                 throw new \InvalidArgumentException(
                     "json_decode() raised an error: ".json_last_error()
                 );
-            if(is_array($jsonData) && isset($jsonData['error'])) {
+            }
+            if (is_array($jsonData) && isset($jsonData['error'])) {
                 $this->error = strip_tags($jsonData['error']);
                 $this->log->error("FACT-Finder returned error: " . $this->error);
-                if(isset($jsonData['stacktrace'])) {
+                if (isset($jsonData['stacktrace'])) {
                     $this->stackTrace = $jsonData['stacktrace'];
                     $this->log->error("Stacktrace:\n" . $this->stackTrace);
                 }
@@ -131,14 +132,14 @@ abstract class AbstractAdapter
 
     protected function useXmlResponseContentProcessor()
     {
-        $this->responseContentProcessor = function($string) {
+        $this->responseContentProcessor = function ($string) {
             libxml_use_internal_errors(true);
             // The constructor throws an exception on error
             $response = new \SimpleXMLElement($string);
-            if(isset($response->error)) {
+            if (isset($response->error)) {
                 $this->error = strip_tags($response->error);
                 $this->log->error("FACT-Finder returned error: " . $this->error);
-                if(isset($response->stacktrace)) {
+                if (isset($response->stacktrace)) {
                     $this->stackTrace = $response->stacktrace;
                     $this->log->error("Stacktrace:\n" . $this->stackTrace);
                 }
@@ -160,8 +161,9 @@ abstract class AbstractAdapter
     protected function useResponseContentProcessor($callable)
     {
         // Check shamelessly stolen from Pimple.php
-        if (!method_exists($callable, '__invoke'))
+        if (!method_exists($callable, '__invoke')) {
             throw new \InvalidArgumentException('Content processor is neither a Closure or invokable object.');
+        }
 
         $this->responseContentProcessor = $callable;
 
@@ -182,10 +184,9 @@ abstract class AbstractAdapter
             // PHP does not (yet?) support $this->method($args) for callable
             // properties
 
-            if($content !== null) {
+            if ($content !== null) {
                 $this->responseContent = $this->responseContentProcessor->__invoke($content);
-                if ($this->encodingConverter != null)
-                {
+                if ($this->encodingConverter != null) {
                     $this->responseContent = $this->encodingConverter->encodeContentForPage($this->responseContent);
                 }
             } else {
@@ -238,4 +239,4 @@ abstract class AbstractAdapter
     {
         return $this->stackTrace;
     }
- }
+}

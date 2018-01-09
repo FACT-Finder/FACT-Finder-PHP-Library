@@ -7,23 +7,22 @@ namespace FACTFinder\Data;
  */
 class SearchStatus
 {
-    static private $noQuery;
-    static private $noResult;
-    static private $emptyResult;
-    static private $recordsFound;
+    private static $noQuery;
+    private static $noResult;
+    private static $emptyResult;
+    private static $recordsFound;
 
-    static private $nextID = 0;
+    private static $nextID = 0;
     private $id;
     private function __construct()
     {
         $this->id = self::$nextID++;
     }
 
-    static private $initialized = false;
-    static public function initialize()
+    private static $initialized = false;
+    public static function initialize()
     {
-        if (!self::$initialized)
-        {
+        if (!self::$initialized) {
             self::$noQuery      = new SearchStatus();
             self::$noResult     = new SearchStatus();
             self::$emptyResult  = new SearchStatus();
@@ -33,10 +32,22 @@ class SearchStatus
         }
     }
 
-    static public function NoQuery()      { return self::$noQuery; }
-    static public function NoResult()     { return self::$noResult; }
-    static public function EmptyResult()  { return self::$emptyResult; }
-    static public function RecordsFound() { return self::$recordsFound; }
+    public static function NoQuery()
+    {
+        return self::$noQuery;
+    }
+    public static function NoResult()
+    {
+        return self::$noResult;
+    }
+    public static function EmptyResult()
+    {
+        return self::$emptyResult;
+    }
+    public static function RecordsFound()
+    {
+        return self::$recordsFound;
+    }
 }
 
 SearchStatus::initialize();

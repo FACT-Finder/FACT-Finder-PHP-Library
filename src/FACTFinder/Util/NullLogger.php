@@ -12,10 +12,22 @@ class NullLogger implements LoggerInterface
         return new NullLogger();
     }
 
-    public function trace($message) {}
-    public function debug($message) {}
-    public function info($message)  {}
-    public function warn($message)  {}
-    public function error($message) {}
-    public function fatal($message) {}
+    public function trace($message)
+    {
+    }
+    public function debug($message)
+    {
+    }
+    public function info($message)
+    {
+    }
+    public function warn($message)
+    {
+    }
+    public function error($message)
+    {
+    }
+    public function fatal($message)
+    {
+    }
 }

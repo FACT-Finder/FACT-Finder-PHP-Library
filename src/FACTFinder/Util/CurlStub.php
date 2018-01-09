@@ -51,8 +51,9 @@ class CurlStub implements CurlInterface
 
         $this->handles[$ch] = $handle;
 
-        if($url !== null)
+        if ($url !== null) {
             $this->setopt($ch, CURLOPT_URL, $url);
+        }
 
         return $ch;
     }
@@ -70,8 +71,9 @@ class CurlStub implements CurlInterface
 
     public function setopt($ch, $option, $value)
     {
-        if(!isset($this->handles[$ch]))
+        if (!isset($this->handles[$ch])) {
             return false;
+        }
 
         $this->handles[$ch]->options[$option] = $value;
 
@@ -80,31 +82,34 @@ class CurlStub implements CurlInterface
 
     public function setopt_array($ch, $options)
     {
-        foreach($options as $option => $value)
-        {
-            if(!$this->setopt($ch, $option, $value))
+        foreach ($options as $option => $value) {
+            if (!$this->setopt($ch, $option, $value)) {
                 return false;
+            }
         }
         return true;
     }
 
     public function exec($ch)
     {
-        if(!isset($this->handles[$ch]))
+        if (!isset($this->handles[$ch])) {
             return false;
+        }
 
         $handle = $this->handles[$ch];
 
         $response = $this->getResponse($handle);
 
         // TODO: Is this really what PHP would do?
-        if(is_null($response))
+        if (is_null($response)) {
             return false;
+        }
 
         // TODO: Use more of the behavior options like the callbacks
         // WRITEFUNCTION and READFUNCTION.
-        if($handle->options[CURLOPT_RETURNTRANSFER])
+        if ($handle->options[CURLOPT_RETURNTRANSFER]) {
             return $response;
+        }
 
         echo $response;
         return true;
@@ -112,8 +117,9 @@ class CurlStub implements CurlInterface
 
     public function errno($ch)
     {
-        if(!isset($this->handles[$ch]))
+        if (!isset($this->handles[$ch])) {
             return 0;
+        }
 
         return $this->getErrorCode($this->handles[$ch]);
     }
@@ -127,11 +133,13 @@ class CurlStub implements CurlInterface
     public function getinfo($ch, $opt = 0)
     {
         // TODO: Include logic to build CURLINFO_EFFECTIVE_URL?
-        if(!isset($this->handles[$ch]))
+        if (!isset($this->handles[$ch])) {
             trigger_error(__FUNCTION__.'(): '.$ch.' is not a valid cURL handle resource', E_USER_WARNING);
+        }
 
-        if($opt == 0)
+        if ($opt == 0) {
             return $this->getInfoArray($this->handles[$ch]);
+        }
 
         return $this->getInformation($this->handles[$ch], $opt);
     }
@@ -174,23 +182,26 @@ class CurlStub implements CurlInterface
 
     public function multi_add_handle($mh, $ch)
     {
-        if (!isset($this->multiHandles[$mh]))
+        if (!isset($this->multiHandles[$mh])) {
             return CURLM_BAD_HANDLE;
+        }
 
-        if (!isset($this->handles[$ch]))
+        if (!isset($this->handles[$ch])) {
             return CURLM_BAD_EASY_HANDLE;
+        }
 
-        if ($this->handles[$ch]->inMultiHandle)
-            return $this->versionNewerThan(7,32,1)
+        if ($this->handles[$ch]->inMultiHandle) {
+            return $this->versionNewerThan(7, 32, 1)
                    ? self::M_ADDED_ALREADY
                    : CURLM_BAD_EASY_HANDLE;
+        }
 
         $this->multiHandles[$mh]->handles[] = $ch;
         // TODO: Figure out a reasonable way to determine these random
         // durations, so that even for a large number of easy handles it should
         // still possible for them to return in any order. This will probably
         // depend on the number of existing easy handles.
-        $this->handles[$ch]->durationLeft = rand(0,5);
+        $this->handles[$ch]->durationLeft = rand(0, 5);
         $this->handles[$ch]->inMultiHandle = true;
 
         return 0;
@@ -199,14 +210,14 @@ class CurlStub implements CurlInterface
     public function multi_select($mh, $timeout = 1.0)
     {
         $active = 0;
-        foreach ($this->multiHandles[$mh]->handles as $ch)
-        {
+        foreach ($this->multiHandles[$mh]->handles as $ch) {
             $handle = $this->handles[$ch];
 
-            if ($handle->durationLeft > 0)
+            if ($handle->durationLeft > 0) {
                 --$handle->durationLeft;
-            else if ($handle->durationLeft == 0)
+            } elseif ($handle->durationLeft == 0) {
                 ++$active;
+            }
         }
 
         // TODO: This never returns -1. However, some version of cURL itself
@@ -224,8 +235,9 @@ class CurlStub implements CurlInterface
     {
         // PHP emits a warning if $mh is not a valid handle. Should we mimick
         // this behavior?
-        if (!isset($this->multiHandles[$mh]))
+        if (!isset($this->multiHandles[$mh])) {
             return false;
+        }
 
         $still_running = 0;
         $mhandle = $this->multiHandles[$mh];
@@ -236,32 +248,26 @@ class CurlStub implements CurlInterface
         // easy handles remaining.
         // TODO: This latter thing could be alleviated by keeping track of that
         // number incrementally.
-        if (!$this->versionNewerThan(7, 20, 0))
-        {
-            if (!$mhandle->performReturned)
-            {
-                foreach ($mhandle->handles as $ch)
-                {
-                    if ($this->handles[$ch]->durationLeft == 0)
+        if (!$this->versionNewerThan(7, 20, 0)) {
+            if (!$mhandle->performReturned) {
+                foreach ($mhandle->handles as $ch) {
+                    if ($this->handles[$ch]->durationLeft == 0) {
                         ++$still_running;
+                    }
                 }
                 $mhandle->performReturned = true;
                 return CURLM_CALL_MULTI_PERFORM;
-            }
-            else
-            {
+            } else {
                 $mhandle->performReturned = false;
             }
         }
 
-        foreach ($mhandle->handles as $ch)
-        {
+        foreach ($mhandle->handles as $ch) {
             $handle = $this->handles[$ch];
 
-            if ($handle->durationLeft > 0)
+            if ($handle->durationLeft > 0) {
                 ++$still_running;
-            else if ($handle->durationLeft == 0)
-            {
+            } elseif ($handle->durationLeft == 0) {
                 // This handle is done. Add a message to the multi handle's
                 // queue.
                 array_push(
@@ -279,11 +285,11 @@ class CurlStub implements CurlInterface
 
                 // On the other hand, if that option was not set, fetch the
                 // response immediately and print it to stdout.
-                if (!$handle->options[CURLOPT_RETURNTRANSFER])
-                {
+                if (!$handle->options[CURLOPT_RETURNTRANSFER]) {
                     $response = $this->getResponse($handle);
-                    if (!is_null($response))
+                    if (!is_null($response)) {
                         echo $response;
+                    }
                 }
 
                 // TODO: Use more of the behavior options like the callbacks
@@ -298,13 +304,15 @@ class CurlStub implements CurlInterface
     {
         // PHP emits a warning if $mh is not a valid handle. Should we mimick
         // this behavior?
-        if (!isset($this->multiHandles[$mh]))
+        if (!isset($this->multiHandles[$mh])) {
             return false;
+        }
 
         $message = array_shift($this->multiHandles[$mh]->messageQueue);
 
-        if (is_null($message))
+        if (is_null($message)) {
             $message = false;
+        }
 
         $msgs_in_queue = count($this->multiHandles[$mh]->messageQueue);
 
@@ -315,21 +323,24 @@ class CurlStub implements CurlInterface
     {
         // PHP emits a warning if $ch is not a valid handle. Should we mimick
         // this behavior?
-        if (!isset($this->handles[$ch]))
+        if (!isset($this->handles[$ch])) {
             return false;
+        }
 
         $handle = $this->handles[$ch];
 
         if (!$handle->inMultiHandle ||
             $handle->durationLeft != -1 ||
-            !$handle->options[CURLOPT_RETURNTRANSFER])
+            !$handle->options[CURLOPT_RETURNTRANSFER]) {
             return null;
+        }
 
         $response = $this->getResponse($handle);
 
         // TODO: Is this really what PHP would do?
-        if(is_null($response))
+        if (is_null($response)) {
             return false;
+        }
 
         return $response;
     }
@@ -338,19 +349,18 @@ class CurlStub implements CurlInterface
     {
         // PHP emits a warning if either $mh or $ch is not a valid handle.
         // Should we mimick this behavior?
-        if (!isset($this->multiHandles[$mh]))
+        if (!isset($this->multiHandles[$mh])) {
             return null;
-        if (!isset($this->handles[$ch]))
+        }
+        if (!isset($this->handles[$ch])) {
             return false;
+        }
 
-        if ($key = array_search($ch, $this->multiHandles[$mh]->handles))
-        {
+        if ($key = array_search($ch, $this->multiHandles[$mh]->handles)) {
             unset($this->multiHandles[$mh]->handles[$key]);
             $this->handles[$ch]->inMultiHandle = false;
             return CURLM_OK;
-        }
-        else
-        {
+        } else {
             // The given handle was not added to the multi handle anyway.
             return CURLM_BAD_EASY_HANDLE;
         }
@@ -358,10 +368,10 @@ class CurlStub implements CurlInterface
 
     public function multi_close($mh)
     {
-        if (isset($this->multiHandles[$mh]))
-        {
-            foreach ($this->multiHandles[$mh]->handles as $ch)
+        if (isset($this->multiHandles[$mh])) {
+            foreach ($this->multiHandles[$mh]->handles as $ch) {
                 $this->handles[$ch]->inMultiHandle = false;
+            }
 
             unset($this->multiHandles[$mh]);
         }
@@ -430,8 +440,9 @@ class CurlStub implements CurlInterface
 
         $key = $this->determineKey($handle, "mapResponses");
 
-        if($key !== null)
+        if ($key !== null) {
             $response = $this->mapResponses[$key];
+        }
 
         return $response;
     }
@@ -442,8 +453,9 @@ class CurlStub implements CurlInterface
 
         $key = $this->determineKey($handle, "mapErrorCodes");
 
-        if($key !== null)
+        if ($key !== null) {
             $errorCode = $this->mapErrorCodes[$key];
+        }
 
         return $errorCode;
     }
@@ -454,8 +466,9 @@ class CurlStub implements CurlInterface
 
         $key = $this->determineKey($handle, "mapInfo");
 
-        if($key !== null && isset($this->mapInfo[$key][$opt]))
+        if ($key !== null && isset($this->mapInfo[$key][$opt])) {
             $info = $this->mapInfo[$key][$opt];
+        }
 
         return $info;
     }
@@ -464,17 +477,14 @@ class CurlStub implements CurlInterface
     {
         $infoArray = array();
 
-        foreach(self::$infoLookup as $strKey)
-        {
+        foreach (self::$infoLookup as $strKey) {
             $infoArray[$strKey] = '';
         }
 
         $handleKey = $this->determineKey($handle, "mapInfo");
 
-        if($handleKey !== null)
-        {
-            foreach($this->mapInfo[$handleKey] as $intKey => $value)
-            {
+        if ($handleKey !== null) {
+            foreach ($this->mapInfo[$handleKey] as $intKey => $value) {
                 $strKey = self::$infoLookup[$intKey];
                 $infoArray[$strKey] = $value;
             }
@@ -489,18 +499,18 @@ class CurlStub implements CurlInterface
         // TODO: Treat HEADER option as array of individual options
         $returnValue = null;
         $options = $handle->options;
-        foreach($this->mapOptionCounts as $hash => $optionCount)
-        {
-            foreach($this->mapOptions[$hash] as $option => $value)
-            {
-                if(!isset($options[$option]) || $options[$option] != $value)
+        foreach ($this->mapOptionCounts as $hash => $optionCount) {
+            foreach ($this->mapOptions[$hash] as $option => $value) {
+                if (!isset($options[$option]) || $options[$option] != $value) {
                     continue 2;
+                }
             }
 
             // We need this check, because the element in mapOptionCounts might have been created
             // for a different type of output. In this case, we need to continue searching
-            if(!isset($this->{$map}[$hash]))
+            if (!isset($this->{$map}[$hash])) {
                 continue;
+            }
 
             $returnValue = $hash;
             break;

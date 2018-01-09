@@ -6,12 +6,12 @@ use FACTFinder\Loader as FF;
 class Recommendation extends PersonalisedResponse
 {
     /**
-     * @var FACTFinder\Util\LoggerInterface
+     * @var \FACTFinder\Util\LoggerInterface
      */
     private $log;
 
     /**
-     * @var FACTFinder\Data\Result
+     * @var \FACTFinder\Data\Result
      */
     private $recommendations;
 
@@ -22,8 +22,13 @@ class Recommendation extends PersonalisedResponse
         \FACTFinder\Core\Client\UrlBuilder $urlBuilder,
         \FACTFinder\Core\AbstractEncodingConverter $encodingConverter = null
     ) {
-        parent::__construct($loggerClass, $configuration, $request,
-                            $urlBuilder, $encodingConverter);
+        parent::__construct(
+            $loggerClass,
+            $configuration,
+            $request,
+                            $urlBuilder,
+            $encodingConverter
+        );
 
         $this->log = $loggerClass::getLogger(__CLASS__);
 
@@ -50,9 +55,7 @@ class Recommendation extends PersonalisedResponse
             && $recordCount > 0
         ) {
             $parameters['maxResults'] = $recordCount;
-        }
-        else
-        {
+        } else {
             unset($parameters['maxResults']);
         }
         // Make sure that the recommendations are fetched again. In theory,
@@ -110,23 +113,17 @@ class Recommendation extends PersonalisedResponse
         $records = array();
 
         $parameters = $this->request->getParameters();
-        if (!isset($parameters['id']))
-        {
+        if (!isset($parameters['id'])) {
             $this->log->warn('Recommendations cannot be loaded without a product ID. '
                            . 'Use setProductIDs() or addProductIDs() first.');
-        }
-        else
-        {
+        } else {
             $recommenderData = $this->getResponseContent();
-            if (parent::isValidResponse($recommenderData))
-            {
-                if (isset($recommenderData['resultRecords']))
-                {
+            if (parent::isValidResponse($recommenderData)) {
+                if (isset($recommenderData['resultRecords'])) {
                     $recommenderData = $recommenderData['resultRecords'];
                 }
                 $position = 1;
-                foreach($recommenderData as $recordData)
-                {
+                foreach ($recommenderData as $recordData) {
                     $records[] = $this->createRecord($recordData, $position++);
                 }
             }
@@ -167,10 +164,12 @@ class Recommendation extends PersonalisedResponse
     {
         $this->usePassthroughResponseContentProcessor();
 
-        if (!is_null($format))
+        if (!is_null($format)) {
             $this->parameters['format'] = $format;
-        if (!is_null($callback))
+        }
+        if (!is_null($callback)) {
             $this->parameters['callback'] = $callback;
+        }
 
         return $this->getResponseContent();
     }

@@ -59,8 +59,9 @@ class EasyCurlDataProvider extends AbstractDataProvider
 
     public function setConnectTimeout($id, $timeout)
     {
-        if (!isset($this->connectionData[$id]))
+        if (!isset($this->connectionData[$id])) {
             throw new \InvalidArgumentException('Tried to set timeout for invalid ID $id.');
+        }
 
         $this->connectionData[$id]->setConnectionOption(
             CURLOPT_CONNECTTIMEOUT,
@@ -70,8 +71,9 @@ class EasyCurlDataProvider extends AbstractDataProvider
 
     public function setTimeout($id, $timeout)
     {
-        if (!isset($this->connectionData[$id]))
+        if (!isset($this->connectionData[$id])) {
             throw new \InvalidArgumentException('Tried to set timeout for invalid ID $id.');
+        }
 
         $this->connectionData[$id]->setConnectionOption(
             CURLOPT_TIMEOUT,
@@ -82,17 +84,18 @@ class EasyCurlDataProvider extends AbstractDataProvider
     // TODO: Could this be refactored some more?
     public function loadResponse($id)
     {
-        if (!isset($this->connectionData[$id]))
+        if (!isset($this->connectionData[$id])) {
             throw new \InvalidArgumentException('Tried to get response for invalid ID $id.');
+        }
 
-        if (!$this->hasUrlChanged($id))
+        if (!$this->hasUrlChanged($id)) {
             return;
+        }
 
         $connectionData = $this->connectionData[$id];
 
         $action = $connectionData->getAction();
-        if (empty($action))
-        {
+        if (empty($action)) {
             $this->log->error('Request type missing.');
             $connectionData->setNullResponse();
             return;
@@ -118,8 +121,9 @@ class EasyCurlDataProvider extends AbstractDataProvider
         $httpHeaderFields = clone $connectionData->getHttpHeaderFields();
 
         $language = $this->configuration->getLanguage();
-        if (!empty($language))
+        if (!empty($language)) {
             $httpHeaderFields['Accept-Language'] = $language;
+        }
 
         return $httpHeaderFields;
     }
@@ -128,8 +132,9 @@ class EasyCurlDataProvider extends AbstractDataProvider
     {
         $parameters = clone $connectionData->getParameters();
 
-        if ($this->configuration->isDebugEnabled())
+        if ($this->configuration->isDebugEnabled()) {
             $parameters['verbose'] = 'true';
+        }
 
         return $parameters;
     }
@@ -167,8 +172,7 @@ class EasyCurlDataProvider extends AbstractDataProvider
     private function retrieveResponse($connectionData)
     {
         $curlHandle = $this->curl->init();
-        if ($curlHandle === false)
-        {
+        if ($curlHandle === false) {
             $this->log->error("curl_init() did not return a handle for ID $id. "
                             . 'Setting an empty response...');
             return FF::getInstance('Core\Server\NullResponse');
@@ -193,7 +197,8 @@ class EasyCurlDataProvider extends AbstractDataProvider
 
         $this->curl->close($curlHandle);
 
-        return FF::getInstance('Core\Server\Response',
+        return FF::getInstance(
+            'Core\Server\Response',
             $responseText,
             $httpCode,
             $curlErrorNumber,
@@ -207,9 +212,9 @@ class EasyCurlDataProvider extends AbstractDataProvider
         $curlError = $response->getConnectionError();
         if ($httpCode >= 400) {
             $this->log->error("Connection failed. HTTP code: $httpCode");
-        } else if ($httpCode == 0) {
+        } elseif ($httpCode == 0) {
             $this->log->error("Connection refused. cURL error: $curlError");
-        } else if (floor($httpCode / 100) == 2) { // all successful status codes (2**)
+        } elseif (floor($httpCode / 100) == 2) { // all successful status codes (2**)
             $this->log->info("Request successful!");
         }
     }
@@ -218,8 +223,9 @@ class EasyCurlDataProvider extends AbstractDataProvider
     {
         $connectionData = $this->connectionData[$id];
 
-        if (FF::isInstanceOf($connectionData->getResponse(), 'Core\Server\NullResponse'))
+        if (FF::isInstanceOf($connectionData->getResponse(), 'Core\Server\NullResponse')) {
             return true;
+        }
 
         $url = $this->urlBuilder->getNonAuthenticationUrl(
             $connectionData->getAction(),

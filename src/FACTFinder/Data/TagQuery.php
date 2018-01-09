@@ -32,14 +32,16 @@ class TagQuery extends Item
     /**
      * @return float
      */
-    public function getWeight() {
+    public function getWeight()
+    {
         return $this->weight;
     }
 
     /**
      * @return int
      */
-    public function getSearchCount() {
+    public function getSearchCount()
+    {
         return $this->searchCount;
     }
 }

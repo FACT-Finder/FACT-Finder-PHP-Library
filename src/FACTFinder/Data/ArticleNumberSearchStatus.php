@@ -7,22 +7,21 @@ namespace FACTFinder\Data;
  */
 class ArticleNumberSearchStatus
 {
-    static private $isArticleNumberResultFound;
-    static private $isNoArticleNumberResultFound;
-    static private $isNoArticleNumberSearch;
+    private static $isArticleNumberResultFound;
+    private static $isNoArticleNumberResultFound;
+    private static $isNoArticleNumberSearch;
 
-    static private $nextID = 0;
+    private static $nextID = 0;
     private $id;
     private function __construct()
     {
         $this->id = self::$nextID++;
     }
 
-    static private $initialized = false;
-    static public function initialize()
+    private static $initialized = false;
+    public static function initialize()
     {
-        if (!self::$initialized)
-        {
+        if (!self::$initialized) {
             self::$isArticleNumberResultFound      = new ArticleNumberSearchStatus();
             self::$isNoArticleNumberResultFound     = new ArticleNumberSearchStatus();
             self::$isNoArticleNumberSearch  = new ArticleNumberSearchStatus();
@@ -31,9 +30,18 @@ class ArticleNumberSearchStatus
         }
     }
 
-    static public function IsArticleNumberResultFound()      { return self::$isArticleNumberResultFound; }
-    static public function IsNoArticleNumberResultFound()     { return self::$isNoArticleNumberResultFound; }
-    static public function IsNoArticleNumberSearch()  { return self::$isNoArticleNumberSearch; }
+    public static function IsArticleNumberResultFound()
+    {
+        return self::$isArticleNumberResultFound;
+    }
+    public static function IsNoArticleNumberResultFound()
+    {
+        return self::$isNoArticleNumberResultFound;
+    }
+    public static function IsNoArticleNumberSearch()
+    {
+        return self::$isNoArticleNumberSearch;
+    }
 }
 
 ArticleNumberSearchStatus::initialize();

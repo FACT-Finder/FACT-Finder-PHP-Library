@@ -1,8 +1,6 @@
 <?php
 namespace FACTFinder\Adapter;
 
-use FACTFinder\Loader as FF;
-
 /**
  * Base class for all adapters which support the personalisation.
  */
@@ -32,8 +30,13 @@ abstract class PersonalisedResponse extends ConfigurableResponse
         \FACTFinder\Core\Client\UrlBuilder $urlBuilder,
         \FACTFinder\Core\AbstractEncodingConverter $encodingConverter = null
     ) {
-        parent::__construct($loggerClass, $configuration, $request,
-                            $urlBuilder, $encodingConverter);
+        parent::__construct(
+            $loggerClass,
+            $configuration,
+            $request,
+                            $urlBuilder,
+            $encodingConverter
+        );
     }
     
     /**
@@ -49,4 +52,4 @@ abstract class PersonalisedResponse extends ConfigurableResponse
             $this->upToDate = false;
         }
     }
- }
+}

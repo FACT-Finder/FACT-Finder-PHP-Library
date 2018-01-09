@@ -1,12 +1,10 @@
 <?php
 namespace FACTFinder\Adapter;
 
-use FACTFinder\Loader as FF;
-
 class Import extends AbstractAdapter
 {
     /**
-     * @var FACTFinder\Util\LoggerInterface
+     * @var \FACTFinder\Util\LoggerInterface
      */
     private $log;
 
@@ -17,8 +15,13 @@ class Import extends AbstractAdapter
         \FACTFinder\Core\Client\UrlBuilder $urlBuilder,
         \FACTFinder\Core\AbstractEncodingConverter $encodingConverter = null
     ) {
-        parent::__construct($loggerClass, $configuration, $request,
-                            $urlBuilder, $encodingConverter);
+        parent::__construct(
+            $loggerClass,
+            $configuration,
+            $request,
+                            $urlBuilder,
+            $encodingConverter
+        );
 
         $this->log = $loggerClass::getLogger(__CLASS__);
 

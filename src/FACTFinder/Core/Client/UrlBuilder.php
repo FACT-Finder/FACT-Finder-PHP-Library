@@ -9,22 +9,22 @@ use FACTFinder\Loader as FF;
 class UrlBuilder
 {
     /**
-     * @var FACTFinder\Util\LoggerInterface
+     * @var \FACTFinder\Util\LoggerInterface
      */
     private $log;
 
     /**
-     * @var FACTFinder\Core\ParametersConverter
+     * @var \FACTFinder\Core\ParametersConverter
      */
     private $parametersConverter;
 
     /**
-     * @var FACTFinder\Core\Client\RequestParser
+     * @var \FACTFinder\Core\Client\RequestParser
      */
     private $requestParser;
 
     /**
-     * @var FACTFinder\Core\AbstractEncodingConverter
+     * @var \FACTFinder\Core\AbstractEncodingConverter
      */
     private $encodingConverter;
 
@@ -53,7 +53,7 @@ class UrlBuilder
      *
      * TODO: Should the signature be more similar to that of \Server\UrlBuilder?
      *
-     * @param FACTFinder\Util\Parameters $parameters The server parameters that
+     * @param \FACTFinder\Util\Parameters $parameters The server parameters that
      *        should be retrieved when the link is followed.
      * @param string $target An optional request target. If omitted, the target
      *        of the current request will be used. For instance, this parameter
@@ -68,18 +68,19 @@ class UrlBuilder
 
         $parameters = $this->encodingConverter != null ? $this->encodingConverter->encodeClientUrlData($parameters) : $parameters;
 
-        if (!is_string($target))
+        if (!is_string($target)) {
             $target = $this->requestParser->getRequestTarget();
+        }
 
         if ($parameters->offsetExists('seoPath')) {
             $seoPath = $parameters['seoPath'];
             $parameters->offsetUnset('seoPath');
             $seoPathPosition = strrpos($target, "/s/");
             if ($seoPathPosition > -1) {
-                $target = substr($target, 0, $seoPathPosition);    
-            }            
+                $target = substr($target, 0, $seoPathPosition);
+            }
             $url = rtrim($target, '/') . '/s' . urldecode($seoPath) . '?' . $parameters->toPhpQueryString();
-        } else {    
+        } else {
             $url = $target . '?' . $parameters->toPhpQueryString();
         }
         return $url;

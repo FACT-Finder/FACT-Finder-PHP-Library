@@ -7,7 +7,7 @@ namespace FACTFinder\Core;
  */
 class Utf8EncodingConverter extends AbstractEncodingConverter
 {
-    function __construct(
+    public function __construct(
         $loggerClass,
         ConfigurationInterface $configuration
     ) {
@@ -21,26 +21,23 @@ class Utf8EncodingConverter extends AbstractEncodingConverter
             && !empty($inCharset)
             && !empty($outCharset)
         ) {
-            if (strtolower($inCharset) == 'utf-8')
-            {
-                if (strtolower($outCharset) != 'iso-8859-1')
+            if (strtolower($inCharset) == 'utf-8') {
+                if (strtolower($outCharset) != 'iso-8859-1') {
                     $this->log->warn(
                         "utf8_decode() does not support $outCharset. If $outCharset is not compatible with ISO-8859-1, "
                       . "the resulting string may contain wrong or invalid characters."
                     );
+                }
                 $string = utf8_decode($string);
-            }
-            else if (strtolower($outCharset) == 'utf-8')
-            {
-                if (strtolower($inCharset) != 'iso-8859-1')
+            } elseif (strtolower($outCharset) == 'utf-8') {
+                if (strtolower($inCharset) != 'iso-8859-1') {
                     $this->log->warn(
                         "utf8_encode() does not support $inCharset. If $inCharset is not compatible with ISO-8859-1, "
                       . "the resulting string may contain wrong characters."
                     );
+                }
                 $string = utf8_encode($string);
-            }
-            else
-            {
+            } else {
                 $this->log->error("Conversion between non-UTF-8 encodings not possible.");
                 throw new \InvalidArgumentException("Cannot handle conversion from $inCharset to $outCharset!");
             }

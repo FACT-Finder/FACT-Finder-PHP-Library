@@ -1,7 +1,6 @@
 <?php
 namespace FACTFinder\Data;
 
-
 /**
  * Represents any kind of selectable item on the page. This includes links and
  * some form elements. This class really just groups a label, a URL and a
