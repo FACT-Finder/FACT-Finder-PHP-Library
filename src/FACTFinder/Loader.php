@@ -6,9 +6,6 @@
  */
 namespace FACTFinder;
 
-use FACTFinder\Loader as FF;
-use FACTFinder\Util\LoggerInterface;
-
 if (!defined('DS')) {
     /**
      * Short alias for the constant DIRECTORY_SEPARATOR

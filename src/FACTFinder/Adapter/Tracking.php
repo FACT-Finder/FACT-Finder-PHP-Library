@@ -1,8 +1,6 @@
 <?php
 namespace FACTFinder\Adapter;
 
-use FACTFinder\Loader as FF;
-
 /**
  * This tracking adapter uses the new Tracking Interface for 6.11
  */

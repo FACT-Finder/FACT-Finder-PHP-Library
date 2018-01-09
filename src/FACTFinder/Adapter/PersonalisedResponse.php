@@ -1,8 +1,6 @@
 <?php
 namespace FACTFinder\Adapter;
 
-use FACTFinder\Loader as FF;
-
 /**
  * Base class for all adapters which support the personalisation.
  */

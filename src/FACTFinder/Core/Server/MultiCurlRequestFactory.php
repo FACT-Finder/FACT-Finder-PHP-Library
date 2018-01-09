@@ -1,7 +1,7 @@
 <?php
 namespace FACTFinder\Core\Server;
 
-use \FACTFinder\Loader as FF;
+use FACTFinder\Loader as FF;
 
 /**
  * This implementation backs the Request with a MultiCurlDataProvider.
