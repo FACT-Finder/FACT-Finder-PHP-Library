@@ -9,7 +9,7 @@ use FACTFinder\Loader as FF;
 class Tracking extends AbstractAdapter
 {
     /**
-     * @var FACTFinder\Util\LoggerInterface
+     * @var \FACTFinder\Util\LoggerInterface
      */
     private $log;
 

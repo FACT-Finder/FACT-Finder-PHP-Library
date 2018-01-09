@@ -6,12 +6,12 @@ use FACTFinder\Loader as FF;
 class TagCloud extends AbstractAdapter
 {
     /**
-     * @var FACTFinder\Util\LoggerInterface
+     * @var \FACTFinder\Util\LoggerInterface
      */
     private $log;
 
     /**
-     * @var FACTFinder\Data\TagQuery[]
+     * @var \FACTFinder\Data\TagQuery[]
      */
     private $tagCloud;
 
@@ -44,7 +44,7 @@ class TagCloud extends AbstractAdapter
      *
      * @param
      *
-     * @return FACTFinder\Data\TagQuery[]
+     * @return \FACTFinder\Data\TagQuery[]
      */
     public function getTagCloud($requestQuery = null)
     {

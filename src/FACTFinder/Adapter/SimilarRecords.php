@@ -6,7 +6,7 @@ use FACTFinder\Loader as FF;
 class SimilarRecords extends ConfigurableResponse
 {
     /**
-     * @var FACTFinder\Util\LoggerInterface
+     * @var \FACTFinder\Util\LoggerInterface
      */
     private $log;
 
@@ -17,7 +17,7 @@ class SimilarRecords extends ConfigurableResponse
     private $similarAttributes;
 
     /**
-     * @var FACTFinder\Data\Result
+     * @var \FACTFinder\Data\Result
      */
     private $similarRecords;
 

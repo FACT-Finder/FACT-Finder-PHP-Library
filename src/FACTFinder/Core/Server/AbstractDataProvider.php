@@ -47,7 +47,7 @@ abstract class AbstractDataProvider
      *
      * @param int The ID by which to refer to the connection data in the future.
      *
-     * @throws InvalidArgumentException if the $id is already in use.
+     * @throws \InvalidArgumentException if the $id is already in use.
      */
     public function register(ConnectionData $connectionData)
     {

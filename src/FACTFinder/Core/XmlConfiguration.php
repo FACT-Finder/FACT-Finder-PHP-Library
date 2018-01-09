@@ -12,7 +12,7 @@ class XmlConfiguration extends AbstractConfiguration
     const ADVANCED_AUTHENTICATION = 'advanced';
 
     /**
-     * @var SimpleXMLElement XML representation of the configuration.
+     * @var \SimpleXMLElement XML representation of the configuration.
      */
     private $configuration;
 
@@ -35,7 +35,7 @@ class XmlConfiguration extends AbstractConfiguration
      * tree must be named <configuration>. The actual data is read from a child
      * of this element whose name can be specified through the second argument.
      * @param string $fileName Name of configuration file.
-     * @param type $element Name of the XML element from which to read
+     * @param string $element Name of the XML element from which to read
      *                      configuration data.
      * @return XmlConfiguration
      */

@@ -7,7 +7,7 @@ namespace FACTFinder\Core;
 abstract class AbstractConfiguration implements ConfigurationInterface
 {
     /**
-     * @param string name
+     * @param string $name
      * @return string value
      */
     public function getCustomValue($name)

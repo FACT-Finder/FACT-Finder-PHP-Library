@@ -13,30 +13,30 @@ class RequestParser
     protected $requestTarget;
 
     /**
-     * @var FACTFinder\Util\LoggerInterface
+     * @var \FACTFinder\Util\LoggerInterface
      */
     private $log;
 
     /**
-     * @var ConfigurationInterface
+     * @var \FACTFinder\Core\ConfigurationInterface
      */
     protected $configuration;
 
     /**
-     * @var AbstractEncodingConverter
+     * @var \FACTFinder\Core\AbstractEncodingConverter
      */
     protected $encodingConverter;
 
     /**
-     * @var ParametersConverter
+     * @var \FACTFinder\Core\ParametersConverter
      */
     protected $parametersConverter;
 
     /**
      * @param string $loggerClass Class name of logger to use. The class should
      *                            implement FACTFinder\Util\LoggerInterface.
-     * @param ConfigurationInterface $configuration
-     * @param AbstractEncodingConverter $encodingConverter
+     * @param \FACTFinder\Core\ConfigurationInterface $configuration
+     * @param \FACTFinder\Core\AbstractEncodingConverter $encodingConverter
      */
     function __construct(
         $loggerClass,
@@ -60,7 +60,7 @@ class RequestParser
      * directives given in the configuration for the server. Use this method
      * for any other part of the library that needs the request parameters.
      *
-     * @return Parameters Array of UTF-8 encoded and converted parameters
+     * @return \FACTFinder\Util\Parameters Array of UTF-8 encoded and converted parameters
      */
     public function getRequestParameters()
     {
@@ -88,7 +88,7 @@ class RequestParser
      * For use with any other part of the library, use getRequestParameters()
      * instead, which converts the parameters for usage with the server.
      *
-     * @return Parameters Array of UTF-8 encoded parameters
+     * @return \FACTFinder\Util\Parameters Array of UTF-8 encoded parameters
      */
     public function getClientRequestParameters()
     {

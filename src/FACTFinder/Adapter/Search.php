@@ -7,52 +7,52 @@ class Search extends PersonalisedResponse
 {
     
     /**
-     * @var FACTFinder\Util\LoggerInterface
+     * @var \FACTFinder\Util\LoggerInterface
      */
     private $log;
 
     /**
-     * @var FACTFinder\Data\Result
+     * @var \FACTFinder\Data\Result
      */
     private $result;
 
     /**
-     * @var FACTFinder\Data\SingleWordSearchItem[]
+     * @var \FACTFinder\Data\SingleWordSearchItem[]
      */
     private $singleWordSearch;
 
     /**
-     * @var FACTFinder\Data\AfterSearchNavigation
+     * @var \FACTFinder\Data\AfterSearchNavigation
      */
     private $afterSearchNavigation;
 
     /**
-     * @var FACTFinder\Data\ResultsPerPageOptions
+     * @var \FACTFinder\Data\ResultsPerPageOptions
      */
     private $resultsPerPageOptions;
 
     /**
-     * @var FACTFinder\Data\Paging
+     * @var \FACTFinder\Data\Paging
      */
     private $paging;
 
     /**
-     * @var FACTFinder\Data\Sorting
+     * @var \FACTFinder\Data\Sorting
      */
     private $sorting;
 
     /**
-     * @var FACTFinder\Data\SortingItems
+     * @var \FACTFinder\Data\SortingItems
      */
     private $sortingItems;
 
     /**
-     * @var FACTFinder\Data\BreadCrumbTrail
+     * @var \FACTFinder\Data\BreadCrumbTrail
      */
     private $breadCrumbTrail;
 
     /**
-     * @var FACTFinder\Data\CampaignIterator
+     * @var \FACTFinder\Data\CampaignIterator
      */
     private $campaigns;
 

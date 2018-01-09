@@ -43,8 +43,8 @@ class Campaign
      * @param string $category
      * @param string $redirectUrl
      * @param Record[] $pushedProducts
-     * @param array feedback; array of strings with labels as keys
-     * @param array activeQuestions; array of FACTFinder_AdvisorQuestion objects
+     * @param array $feedback; array of strings with labels as keys
+     * @param array $activeQuestions; array of FACTFinder_AdvisorQuestion objects
      */
     public function __construct(
         $name,

@@ -6,7 +6,7 @@ use FACTFinder\Loader as FF;
 class Import extends AbstractAdapter
 {
     /**
-     * @var FACTFinder\Util\LoggerInterface
+     * @var \FACTFinder\Util\LoggerInterface
      */
     private $log;
 

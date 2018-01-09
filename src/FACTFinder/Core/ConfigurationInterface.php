@@ -13,7 +13,7 @@ interface ConfigurationInterface
     public function isDebugEnabled();
 
     /**
-     * @param string name
+     * @param string $name
      * @return string value
      */
     public function getCustomValue($name);
